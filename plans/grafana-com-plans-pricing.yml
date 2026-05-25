@@ -1,0 +1,262 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Grafana Labs
+providerId: grafana-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Observability
+  - Grafana
+  - Grafana Cloud
+  - Metrics
+  - Logs
+  - Traces
+  - Profiles
+description: 'Reconciled plans and per-unit usage pricing for Grafana Cloud. Source: grafana.com/pricing and the
+  Grafana Cloud documentation. Grafana Enterprise (self-managed) is sold under custom annual licensing and is
+  marked as such.'
+sources:
+  - https://grafana.com/pricing/
+  - https://grafana.com/products/cloud/
+  - https://grafana.com/products/enterprise/
+plans:
+  - id: grafana-cloud-free
+    name: Grafana Cloud Free
+    type: free
+    description: Always free tier with no credit card required. Generous quotas across metrics, logs, traces,
+      profiles, and synthetic monitoring.
+    entries:
+      - label: Account
+        name: account
+        type: included
+        metric: account
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Metrics active series included
+        name: metrics-series-included
+        type: included
+        metric: series
+        limit: 10000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Logs included
+        name: logs-included
+        type: included
+        metric: GB
+        limit: 50
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Traces included
+        name: traces-included
+        type: included
+        metric: GB
+        limit: 50
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Profiles included
+        name: profiles-included
+        type: included
+        metric: GB
+        limit: 50
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Active Grafana users included
+        name: grafana-users-included
+        type: included
+        metric: user
+        limit: 3
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Active IRM users included
+        name: irm-users-included
+        type: included
+        metric: user
+        limit: 3
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Retention (all telemetry)
+        name: retention-days
+        type: included
+        metric: day
+        limit: 14
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+  - id: grafana-cloud-pro
+    name: Grafana Cloud Pro
+    type: usage-based
+    description: Pay-as-you-go above the Free tier with longer retention and 8x5 email support.
+    entries:
+      - label: Platform fee
+        name: platform-fee
+        type: fixed
+        metric: account
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '19.00'
+        userMultiplied: false
+      - label: Metrics active series
+        name: metrics-series
+        type: metered
+        metric: series
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1000
+        price: '6.50'
+        userMultiplied: false
+      - label: Logs ingested
+        name: logs-ingested
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.50'
+        userMultiplied: false
+      - label: Traces ingested
+        name: traces-ingested
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.50'
+        userMultiplied: false
+      - label: Profiles ingested
+        name: profiles-ingested
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.50'
+        userMultiplied: false
+      - label: Kubernetes host hours
+        name: k8s-host-hours
+        type: metered
+        metric: host-hour
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0.015'
+        userMultiplied: false
+      - label: Active Grafana user
+        name: grafana-user
+        type: metered
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '8.00'
+        userMultiplied: true
+      - label: Active IRM user
+        name: irm-user
+        type: metered
+        metric: user
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '20.00'
+        userMultiplied: true
+      - label: Metrics retention
+        name: metrics-retention
+        type: included
+        metric: month
+        limit: 13
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+      - label: Logs/traces/profiles retention
+        name: telemetry-retention
+        type: included
+        metric: day
+        limit: 30
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: '0'
+        userMultiplied: false
+  - id: grafana-cloud-advanced
+    name: Grafana Cloud Advanced
+    type: contract
+    description: Annual contract with volume discounts, custom retention, premium support, and SLAs.
+    entries:
+      - label: Annual contract
+        name: annual-contract
+        type: contract
+        metric: contract
+        limit: 1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: Call
+        userMultiplied: false
+  - id: grafana-cloud-enterprise
+    name: Grafana Cloud Enterprise
+    type: contract
+    description: Annual commitment starting at $25,000/year. Federal Cloud and Bring Your Own Cloud deployment
+      options with FedRAMP, SOC 2 Type II, PCI DSS, GDPR compliance.
+    entries:
+      - label: Annual minimum commit
+        name: annual-commit
+        type: contract
+        metric: contract
+        limit: 1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: '25000'
+        userMultiplied: false
+  - id: grafana-enterprise-self-managed
+    name: Grafana Enterprise (self-managed)
+    type: contract
+    description: Self-hosted commercial license for Grafana, Mimir, Loki, and Tempo with premium plugins, RBAC,
+      LBAC, reporting, query/resource caching, white labeling, and team sync.
+    entries:
+      - label: Annual license
+        name: license
+        type: contract
+        metric: license
+        limit: 1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: Call
+        userMultiplied: false

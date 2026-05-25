@@ -1,0 +1,79 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Grafana Labs
+providerId: grafana-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - Observability
+  - Rate Limiting
+  - Quotas
+  - Grafana Cloud
+description: Reconciled rate limits and ingestion quotas for Grafana Cloud and self-managed Grafana. Grafana Cloud
+  applies per-tenant ingestion rate limits and burst caps on metrics, logs, traces, and profiles. Self-managed
+  Grafana exposes per-data-source rate limiting and per-API quotas configurable via grafana.ini.
+sources:
+  - https://grafana.com/docs/grafana-cloud/cost-management-and-billing/understand-your-invoice/usage-limits/
+  - https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/configure-rate-limit-data-source/
+  - https://grafana.com/docs/loki/latest/configure/
+  - https://grafana.com/docs/mimir/latest/references/configuration-parameters/
+  - https://grafana.com/docs/tempo/latest/configuration/
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+  serverOverloaded: 503
+algorithm: token-bucket
+notes:
+  - Per-tenant ingestion is enforced at the distributor layer in Mimir, Loki, Tempo, and Pyroscope
+  - Burst limits are typically 2x the steady-state per-second limit
+  - Free tier quotas are hard ceilings; Pro tier quotas are soft (overage billed)
+  - Grafana HTTP API does not publish global rate limits — limits are per-tenant in Cloud
+limits:
+  - api: Mimir / Cloud Metrics ingestion
+    metric: active series
+    scope: per-tenant
+    freeTier: 10000
+    proTier: unlimited-paygo
+    notes: Adaptive Metrics can reduce active series by up to 80%.
+  - api: Loki / Cloud Logs ingestion
+    metric: GB per month
+    scope: per-tenant
+    freeTier: 50
+    proTier: unlimited-paygo
+    notes: Adaptive Logs reduces ingestion by approximately 50%.
+  - api: Tempo / Cloud Traces ingestion
+    metric: GB per month
+    scope: per-tenant
+    freeTier: 50
+    proTier: unlimited-paygo
+  - api: Pyroscope / Cloud Profiles ingestion
+    metric: GB per month
+    scope: per-tenant
+    freeTier: 50
+    proTier: unlimited-paygo
+  - api: Synthetic Monitoring
+    metric: check executions per month
+    scope: per-stack
+    freeTier: 100000
+    proTier: unlimited-paygo
+  - api: Grafana HTTP API (per data source query)
+    metric: requests per second
+    scope: per-data-source
+    configurable: true
+    notes: rate_limit_user, rate_limit_org, rate_limit_disabled in grafana.ini.
+  - api: Grafana Cloud Access Policy tokens
+    metric: requests per minute
+    scope: per-token
+    notes: Per-token request budgets enforced on grafana.com/api Cloud control-plane endpoints.
+spendLimits:
+  - tier: Free
+    monthlyCap: $0
+    notes: Hard quotas; overage rejected with 429 / quota exceeded errors.
+  - tier: Pro
+    monthlyCap: configurable
+    notes: Account-level spend caps and alerts configurable in Grafana Cloud billing console.
+  - tier: Advanced / Enterprise
+    monthlyCap: contractual
+    notes: Committed-use volume; overages negotiated.

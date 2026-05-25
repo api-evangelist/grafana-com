@@ -1,0 +1,118 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Grafana Labs
+providerId: grafana-com
+created: '2026-05-25'
+modified: '2026-05-25'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Observability
+  - Telemetry
+description: FOCUS-aligned FinOps definition for Grafana Cloud and Grafana Enterprise. Telemetry-based metering
+  across metrics (active series), logs/traces/profiles (GB ingested), Kubernetes (host hours), and active users
+  (Grafana + IRM). Adaptive Metrics, Adaptive Logs, and Adaptive Telemetry provide built-in cost optimization.
+sources:
+  - https://grafana.com/pricing/
+  - https://grafana.com/docs/grafana-cloud/cost-management-and-billing/
+  - https://grafana.com/docs/grafana-cloud/cost-management-and-billing/understand-your-invoice/
+  - https://grafana.com/products/cloud/cost-management/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Grafana Labs
+serviceCategory: Observability and Monitoring
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Credit
+    - Adjustment
+  primaryUnit: telemetry-ingested
+  secondaryUnits:
+    - series
+    - GB
+    - host-hour
+    - user
+    - check
+    - probe-execution
+meteringDimensions:
+  - id: metrics-active-series
+    label: Metrics Active Series
+    unit: series
+    description: Prometheus / Mimir active series measured every 4 hours; billed per 1,000 active series.
+    optimizations:
+      - Adaptive Metrics (cardinality reduction, up to 80% savings)
+      - Recording rules to pre-aggregate
+  - id: logs-ingested
+    label: Logs Ingested
+    unit: GB
+    description: Compressed log bytes received by Loki / Cloud Logs.
+    optimizations:
+      - Adaptive Logs (volume reduction ~50%)
+      - Log filtering at Alloy/Promtail
+  - id: traces-ingested
+    label: Traces Ingested
+    unit: GB
+    description: Compressed trace bytes received by Tempo.
+    optimizations:
+      - Tail sampling in Alloy
+      - Probabilistic sampling at SDK
+  - id: profiles-ingested
+    label: Profiles Ingested
+    unit: GB
+    description: Continuous profiling data ingested by Pyroscope.
+  - id: kubernetes-host-hours
+    label: Kubernetes Host Hours
+    unit: host-hour
+    description: Hourly billing per monitored Kubernetes node.
+  - id: grafana-active-users
+    label: Active Grafana Users
+    unit: user
+    description: Monthly active users who log in to the Grafana visualization layer.
+  - id: irm-active-users
+    label: Active IRM Users
+    unit: user
+    description: Monthly active users in the Incident Response Management suite (OnCall + Incident).
+  - id: synthetic-check-executions
+    label: Synthetic Check Executions
+    unit: execution
+    description: Number of synthetic probe runs executed per month.
+costAllocation:
+  tagging:
+    supported: true
+    notes: Per-stack tagging and per-tenant cost reporting via Grafana Cloud billing API.
+  perStack: true
+  perTenant: true
+  perDataType: true
+budgetsAndAlerts:
+  spendAlerts: true
+  usageAlerts: true
+  notes: Configurable in Grafana Cloud billing console; surfaced through email and Slack.
+reporting:
+  api:
+    name: Grafana Cloud Billing API
+    url: https://grafana.com/docs/grafana-cloud/cost-management-and-billing/
+    notes: Programmatic access via /orgs/<ORG_SLUG>/billed-usage and related Cloud API endpoints.
+  console:
+    name: Billing dashboard
+    url: https://grafana.com/orgs
+focusMapping:
+  BilledCost: Monthly invoice line item per metering dimension
+  ListUnitPrice: Per-unit price from grafana.com/pricing (per 1k series, per GB, per host-hour, per user)
+  ConsumedUnit: series | GB | host-hour | user | execution
+  ServiceCategory: Observability and Monitoring
+  SubAccountId: Grafana Cloud stack slug
+  BillingAccountId: Grafana Cloud organization slug
+  ChargeCategory: Usage | Credit | Adjustment | Purchase
+  ProviderName: Grafana Labs
+  PublisherName: Grafana Labs

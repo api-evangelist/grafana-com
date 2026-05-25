@@ -1,0 +1,829 @@
+aid: grafana-com
+url: https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml
+apis:
+- aid: grafana-com:grafana-http-api
+  name: Grafana HTTP API
+  tags:
+  - Observability
+  - Grafana
+  - Dashboards
+  - HTTP API
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    name: Canonical OpenAPI Specification (api-merged.json)
+    type: OpenAPI
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+    name: Authentication
+    type: Authentication
+  description: The full Grafana HTTP API surface for self-managed Grafana and Grafana Enterprise. Covers
+    dashboards, folders, data sources, organizations, users, teams, service accounts, API keys, access control
+    (RBAC), preferences, library elements, annotations, snapshots, short URLs, query history, alerting
+    provisioning, correlations, SSO settings, and admin operations. The canonical OpenAPI 2.0 specification
+    is published as `public/api-merged.json` in the grafana/grafana repository and powers the official
+    grafana-openapi-client-go SDK and the terraform-provider-grafana resources.
+- aid: grafana-com:grafana-dashboard-api
+  name: Grafana Dashboard API
+  tags:
+  - Observability
+  - Grafana
+  - Dashboards
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+    name: Dashboard Versions
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+    name: Dashboard Permissions
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+    name: Shared (Public) Dashboards
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Create, read, update, delete, search, version, and permission dashboards. Exposes the Kubernetes-style
+    `/apis/dashboard.grafana.app/v1/namespaces/:namespace/dashboards` resource (and the legacy `/api/dashboards/`
+    endpoints) for declarative dashboard management, public dashboard sharing, version history, and per-dashboard
+    permission assignment.
+- aid: grafana-com:grafana-folder-api
+  name: Grafana Folder and Search API
+  tags:
+  - Observability
+  - Grafana
+  - Folders
+  - Search
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+    name: Folder/Dashboard Search
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+    name: Folder Permissions
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Manage Grafana folders, perform cross-folder dashboard search, and administer folder-level
+    permissions. Folders are the primary organizational unit for grouping dashboards and applying access
+    control inheritance.
+- aid: grafana-com:grafana-data-source-api
+  name: Grafana Data Source API
+  tags:
+  - Observability
+  - Grafana
+  - Data Sources
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+    name: Data Source Permissions
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+    name: Data Source LBAC Rules
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Programmatically register and manage Grafana data sources (Prometheus, Loki, Tempo, Mimir,
+    Pyroscope, Postgres, MySQL, Elasticsearch, InfluxDB, CloudWatch, Azure Monitor, Google Cloud Monitoring,
+    and 150+ more). Includes per-data-source permission management and label-based access control (LBAC)
+    rules for fine-grained tenant isolation.
+- aid: grafana-com:grafana-alerting-api
+  name: Grafana Alerting Provisioning API
+  tags:
+  - Observability
+  - Grafana
+  - Alerting
+  - Provisioning
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Provision Grafana Alerting resources programmatically — alert rules, contact points, mute timings,
+    notification policies, and notification templates. Supports headers for file-provisioning workflows and
+    GitOps-style alert-as-code patterns alongside the unified alerting subsystem.
+- aid: grafana-com:grafana-annotations-api
+  name: Grafana Annotations API
+  tags:
+  - Observability
+  - Grafana
+  - Annotations
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Create, read, update, and delete annotations on Grafana dashboards. Annotations mark events
+    (deploys, incidents, releases) on time-series panels and can be scoped to a dashboard, panel, or organization,
+    and tagged for filtering.
+- aid: grafana-com:grafana-org-api
+  name: Grafana Organization and Users API
+  tags:
+  - Observability
+  - Grafana
+  - Organizations
+  - Users
+  - Teams
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+    name: Users
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+    name: Teams
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+    name: Team Sync
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+    name: Preferences
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Manage Grafana organizations, users, teams, team membership, external team sync, and user
+    or org-scoped preferences (default home dashboard, theme, timezone, week start).
+- aid: grafana-com:grafana-rbac-api
+  name: Grafana Access Control (RBAC) API
+  tags:
+  - Observability
+  - Grafana
+  - RBAC
+  - Access Control
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+    name: Service Accounts
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+    name: SSO Settings
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Manage fine-grained role-based access control assignments, custom roles, permission grants
+    against folders/dashboards/data sources, service accounts, service account tokens, and SSO provider
+    settings (SAML, OAuth, LDAP). Replaces the legacy API-key system as the recommended authentication
+    surface for automation.
+- aid: grafana-com:grafana-admin-api
+  name: Grafana Admin API
+  tags:
+  - Observability
+  - Grafana
+  - Administration
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+    name: Enterprise Licensing
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+    name: Reporting (Enterprise)
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+    name: Query and Resource Caching (Enterprise)
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Server-wide administrative endpoints including global users, settings, server stats, encryption
+    keys, pause-all-alerts, plus Grafana Enterprise extensions for licensing, scheduled PDF/CSV reporting,
+    and query/resource caching configuration.
+- aid: grafana-com:grafana-library-elements-api
+  name: Grafana Library Elements API
+  tags:
+  - Observability
+  - Grafana
+  - Library Elements
+  - Panels
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Manage reusable library panels and library variables. Library elements let dashboard authors
+    define a panel or variable once and reference it across many dashboards, with updates propagating to
+    every consumer.
+- aid: grafana-com:grafana-correlations-api
+  name: Grafana Correlations API
+  tags:
+  - Observability
+  - Grafana
+  - Correlations
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Define correlations between data sources to enable in-place pivoting (e.g. trace ID in Tempo to
+    logs in Loki) inside Explore and dashboards. Powers the "click a value, jump to related telemetry" UX
+    that connects metrics, logs, traces, and profiles.
+- aid: grafana-com:grafana-snapshot-shorturl-api
+  name: Grafana Snapshot, Short URL, and Query History API
+  tags:
+  - Observability
+  - Grafana
+  - Snapshots
+  - Short URLs
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  properties:
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+    name: Snapshots
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+    name: Short URLs
+    type: Documentation
+  - url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+    name: Query History
+    type: Documentation
+  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+    type: OpenAPI
+  description: Capture and share dashboard snapshots (rendered point-in-time copies including data), generate
+    short URLs for long Explore queries and dashboard links, and read or write a user's Explore query history.
+- aid: grafana-com:grafana-cloud-api
+  name: Grafana Cloud API
+  tags:
+  - Observability
+  - Grafana Cloud
+  - Stacks
+  - Access Policies
+  humanURL: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
+    name: Access Policies and Tokens
+    type: Authentication
+  description: Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies, and
+    tokens at `https://grafana.com/api`. Authenticated with Cloud Access Policy bearer tokens. The recommended
+    automation surface for provisioning Grafana Cloud environments, multi-tenant onboarding, and Terraform
+    workflows.
+- aid: grafana-com:loki-http-api
+  name: Grafana Loki HTTP API
+  tags:
+  - Observability
+  - Loki
+  - Logs
+  - LogQL
+  humanURL: https://grafana.com/docs/loki/latest/reference/loki-http-api/
+  properties:
+  - url: https://grafana.com/docs/loki/latest/reference/loki-http-api/
+    type: Documentation
+  - url: https://github.com/grafana/loki
+    type: SourceCode
+  description: Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion),
+    `/loki/api/v1/query` and `/query_range` (LogQL), `/loki/api/v1/labels`, `/loki/api/v1/series`, `/loki/api/v1/tail`
+    (websocket streaming), plus ruler, status, and admin endpoints. Prometheus-style label model applied to
+    log streams.
+- aid: grafana-com:mimir-http-api
+  name: Grafana Mimir HTTP API
+  tags:
+  - Observability
+  - Mimir
+  - Metrics
+  - Prometheus
+  humanURL: https://grafana.com/docs/mimir/latest/references/http-api/
+  properties:
+  - url: https://grafana.com/docs/mimir/latest/references/http-api/
+    type: Documentation
+  - url: https://github.com/grafana/mimir
+    type: SourceCode
+  description: Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes
+    Prometheus remote-write at `/api/v1/push`, the full Prometheus query API (`/api/v1/query`, `/query_range`,
+    `/series`, `/labels`), ruler endpoints for recording and alerting rules, alertmanager configuration,
+    and per-tenant admin endpoints.
+- aid: grafana-com:tempo-http-api
+  name: Grafana Tempo HTTP API
+  tags:
+  - Observability
+  - Tempo
+  - Traces
+  - TraceQL
+  humanURL: https://grafana.com/docs/tempo/latest/api_docs/
+  properties:
+  - url: https://grafana.com/docs/tempo/latest/api_docs/
+    type: Documentation
+  - url: https://github.com/grafana/tempo
+    type: SourceCode
+  description: High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace
+    lookup by ID (`/api/traces/{traceID}`), TraceQL search (`/api/search`), tag and value listing, and metrics
+    derived from spans. Stores traces in object storage (S3, GCS, Azure Blob) with bloom-filter index.
+- aid: grafana-com:pyroscope-http-api
+  name: Grafana Pyroscope HTTP API
+  tags:
+  - Observability
+  - Pyroscope
+  - Profiling
+  - Continuous Profiling
+  humanURL: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
+  properties:
+  - url: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
+    type: Documentation
+  - url: https://github.com/grafana/pyroscope
+    type: SourceCode
+  description: Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles,
+    query flame graphs and merge profiles, and run profile-based comparisons. Pyroscope merged with Grafana
+    Phlare to form the current Pyroscope project.
+- aid: grafana-com:k6-cloud-api
+  name: Grafana k6 Cloud API
+  tags:
+  - Performance
+  - Load Testing
+  - k6
+  humanURL: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
+    type: Documentation
+  - url: https://github.com/grafana/k6
+    type: SourceCode
+  description: Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations,
+    test runs, thresholds, and results. Pairs with the open-source `k6` CLI for JavaScript-authored performance
+    and load tests and is integrated into Grafana Cloud Performance Testing.
+- aid: grafana-com:oncall-api
+  name: Grafana OnCall API
+  tags:
+  - Incident Response
+  - OnCall
+  - On-call Scheduling
+  humanURL: https://grafana.com/docs/oncall/latest/oncall-api-reference/
+  properties:
+  - url: https://grafana.com/docs/oncall/latest/oncall-api-reference/
+    type: Documentation
+  - url: https://github.com/grafana/oncall
+    type: SourceCode
+  description: Programmatic access to OnCall alert groups, integrations, escalation chains, schedules,
+    on-call shifts, routes, slack channels, webhooks, and users. Powers on-call rotation management and
+    alert routing for the broader Grafana IRM (Incident Response Management) suite.
+- aid: grafana-com:synthetic-monitoring-api
+  name: Grafana Synthetic Monitoring API
+  tags:
+  - Observability
+  - Synthetic Monitoring
+  - Uptime
+  humanURL: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
+    type: Documentation
+  - url: https://github.com/grafana/synthetic-monitoring-agent
+    type: SourceCode
+  description: Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step
+    scripted browser, gRPC) executed from Grafana Labs' global probe network plus optional private probes.
+    Results land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
+name: Grafana
+tags:
+- Observability
+- Monitoring
+- Dashboards
+- Logs
+- Metrics
+- Traces
+- Profiling
+- Alerting
+- Open Source
+- Grafana Labs
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- type: Portal
+  url: https://grafana.com
+- url: https://grafana.com/docs/
+  name: Grafana Documentation
+  type: Documentation
+- url: https://grafana.com/docs/grafana/latest/
+  name: Grafana OSS Docs
+  type: Documentation
+- url: https://grafana.com/docs/grafana-cloud/
+  name: Grafana Cloud Docs
+  type: Documentation
+- url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  name: Grafana HTTP API Reference
+  type: Documentation
+- url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
+  name: Canonical Grafana OpenAPI Spec
+  type: OpenAPI
+- url: https://grafana.com/docs/grafana/latest/developers/
+  name: Developer Resources
+  type: Documentation
+- url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  name: Authentication
+  type: Authentication
+- url: https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
+  name: Grafana Cloud Access Policies
+  type: Authentication
+- url: https://github.com/grafana
+  type: GitHubOrganization
+- url: https://github.com/grafana/grafana
+  name: Grafana (main repo)
+  type: SourceCode
+- url: https://grafana.com/grafana/dashboards/
+  name: Community Dashboards Library
+  type: Documentation
+- url: https://grafana.com/grafana/plugins/
+  name: Plugin Catalog
+  type: Documentation
+- url: https://grafana.com/docs/plugins/
+  name: Plugin Developer Docs
+  type: Documentation
+- url: https://grafana.com/developers/plugin-tools/
+  name: Plugin Tools (create-plugin)
+  type: Tool
+- url: https://grafana.com/developers/scenes
+  name: Scenes (dashboard composition framework)
+  type: Documentation
+- url: https://grafana.com/developers/saga-design-system/
+  name: Saga Design System
+  type: Documentation
+- url: https://github.com/grafana/grafana-foundation-sdk
+  name: Grafana Foundation SDK
+  type: SDK
+- url: https://github.com/grafana/grafana-openapi-client-go
+  name: Grafana OpenAPI Client (Go)
+  type: SDK
+- url: https://github.com/grafana/grafana-api-golang-client
+  name: Grafana API Go Client (legacy)
+  type: SDK
+- url: https://github.com/grafana/terraform-provider-grafana
+  name: Terraform Provider for Grafana
+  type: Tool
+- url: https://registry.terraform.io/providers/grafana/grafana/latest/docs
+  name: Terraform Registry — grafana/grafana
+  type: Documentation
+- url: https://github.com/grafana/grafana-operator
+  name: Grafana Operator (Kubernetes)
+  type: Tool
+- url: https://github.com/grafana/helm-charts
+  name: Grafana Helm Charts
+  type: Tool
+- url: https://github.com/grafana/grafana-image-renderer
+  name: Grafana Image Renderer
+  type: Tool
+- url: https://github.com/grafana/grafonnet
+  name: Grafonnet (Jsonnet library)
+  type: SDK
+- url: https://github.com/grafana/grizzly
+  name: Grizzly (dashboards/alerts as code CLI)
+  type: Tool
+- url: https://github.com/grafana/loki
+  name: Grafana Loki
+  type: SourceCode
+- url: https://github.com/grafana/mimir
+  name: Grafana Mimir
+  type: SourceCode
+- url: https://github.com/grafana/tempo
+  name: Grafana Tempo
+  type: SourceCode
+- url: https://github.com/grafana/pyroscope
+  name: Grafana Pyroscope
+  type: SourceCode
+- url: https://github.com/grafana/k6
+  name: Grafana k6
+  type: SourceCode
+- url: https://github.com/grafana/alloy
+  name: Grafana Alloy (OpenTelemetry-native collector)
+  type: SourceCode
+- url: https://github.com/grafana/beyla
+  name: Grafana Beyla (eBPF auto-instrumentation)
+  type: SourceCode
+- url: https://github.com/grafana/faro-web-sdk
+  name: Grafana Faro Web SDK (frontend observability)
+  type: SDK
+- url: https://github.com/grafana/oncall
+  name: Grafana OnCall
+  type: SourceCode
+- url: https://github.com/grafana/synthetic-monitoring-agent
+  name: Synthetic Monitoring Agent
+  type: SourceCode
+- url: https://github.com/grafana/grafana-plugin-sdk-go
+  name: Grafana Plugin SDK (Go)
+  type: SDK
+- url: https://grafana.com/pricing/
+  name: Grafana Cloud Pricing
+  type: Pricing
+  data:
+  - id: free
+    name: Free
+    entries:
+    - geo: Global
+      unit: 1
+      label: Account
+      limit: 1
+      price: Free
+      metric: account
+      timeFrame: month
+      description: Always free, no credit card required.
+    elements:
+    - name: 10k metrics series (Prometheus/Mimir)
+    - name: 50 GB logs (Loki)
+    - name: 50 GB traces (Tempo)
+    - name: 50 GB profiles (Pyroscope)
+    - name: 14-day retention across telemetry types
+    - name: 3 active Grafana users
+    - name: 3 active IRM users
+    - name: Community support
+    description: Get started with Grafana Cloud at no cost.
+  - id: pro
+    name: Pro
+    entries:
+    - geo: Global
+      unit: 1
+      label: Platform Fee
+      limit: 1
+      price: 19
+      metric: account
+      timeFrame: month
+      description: Starting platform fee. Usage above free tier is metered.
+    elements:
+    - name: Pay-as-you-go above Free tier
+    - name: 13-month metrics retention
+    - name: 30-day retention for logs, traces, profiles
+    - name: 8x5 email support
+    - name: Adaptive Metrics and Adaptive Logs cost optimization
+    - name: All integrations
+    description: Pay as you go for scale teams.
+  - id: advanced
+    name: Advanced
+    entries:
+    - geo: Global
+      unit: 1
+      label: Contract
+      limit: 1
+      price: Call
+      metric: contract
+      timeFrame: year
+      description: Annual contract with volume discounts.
+    elements:
+    - name: Custom retention windows
+    - name: Premium support
+    - name: SLAs
+    - name: Usage commitments
+    description: For organizations standardizing on Grafana Cloud.
+  - id: enterprise
+    name: Enterprise
+    entries:
+    - geo: Global
+      unit: 25000
+      label: Annual Commit Minimum
+      limit: 1
+      price: 25000
+      metric: contract
+      timeFrame: year
+      description: Annual commitment with volume discounts.
+    elements:
+    - name: Public Cloud, Federal Cloud, or Bring Your Own Cloud deployment
+    - name: Premium support with Observability Architect
+    - name: Custom retention and deployment options
+    - name: FedRAMP, GDPR, PCI DSS, SOC 2 Type II
+    description: For regulated and large-scale deployments.
+  - id: grafana-enterprise-self-managed
+    name: Grafana Enterprise (self-managed)
+    entries:
+    - geo: Global
+      unit: 1
+      label: License
+      limit: 1
+      price: Call
+      metric: license
+      timeFrame: year
+      description: Self-hosted commercial license for Grafana, Mimir, Loki, and Tempo.
+    elements:
+    - name: Enterprise plugins (Snowflake, Splunk, Oracle, ServiceNow, etc.)
+    - name: Enterprise data source permissions and LBAC
+    - name: Reporting (scheduled PDF/CSV)
+    - name: SAML/OAuth/LDAP team sync
+    - name: Query and resource caching
+    - name: Usage analytics and recorded queries
+    - name: White labeling
+    description: Drop-in upgrade for self-hosted Grafana, Mimir, Loki, and Tempo deployments.
+- url: https://grafana.com/pricing/
+  data:
+  - id: metrics
+    name: Metrics
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1000
+      label: Active Series
+      price: 6.50
+      metric: series
+      timeFrame: month
+      description: Per 1,000 active series above free tier.
+    description: Prometheus / Mimir compatible metrics ingestion and storage.
+  - id: logs
+    name: Logs
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: Ingested
+      price: 0.50
+      metric: GB
+      timeFrame: usage
+      description: Per GB ingested above free tier.
+    description: Loki log ingestion.
+  - id: traces
+    name: Traces
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: Ingested
+      price: 0.50
+      metric: GB
+      timeFrame: usage
+      description: Per GB ingested above free tier.
+    description: Tempo trace ingestion.
+  - id: profiles
+    name: Profiles
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: Ingested
+      price: 0.50
+      metric: GB
+      timeFrame: usage
+      description: Per GB ingested above free tier.
+    description: Pyroscope continuous profiling ingestion.
+  - id: kubernetes
+    name: Kubernetes Monitoring
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: Host Hour
+      price: 0.015
+      metric: host-hour
+      timeFrame: usage
+      description: Per Kubernetes host hour above free tier.
+    description: Kubernetes Monitoring host metering.
+  - id: visualization-users
+    name: Active Grafana Users
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: User
+      price: 8
+      metric: user
+      timeFrame: month
+      description: Per Grafana active user above free tier.
+    description: Active visualization user pricing.
+  - id: irm-users
+    name: IRM Users (OnCall + Incident)
+    type: Usage
+    entries:
+    - geo: Global
+      unit: 1
+      label: User
+      price: 20
+      metric: user
+      timeFrame: month
+      description: Per IRM active user above free tier.
+    description: Incident Response Management user pricing.
+  name: Usage Pricing
+  type: Pricing
+- url: https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/configure-rate-limit-data-source/
+  name: Data Source Rate Limiting
+  type: RateLimits
+- url: https://status.grafana.com
+  type: StatusPage
+- url: https://grafana.com/blog/
+  type: Blog
+- url: https://grafana.com/blog/categories/engineering/
+  name: Engineering Blog
+  type: Blog
+- url: https://grafana.com/about/team/
+  name: About / Team
+  type: Documentation
+- url: https://grafana.com/about/events/
+  name: Events
+  type: Events
+- url: https://grafana.com/events/grafanacon/
+  name: GrafanaCON
+  type: Events
+- url: https://grafana.com/legal/terms/
+  type: TermsOfService
+- url: https://grafana.com/legal/privacy-policy/
+  type: PrivacyPolicy
+- url: https://trust.grafana.com/
+  type: TrustCenter
+- url: https://grafana.com/auth/sign-up
+  type: SignUp
+- url: https://grafana.com/products/cloud/
+  name: Grafana Cloud
+  type: Portal
+- url: https://grafana.com/products/enterprise/
+  name: Grafana Enterprise
+  type: Portal
+- url: https://grafana.com/play/
+  name: Grafana Play (Sandbox)
+  type: Sandbox
+- url: https://community.grafana.com/
+  name: Community Forum
+  type: Forum
+- url: https://grafana.com/contact
+  type: Support
+- url: https://github.com/grafana/grafana/discussions
+  name: GitHub Discussions
+  type: Forum
+- url: https://grafana.com/tutorials/
+  type: Training
+- url: https://university.grafana.com/
+  name: Grafana University
+  type: Training
+- url: https://grafana.com/docs/release-life-cycle/
+  type: Versioning
+- url: https://grafana.com/docs/grafana/latest/whatsnew/
+  type: ChangeLog
+- url: https://grafana.com/about/careers/
+  type: Documentation
+- type: LinkedIn
+  url: https://www.linkedin.com/company/grafana-labs
+- type: Twitter
+  url: https://twitter.com/grafana
+- type: YouTube
+  url: https://www.youtube.com/c/Grafana
+- type: Mastodon
+  url: https://fosstodon.org/@grafana
+- type: Features
+  data:
+  - Open-source Grafana — composable observability and dashboarding platform (AGPLv3)
+  - Grafana Cloud — fully managed observability SaaS with free tier
+  - Grafana Enterprise — self-managed commercial distribution with premium plugins and features
+  - Grafana Loki — Prometheus-style label model applied to logs with LogQL query language
+  - Grafana Mimir — horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage
+  - Grafana Tempo — minimal-dependency distributed tracing backend with TraceQL search
+  - Grafana Pyroscope — continuous profiling backend (CPU, memory, lock, goroutine)
+  - Grafana k6 — JavaScript-authored load and performance testing with Cloud execution
+  - Grafana Alloy — OpenTelemetry-native distribution of the OpenTelemetry Collector
+  - Grafana Beyla — eBPF-based zero-instrumentation observability for HTTP/gRPC/SQL services
+  - Grafana Faro — frontend observability SDK for real user monitoring
+  - Grafana OnCall — on-call scheduling, escalation, and alert routing
+  - Grafana Incident and IRM (Incident Response Management) suite
+  - Grafana SLO — declarative service level objectives backed by Prometheus
+  - Grafana Synthetic Monitoring — global probe network for HTTP, DNS, TCP, ICMP, scripted browser, gRPC
+  - Grafana Application Observability — OpenTelemetry-driven APM
+  - Grafana Kubernetes Monitoring — preconfigured Kubernetes observability stack
+  - Adaptive Metrics — automated cardinality reduction (up to 80% savings)
+  - Adaptive Logs — log volume reduction (~50%)
+  - Adaptive Telemetry — unified Adaptive Metrics / Logs / Traces cost optimization
+  - 150+ data sources (Prometheus, InfluxDB, Elasticsearch, OpenSearch, MySQL, Postgres, MSSQL, CloudWatch,
+    Azure Monitor, Google Cloud Monitoring, Snowflake, Splunk, Datadog, BigQuery, MongoDB, and more)
+  - 500+ community plugins (panels, data sources, apps)
+  - Library panels and library variables for reusable dashboard components
+  - Dashboards-as-code via Foundation SDK, Grafonnet, Grizzly, and Terraform Provider
+  - Grafana Operator for Kubernetes-native dashboard, alert, and data source provisioning
+  - Scenes framework for composable dashboard authoring
+  - Plugin SDK and create-plugin (plugin-tools) for community and enterprise plugin development
+  - RBAC with custom roles, service accounts, and folder/dashboard/data source permission grants
+  - SSO via SAML, OAuth, LDAP with team sync
+  - Public dashboards and snapshot sharing
+  - OpenTelemetry-first ingestion via Alloy with OTLP, Prometheus remote write, Loki, and Tempo protocols
+  - Unified Alerting with rule provisioning API, contact points, mute timings, notification templates
+  - Correlations between data sources for click-through pivots across metrics, logs, traces, profiles
+  - Data source Label-Based Access Control (LBAC) for tenant isolation
+  - Query and resource caching (Enterprise)
+  - Scheduled PDF/CSV reporting (Enterprise)
+  - Federal Cloud, Public Cloud, and Bring Your Own Cloud deployment options
+  - FedRAMP Moderate, SOC 2 Type II, PCI DSS, GDPR, HIPAA-eligible compliance posture
+  - Canonical OpenAPI 2.0 specification (api-merged.json) drives Go client, Terraform provider, and SDKs
+  sources:
+  - https://grafana.com
+  - https://grafana.com/products/
+  - https://grafana.com/pricing/
+  - https://grafana.com/docs/grafana/latest/developers/http_api/
+  - https://github.com/grafana/grafana/blob/main/public/api-merged.json
+  - https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+  updated: '2026-05-25'
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: Grafana Labs builds the open and composable observability stack used by millions of engineers to
+  visualize, query, alert on, and explore their metrics, logs, traces, and profiles. The flagship Grafana OSS
+  dashboarding platform is paired with Grafana Loki (logs), Grafana Mimir (Prometheus-compatible metrics),
+  Grafana Tempo (distributed traces), and Grafana Pyroscope (continuous profiling) — all under the LGTM stack.
+  Grafana Cloud delivers the entire portfolio as a managed SaaS with a generous free tier, while Grafana
+  Enterprise extends self-managed deployments with premium plugins, reporting, RBAC, LBAC, and caching. The
+  ecosystem extends to Grafana k6 (load testing), Grafana Alloy (OpenTelemetry-native collector), Grafana
+  Beyla (eBPF auto-instrumentation), Grafana Faro (frontend observability), Grafana OnCall (incident
+  response), and Synthetic Monitoring. A canonical OpenAPI specification at public/api-merged.json powers
+  the official Go client, the Terraform provider, the Grafana Operator, and a deep dashboards-as-code toolchain
+  (Foundation SDK, Grafonnet, Grizzly, Scenes).
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
