@@ -439,7 +439,7 @@ common:
   type: Documentation
 - url: https://grafana.com/developers/plugin-tools/
   name: Plugin Tools (create-plugin)
-  type: Tool
+  type: Tools
 - url: https://grafana.com/developers/scenes
   name: Scenes (dashboard composition framework)
   type: Documentation
@@ -448,34 +448,34 @@ common:
   type: Documentation
 - url: https://github.com/grafana/grafana-foundation-sdk
   name: Grafana Foundation SDK
-  type: SDK
+  type: SDKs
 - url: https://github.com/grafana/grafana-openapi-client-go
   name: Grafana OpenAPI Client (Go)
-  type: SDK
+  type: SDKs
 - url: https://github.com/grafana/grafana-api-golang-client
   name: Grafana API Go Client (legacy)
-  type: SDK
+  type: SDKs
 - url: https://github.com/grafana/terraform-provider-grafana
   name: Terraform Provider for Grafana
-  type: Tool
+  type: Tools
 - url: https://registry.terraform.io/providers/grafana/grafana/latest/docs
   name: Terraform Registry — grafana/grafana
   type: Documentation
 - url: https://github.com/grafana/grafana-operator
   name: Grafana Operator (Kubernetes)
-  type: Tool
+  type: Tools
 - url: https://github.com/grafana/helm-charts
   name: Grafana Helm Charts
-  type: Tool
+  type: Tools
 - url: https://github.com/grafana/grafana-image-renderer
   name: Grafana Image Renderer
-  type: Tool
+  type: Tools
 - url: https://github.com/grafana/grafonnet
   name: Grafonnet (Jsonnet library)
-  type: SDK
+  type: SDKs
 - url: https://github.com/grafana/grizzly
   name: Grizzly (dashboards/alerts as code CLI)
-  type: Tool
+  type: Tools
 - url: https://github.com/grafana/loki
   name: Grafana Loki
   type: SourceCode
@@ -499,7 +499,7 @@ common:
   type: SourceCode
 - url: https://github.com/grafana/faro-web-sdk
   name: Grafana Faro Web SDK (frontend observability)
-  type: SDK
+  type: SDKs
 - url: https://github.com/grafana/oncall
   name: Grafana OnCall
   type: SourceCode
@@ -508,7 +508,7 @@ common:
   type: SourceCode
 - url: https://github.com/grafana/grafana-plugin-sdk-go
   name: Grafana Plugin SDK (Go)
-  type: SDK
+  type: SDKs
 - url: https://grafana.com/pricing/
   name: Grafana Cloud Pricing
   type: Pricing
@@ -721,7 +721,7 @@ common:
 - url: https://trust.grafana.com/
   type: TrustCenter
 - url: https://grafana.com/auth/sign-up
-  type: SignUp
+  type: Signup
 - url: https://grafana.com/products/cloud/
   name: Grafana Cloud
   type: Portal
@@ -733,12 +733,12 @@ common:
   type: Sandbox
 - url: https://community.grafana.com/
   name: Community Forum
-  type: Forum
+  type: Forums
 - url: https://grafana.com/contact
   type: Support
 - url: https://github.com/grafana/grafana/discussions
   name: GitHub Discussions
-  type: Forum
+  type: Forums
 - url: https://grafana.com/tutorials/
   type: Training
 - url: https://university.grafana.com/
