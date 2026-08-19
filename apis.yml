@@ -1,5 +1,6 @@
 aid: grafana-com
 url: https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml
+specificationVersion: '0.23'
 apis:
 - aid: grafana-com:grafana-http-api
   name: Grafana HTTP API
