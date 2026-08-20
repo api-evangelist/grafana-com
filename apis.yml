@@ -130,6 +130,12 @@ apis:
   tags:
   - Observability
   - Grafana
+  - Organization
+  - User
+  - Team
+  tags_raw:
+  - Observability
+  - Grafana
   - Organizations
   - Users
   - Teams
@@ -234,6 +240,11 @@ apis:
 - aid: grafana-com:grafana-snapshot-shorturl-api
   name: Grafana Snapshot, Short URL, and Query History API
   tags:
+  - Observability
+  - Grafana
+  - Snapshots
+  - ShortURLs
+  tags_raw:
   - Observability
   - Grafana
   - Snapshots
@@ -356,6 +367,10 @@ apis:
   name: Grafana OnCall API
   tags:
   - Incident Response
+  - On-Call
+  - On-Call Scheduling
+  tags_raw:
+  - Incident Response
   - OnCall
   - On-call Scheduling
   humanURL: https://grafana.com/docs/oncall/latest/oncall-api-reference/
@@ -384,6 +399,17 @@ apis:
     Results land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
 name: Grafana
 tags:
+- Observability
+- Monitoring
+- Dashboards
+- Logs
+- Metrics
+- Traces
+- Profiling
+- Alerting
+- Open-Source
+- Grafana Labs
+tags_raw:
 - Observability
 - Monitoring
 - Dashboards
