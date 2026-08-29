@@ -1,5 +1,17 @@
 aid: grafana-com
 url: https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 specificationVersion: '0.23'
 apis:
 - aid: grafana-com:grafana-http-api
