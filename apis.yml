@@ -255,7 +255,7 @@ apis:
   - Observability
   - Grafana
   - Snapshots
-  - Short URLs
+  - ShortURLs
   tags_raw:
   - Observability
   - Grafana
@@ -379,8 +379,8 @@ apis:
   name: Grafana OnCall API
   tags:
   - Incident Response
-  - OnCall
-  - On-call Scheduling
+  - On-Call
+  - On-Call Scheduling
   tags_raw:
   - Incident Response
   - OnCall
