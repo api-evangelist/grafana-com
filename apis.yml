@@ -127,6 +127,10 @@ apis:
   tags:
   - Observability
   - Grafana
+  - Annotation
+  tags_raw:
+  - Observability
+  - Grafana
   - Annotations
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
   properties:
