@@ -1,0 +1,29 @@
+# Front Door AI Index — grafana-com — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: grafana-com
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.grafana.com
+  final_host: grafana.com
+  ownership: inherited
+  owner: grafana
+  shares_host_with:
+  - grafana
+  inherited_from: grafana.com
+  verdict: scored
+  score: null
+  host_score: 14
+  density: null
+  words: 767
+  tiers:
+    agentic: 2
+    core: 12
+    model: 0
+  ambiguous: 4
+  top_terms:
+    AI: 12
+    agent: 4
+    AI agent: 1
+    agentic: 1
