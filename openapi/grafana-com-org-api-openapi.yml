@@ -1,0 +1,793 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Org API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have relevant permissions. Refer to specific resources to understand what permissions are required.
+  name: Org
+paths:
+  /org:
+    get:
+      tags:
+      - Org
+      summary: Get current Organization
+      operationId: getCurrentOrg
+      responses:
+        '200':
+          $ref: '#/components/responses/getCurrentOrgResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      tags:
+      - Org
+      summary: Update current Organization
+      operationId: updateCurrentOrg
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgForm'
+        required: true
+  /org/address:
+    put:
+      tags:
+      - Org
+      summary: Update current Organization's address
+      operationId: updateCurrentOrgAddress
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgAddressForm'
+        required: true
+  /org/invites:
+    get:
+      tags:
+      - Org
+      summary: Get pending invites
+      operationId: getPendingOrgInvites
+      responses:
+        '200':
+          $ref: '#/components/responses/getPendingOrgInvitesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      tags:
+      - Org
+      summary: Add invite
+      operationId: addOrgInvite
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '412':
+          $ref: '#/components/responses/SMTPNotEnabledError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddInviteForm'
+        required: true
+  /org/invites/{invitation_code}/revoke:
+    delete:
+      tags:
+      - Org
+      summary: Revoke invite
+      operationId: revokeInvite
+      parameters:
+      - name: invitation_code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /org/preferences:
+    get:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Org
+      summary: Get Current Org Prefs
+      operationId: getOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getPreferencesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Org
+      summary: Update Current Org Prefs
+      operationId: updateOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrefsCmd'
+        required: true
+    patch:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Org
+      summary: Patch Current Org Prefs
+      operationId: patchOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchPrefsCmd'
+        required: true
+  /org/quotas:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).
+      tags:
+      - Org
+      summary: Fetch Organization quota
+      operationId: getCurrentOrgQuota
+      responses:
+        '200':
+          $ref: '#/components/responses/getQuotaResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /org/users:
+    get:
+      description: 'Returns all org users within the current organization. Accessible to users with org admin role.
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:read` with scope `users:*`.'
+      tags:
+      - Org
+      summary: Get all users within the current organization
+      operationId: getOrgUsersForCurrentOrg
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getOrgUsersForCurrentOrgResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: 'Adds a global user to the current organization.
+
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:add` with scope `users:*`.'
+      tags:
+      - Org
+      summary: Add a new user to the current organization
+      operationId: addOrgUserToCurrentOrg
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrgUserCommand'
+        required: true
+  /org/users/lookup:
+    get:
+      description: 'Returns all org users within the current organization, but with less detailed information.
+
+        Accessible to users with org admin role, admin in any folder or admin of any team.
+
+        Mainly used by Grafana UI for providing list of users when adding team members and when editing folder/dashboard permissions.'
+      tags:
+      - Org
+      summary: Get all users within the current organization (lookup)
+      operationId: getOrgUsersForCurrentOrgLookup
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getOrgUsersForCurrentOrgLookupResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /org/users/{user_id}:
+    delete:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:remove` with scope `users:*`.'
+      tags:
+      - Org
+      summary: Delete user in current organization
+      operationId: removeOrgUserForCurrentOrg
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users.role:update` with scope `users:*`.'
+      tags:
+      - Org
+      summary: Updates the given user
+      operationId: updateOrgUserForCurrentOrg
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgUserCommand'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCurrentOrgResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrgDetailsDTO'
+    getPreferencesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreferencesSpec'
+    getOrgUsersForCurrentOrgLookupResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserLookupDTO'
+    getOrgUsersForCurrentOrgResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrgUserDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQuotaResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/QuotaDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getPendingOrgInvitesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TempUserDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    SMTPNotEnabledError:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+    QueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          type: string
+    QuotaDTO:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        org_id:
+          type: integer
+          format: int64
+        target:
+          type: string
+        used:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+    TempUserDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        createdOn:
+          type: string
+          format: date-time
+        email:
+          type: string
+        emailSent:
+          type: boolean
+        emailSentOn:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        invitedByEmail:
+          type: string
+        invitedByLogin:
+          type: string
+        invitedByName:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        status:
+          $ref: '#/components/schemas/TempUserStatus'
+        url:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    UpdateOrgAddressForm:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+    OrgDetailsDTO:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    AddInviteForm:
+      type: object
+      properties:
+        loginOrEmail:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        sendEmail:
+          type: boolean
+    PreferencesSpec:
+      type: object
+      properties:
+        homeDashboardUID:
+          description: UID for the home dashboard
+          type: string
+        homeURL:
+          description: 'Explicit home URL (NOTE: this can only be modified in the system settings)'
+          type: string
+        language:
+          description: Selected language
+          type: string
+        navbar:
+          $ref: '#/components/schemas/PreferencesNavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/PreferencesQueryHistoryPreference'
+        theme:
+          description: user interface theme
+          type: string
+        timezone:
+          description: The timezone selection
+          type: string
+        weekStart:
+          description: day of the week (sunday, monday, etc)
+          type: string
+    UpdatePrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    UpdateOrgUserCommand:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    UpdateOrgForm:
+      type: object
+      properties:
+        name:
+          type: string
+    OrgUserDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        created:
+          type: string
+          format: date-time
+        email:
+          type: string
+        isDisabled:
+          type: boolean
+        isExternallySynced:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        lastSeenAt:
+          type: string
+          format: date-time
+        lastSeenAtAge:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+        uid:
+          type: string
+        userId:
+          type: integer
+          format: int64
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
+          type: string
+    TempUserStatus:
+      type: string
+    PreferencesNavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    NavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    AddOrgUserCommand:
+      type: object
+      properties:
+        loginOrEmail:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    UserLookupDTO:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+        login:
+          type: string
+        uid:
+          type: string
+        userId:
+          type: integer
+          format: int64
+    PatchPrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

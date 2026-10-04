@@ -1,0 +1,460 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Correlations API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: correlations
+paths:
+  /datasources/correlations:
+    get:
+      tags:
+      - correlations
+      summary: Gets all correlations
+      operationId: getCorrelations
+      parameters:
+      - description: Limit the maximum number of correlations to return per page
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 100
+          maximum: 1000
+      - description: Page index for starting fetching correlations
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - description: Source datasource UID filter to be applied to correlations
+        name: sourceUID
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getCorrelationsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /datasources/uid/{sourceUID}/correlations:
+    get:
+      tags:
+      - correlations
+      summary: Gets all correlations originating from the given data source
+      operationId: getCorrelationsBySourceUID
+      parameters:
+      - name: sourceUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getCorrelationsBySourceUIDResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      tags:
+      - correlations
+      summary: Add correlation
+      operationId: createCorrelation
+      parameters:
+      - name: sourceUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/createCorrelationResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCorrelationCommand'
+        required: true
+  /datasources/uid/{sourceUID}/correlations/{correlationUID}:
+    get:
+      tags:
+      - correlations
+      summary: Gets a correlation
+      operationId: getCorrelation
+      parameters:
+      - name: sourceUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: correlationUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getCorrelationResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      tags:
+      - correlations
+      summary: Updates a correlation
+      operationId: updateCorrelation
+      parameters:
+      - name: sourceUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: correlationUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/updateCorrelationResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCorrelationCommand'
+  /datasources/uid/{uid}/correlations/{correlationUID}:
+    delete:
+      tags:
+      - correlations
+      summary: Delete a correlation
+      operationId: deleteCorrelation
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: correlationUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/deleteCorrelationResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  schemas:
+    Transformation:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          type: string
+          enum:
+          - regex
+          - logfmt
+    Correlation:
+      description: Correlation is the model for correlations definitions
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfig'
+        description:
+          description: Description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Label identifying the correlation
+          type: string
+          example: My Label
+        orgId:
+          description: OrgID of the data source the correlation originates from
+          type: integer
+          format: int64
+          example: 1
+        provisioned:
+          description: Provisioned True if the correlation was created during provisioning
+          type: boolean
+        sourceUID:
+          description: UID of the data source the correlation originates from
+          type: string
+          example: d0oxYRg4z
+        targetUID:
+          description: UID of the data source the correlation points to
+          type: string
+          example: PE1C5CBDA0504A6A3
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+        uid:
+          description: Unique identifier of the correlation
+          type: string
+          example: 50xhMlg9k
+    DeleteCorrelationResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation deleted
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    CreateCorrelationResponseBody:
+      description: CreateCorrelationResponse is the response struct for CreateCorrelationCommand
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation created
+        result:
+          $ref: '#/components/schemas/Correlation'
+    CreateCorrelationCommand:
+      description: CreateCorrelationCommand is the command for creating a correlation
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfig'
+        description:
+          description: Optional description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Optional label identifying the correlation
+          type: string
+          example: My label
+        provisioned:
+          description: True if correlation was created with provisioning. This makes it read-only.
+          type: boolean
+        targetUID:
+          description: Target data source UID to which the correlation is created. required if type = query
+          type: string
+          example: PE1C5CBDA0504A6A3
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+    Transformations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Transformation'
+    CorrelationConfig:
+      type: object
+      required:
+      - field
+      - target
+      properties:
+        field:
+          description: Field used to attach the correlation link
+          type: string
+          example: message
+        target:
+          description: Target data query
+          type: object
+          additionalProperties: {}
+          example:
+            prop1: value1
+            prop2: value
+        transformations:
+          $ref: '#/components/schemas/Transformations'
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+    CorrelationType:
+      description: the type of correlation, either query for containing query information, or external for containing an external URL
+      type: string
+    UpdateCorrelationResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation updated
+        result:
+          $ref: '#/components/schemas/Correlation'
+    CorrelationConfigUpdateDTO:
+      type: object
+      properties:
+        field:
+          description: Field used to attach the correlation link
+          type: string
+          example: message
+        target:
+          description: Target data query
+          type: object
+          additionalProperties: {}
+          example:
+            prop1: value1
+            prop2: value
+        transformations:
+          description: Source data transformations
+          type: array
+          items:
+            $ref: '#/components/schemas/Transformation'
+          example:
+          - type: logfmt
+          - expression: (Superman|Batman)
+            type: regex
+            variable: name
+    UpdateCorrelationCommand:
+      description: UpdateCorrelationCommand is the command for updating a correlation
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfigUpdateDTO'
+        description:
+          description: Optional description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Optional label identifying the correlation
+          type: string
+          example: My label
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCorrelationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    getCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Correlation'
+    createCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCorrelationResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCorrelationsBySourceUIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    deleteCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteCorrelationResponseBody'
+    updateCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCorrelationResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

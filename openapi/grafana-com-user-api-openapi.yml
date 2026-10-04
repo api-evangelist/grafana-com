@@ -1,0 +1,51 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. User API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: User
+paths:
+  /user/email/update:
+    get:
+      description: Update the email of user given a verification code.
+      tags:
+      - User
+      summary: Update user email
+      operationId: updateUserEmail
+      responses:
+        '302':
+          $ref: '#/components/responses/okResponse'
+components:
+  responses:
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+  schemas:
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

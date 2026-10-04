@@ -1,0 +1,733 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Signed In User API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: signed_in_user
+paths:
+  /user:
+    get:
+      description: Get (current authenticated user)
+      tags:
+      - signed_in_user
+      operationId: getSignedInUser
+      responses:
+        '200':
+          $ref: '#/components/responses/userResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      summary: Get signed in user
+      x-summary-source: derived
+    put:
+      tags:
+      - signed_in_user
+      summary: Update signed in User
+      operationId: updateSignedInUser
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '409':
+          $ref: '#/components/responses/conflictError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserCommand'
+        description: To change the email, name, login, theme, provide another one.
+        required: true
+  /user/auth-tokens:
+    get:
+      description: Return a list of all auth tokens (devices) that the actual user currently have logged in from.
+      tags:
+      - signed_in_user
+      summary: Auth tokens of the actual User
+      operationId: getUserAuthTokens
+      responses:
+        '200':
+          $ref: '#/components/responses/getUserAuthTokensResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /user/orgs:
+    get:
+      description: Return a list of all organizations of the current user.
+      tags:
+      - signed_in_user
+      summary: Organizations of the actual User
+      operationId: getSignedInUserOrgList
+      responses:
+        '200':
+          $ref: '#/components/responses/getSignedInUserOrgListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /user/password:
+    put:
+      description: Changes the password for the user.
+      tags:
+      - signed_in_user
+      summary: Change Password
+      operationId: changeUserPassword
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeUserPasswordCommand'
+        description: To change the email, name, login, theme, provide another one.
+        required: true
+  /user/preferences:
+    get:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+      tags:
+      - signed_in_user
+      summary: Get user preferences
+      operationId: getUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getPreferencesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: 'Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+
+
+        Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.'
+      tags:
+      - signed_in_user
+      summary: Update user preferences
+      operationId: updateUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrefsCmd'
+        required: true
+    patch:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+      tags:
+      - signed_in_user
+      summary: Patch user preferences
+      operationId: patchUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchPrefsCmd'
+        required: true
+  /user/quotas:
+    get:
+      tags:
+      - signed_in_user
+      summary: Fetch user quota
+      operationId: getUserQuotas
+      responses:
+        '200':
+          $ref: '#/components/responses/getQuotaResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /user/revoke-auth-token:
+    post:
+      description: Revokes the given auth token (device) for the actual user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.
+      tags:
+      - signed_in_user
+      summary: Revoke an auth token of the actual User
+      operationId: revokeUserAuthToken
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeAuthTokenCmd'
+        required: true
+  /user/stars/dashboard/uid/{dashboard_uid}:
+    post:
+      description: 'Stars the given Dashboard for the actual user.
+
+
+        Use: PUT /apis/collections.grafana.app/v1alpha1/namespaces/{namespace}/stars/{name}/update/{group}/{kind}/{id}'
+      tags:
+      - signed_in_user
+      summary: Star a dashboard
+      operationId: starDashboardByUID
+      deprecated: true
+      parameters:
+      - name: dashboard_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      description: 'Deletes the starring of the given Dashboard for the actual user.
+
+
+        Use: DELETE /apis/collections.grafana.app/v1alpha1/namespaces/{namespace}/stars/{name}/update/{group}/{kind}/{id}'
+      tags:
+      - signed_in_user
+      summary: Unstar a dashboard
+      operationId: unstarDashboardByUID
+      deprecated: true
+      parameters:
+      - name: dashboard_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /user/teams:
+    get:
+      description: Return a list of all teams that the current user is member of.
+      tags:
+      - signed_in_user
+      summary: Teams that the actual User is member of
+      operationId: getSignedInUserTeamList
+      responses:
+        '200':
+          $ref: '#/components/responses/getSignedInUserTeamListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /user/using/{org_id}:
+    post:
+      description: Switch user context to the given organization.
+      tags:
+      - signed_in_user
+      summary: Switch user context for signed in user
+      operationId: userSetUsingOrg
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getPreferencesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreferencesSpec'
+    getUserAuthTokensResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserToken'
+    getSignedInUserOrgListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserOrgDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getSignedInUserTeamListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TeamDTO'
+    getQuotaResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/QuotaDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    userResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserProfileDTO'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    QueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          type: string
+    QuotaDTO:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        org_id:
+          type: integer
+          format: int64
+        target:
+          type: string
+        used:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    RevokeAuthTokenCmd:
+      type: object
+      properties:
+        authTokenId:
+          type: integer
+          format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    UpdateUserCommand:
+      type: object
+      properties:
+        email:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+    PreferencesSpec:
+      type: object
+      properties:
+        homeDashboardUID:
+          description: UID for the home dashboard
+          type: string
+        homeURL:
+          description: 'Explicit home URL (NOTE: this can only be modified in the system settings)'
+          type: string
+        language:
+          description: Selected language
+          type: string
+        navbar:
+          $ref: '#/components/schemas/PreferencesNavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/PreferencesQueryHistoryPreference'
+        theme:
+          description: user interface theme
+          type: string
+        timezone:
+          description: The timezone selection
+          type: string
+        weekStart:
+          description: day of the week (sunday, monday, etc)
+          type: string
+    UpdatePrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    UserToken:
+      description: UserToken represents a user token
+      type: object
+      properties:
+        AuthToken:
+          type: string
+        AuthTokenSeen:
+          type: boolean
+        ClientIp:
+          type: string
+        CreatedAt:
+          type: integer
+          format: int64
+        ExternalSessionId:
+          type: integer
+          format: int64
+        Id:
+          type: integer
+          format: int64
+        PrevAuthToken:
+          type: string
+        RevokedAt:
+          type: integer
+          format: int64
+        RotatedAt:
+          type: integer
+          format: int64
+        SeenAt:
+          type: integer
+          format: int64
+        UnhashedToken:
+          type: string
+        UpdatedAt:
+          type: integer
+          format: int64
+        UserAgent:
+          type: string
+        UserId:
+          type: integer
+          format: int64
+    UserProfileDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isDisabled:
+          type: boolean
+        isExternal:
+          type: boolean
+        isExternallySynced:
+          type: boolean
+        isGrafanaAdmin:
+          type: boolean
+        isGrafanaAdminExternallySynced:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        theme:
+          type: string
+        uid:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    UserOrgDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
+          type: string
+    PreferencesNavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    Password:
+      type: string
+    NavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    PatchPrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    TeamDTO:
+      type: object
+      required:
+      - id
+      - uid
+      - orgId
+      - name
+      - isProvisioned
+      - memberCount
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        avatarUrl:
+          type: string
+        email:
+          type: string
+        externalUID:
+          type: string
+        id:
+          description: '@deprecated Use UID instead'
+          type: integer
+          format: int64
+        isProvisioned:
+          type: boolean
+        memberCount:
+          type: integer
+          format: int64
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        permission:
+          $ref: '#/components/schemas/TeamPermissionType'
+        uid:
+          type: string
+    TeamPermissionType:
+      type: integer
+      format: int64
+    ChangeUserPasswordCommand:
+      type: object
+      properties:
+        newPassword:
+          $ref: '#/components/schemas/Password'
+        oldPassword:
+          $ref: '#/components/schemas/Password'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Devices API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Devices
+paths:
+  /anonymous/devices:
+    get:
+      tags:
+      - Devices
+      summary: Lists all devices within the last 30 days
+      operationId: listDevices
+      responses:
+        '200':
+          $ref: '#/components/responses/devicesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /anonymous/search:
+    get:
+      tags:
+      - Devices
+      summary: Lists all devices within the last 30 days
+      operationId: SearchDevices
+      responses:
+        '200':
+          $ref: '#/components/responses/devicesSearchResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    devicesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/deviceDTO'
+    devicesSearchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchDeviceQueryResult'
+  schemas:
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SearchDeviceQueryResult:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceSearchHitDTO'
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+    deviceDTO:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+        clientIp:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        deviceId:
+          type: string
+        lastSeenAt:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        userAgent:
+          type: string
+    DeviceSearchHitDTO:
+      type: object
+      properties:
+        clientIp:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        deviceId:
+          type: string
+        lastSeenAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userAgent:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

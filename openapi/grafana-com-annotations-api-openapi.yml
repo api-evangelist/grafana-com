@@ -1,0 +1,807 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Annotations API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana database (sqlite, mysql or postgres). Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source - they are filtered by tags. Or they can be tied to a panel on a dashboard and are then only shown on that panel.
+  name: Annotations
+paths:
+  /annotations:
+    get:
+      description: Starting in Grafana v6.4 regions annotations are now returned in one entity that now includes the timeEnd property.
+      tags:
+      - Annotations
+      summary: Find Annotations
+      operationId: getAnnotations
+      parameters:
+      - description: Find annotations created after specific epoch datetime in milliseconds.
+        name: from
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Find annotations created before specific epoch datetime in milliseconds.
+        name: to
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Limit response to annotations created by specific user.
+        name: userId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Limit response to annotations created by a specific user, identified by UID.
+        name: userUID
+        in: query
+        schema:
+          type: string
+      - description: 'Find annotations for a specified alert rule by its ID.
+
+          deprecated: AlertID is deprecated and will be removed in future versions. Please use AlertUID instead.'
+        name: alertId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Find annotations for a specified alert rule by its UID.
+        name: alertUID
+        in: query
+        schema:
+          type: string
+      - description: Find annotations that are scoped to a specific dashboard
+        name: dashboardId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Find annotations that are scoped to a specific dashboard
+        name: dashboardUID
+        in: query
+        schema:
+          type: string
+      - description: Find annotations that are scoped to a specific panel
+        name: panelId
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Max limit for results returned.
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Use this to filter organization annotations. Organization annotations are annotations from an annotation data source that are not connected specifically to a dashboard or panel. You can filter by multiple tags.
+        name: tags
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Return alerts or user created annotations
+
+          Description:
+
+          - `alert`
+
+          - `annotation`'
+        name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - alert
+          - annotation
+      - description: Match any or all tags
+        name: matchAny
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/getAnnotationsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: 'Creates an annotation in the Grafana database. The dashboardId and panelId fields are optional. If they are not specified then an organization annotation is created and can be queried in any dashboard that adds the Grafana annotations data source. When creating a region annotation include the timeEnd property.
+
+        The format for `time` and `timeEnd` should be epoch numbers in millisecond resolution.
+
+        The response for this HTTP request is slightly different in versions prior to v6.4. In prior versions you would also get an endId if you where creating a region. But in 6.4 regions are represented using a single event with time and timeEnd properties.'
+      tags:
+      - Annotations
+      summary: Create Annotation
+      operationId: postAnnotation
+      responses:
+        '200':
+          $ref: '#/components/responses/postAnnotationResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostAnnotationsCmd'
+        required: true
+  /annotations/graphite:
+    post:
+      description: Creates an annotation by using Graphite-compatible event format. The `when` and `data` fields are optional. If `when` is not specified then the current time will be used as annotation’s timestamp. The `tags` field can also be in prior to Graphite `0.10.0` format (string with multiple tags being separated by a space).
+      tags:
+      - Annotations
+      summary: Create Annotation in Graphite format
+      operationId: postGraphiteAnnotation
+      responses:
+        '200':
+          $ref: '#/components/responses/postAnnotationResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostGraphiteAnnotationsCmd'
+        required: true
+  /annotations/mass-delete:
+    post:
+      tags:
+      - Annotations
+      summary: Delete multiple annotations
+      operationId: massDeleteAnnotations
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MassDeleteAnnotationsCmd'
+        required: true
+  /annotations/tags:
+    get:
+      description: Find all the event tags created in the annotations.
+      tags:
+      - Annotations
+      summary: Find Annotations Tags
+      operationId: getAnnotationTags
+      parameters:
+      - description: Tag is a string that you can use to filter tags.
+        name: tag
+        in: query
+        schema:
+          type: string
+      - description: Max limit for results returned.
+        name: limit
+        in: query
+        schema:
+          type: string
+          default: '100'
+      responses:
+        '200':
+          $ref: '#/components/responses/getAnnotationTagsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /annotations/{annotation_id}:
+    get:
+      tags:
+      - Annotations
+      summary: Get Annotation by ID
+      operationId: getAnnotationByID
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getAnnotationByIDResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: Updates all properties of an annotation that matches the specified id. To only update certain property, consider using the Patch Annotation operation.
+      tags:
+      - Annotations
+      summary: Update Annotation
+      operationId: updateAnnotation
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnnotationsCmd'
+        required: true
+    delete:
+      description: Deletes the annotation that matches the specified ID.
+      tags:
+      - Annotations
+      summary: Delete Annotation By ID
+      operationId: deleteAnnotationByID
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      description: 'Updates one or more properties of an annotation that matches the specified ID.
+
+        This operation currently supports updating of the `text`, `tags`, `time` and `timeEnd` properties.
+
+        This is available in Grafana 6.0.0-beta2 and above.'
+      tags:
+      - Annotations
+      summary: Patch Annotation
+      operationId: patchAnnotation
+      parameters:
+      - name: annotation_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchAnnotationsCmd'
+        required: true
+  /public/dashboards/{accessToken}/annotations:
+    get:
+      description: Get annotations for a public dashboard
+      tags:
+      - Annotations
+      operationId: getPublicAnnotations
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPublicAnnotationsResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Get public annotations
+      x-summary-source: derived
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerPublicError:
+      description: InternalServerPublicError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unauthorisedPublicError:
+      description: UnauthorisedPublicError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    forbiddenPublicError:
+      description: ForbiddenPublicError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    getPublicAnnotationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AnnotationEvent'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestPublicError:
+      description: BadRequestPublicError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    getAnnotationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Annotation'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    postAnnotationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - message
+            properties:
+              id:
+                description: ID Identifier of the created annotation.
+                type: integer
+                format: int64
+                example: 65
+              message:
+                description: Message Message of the created annotation.
+                type: string
+    getAnnotationByIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+    getAnnotationTagsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAnnotationTagsResponse'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundPublicError:
+      description: NotFoundPublicError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+  schemas:
+    Json:
+      type: object
+    PostGraphiteAnnotationsCmd:
+      type: object
+      properties:
+        data:
+          type: string
+        tags: {}
+        what:
+          type: string
+        when:
+          type: integer
+          format: int64
+    PostAnnotationsCmd:
+      type: object
+      required:
+      - text
+      properties:
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
+          type: string
+        data:
+          $ref: '#/components/schemas/Json'
+        panelId:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    DataSourceRef:
+      description: Ref to a DataSource instance
+      type: object
+      properties:
+        type:
+          description: The plugin type-id
+          type: string
+        uid:
+          description: Specific datasource instance
+          type: string
+    FindTagsResult:
+      type: object
+      title: FindTagsResult is the result of a tags search.
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagsDTO'
+    UpdateAnnotationsCmd:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Json'
+        id:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    PatchAnnotationsCmd:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Json'
+        id:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    publicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      required:
+      - statusCode
+      - messageId
+      properties:
+        extra:
+          description: Extra Additional information about the error
+          type: object
+          additionalProperties: {}
+        message:
+          description: Message A human readable message
+          type: string
+        messageId:
+          description: MessageID A unique identifier for the error
+          type: string
+        statusCode:
+          description: StatusCode The HTTP status code returned
+          type: integer
+          format: int64
+    AnnotationEvent:
+      type: object
+      properties:
+        color:
+          type: string
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isRegion:
+          type: boolean
+        panelId:
+          type: integer
+          format: int64
+        source:
+          $ref: '#/components/schemas/AnnotationQuery'
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    Annotation:
+      type: object
+      properties:
+        alertId:
+          type: integer
+          format: int64
+        alertName:
+          type: string
+        avatarUrl:
+          type: string
+        created:
+          type: integer
+          format: int64
+        dashboardId:
+          description: 'Deprecated: Use DashboardUID and OrgID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        dashboardUID:
+          type: string
+        data:
+          $ref: '#/components/schemas/Json'
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        login:
+          type: string
+        newState:
+          type: string
+        panelId:
+          type: integer
+          format: int64
+        prevState:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+        updated:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        userUID:
+          type: string
+    MassDeleteAnnotationsCmd:
+      type: object
+      properties:
+        annotationId:
+          type: integer
+          format: int64
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
+          type: string
+        panelId:
+          type: integer
+          format: int64
+    AnnotationTarget:
+      description: 'TODO: this should be a regular DataQuery that depends on the selected dashboard
+
+        these match the properties of the "grafana" datasouce that is default in most dashboards'
+      type: object
+      properties:
+        limit:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: integer
+          format: int64
+        matchAny:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: boolean
+        tags:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: array
+          items:
+            type: string
+        type:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: string
+    GetAnnotationTagsResponse:
+      type: object
+      title: GetAnnotationTagsResponse is a response struct for FindTagsResult.
+      properties:
+        result:
+          $ref: '#/components/schemas/FindTagsResult'
+    AnnotationPanelFilter:
+      type: object
+      properties:
+        exclude:
+          description: Should the specified panels be included or excluded
+          type: boolean
+        ids:
+          description: Panel IDs that should be included or excluded
+          type: array
+          items:
+            type: integer
+            format: uint8
+    AnnotationQuery:
+      description: 'TODO docs
+
+        FROM: AnnotationQuery in grafana-data/src/types/annotations.ts'
+      type: object
+      properties:
+        builtIn:
+          description: Set to 1 for the standard annotation query all dashboards have by default.
+          type: number
+          format: double
+        datasource:
+          $ref: '#/components/schemas/DataSourceRef'
+        enable:
+          description: When enabled the annotation query is issued with every dashboard refresh
+          type: boolean
+        filter:
+          $ref: '#/components/schemas/AnnotationPanelFilter'
+        hide:
+          description: 'Annotation queries can be toggled on or off at the top of the dashboard.
+
+            When hide is true, the toggle is not shown in the dashboard.'
+          type: boolean
+        iconColor:
+          description: Color to use for the annotation event markers
+          type: string
+        name:
+          description: Name of annotation.
+          type: string
+        placement:
+          description: Placement can be used to display the annotation query somewhere else on the dashboard other than the default location.
+          type: string
+        target:
+          $ref: '#/components/schemas/AnnotationTarget'
+        type:
+          description: TODO -- this should not exist here, it is based on the --grafana-- datasource
+          type: string
+    TagsDTO:
+      type: object
+      title: TagsDTO is the frontend DTO for Tag.
+      properties:
+        count:
+          type: integer
+          format: int64
+        tag:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

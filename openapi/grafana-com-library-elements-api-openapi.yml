@@ -1,0 +1,571 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Library Elements API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: 'The identifier (ID) of a library element is an auto-incrementing numeric value that is unique per Grafana install.
+
+    The unique identifier (UID) of a library element uniquely identifies library elements between multiple Grafana installs. It’s automatically generated unless you specify it during library element creation. The UID provides consistent URLs for accessing library elements and when syncing library elements between multiple Grafana installs.
+
+    The maximum length of a UID is 40 characters.'
+  name: library_elements
+paths:
+  /library-elements:
+    get:
+      description: 'Returns a list of all library elements the authenticated user has permission to view.
+
+        Use the `perPage` query parameter to control the maximum number of library elements returned; the default limit is `100`.
+
+        You can also use the `page` query parameter to fetch library elements from any page other than the first one.'
+      tags:
+      - library_elements
+      summary: Get all library elements
+      operationId: getLibraryElements
+      parameters:
+      - description: Part of the name or description searched for.
+        name: searchString
+        in: query
+        schema:
+          type: string
+      - description: 'Kind of element to search for.
+
+          Description:
+
+          - 1 - library panels'
+        name: kind
+        in: query
+        schema:
+          type: integer
+          format: int64
+          enum:
+          - 1
+      - description: 'Sort order of elements.
+
+          Description:
+
+          - alpha-asc: ascending
+
+          - alpha-desc: descending'
+        name: sortDirection
+        in: query
+        schema:
+          type: string
+          enum:
+          - alpha-asc
+          - alpha-desc
+      - description: A comma separated list of types to filter the elements by
+        name: typeFilter
+        in: query
+        schema:
+          type: string
+      - description: Element UID to exclude from search results.
+        name: excludeUid
+        in: query
+        schema:
+          type: string
+      - description: 'A comma separated list of folder ID(s) to filter the elements by.
+
+          Deprecated: Use FolderFilterUIDs instead.'
+        name: folderFilter
+        in: query
+        schema:
+          type: string
+      - description: A comma separated list of folder UID(s) to filter the elements by.
+        name: folderFilterUIDs
+        in: query
+        schema:
+          type: string
+      - description: The number of results per page.
+        name: perPage
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - description: The page for a set of records, given that only perPage records are returned at a time. Numbering starts at 1.
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: Creates a new library element.
+      tags:
+      - library_elements
+      summary: Create library element
+      operationId: createLibraryElement
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLibraryElementCommand'
+        required: true
+  /library-elements/name/{library_element_name}:
+    get:
+      description: Returns a library element with the given name.
+      tags:
+      - library_elements
+      summary: Get library element by name
+      operationId: getLibraryElementByName
+      parameters:
+      - name: library_element_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementArrayResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /library-elements/{library_element_uid}:
+    get:
+      description: Returns a library element with the given UID.
+      tags:
+      - library_elements
+      summary: Get library element by UID
+      operationId: getLibraryElementByUID
+      parameters:
+      - name: library_element_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      description: 'Deletes an existing library element as specified by the UID. This operation cannot be reverted.
+
+        You cannot delete a library element that is connected. This operation cannot be reverted.'
+      tags:
+      - library_elements
+      summary: Delete library element
+      operationId: deleteLibraryElementByUID
+      parameters:
+      - name: library_element_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      description: Updates an existing library element identified by uid.
+      tags:
+      - library_elements
+      summary: Update library element
+      operationId: updateLibraryElement
+      parameters:
+      - name: library_element_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '412':
+          $ref: '#/components/responses/preconditionFailedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchLibraryElementCommand'
+        required: true
+  /library-elements/{library_element_uid}/connections/:
+    get:
+      description: Returns a list of connections for a library element based on the UID specified.
+      tags:
+      - library_elements
+      summary: Get library element connections
+      operationId: getLibraryElementConnections
+      parameters:
+      - name: library_element_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getLibraryElementConnectionsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getLibraryElementConnectionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementConnectionsResponse'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getLibraryElementArrayResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementArrayResponse'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getLibraryElementsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementSearchResponse'
+    getLibraryElementResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementResponse'
+    preconditionFailedError:
+      description: PreconditionFailedError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    LibraryElementDTOMetaUser:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    CreateLibraryElementCommand:
+      description: CreateLibraryElementCommand is the command for adding a LibraryElement
+      type: object
+      properties:
+        folderId:
+          description: 'ID of the folder where the library element is stored.
+
+
+            Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          description: UID of the folder where the library element is stored.
+          type: string
+        kind:
+          description: 'Kind of element to create, Use 1 for library panels or 2 for c.
+
+            Description:
+
+            - 1 - library panels'
+          type: integer
+          format: int64
+          enum:
+          - 1
+        model:
+          description: The JSON model for the library element.
+          type: object
+        name:
+          description: Name of the library element.
+          type: string
+        uid:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    LibraryElementSearchResult:
+      type: object
+      title: LibraryElementSearchResult is the search result for entities.
+      properties:
+        elements:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryElementDTO'
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+    LibraryElementConnectionsResponse:
+      type: object
+      title: LibraryElementConnectionsResponse is a response struct for an array of LibraryElementConnectionDTO.
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryElementConnectionDTO'
+    LibraryElementArrayResponse:
+      type: object
+      title: LibraryElementArrayResponse is a response struct for an array of LibraryElementDTO.
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryElementDTO'
+    LibraryElementDTOMeta:
+      type: object
+      title: LibraryElementDTOMeta is the meta information for LibraryElementDTO.
+      properties:
+        connectedDashboards:
+          type: integer
+          format: int64
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
+        folderName:
+          type: string
+        folderUid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
+    LibraryElementDTO:
+      type: object
+      title: LibraryElementDTO is the frontend DTO for entities.
+      properties:
+        description:
+          type: string
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        id:
+          type: integer
+          format: int64
+        kind:
+          type: integer
+          format: int64
+        meta:
+          $ref: '#/components/schemas/LibraryElementDTOMeta'
+        model: {}
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        schemaVersion:
+          type: integer
+          format: int64
+        type:
+          type: string
+        uid:
+          type: string
+        version:
+          type: integer
+          format: int64
+    PatchLibraryElementCommand:
+      description: PatchLibraryElementCommand is the command for patching a LibraryElement
+      type: object
+      properties:
+        folderId:
+          description: 'ID of the folder where the library element is stored.
+
+
+            Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          description: UID of the folder where the library element is stored.
+          type: string
+        kind:
+          description: 'Kind of element to create, Use 1 for library panels or 2 for c.
+
+            Description:
+
+            - 1 - library panels'
+          type: integer
+          format: int64
+          enum:
+          - 1
+        model:
+          description: The JSON model for the library element.
+        name:
+          description: Name of the library element.
+          type: string
+        uid:
+          type: string
+        version:
+          description: Version of the library element you are updating.
+          type: integer
+          format: int64
+    LibraryElementConnectionDTO:
+      type: object
+      title: LibraryElementConnectionDTO is the frontend DTO for element connections.
+      properties:
+        connectionId:
+          type: integer
+          format: int64
+        connectionUid:
+          type: string
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
+        elementId:
+          type: integer
+          format: int64
+        id:
+          description: 'Deprecated: this field will be removed in the future'
+          type: integer
+          format: int64
+          x-deprecated: true
+        kind:
+          type: integer
+          format: int64
+    LibraryElementResponse:
+      type: object
+      title: LibraryElementResponse is a response struct for LibraryElementDTO.
+      properties:
+        result:
+          $ref: '#/components/schemas/LibraryElementDTO'
+    LibraryElementSearchResponse:
+      type: object
+      title: LibraryElementSearchResponse is a response struct for LibraryElementSearchResult.
+      properties:
+        result:
+          $ref: '#/components/schemas/LibraryElementSearchResult'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

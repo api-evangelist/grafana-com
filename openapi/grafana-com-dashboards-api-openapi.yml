@@ -1,0 +1,2133 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Dashboards API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Dashboards
+paths:
+  /dashboard/snapshots:
+    get:
+      tags:
+      - Dashboards
+      summary: List snapshots
+      operationId: searchDashboardSnapshots
+      parameters:
+      - description: Search Query
+        name: query
+        in: query
+        schema:
+          type: string
+      - description: Limit the number of returned results
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1000
+      responses:
+        '200':
+          $ref: '#/components/responses/searchDashboardSnapshotsResponse'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /dashboards/db:
+    post:
+      description: 'Creates a new dashboard or updates an existing dashboard.
+
+        Note: This endpoint is not intended for creating folders, use `POST /api/folders` for that.
+
+
+        Use: /apis/dashboard.grafana.app/v1/namespaces/{ns}/dashboards'
+      tags:
+      - Dashboards
+      summary: Create / Update dashboard
+      operationId: postDashboard
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/postDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '412':
+          $ref: '#/components/responses/preconditionFailedError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveDashboardCommand'
+        required: true
+  /dashboards/home:
+    get:
+      description: 'NOTE: the home dashboard is configured in preferences. This API will be removed in G13'
+      tags:
+      - Dashboards
+      operationId: getHomeDashboard
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getHomeDashboardResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      summary: Get home dashboard
+      x-summary-source: derived
+  /dashboards/import:
+    post:
+      tags:
+      - Dashboards
+      summary: Import dashboard
+      operationId: importDashboard
+      responses:
+        '200':
+          $ref: '#/components/responses/importDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '412':
+          $ref: '#/components/responses/preconditionFailedError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportDashboardRequest'
+        required: true
+  /dashboards/interpolate:
+    post:
+      tags:
+      - Dashboards
+      summary: Interpolate dashboard.
+      operationId: interpolateDashboard
+      responses:
+        '200':
+          $ref: '#/components/responses/interpolateDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /dashboards/public-dashboards:
+    get:
+      description: Get list of public dashboards
+      tags:
+      - Dashboards
+      operationId: listPublicDashboards
+      responses:
+        '200':
+          $ref: '#/components/responses/listPublicDashboardsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: List public dashboards
+      x-summary-source: derived
+  /dashboards/tags:
+    get:
+      tags:
+      - Dashboards
+      summary: Get all dashboards tags of an organization
+      operationId: getDashboardTags
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getDashboardsTagsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /dashboards/uid/{dashboardUid}/public-dashboards:
+    get:
+      description: Get public dashboard by dashboardUid
+      tags:
+      - Dashboards
+      operationId: getPublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Get public dashboard
+      x-summary-source: derived
+    post:
+      description: Create public dashboard for a dashboard
+      tags:
+      - Dashboards
+      operationId: createPublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/createPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicDashboardDTO'
+        required: true
+      summary: Create public dashboard
+      x-summary-source: derived
+  /dashboards/uid/{dashboardUid}/public-dashboards/{uid}:
+    delete:
+      description: Delete public dashboard for a dashboard
+      tags:
+      - Dashboards
+      operationId: deletePublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Delete public dashboard
+      x-summary-source: derived
+    patch:
+      description: Update public dashboard for a dashboard
+      tags:
+      - Dashboards
+      operationId: updatePublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/updatePublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicDashboardDTO'
+        required: true
+      summary: Update public dashboard
+      x-summary-source: derived
+  /dashboards/uid/{uid}:
+    get:
+      description: 'Optional query parameter `apiVersion` selects the Kubernetes API version used to load the dashboard first
+
+        (for example `v1beta1`). If that request fails, the default version is used instead. When omitted, only the default is used.
+
+
+        Will return the dashboard given the dashboard unique identifier (uid).
+
+
+        Use: /apis/dashboard.grafana.app/v1/namespaces/{ns}/dashboards/{uid}'
+      tags:
+      - Dashboards
+      summary: Get dashboard by uid
+      operationId: getDashboardByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/dashboardResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '406':
+          $ref: '#/components/responses/notAcceptableError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      description: 'Will delete the dashboard given the specified unique identifier (uid).
+
+
+        Use: /apis/dashboard.grafana.app/v1/namespaces/{ns}/dashboards/{uid}'
+      tags:
+      - Dashboards
+      summary: Delete dashboard by uid
+      operationId: deleteDashboardByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/deleteDashboardResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /dashboards/uid/{uid}/permissions:
+    get:
+      description: 'Use: /apis/dashboard.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access'
+      tags:
+      - Dashboards
+      summary: Gets all existing permissions for the given dashboard
+      operationId: getDashboardPermissionsListByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getDashboardPermissionsListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: This operation will remove existing permissions if they’re not included in the request.
+      tags:
+      - Dashboards
+      summary: Updates permissions for a dashboard
+      operationId: updateDashboardPermissionsByUID
+      deprecated: true
+      parameters:
+      - description: The dashboard UID
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDashboardACLCommand'
+        required: true
+  /dashboards/uid/{uid}/restore:
+    post:
+      description: 'This API will be removed when /apis/dashboard.grafana.app/v1 is released.
+
+        You can restore a dashboard by reading it from history, then creating it again.'
+      tags:
+      - Dashboards
+      summary: Restore a dashboard to a given dashboard version using UID
+      operationId: restoreDashboardVersionByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/postDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreDashboardVersionCommand'
+        required: true
+  /dashboards/uid/{uid}/versions:
+    get:
+      tags:
+      - Dashboards
+      summary: Gets all existing versions for the dashboard using UID
+      operationId: getDashboardVersionsByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Maximum number of results to return
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      - description: Version to start from when returning queries
+        name: start
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 0
+      responses:
+        '200':
+          $ref: '#/components/responses/dashboardVersionsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /dashboards/uid/{uid}/versions/{DashboardVersionID}:
+    get:
+      tags:
+      - Dashboards
+      summary: Get a specific dashboard version using UID
+      operationId: getDashboardVersionByUID
+      deprecated: true
+      parameters:
+      - name: DashboardVersionID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/dashboardVersionResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /public/dashboards/{accessToken}:
+    get:
+      description: Get public dashboard for view
+      tags:
+      - Dashboards
+      operationId: viewPublicDashboard
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/viewPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: View public dashboard
+      x-summary-source: derived
+  /public/dashboards/{accessToken}/annotations:
+    get:
+      description: Get annotations for a public dashboard
+      tags:
+      - Dashboards
+      operationId: getPublicAnnotations
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPublicAnnotationsResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Get public annotations
+      x-summary-source: derived
+  /public/dashboards/{accessToken}/panels/{panelId}/query:
+    post:
+      description: Get results for a given panel on a public dashboard
+      tags:
+      - Dashboards
+      operationId: queryPublicDashboard
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: panelId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/queryPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Query public dashboard
+      x-summary-source: derived
+  /snapshots:
+    post:
+      description: Snapshot public mode should be enabled or authentication is required.
+      tags:
+      - Dashboards
+      summary: When creating a snapshot using the API, you have to provide the full dashboard…
+      operationId: createDashboardSnapshot
+      responses:
+        '200':
+          $ref: '#/components/responses/createDashboardSnapshotResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDashboardSnapshotCommand'
+        required: true
+  /snapshots-delete/{deleteKey}:
+    get:
+      description: Snapshot public mode should be enabled or authentication is required.
+      tags:
+      - Dashboards
+      summary: Delete Snapshot by deleteKey
+      operationId: deleteDashboardSnapshotByDeleteKey
+      parameters:
+      - name: deleteKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /snapshots/{key}:
+    get:
+      tags:
+      - Dashboards
+      summary: Get Snapshot by Key
+      operationId: getDashboardSnapshot
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getDashboardSnapshotResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      tags:
+      - Dashboards
+      summary: Delete Snapshot by Key
+      operationId: deleteDashboardSnapshot
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  schemas:
+    Json:
+      type: object
+    Source:
+      type: string
+      title: Source type defines the status source.
+    AnnotationPermission:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/AnnotationActions'
+    Frame:
+      description: 'Each Field is well typed by its FieldType and supports optional Labels.
+
+
+        A Frame is a general data container for Grafana. A Frame can be table data
+
+        or time series data depending on its content and field types.'
+      type: object
+      title: Frame is a columnar data structure where each column is a Field.
+      properties:
+        Fields:
+          description: 'Fields are the columns of a frame.
+
+            All Fields must be of the same the length when marshalling the Frame for transmission.
+
+            There should be no `nil` entries in the Fields slice (making them pointers was a mistake).'
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        Meta:
+          $ref: '#/components/schemas/FrameMeta'
+        Name:
+          description: Name is used in some Grafana visualizations.
+          type: string
+        RefID:
+          description: RefID is a property that can be set to match a Frame to its originating query.
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    DashboardaccessPermissionType:
+      type: integer
+      format: int64
+    PublicDashboardListResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        dashboardUid:
+          type: string
+        isEnabled:
+          type: boolean
+        slug:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+    DataSourceRef:
+      description: Ref to a DataSource instance
+      type: object
+      properties:
+        type:
+          description: The plugin type-id
+          type: string
+        uid:
+          description: Specific datasource instance
+          type: string
+    Unstructured:
+      description: 'Unstructured allows objects that do not have Golang structs registered to be manipulated
+
+        generically.'
+      type: object
+      properties:
+        Object:
+          description: 'Object is a JSON compatible map with string, float, int, bool, []any,
+
+            or map[string]any children.'
+          type: object
+          additionalProperties: {}
+    QueryStat:
+      description: 'The embedded FieldConfig''s display name must be set.
+
+        It corresponds to the QueryResultMetaStat on the frontend (https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L53).'
+      type: object
+      title: QueryStat is used for storing arbitrary statistics metadata related to a query and its result, e.g. total request time, data processing time.
+      properties:
+        color:
+          description: 'Map values to a display color
+
+            NOTE: this interface is under development in the frontend... so simple map for now'
+          type: object
+          additionalProperties: {}
+        custom:
+          description: Panel Specific Values
+          type: object
+          additionalProperties: {}
+        decimals:
+          type: integer
+          format: uint16
+        description:
+          description: Description is human readable field metadata
+          type: string
+        displayName:
+          description: DisplayName overrides Grafana default naming, should not be used from a data source
+          type: string
+        displayNameFromDS:
+          description: DisplayNameFromDS overrides Grafana default naming strategy.
+          type: string
+        filterable:
+          description: Filterable indicates if the Field's data can be filtered by additional calls.
+          type: boolean
+        interval:
+          description: 'Interval indicates the expected regular step between values in the series.
+
+            When an interval exists, consumers can identify "missing" values when the expected value is not present.
+
+            The grafana timeseries visualization will render disconnected values when missing values are found it the time field.
+
+            The interval uses the same units as the values.  For time.Time, this is defined in milliseconds.'
+          type: number
+          format: double
+        links:
+          description: The behavior when clicking on a result
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLink'
+        mappings:
+          $ref: '#/components/schemas/ValueMappings'
+        max:
+          $ref: '#/components/schemas/ConfFloat64'
+        min:
+          $ref: '#/components/schemas/ConfFloat64'
+        noValue:
+          description: Alternative to empty string
+          type: string
+        path:
+          description: 'Path is an explicit path to the field in the datasource. When the frame meta includes a path,
+
+            this will default to `${frame.meta.path}/${field.name}
+
+
+            When defined, this value can be used as an identifier within the datasource scope, and
+
+            may be used as an identifier to update values in a subsequent request'
+          type: string
+        thresholds:
+          $ref: '#/components/schemas/ThresholdsConfig'
+        type:
+          $ref: '#/components/schemas/FieldTypeConfig'
+        unit:
+          description: Numeric Options
+          type: string
+        value:
+          type: number
+          format: double
+        writeable:
+          description: Writeable indicates that the datasource knows how to update this value
+          type: boolean
+    ImportDashboardInput:
+      type: object
+      title: ImportDashboardInput definition of input parameters when importing a dashboard.
+      properties:
+        name:
+          type: string
+        pluginId:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+    GetHomeDashboardResponse:
+      title: Get home dashboard response.
+      allOf:
+      - type: object
+        properties:
+          dashboard:
+            $ref: '#/components/schemas/Json'
+          meta:
+            $ref: '#/components/schemas/DashboardMeta'
+      - type: object
+        properties:
+          redirectUri:
+            type: string
+    ImportDashboardResponse:
+      type: object
+      title: ImportDashboardResponse response object returned when importing a dashboard.
+      properties:
+        dashboardId:
+          type: integer
+          format: int64
+        description:
+          type: string
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        imported:
+          type: boolean
+        importedRevision:
+          type: integer
+          format: int64
+        importedUri:
+          type: string
+        importedUrl:
+          type: string
+        path:
+          type: string
+        pluginId:
+          type: string
+        removed:
+          type: boolean
+        revision:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+    AnnotationQuery:
+      description: 'TODO docs
+
+        FROM: AnnotationQuery in grafana-data/src/types/annotations.ts'
+      type: object
+      properties:
+        builtIn:
+          description: Set to 1 for the standard annotation query all dashboards have by default.
+          type: number
+          format: double
+        datasource:
+          $ref: '#/components/schemas/DataSourceRef'
+        enable:
+          description: When enabled the annotation query is issued with every dashboard refresh
+          type: boolean
+        filter:
+          $ref: '#/components/schemas/AnnotationPanelFilter'
+        hide:
+          description: 'Annotation queries can be toggled on or off at the top of the dashboard.
+
+            When hide is true, the toggle is not shown in the dashboard.'
+          type: boolean
+        iconColor:
+          description: Color to use for the annotation event markers
+          type: string
+        name:
+          description: Name of annotation.
+          type: string
+        placement:
+          description: Placement can be used to display the annotation query somewhere else on the dashboard other than the default location.
+          type: string
+        target:
+          $ref: '#/components/schemas/AnnotationTarget'
+        type:
+          description: TODO -- this should not exist here, it is based on the --grafana-- datasource
+          type: string
+    FieldConfig:
+      type: object
+      title: FieldConfig represents the display properties for a Field.
+      properties:
+        color:
+          description: 'Map values to a display color
+
+            NOTE: this interface is under development in the frontend... so simple map for now'
+          type: object
+          additionalProperties: {}
+        custom:
+          description: Panel Specific Values
+          type: object
+          additionalProperties: {}
+        decimals:
+          type: integer
+          format: uint16
+        description:
+          description: Description is human readable field metadata
+          type: string
+        displayName:
+          description: DisplayName overrides Grafana default naming, should not be used from a data source
+          type: string
+        displayNameFromDS:
+          description: DisplayNameFromDS overrides Grafana default naming strategy.
+          type: string
+        filterable:
+          description: Filterable indicates if the Field's data can be filtered by additional calls.
+          type: boolean
+        interval:
+          description: 'Interval indicates the expected regular step between values in the series.
+
+            When an interval exists, consumers can identify "missing" values when the expected value is not present.
+
+            The grafana timeseries visualization will render disconnected values when missing values are found it the time field.
+
+            The interval uses the same units as the values.  For time.Time, this is defined in milliseconds.'
+          type: number
+          format: double
+        links:
+          description: The behavior when clicking on a result
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLink'
+        mappings:
+          $ref: '#/components/schemas/ValueMappings'
+        max:
+          $ref: '#/components/schemas/ConfFloat64'
+        min:
+          $ref: '#/components/schemas/ConfFloat64'
+        noValue:
+          description: Alternative to empty string
+          type: string
+        path:
+          description: 'Path is an explicit path to the field in the datasource. When the frame meta includes a path,
+
+            this will default to `${frame.meta.path}/${field.name}
+
+
+            When defined, this value can be used as an identifier within the datasource scope, and
+
+            may be used as an identifier to update values in a subsequent request'
+          type: string
+        thresholds:
+          $ref: '#/components/schemas/ThresholdsConfig'
+        type:
+          $ref: '#/components/schemas/FieldTypeConfig'
+        unit:
+          description: Numeric Options
+          type: string
+        writeable:
+          description: Writeable indicates that the datasource knows how to update this value
+          type: boolean
+    Responses:
+      description: 'The QueryData method the QueryDataHandler method will set the RefId
+
+        property on the DataResponses'' frames based on these RefIDs.'
+      type: object
+      title: Responses is a map of RefIDs (Unique Query ID) to DataResponses.
+      additionalProperties:
+        $ref: '#/components/schemas/DataResponse'
+    FrameType:
+      description: 'A FrameType string, when present in a frame''s metadata, asserts that the
+
+        frame''s structure conforms to the FrameType''s specification.
+
+        This property is currently optional, so FrameType may be FrameTypeUnknown even if the properties of
+
+        the Frame correspond to a defined FrameType.'
+      type: string
+    DashboardVersionMeta:
+      description: 'DashboardVersionMeta extends the DashboardVersionDTO with the names
+
+        associated with the UserIds, overriding the field with the same name from
+
+        the DashboardVersionDTO model.'
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        dashboardId:
+          type: integer
+          format: int64
+        data:
+          $ref: '#/components/schemas/Json'
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        parentVersion:
+          type: integer
+          format: int64
+        restoredFrom:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        version:
+          type: integer
+          format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    DashboardMeta:
+      type: object
+      properties:
+        annotationsPermissions:
+          $ref: '#/components/schemas/AnnotationPermission'
+        apiVersion:
+          type: string
+        canAdmin:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+        canSave:
+          type: boolean
+        canStar:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderTitle:
+          type: string
+        folderUid:
+          type: string
+        folderUrl:
+          type: string
+        hasAcl:
+          type: boolean
+        isFolder:
+          type: boolean
+        isSnapshot:
+          type: boolean
+        provisioned:
+          type: boolean
+        provisionedExternalId:
+          type: string
+        publicDashboardEnabled:
+          type: boolean
+        slug:
+          type: string
+        type:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        url:
+          type: string
+        version:
+          type: integer
+          format: int64
+    PublicDashboardDTO:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        annotationsEnabled:
+          type: boolean
+        isEnabled:
+          type: boolean
+        share:
+          $ref: '#/components/schemas/ShareType'
+        timeSelectionEnabled:
+          type: boolean
+        uid:
+          type: string
+    Notice:
+      type: object
+      title: Notice provides a structure for presenting notifications in Grafana's user interface.
+      properties:
+        inspect:
+          $ref: '#/components/schemas/InspectType'
+        link:
+          description: 'Link is an optional link for display in the user interface and can be an
+
+            absolute URL or a path relative to Grafana''s root url.'
+          type: string
+        severity:
+          $ref: '#/components/schemas/NoticeSeverity'
+        text:
+          description: Text is freeform descriptive text for the notice.
+          type: string
+    ThresholdsMode:
+      description: ThresholdsMode absolute or percentage
+      type: string
+    AnnotationEvent:
+      type: object
+      properties:
+        color:
+          type: string
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isRegion:
+          type: boolean
+        panelId:
+          type: integer
+          format: int64
+        source:
+          $ref: '#/components/schemas/AnnotationQuery'
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    DataTopic:
+      type: string
+      title: DataTopic is used to identify which topic the frame should be assigned to.
+    UpdateDashboardACLCommand:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardACLUpdateItem'
+    Status:
+      type: integer
+      format: int64
+    LinkTransformationConfig:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          $ref: '#/components/schemas/SupportedTransformationTypes'
+    FrameTypeVersion:
+      type: array
+      title: FrameType is a 2 number version (Major / Minor).
+      items:
+        type: integer
+        format: uint64
+    ExplorePanelsState:
+      description: This is an object constructed with the keys as the values of the enum VisType and the value being a bag of properties
+    AnnotationTarget:
+      description: 'TODO: this should be a regular DataQuery that depends on the selected dashboard
+
+        these match the properties of the "grafana" datasouce that is default in most dashboards'
+      type: object
+      properties:
+        limit:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: integer
+          format: int64
+        matchAny:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: boolean
+        tags:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: array
+          items:
+            type: string
+        type:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: string
+    CreateDashboardSnapshotCommand:
+      type: object
+      required:
+      - dashboard
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation of an object.
+
+            Servers should convert recognized schemas to the latest internal value, and
+
+            may reject unrecognized values.
+
+            More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        dashboard:
+          $ref: '#/components/schemas/Unstructured'
+        deleteKey:
+          description: Unique key used to delete the snapshot. It is different from the `key` so that only the creator can delete the snapshot. Required if `external` is `true`.
+          type: string
+        expires:
+          description: When the snapshot should expire in seconds in seconds. Default is never to expire.
+          type: integer
+          format: int64
+          default: 0
+        external:
+          description: 'these are passed when storing an external snapshot ref
+
+            Save the snapshot on an external server rather than locally.'
+          type: boolean
+          default: false
+        key:
+          description: Define the unique key. Required if `external` is `true`.
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this object represents.
+
+            Servers may infer this from the endpoint the client submits requests to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        name:
+          description: Snapshot name
+          type: string
+    DashboardTagCloudItem:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        term:
+          type: string
+    PublicDashboardListResponseWithPagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        publicDashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicDashboardListResponse'
+        totalCount:
+          type: integer
+          format: int64
+    DashboardACLInfoDTO:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        dashboardId:
+          type: integer
+          format: int64
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        inherited:
+          type: boolean
+        isFolder:
+          type: boolean
+        permission:
+          $ref: '#/components/schemas/DashboardaccessPermissionType'
+        permissionName:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        slug:
+          type: string
+        team:
+          type: string
+        teamAvatarUrl:
+          type: string
+        teamEmail:
+          type: string
+        teamId:
+          type: integer
+          format: int64
+        teamUid:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        url:
+          type: string
+        userAvatarUrl:
+          type: string
+        userEmail:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        userLogin:
+          type: string
+        userUid:
+          type: string
+    PublicDashboard:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        annotationsEnabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: integer
+          format: int64
+        dashboardUid:
+          type: string
+        isEnabled:
+          type: boolean
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDTO'
+        share:
+          $ref: '#/components/schemas/ShareType'
+        timeSelectionEnabled:
+          type: boolean
+        uid:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: integer
+          format: int64
+    DashboardFullWithMeta:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Json'
+        meta:
+          $ref: '#/components/schemas/DashboardMeta'
+    VisType:
+      type: string
+      title: VisType is used to indicate how the data should be visualized in explore.
+    ImportDashboardRequest:
+      type: object
+      title: ImportDashboardRequest request object for importing a dashboard.
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Json'
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        inputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportDashboardInput'
+        overwrite:
+          type: boolean
+        path:
+          type: string
+        pluginId:
+          type: string
+    ValueMapping:
+      description: ValueMapping allows mapping input values to text and color
+      type: object
+    FieldTypeConfig:
+      description: FieldTypeConfig has type specific configs, only one should be active at a time
+      type: object
+      properties:
+        enum:
+          $ref: '#/components/schemas/EnumFieldConfig'
+    SaveDashboardCommand:
+      type: object
+      properties:
+        UpdatedAt:
+          type: string
+          format: date-time
+        dashboard:
+          $ref: '#/components/schemas/Json'
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        isFolder:
+          type: boolean
+        message:
+          type: string
+        overwrite:
+          type: boolean
+        userId:
+          type: integer
+          format: int64
+    EmailDTO:
+      type: object
+      properties:
+        recipient:
+          type: string
+        uid:
+          type: string
+    DashboardACLUpdateItem:
+      type: object
+      properties:
+        permission:
+          $ref: '#/components/schemas/DashboardaccessPermissionType'
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        teamId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+    AnnotationActions:
+      type: object
+      properties:
+        canAdd:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+    SupportedTransformationTypes:
+      type: string
+    DataResponse:
+      description: 'A map of RefIDs (unique query identifiers) to this type makes up the Responses property of a QueryDataResponse.
+
+        The Error property is used to allow for partial success responses from the containing QueryDataResponse.'
+      type: object
+      title: DataResponse contains the results from a DataQuery.
+      properties:
+        Error:
+          description: Error is a property to be set if the corresponding DataQuery has an error.
+          type: string
+        ErrorSource:
+          $ref: '#/components/schemas/Source'
+        Frames:
+          $ref: '#/components/schemas/Frames'
+        Status:
+          $ref: '#/components/schemas/Status'
+    TimeRange:
+      description: Redefining this to avoid an import cycle
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+    FrameMeta:
+      description: 'https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L11
+
+        NOTE -- in javascript this can accept any `[key: string]: any;` however
+
+        this interface only exposes the values we want to be exposed'
+      type: object
+      title: 'FrameMeta matches:'
+      properties:
+        channel:
+          description: Channel is the path to a stream in grafana live that has real-time updates for this data.
+          type: string
+        custom:
+          description: Custom datasource specific values.
+        dataTopic:
+          $ref: '#/components/schemas/DataTopic'
+        executedQueryString:
+          description: 'ExecutedQueryString is the raw query sent to the underlying system. All macros and templating
+
+            have been applied.  When metadata contains this value, it will be shown in the query inspector.'
+          type: string
+        notices:
+          description: 'Notices provide additional information about the data in the Frame that
+
+            Grafana can display to the user in the user interface.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Notice'
+        path:
+          description: Path is a browsable path on the datasource.
+          type: string
+        pathSeparator:
+          description: PathSeparator defines the separator pattern to decode a hierarchy. The default separator is '/'.
+          type: string
+        preferredVisualisationPluginId:
+          description: 'PreferredVisualizationPluginId sets the panel plugin id to use to render the data when using Explore. If
+
+            the plugin cannot be found will fall back to PreferredVisualization.'
+          type: string
+        preferredVisualisationType:
+          $ref: '#/components/schemas/VisType'
+        stats:
+          description: Stats is an array of query result statistics.
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryStat'
+        type:
+          $ref: '#/components/schemas/FrameType'
+        typeVersion:
+          $ref: '#/components/schemas/FrameTypeVersion'
+        uniqueRowIdFields:
+          description: 'Array of field indices which values create a unique id for each row. Ideally this should be globally unique ID
+
+            but that isn''t guarantied. Should help with keeping track and deduplicating rows in visualizations, especially
+
+            with streaming data with frequent updates.'
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: TraceID in Tempo, table name + primary key in SQL
+    InspectType:
+      type: integer
+      format: int64
+      title: InspectType is a type for the Inspect property of a Notice.
+    FrameLabels:
+      description: Labels are used to add metadata to an object.  The JSON will always be sorted keys
+      type: object
+      additionalProperties:
+        type: string
+    AnnotationPanelFilter:
+      type: object
+      properties:
+        exclude:
+          description: Should the specified panels be included or excluded
+          type: boolean
+        ids:
+          description: Panel IDs that should be included or excluded
+          type: array
+          items:
+            type: integer
+            format: uint8
+    ThresholdsConfig:
+      description: ThresholdsConfig setup thresholds
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/ThresholdsMode'
+        steps:
+          description: Must be sorted by 'value', first value is always -Infinity
+          type: array
+          items:
+            $ref: '#/components/schemas/Threshold'
+    DashboardSnapshotDTO:
+      description: DashboardSnapshotDTO without dashboard map
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        expires:
+          type: string
+          format: date-time
+        external:
+          type: boolean
+        externalUrl:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        updated:
+          type: string
+          format: date-time
+    InternalDataLink:
+      description: InternalDataLink definition to allow Explore links to be constructed in the backend
+      type: object
+      properties:
+        datasourceName:
+          type: string
+        datasourceUid:
+          type: string
+        panelsState:
+          $ref: '#/components/schemas/ExplorePanelsState'
+        query: {}
+        timeRange:
+          $ref: '#/components/schemas/TimeRange'
+        transformations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkTransformationConfig'
+    Field:
+      description: 'A Field is essentially a slice of various types with extra properties and methods.
+
+        See NewField() for supported types.
+
+
+        The slice data in the Field is a not exported, so methods on the Field are used to to manipulate its data.'
+      type: object
+      title: Field represents a typed column of data within a Frame.
+      properties:
+        config:
+          $ref: '#/components/schemas/FieldConfig'
+        labels:
+          $ref: '#/components/schemas/FrameLabels'
+        name:
+          description: 'Name is default identifier of the field. The name does not have to be unique, but the combination
+
+            of name and Labels should be unique for proper behavior in all situations.'
+          type: string
+    NoticeSeverity:
+      type: integer
+      format: int64
+      title: NoticeSeverity is a type for the Severity property of a Notice.
+    QueryDataResponse:
+      description: It is the return type of a QueryData call.
+      type: object
+      title: QueryDataResponse contains the results from a QueryDataRequest.
+      properties:
+        results:
+          $ref: '#/components/schemas/Responses'
+    DataLink:
+      description: DataLink define what
+      type: object
+      properties:
+        internal:
+          $ref: '#/components/schemas/InternalDataLink'
+        targetBlank:
+          type: boolean
+        title:
+          type: string
+        url:
+          type: string
+    Frames:
+      description: 'It is the main data container within a backend.DataResponse.
+
+        There should be no `nil` entries in the Frames slice (making them pointers was a mistake).'
+      type: array
+      title: Frames is a slice of Frame pointers.
+      items:
+        $ref: '#/components/schemas/Frame'
+    ConfFloat64:
+      description: 'ConfFloat64 is a float64. It Marshals float64 values of NaN of Inf
+
+        to null.'
+      type: number
+      format: double
+    EnumFieldConfig:
+      description: 'Enum field config
+
+        Vector values are used as lookup keys into the enum fields'
+      type: object
+      properties:
+        color:
+          description: Color is the color value for a given index (empty is undefined)
+          type: array
+          items:
+            type: string
+        description:
+          description: Description of the enum state
+          type: array
+          items:
+            type: string
+        icon:
+          description: Icon supports setting an icon for a given index value
+          type: array
+          items:
+            type: string
+        text:
+          description: Value is the string display value for a given index
+          type: array
+          items:
+            type: string
+    ValueMappings:
+      type: array
+      items:
+        $ref: '#/components/schemas/ValueMapping'
+    publicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      required:
+      - statusCode
+      - messageId
+      properties:
+        extra:
+          description: Extra Additional information about the error
+          type: object
+          additionalProperties: {}
+        message:
+          description: Message A human readable message
+          type: string
+        messageId:
+          description: MessageID A unique identifier for the error
+          type: string
+        statusCode:
+          description: StatusCode The HTTP status code returned
+          type: integer
+          format: int64
+    Threshold:
+      description: Threshold a single step on the threshold list
+      type: object
+      properties:
+        color:
+          type: string
+        state:
+          type: string
+        value:
+          $ref: '#/components/schemas/ConfFloat64'
+    DashboardVersionResponseMeta:
+      type: object
+      properties:
+        continueToken:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardVersionMeta'
+    RestoreDashboardVersionCommand:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int64
+    ShareType:
+      type: string
+  responses:
+    notAcceptableError:
+      description: NotAcceptableError is returned when the server cannot produce a response matching the accepted formats.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    interpolateDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema: {}
+    dashboardVersionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardVersionResponseMeta'
+    getPublicAnnotationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AnnotationEvent'
+    badRequestPublicError:
+      description: BadRequestPublicError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    searchDashboardSnapshotsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardSnapshotDTO'
+    viewPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardFullWithMeta'
+    getDashboardPermissionsListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardACLInfoDTO'
+    dashboardVersionResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardVersionMeta'
+    createPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    dashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardFullWithMeta'
+    listPublicDashboardsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboardListResponseWithPagination'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerPublicError:
+      description: InternalServerPublicError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    createDashboardSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              deleteKey:
+                description: Unique key used to delete the snapshot. It is different from the key so that only the creator can delete the snapshot.
+                type: string
+              deleteUrl:
+                type: string
+              id:
+                description: Snapshot id
+                type: integer
+                format: int64
+              key:
+                description: Unique key
+                type: string
+              url:
+                type: string
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    updatePublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    deleteDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - uid
+            - title
+            - message
+            properties:
+              message:
+                description: Message Message of the deleted dashboard.
+                type: string
+                example: Dashboard My Dashboard deleted
+              title:
+                description: Title Title of the deleted dashboard.
+                type: string
+                example: My Dashboard
+              uid:
+                description: UID Identifier of the deleted dashboard.
+                type: string
+                example: '65'
+    getDashboardsTagsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardTagCloudItem'
+    getPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    preconditionFailedError:
+      description: PreconditionFailedError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundPublicError:
+      description: NotFoundPublicError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    importDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ImportDashboardResponse'
+    postDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - status
+            - title
+            - version
+            - id
+            - uid
+            - url
+            properties:
+              folderUid:
+                description: FolderUID The unique identifier (uid) of the folder the dashboard belongs to.
+                type: string
+              id:
+                description: ID The unique identifier (id) of the created/updated dashboard.
+                type: integer
+                format: int64
+                example: 1
+              status:
+                description: Status status of the response.
+                type: string
+                example: success
+              title:
+                description: Slug The slug of the dashboard.
+                type: string
+                example: my-dashboard
+              uid:
+                description: UID The unique identifier (uid) of the created/updated dashboard.
+                type: string
+                example: nHz3SXiiz
+              url:
+                description: URL The relative URL for accessing the created/updated dashboard.
+                type: string
+                example: /d/nHz3SXiiz/my-dashboard
+              version:
+                description: Version The version of the dashboard.
+                type: integer
+                format: int64
+                example: 2
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getHomeDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetHomeDashboardResponse'
+    getDashboardSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardFullWithMeta'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unauthorisedPublicError:
+      description: UnauthorisedPublicError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    forbiddenPublicError:
+      description: ForbiddenPublicError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    queryPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryDataResponse'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,118 @@
+---
+title: "Grafana Learn | Grafana Labs"
+description: "Understand. Connect. Operate with confidence."
+---
+
+> For a curated documentation index, see [llms.txt](/llms.txt). For the complete documentation index, see [llms-full.txt](/llms-full.txt).
+
+# Grafana Learn
+
+Understand. Connect. Operate with confidence. Go from “where do I start?” to “I’ve got this.”
+
+- 19 journeys
+- 72 paths
+- Something for everyone
+
+![A folded journey map with a plotted route, a location marker, and Grafana chart panels.](/media/docs/learning-journey/map.svg)
+
+## Resume your journey
+
+[Continue your journey Next up: of slides Resume]() [Keep going ·]()
+
+## Start from here
+
+Wherever “here” is. Pick the door that matches where you are today.
+
+[**Get started**  
+\
+Build foundational Grafana Cloud skills step by step.  
+\
+Start here](/docs/learning-hub/get-started-grafana-cloud/) [**Browse learning**  
+\
+Browse journeys, paths, and topics to find what you need.  
+\
+Browse](#learning-paths)
+
+## What do you want to learn?
+
+Find what you're looking for fast by searching here.
+
+Search
+
+Searching…
+
+ [·]()
+
+No matches. Try a product or task, or browse the catalog below.
+
+See all results for “”
+
+Popular: Kubernetes monitoring Set up alerting LogQL queries Build a dashboard
+
+## Browse the catalog
+
+Filter by topic, product, or level to narrow your search.
+
+Filter the catalog
+
+Active filters: Clear all
+
+### Filter the catalog
+
+Product
+
+Level
+
+Format
+
+Clear all
+
+· scroll for more
+
+Sort by: PopularityTitle A–ZRecently added
+
+Grafana Cloud onboardingTour Grafana CloudMonitor a Linux serverMonitor a macOS systemMonitor HAProxy load balancersConnect to a GitHub data sourceConnect to a Google Sheets data sourceCreate a private connectionInstrument your applications with BeylaMonitor a Windows systemMonitor IIS web serversConnect to a Prometheus data sourceMonitor MySQL with Grafana AlloySend traces using AlloyVisualize GitHub dataConnect to a MySQL data sourceConnect to InfluxDBConnect to ElasticsearchConnect to a Tempo data sourceConnect to CloudWatchConnect to a ClickHouse data sourceMonitor PostgreSQL with Grafana AlloyMySQL Database ObservabilityPostgreSQL Database ObservabilityConnect to a PostgreSQL data sourceSend logs to Grafana Cloud using AlloySend metrics using Prometheus remote writeMonitor MongoDB with Grafana CloudMonitor Kafka with Grafana CloudKubernetes MonitoringVisualize CSV dataCategorize a collector fleetConfigure Grafana Cloud using TerraformVisualize JSON dataFirst alert ruleOptimize Adaptive MetricsOptimize Adaptive LogsFirst alert rule with query languageUse Git Sync to manage resourcesWork with dashboards using Git SyncBuild a dashboard with the Foundation SDKDeploy a dashboard with TerraformCreate interactive dashboards with variablesMetrics DrilldownLogs DrilldownMonitor AWS resourcesTransform dataExplore Elasticsearch logsMonitor Azure resources with Grafana CloudConfigure Grafana IRMProfiles DrilldownInvestigate incidents with RCA WorkbenchIdentify high latency service requestsRead a traceDeploy an alert rule with TerraformBilling and usageVisualize metricsVisualize logsVisualize tracesMonitor collector healthStage a rollout with Fleet ManagementCreate infrastructure alertsDetect customer-visible outages using Synthetic MonitoringGet started with Grafana AssistantCreate an availability SLORun your first k6 performance testEstablish a k6 baselineFind system limits with k6k6 spike testingAutomate k6 in CI/CDk6 soak testingk6 script authoringGet started with Grafana CloudWhich Grafana is right for you?Introduction to Grafana CloudDesign a labeling strategy to control cardinalityIntroduction to monitoring databasesIntroduction to integrationsIntroduction to Grafana AssistantIntroduction to data sourcesIntroduction to monitoring cloud provider dataIntroduction to Grafana AlloyDashboards as Code with the Foundation SDK and TerraformIntroduction to Grafana AlertingSend data from external collectorsDashboards as Code with the Foundation SDK and Git SyncIntroduction to tracingDeploy Grafana resources as Code with TerraformGetting started with k6 performance testingManage your collectors at scale with Fleet ManagementInvestigate metrics and logs with Drilldown
+
+![](/static/img/menu/cloud.svg) Grafana Cloud Grafana Cloud onboarding Path Beginner 12 min ![](/static/img/menu/cloud.svg) Grafana Cloud Tour Grafana Cloud Path Beginner 13 min ![](/media/docs/learning-journey/linux/linux-journey-2.png) Grafana Monitor a Linux server Path Beginner 19 min ![](/media/docs/learning-journey/macos/grafana-apple-icon.png) Grafana Monitor a macOS system Path Beginner 14 min ![](/static/img/menu/grafana2.svg) Grafana Monitor HAProxy load balancers Path Beginner 14 min ![](/static/img/logos/icon_github-dark.svg) Grafana Connect to a GitHub data source Path Beginner 8 min ![](/static/img/logos/google.svg) Grafana Connect to a Google Sheets data source Path Beginner 11 min ![](/static/img/logos/logo-learning-journey-pdc.svg) Grafana Create a private connection Path Beginner 9 min ![](https://grafana.com/static/img/logos/beyla-logo.svg) Grafana Instrument your applications with Beyla Path Beginner 9 min ![](/static/img/menu/grafana2.svg) Grafana Monitor a Windows system Path Beginner 13 min ![](/static/img/menu/grafana2.svg) Grafana Monitor IIS web servers Path Beginner 18 min ![](/static/img/menu/prometheus.svg) Prometheus Connect to a Prometheus data source Path Beginner 10 min ![](/static/img/logos/MySQL.png) Grafana Monitor MySQL with Grafana Alloy Path Beginner 16 min ![](/static/img/menu/grafana-tempo.svg) Grafana Tempo Send traces using Alloy Path Beginner 14 min ![](/static/img/logos/icon_github-dark.svg) Grafana Visualize GitHub data Path Beginner 10 min ![](/static/img/logos/MySQL.png) Grafana Connect to a MySQL data source Path Beginner 11 min ![](/static/img/menu/grafana2.svg) Grafana Connect to InfluxDB Path Beginner 13 min ![](/static/img/logos/icon_elasticsearch.svg) Grafana Connect to Elasticsearch Path Beginner 12 min ![](/static/img/menu/grafana2.svg) Grafana Connect to a Tempo data source Path Beginner 16 min ![](/static/img/menu/grafana2.svg) Grafana Connect to CloudWatch Path Beginner 15 min ![](/static/img/logos/clickhouse.png) Grafana Connect to a ClickHouse data source Path Beginner 14 min ![](/static/img/logos/postgresql_elephant_icon.svg) Grafana Monitor PostgreSQL with Grafana Alloy Path Beginner 18 min ![](/static/img/logos/MySQL.png) Grafana MySQL Database Observability Path Intermediate 13 min ![](/static/img/menu/grafana2.svg) Grafana PostgreSQL Database Observability Path Intermediate 13 min ![](/static/img/logos/postgresql_elephant_icon.svg) Grafana Connect to a PostgreSQL data source Path Beginner 11 min ![](/media/docs/alloy/alloy_icon.png) Grafana Alloy Send logs to Grafana Cloud using Alloy Path Beginner 12 min ![](/static/img/menu/prometheus.svg) Prometheus Send metrics using Prometheus remote write Path Beginner 8 min ![](/static/img/menu/grafana2.svg) Grafana Monitor MongoDB with Grafana Cloud Path Beginner 17 min ![](/static/img/menu/grafana2.svg) Grafana Monitor Kafka with Grafana Cloud Path Beginner 22 min ![](/static/img/logos/logo-kubernetes.svg) Kubernetes Kubernetes Monitoring Path Beginner 13 min ![](/static/img/menu/infinity-logo.png) Grafana Visualize CSV data Path Beginner 10 min ![](/static/img/menu/icon_fleet.svg) Grafana Categorize a collector fleet Path Intermediate 9 min ![](/static/img/menu/grafana2.svg) Grafana Configure Grafana Cloud using Terraform Path Intermediate 18 min ![](/static/img/menu/infinity-logo.png) Grafana Visualize JSON data Path Beginner 15 min ![](/static/img/menu/grafana2.svg) Grafana First alert rule Path Beginner 12 min ![](/static/img/menu/grafana2.svg) Grafana Optimize Adaptive Metrics Path Beginner 10 min ![](/static/img/menu/grafana2.svg) Grafana Optimize Adaptive Logs Path Beginner 15 min ![](/static/img/menu/grafana2.svg) Grafana First alert rule with query language Path Intermediate 14 min ![](/static/img/menu/gitsync.svg) Grafana Use Git Sync to manage resources Path Beginner 10 min ![](/static/img/menu/gitsync.svg) Grafana Work with dashboards using Git Sync Path Beginner 16 min ![](/static/img/menu/grafana2.svg) Grafana Build a dashboard with the Foundation SDK Path Intermediate 11 min ![](/static/img/menu/grafana2.svg) Grafana Deploy a dashboard with Terraform Path Intermediate 14 min ![](/static/img/menu/grafana2.svg) Grafana Create interactive dashboards with variables Path Beginner 16 min ![](/static/img/menu/drilldown_icon_2.svg) Grafana Metrics Drilldown Path Beginner 11 min ![](/static/img/menu/drilldown_icon_5_logs.svg) Grafana Logs Drilldown Path Beginner 13 min ![](/media/docs/grafana-cloud/cloud-provider/CP_logo.svg) Grafana Cloud Monitor AWS resources Path Beginner 13 min ![](/static/img/menu/icon_datatransf.svg) Grafana Transform data Path Beginner 15 min ![](/static/img/logos/icon_elasticsearch.svg) Grafana Explore Elasticsearch logs Path Beginner 11 min ![](/media/docs/grafana-cloud/cloud-provider/CP_logo.svg) Grafana Cloud Monitor Azure resources with Grafana Cloud Path Beginner 18 min ![](/static/img/menu/grafana2.svg) Grafana Configure Grafana IRM Path Beginner 18 min ![](/static/img/menu/drilldown_icon_2.svg) Grafana Profiles Drilldown Path Beginner 10 min ![](/media/docs/grafana-cloud/asserts/asserts-icon.svg) Grafana Knowledge Graph Investigate incidents with RCA Workbench Path Intermediate 14 min ![](/static/img/menu/drilldown_icon_4.svg) Grafana Identify high latency service requests Path Beginner 12 min ![](/static/img/menu/drilldown_icon_4.svg) Grafana Read a trace Path Beginner 15 min ![](/static/img/menu/grafana2.svg) Grafana Deploy an alert rule with Terraform Path Advanced 17 min ![](/static/img/menu/grafana2.svg) Grafana Billing and usage Path Beginner 18 min ![](/static/img/menu/cloud-dashboards.svg) Grafana Visualize metrics Path Beginner 13 min ![](/static/img/menu/icon_logs.svg) Grafana Visualize logs Path Beginner 15 min ![](/static/img/menu/cloud-dashboards.svg) Grafana Visualize traces Path Beginner 16 min ![](/static/img/menu/icon_fleet.svg) Grafana Monitor collector health Path Beginner 11 min ![](/static/img/menu/icon_fleet.svg) Grafana Stage a rollout with Fleet Management Path Intermediate 11 min ![](/media/docs/alerting/alerting-bell-icon.png) Grafana Alerting Create infrastructure alerts Path Beginner 20 min ![](/media/docs/grafana-cloud/synthetic-monitoring/synthetic-monitoring-orange-icon.svg) Grafana Detect customer-visible outages using Synthetic Monitoring Path Beginner 11 min ![](/static/img/menu/cloud.svg) Grafana Cloud Get started with Grafana Assistant Path Beginner 12 min ![](/static/img/menu/grafana2.svg) Grafana Create an availability SLO Path Beginner 14 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 Run your first k6 performance test Path Beginner 11 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 Establish a k6 baseline Path Beginner 19 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 Find system limits with k6 Path Intermediate 24 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 k6 spike testing Path Intermediate 26 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 Automate k6 in CI/CD Path Intermediate 18 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 k6 soak testing Path Intermediate 19 min ![](/media/docs/k6/GrafanaLogo_k6_orange_icon.svg) Grafana k6 k6 script authoring Path Intermediate 4 min ![](/static/img/menu/grafana2.svg) Grafana Get started with Grafana Cloud Journey Beginner 15 min ![](/static/img/menu/grafana2.svg) Grafana Which Grafana is right for you? Journey Beginner 20 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to Grafana Cloud Journey Beginner 90 min ![](/static/img/menu/grafana2.svg) Grafana Design a labeling strategy to control cardinality Journey Beginner 35 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to monitoring databases Journey Beginner 30 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to integrations Journey Beginner 20 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to Grafana Assistant Journey Beginner 40 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to data sources Journey Beginner 20 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to monitoring cloud provider data Journey Beginner 45 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to Grafana Alloy Path Beginner 22 min ![](/static/img/menu/grafana2.svg) Grafana Dashboards as Code with the Foundation SDK and Terraform Journey Beginner 35 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to Grafana Alerting Journey Beginner 20 min ![](/static/img/menu/grafana2.svg) Grafana Send data from external collectors Journey Beginner 15 min ![](/static/img/menu/grafana2.svg) Grafana Dashboards as Code with the Foundation SDK and Git Sync Journey Beginner 21 min ![](/static/img/menu/grafana2.svg) Grafana Introduction to tracing Journey Beginner 40 min ![](/static/img/menu/grafana2.svg) Grafana Deploy Grafana resources as Code with Terraform Journey Beginner 35 min ![](/static/img/menu/grafana2.svg) Grafana Getting started with k6 performance testing Journey Beginner 35 min ![](/static/img/menu/grafana2.svg) Grafana Manage your collectors at scale with Fleet Management Journey Beginner 45 min ![](/static/img/menu/grafana2.svg) Grafana Investigate metrics and logs with Drilldown Journey Beginner 30 min
+
+### No paths match those filters.
+
+Try removing a filter or clearing everything to see all learning.
+
+Clear filters
+
+![](/media/docs/learning-journey/map.svg)
+
+A journey is a guided series of sections that builds up a topic in depth and is more comprehensive than a path, which covers one focused task.A path is a short, step-by-step guide to one focused task. It is quicker than a journey, which builds up a topic in sections.
+
+Slides
+
+Minutes
+
+[Start path](/docs/learning-paths/grafana-cloud-onboarding/)
+
+#### What you'll be able to do
+
+#### slides in this
+
+Section ·
+
+[]()
+
+## Featured content
+
+See what other practitioners are learning right now and what we've just added before you dig into the catalog.
+
+### Popular this month
+
+Most-started by practitioners
+
+[1 ![](/static/img/menu/cloud.svg) Grafana Cloud onboarding Grafana Cloud · Path · 12 min **15k** learners](/docs/learning-paths/grafana-cloud-onboarding/) [2 ![](/static/img/menu/grafana2.svg) Create interactive dashboards with variables Grafana · Path · 16 min **11k** learners](/docs/learning-paths/interactive-dashboards/) [3 ![](/static/img/menu/drilldown_icon_2.svg) Metrics Drilldown Grafana · Path · 11 min **8.9k** learners](/docs/learning-paths/drilldown-metrics/)
+
+### Recently added
+
+Fresh paths and journeys
+
+[![](/static/img/menu/grafana2.svg) Get started with Grafana Cloud Grafana · Journey · 15 min New 1 month ago](/docs/learning-hub/get-started-grafana-cloud/) [![](/static/img/menu/grafana2.svg) Design a labeling strategy to control cardinality Grafana · Journey · 35 min New 1 month ago](/docs/learning-hub/labeling-strategy/) [![](/static/img/menu/grafana2.svg) Introduction to tracing Grafana · Journey · 40 min New 2 months ago](/docs/learning-hub/intro-to-tracing/)
+
+![](/static/img/menu/grafana2.svg) Browse what's new in Grafana [Start tour in Grafana Play](https://play.grafana.com)

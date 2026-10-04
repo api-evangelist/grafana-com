@@ -1,0 +1,714 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Migrations API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Migrations
+paths:
+  /cloudmigration/migration:
+    get:
+      tags:
+      - Migrations
+      summary: Get a list of all cloud migration sessions that have been created
+      operationId: getSessionList
+      responses:
+        '200':
+          $ref: '#/components/responses/cloudMigrationSessionListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      tags:
+      - Migrations
+      summary: Create a migration session
+      operationId: createSession
+      responses:
+        '200':
+          $ref: '#/components/responses/cloudMigrationSessionResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloudMigrationSessionRequestDTO'
+        required: true
+  /cloudmigration/migration/{uid}:
+    get:
+      tags:
+      - Migrations
+      summary: Get a cloud migration session by its uid
+      operationId: getSession
+      parameters:
+      - description: UID of a migration session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/cloudMigrationSessionResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      tags:
+      - Migrations
+      summary: Delete a migration session by its uid
+      operationId: deleteSession
+      parameters:
+      - description: UID of a migration session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/migration/{uid}/snapshot:
+    post:
+      description: If the snapshot initialization is successful, the snapshot uid is returned.
+      tags:
+      - Migrations
+      summary: Trigger the creation of an instance snapshot associated with the provided…
+      operationId: createSnapshot
+      parameters:
+      - description: UID of a session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/createSnapshotResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSnapshotRequestDTO'
+        required: true
+  /cloudmigration/migration/{uid}/snapshot/{snapshotUid}:
+    get:
+      tags:
+      - Migrations
+      summary: Get metadata about a snapshot, including where it is in its processing and…
+      operationId: getSnapshot
+      parameters:
+      - description: ResultPage is used for pagination with ResultLimit
+        name: resultPage
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - description: Max limit for snapshot results returned.
+        name: resultLimit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - description: ResultSortColumn can be used to override the default system sort. Valid values are "name", "resource_type", and "status".
+        name: resultSortColumn
+        in: query
+        schema:
+          type: string
+          default: default
+      - description: ResultSortOrder is used with ResultSortColumn. Valid values are ASC and DESC.
+        name: resultSortOrder
+        in: query
+        schema:
+          type: string
+          default: ASC
+      - description: ErrorsOnly is used to only return resources with error statuses
+        name: errorsOnly
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Session UID of a session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: UID of a snapshot
+        name: snapshotUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getSnapshotResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/migration/{uid}/snapshot/{snapshotUid}/cancel:
+    post:
+      description: 'TODO: Implement'
+      tags:
+      - Migrations
+      summary: Cancel a snapshot, wherever it is in its processing chain
+      operationId: cancelSnapshot
+      parameters:
+      - description: Session UID of a session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: UID of a snapshot
+        name: snapshotUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: (empty)
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/migration/{uid}/snapshot/{snapshotUid}/upload:
+    post:
+      tags:
+      - Migrations
+      summary: Upload a snapshot to the Grafana Migration Service for processing
+      operationId: uploadSnapshot
+      parameters:
+      - description: Session UID of a session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: UID of a snapshot
+        name: snapshotUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: (empty)
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/migration/{uid}/snapshots:
+    get:
+      tags:
+      - Migrations
+      summary: Get a list of snapshots for a session
+      operationId: getShapshotList
+      parameters:
+      - description: Page is used for pagination with limit
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - description: Max limit for results returned.
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 100
+      - description: Session UID of a session
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Sort with value latest to return results sorted in descending order.
+        name: sort
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/snapshotListResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/resources/dependencies:
+    get:
+      tags:
+      - Migrations
+      summary: Get the resource dependencies graph for the current set of migratable resources
+      operationId: getResourceDependencies
+      responses:
+        '200':
+          $ref: '#/components/responses/resourceDependenciesResponse'
+  /cloudmigration/token:
+    get:
+      tags:
+      - Migrations
+      summary: Fetch the cloud migration token if it exists
+      operationId: getCloudMigrationToken
+      responses:
+        '200':
+          $ref: '#/components/responses/cloudMigrationGetTokenResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      tags:
+      - Migrations
+      summary: Create gcom access token
+      operationId: createCloudMigrationToken
+      responses:
+        '200':
+          $ref: '#/components/responses/cloudMigrationCreateTokenResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /cloudmigration/token/{uid}:
+    delete:
+      tags:
+      - Migrations
+      summary: Deletes a cloud migration token
+      operationId: deleteCloudMigrationToken
+      parameters:
+      - description: UID of a cloud migration token
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          $ref: '#/components/responses/cloudMigrationDeleteTokenResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    cloudMigrationSessionListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CloudMigrationSessionListResponseDTO'
+    cloudMigrationGetTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAccessTokenResponseDTO'
+    cloudMigrationDeleteTokenResponse:
+      description: (empty)
+    cloudMigrationSessionResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetSnapshotResponseDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateSnapshotResponseDTO'
+    resourceDependenciesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceDependenciesResponseDTO'
+    cloudMigrationCreateTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateAccessTokenResponseDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    snapshotListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SnapshotListResponseDTO'
+  schemas:
+    CloudMigrationSessionListResponseDTO:
+      type: object
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
+    GetAccessTokenResponseDTO:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        displayName:
+          type: string
+        expiresAt:
+          type: string
+        firstUsedAt:
+          type: string
+        id:
+          type: string
+        lastUsedAt:
+          type: string
+    GetSnapshotResponseDTO:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        finished:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MigrateDataResponseItemDTO'
+        sessionUid:
+          type: string
+        stats:
+          $ref: '#/components/schemas/SnapshotResourceStats'
+        status:
+          type: string
+          enum:
+          - INITIALIZING
+          - CREATING
+          - PENDING_UPLOAD
+          - UPLOADING
+          - PENDING_PROCESSING
+          - PROCESSING
+          - FINISHED
+          - CANCELED
+          - ERROR
+          - UNKNOWN
+        uid:
+          type: string
+    SnapshotResourceStats:
+      type: object
+      properties:
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        total:
+          type: integer
+          format: int64
+        types:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    CloudMigrationSessionRequestDTO:
+      type: object
+      properties:
+        authToken:
+          type: string
+    CreateSnapshotResponseDTO:
+      type: object
+      properties:
+        uid:
+          type: string
+    ResourceDependenciesResponseDTO:
+      type: object
+      properties:
+        resourceDependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceDependencyDTO'
+    CloudMigrationSessionResponseDTO:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        slug:
+          type: string
+        uid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+    SnapshotListResponseDTO:
+      type: object
+      properties:
+        snapshots:
+          type: array
+          items:
+            $ref: '#/components/schemas/SnapshotDTO'
+    MigrateDataResponseItemDTO:
+      type: object
+      required:
+      - type
+      - refId
+      - status
+      properties:
+        errorCode:
+          type: string
+          enum:
+          - ALERT_RULES_QUOTA_REACHED
+          - ALERT_RULES_GROUP_QUOTA_REACHED
+          - DATASOURCE_NAME_CONFLICT
+          - DATASOURCE_INVALID_URL
+          - DATASOURCE_ALREADY_MANAGED
+          - FOLDER_NAME_CONFLICT
+          - DASHBOARD_ALREADY_MANAGED
+          - LIBRARY_ELEMENT_NAME_CONFLICT
+          - UNSUPPORTED_DATA_TYPE
+          - RESOURCE_CONFLICT
+          - UNEXPECTED_STATUS_CODE
+          - INTERNAL_SERVICE_ERROR
+          - GENERIC_ERROR
+        message:
+          type: string
+        name:
+          type: string
+        parentName:
+          type: string
+        refId:
+          type: string
+        status:
+          type: string
+          enum:
+          - OK
+          - WARNING
+          - ERROR
+          - PENDING
+          - UNKNOWN
+        type:
+          type: string
+          enum:
+          - DASHBOARD
+          - DATASOURCE
+          - FOLDER
+          - LIBRARY_ELEMENT
+          - ALERT_RULE
+          - ALERT_RULE_GROUP
+          - CONTACT_POINT
+          - NOTIFICATION_POLICY
+          - NOTIFICATION_TEMPLATE
+          - MUTE_TIMING
+          - PLUGIN
+    CreateAccessTokenResponseDTO:
+      type: object
+      properties:
+        token:
+          type: string
+    ResourceDependencyDTO:
+      type: object
+      properties:
+        dependencies:
+          type: array
+          items:
+            type: string
+            enum:
+            - DASHBOARD
+            - DATASOURCE
+            - FOLDER
+            - LIBRARY_ELEMENT
+            - ALERT_RULE
+            - ALERT_RULE_GROUP
+            - CONTACT_POINT
+            - NOTIFICATION_POLICY
+            - NOTIFICATION_TEMPLATE
+            - MUTE_TIMING
+            - PLUGIN
+        resourceType:
+          type: string
+          enum:
+          - DASHBOARD
+          - DATASOURCE
+          - FOLDER
+          - LIBRARY_ELEMENT
+          - ALERT_RULE
+          - ALERT_RULE_GROUP
+          - CONTACT_POINT
+          - NOTIFICATION_POLICY
+          - NOTIFICATION_TEMPLATE
+          - MUTE_TIMING
+          - PLUGIN
+    CreateSnapshotRequestDTO:
+      type: object
+      properties:
+        resourceTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DASHBOARD
+            - DATASOURCE
+            - FOLDER
+            - LIBRARY_ELEMENT
+            - ALERT_RULE
+            - ALERT_RULE_GROUP
+            - CONTACT_POINT
+            - NOTIFICATION_POLICY
+            - NOTIFICATION_TEMPLATE
+            - MUTE_TIMING
+            - PLUGIN
+    SnapshotDTO:
+      description: Base snapshot without results
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        finished:
+          type: string
+          format: date-time
+        sessionUid:
+          type: string
+        status:
+          type: string
+          enum:
+          - INITIALIZING
+          - CREATING
+          - PENDING_UPLOAD
+          - UPLOADING
+          - PENDING_PROCESSING
+          - PROCESSING
+          - FINISHED
+          - CANCELED
+          - ERROR
+          - UNKNOWN
+        uid:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

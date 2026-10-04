@@ -1,0 +1,340 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Query History API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: 'The identifier (ID) of a query in query history is an auto-incrementing numeric value that is unique per Grafana install.
+
+    The unique identifier (UID) of a query history uniquely identifies queries in query history between multiple Grafana installs. It’s automatically generated. The UID provides consistent URLs for accessing queries in query history.'
+  name: query_history
+paths:
+  /query-history:
+    get:
+      description: 'Returns a list of queries in the query history that matches the search criteria.
+
+        Query history search supports pagination. Use the `limit` parameter to control the maximum number of queries returned; the default limit is 100.
+
+        You can also use the `page` query parameter to fetch queries from any page other than the first one.'
+      tags:
+      - query_history
+      summary: Query history search
+      operationId: searchQueries
+      parameters:
+      - description: List of data source UIDs to search for
+        name: datasourceUid
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Text inside query or comments that is searched for
+        name: searchString
+        in: query
+        schema:
+          type: string
+      - description: Flag indicating if only starred queries should be returned
+        name: onlyStarred
+        in: query
+        schema:
+          type: boolean
+      - description: Sort method
+        name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - time-desc
+          - time-asc
+          default: time-desc
+      - description: Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size.
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Limit the number of returned results
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: From range for the query history search
+        name: from
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: To range for the query history search
+        name: to
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistorySearchResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: Adds new query to query history.
+      tags:
+      - query_history
+      summary: Add query to query history
+      operationId: createQuery
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistoryResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQueryInQueryHistoryCommand'
+        required: true
+  /query-history/star/{query_history_uid}:
+    post:
+      description: Adds star to query in query history as specified by the UID.
+      tags:
+      - query_history
+      summary: Add star to query in query history
+      operationId: starQuery
+      parameters:
+      - name: query_history_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistoryResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      description: Removes star from query in query history as specified by the UID.
+      tags:
+      - query_history
+      summary: Remove star to query in query history
+      operationId: unstarQuery
+      parameters:
+      - name: query_history_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistoryResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /query-history/{query_history_uid}:
+    delete:
+      description: Deletes an existing query in query history as specified by the UID. This operation cannot be reverted.
+      tags:
+      - query_history
+      summary: Delete query in query history
+      operationId: deleteQuery
+      parameters:
+      - name: query_history_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistoryDeleteQueryResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      description: Updates comment for query in query history as specified by the UID.
+      tags:
+      - query_history
+      summary: Update comment for query in query history
+      operationId: patchQueryComment
+      parameters:
+      - name: query_history_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getQueryHistoryResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchQueryCommentInQueryHistoryCommand'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQueryHistoryResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistoryResponse'
+    getQueryHistoryDeleteQueryResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistoryDeleteQueryResponse'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQueryHistorySearchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistorySearchResponse'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    Json:
+      type: object
+    QueryHistoryDTO:
+      type: object
+      properties:
+        comment:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        createdBy:
+          type: integer
+          format: int64
+        datasourceUid:
+          type: string
+        queries:
+          $ref: '#/components/schemas/Json'
+        starred:
+          type: boolean
+        uid:
+          type: string
+    QueryHistorySearchResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/QueryHistorySearchResult'
+    QueryHistorySearchResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        queryHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryHistoryDTO'
+        totalCount:
+          type: integer
+          format: int64
+    QueryHistoryResponse:
+      description: QueryHistoryResponse is a response struct for QueryHistoryDTO
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/QueryHistoryDTO'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    QueryHistoryDeleteQueryResponse:
+      description: QueryHistoryDeleteQueryResponse is the response struct for deleting a query from query history
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+    PatchQueryCommentInQueryHistoryCommand:
+      description: PatchQueryCommentInQueryHistoryCommand is the command for updating comment for query in query history
+      type: object
+      properties:
+        comment:
+          description: Updated comment
+          type: string
+    CreateQueryInQueryHistoryCommand:
+      description: CreateQueryInQueryHistoryCommand is the command for adding query history
+      type: object
+      required:
+      - queries
+      properties:
+        datasourceUid:
+          description: UID of the data source for which are queries stored.
+          type: string
+          example: PE1C5CBDA0504A6A3
+        queries:
+          $ref: '#/components/schemas/Json'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

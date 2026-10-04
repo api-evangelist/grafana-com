@@ -1,0 +1,25 @@
+generated: '2026-10-04'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/grafana-com-openapi.json
+skills:
+- file: skills/grafana-com-create-dashboard.md
+  name: grafana-com-create-dashboard
+  api: openapi/grafana-com-openapi.json
+  operations:
+  - postDashboard
+  - getDashboardByUID
+- file: skills/grafana-com-annotations-create-and-retrieve.md
+  name: grafana-com-annotations-create-and-retrieve
+  api: openapi/grafana-com-openapi.json
+  operations:
+  - postAnnotation
+  - getAnnotationByID
+- file: skills/grafana-com-create-folder.md
+  name: grafana-com-create-folder
+  api: openapi/grafana-com-openapi.json
+  operations:
+  - createFolder
+  - getFolderByUID
+  - updateFolder
+  - deleteFolder

@@ -1,0 +1,37 @@
+generated: '2026-10-04'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://grafana.com/docs/grafana-cloud/learn-and-build/get-started/migrate/cloud-migration-assistant/
+sources:
+- https://grafana.com/docs/grafana-cloud/learn-and-build/get-started/migrate/cloud-migration-assistant/
+- https://grafana.com/docs/grafana/latest/whatsnew/
+- https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13-2/
+- https://grafana.com/docs/grafana/latest/whatsnew/whats-new-in-v13-1/
+entries:
+- breaking: false
+  highlights:
+  - Welcome to Grafana 13.2! This release helps you share and reuse trusted queries to get answers faster and more easily onboard team members,
+    dig into crowded panels without leaving the dashboard, and securely connect to your data with fewer long-lived secrets to manage.
+  - 'Saved queries are now generally available in Grafana Enterprise and Grafana Cloud, helping individual’s knowledge become a library everyone
+    can draw on: find them from anywhere using the command palette (cmd/ctrl+K) then quickly jump into Explore, and reliably manage them as code
+    with Terraform.'
+  - View panel mode gains a controls sidebar in public preview, so you can adjust visualization options without edit permissions and fan a busy
+    time series out into one graph per series or label to see which one is actually moving.
+  - BigQuery and Google Cloud Monitoring can now authenticate with Google Workload Identity Federation in Grafana Cloud instead of a service account
+    key file.
+- breaking: false
+  highlights:
+  - Welcome to Grafana 13.1! This release helps you build dashboards with less setup, connect more of your data securely, and get answers across
+    your whole stack without leaving Grafana.
+  - Git Sync matures with verified commits, dashboard import, and root-level sync, bringing auditable GitOps to teams that require signed commits
+    and branch protection.
+  - Grafana Assistant now queries Snowflake, Jira, Dynatrace, and five more sources directly, so you can ask questions across your databases and
+    observability data in one place.
+  - Apply quick filters and grouping without configuring template variables, scope variables to the rows and tabs where they belong, and copy
+    panel styling in a couple of clicks.
+- breaking: false
+  highlights:
+  - For release highlights, deprecations, and breaking changes in self‑managed Grafana releases, refer to these “What’s new” pages for each version.
+current_version: '13.2'
+note: The page does not provide explicit release dates or breaking‑change markers, so dates are null and breaking is set to false.
+docs: https://grafana.com/docs/grafana-cloud/learn-and-build/get-started/migrate/cloud-migration-assistant/

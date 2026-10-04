@@ -1,0 +1,109 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/grafana-com-openapi.json
+vocabulary:
+  name: Grafana Domain Vocabulary
+  description: 'Terms declared by Grafana''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-04'
+  terms:
+  - term: datasources
+    definition: If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have
+      relevant permissions. Refer to specific resources to understand what permissions are required.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: folders
+    definition: Folders are identified by the identifier (id) and the unique identifier (uid). The identifier (id) of a folder is an auto-incrementing
+      numeric value and is only unique per Grafana install. The unique identifier (uid) of a folder can be used for uniquely identify folders
+      between multiple Grafana installs. It’s automatically generated if not provided when creating a folder. The uid allows having con
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: permissions
+    definition: Permissions with `folderId=-1` are the default permissions for users with the Viewer and Editor roles. Permissions can be set
+      for a user, a team or a role (Viewer or Editor). Permissions cannot be set for Admins - they always have access to everything.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: admin
+    definition: 'The Admin HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization and an
+      organization role. They cannot be given the permission of server admin, only users can be given that permission. So in order to use these
+      API calls you will have to use Basic Auth and the Grafana user must have the Grafana Admin permission. (The default admin user is called '
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: annotations
+    definition: Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana database (sqlite, mysql or postgres).
+      Annotations can be organization annotations that can be shown on any dashboard by configuring an annotation data source - they are filtered
+      by tags. Or they can be tied to a panel on a dashboard and are then only shown on that panel.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: library_elements
+    definition: The identifier (ID) of a library element is an auto-incrementing numeric value that is unique per Grafana install. The unique
+      identifier (UID) of a library element uniquely identifies library elements between multiple Grafana installs. It’s automatically generated
+      unless you specify it during library element creation. The UID provides consistent URLs for accessing library elements and when syncing
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: query_history
+    definition: The identifier (ID) of a query in query history is an auto-incrementing numeric value that is unique per Grafana install. The
+      unique identifier (UID) of a query history uniquely identifies queries in query history between multiple Grafana installs. It’s automatically
+      generated. The UID provides consistent URLs for accessing queries in query history.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: orgs
+    definition: The Admin Organizations HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization
+      and an organization role. They cannot be given the permission of server admin, only users can be given that permission. So in order to use
+      these API calls you will have to use Basic Auth and the Grafana user must have the Grafana Admin permission (The default admin us
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: org
+    definition: If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have
+      relevant permissions. Refer to specific resources to understand what permissions are required.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: teams
+    definition: This API can be used to create/update/delete Teams and to add/remove users to Teams. All actions require that the user has the
+      Admin role for the organization.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: enterprise
+    definition: These are only available in Grafana Enterprise
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: access_control
+    definition: The API can be used to create, update, get and list roles, and create or remove built-in role assignments. To use the API, you
+      would need to enable fine-grained access control. This only available in Grafana Enterprise. The API does not currently work with an API
+      Token. So in order to use these API endpoints you will have to use Basic auth.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: licensing
+    definition: Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise. If you are running Grafana Enterprise and
+      have Fine-grained access control enabled, for some endpoints you would need to have relevant permissions. Refer to specific resources to
+      understand what permissions are required.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: reports
+    definition: This API allows you to interact programmatically with the Reporting feature. Reporting is only available in Grafana Enterprise.
+      Read more about Grafana Enterprise. If you have Fine-grained access Control enabled, for some endpoints you would need to have relevant
+      permissions. Refer to specific resources to understand what permissions are required.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json
+  - term: service_accounts
+    definition: If you are running Grafana Enterprise, for some endpoints you'll need to have specific permissions. Refer to [Role-based access
+      control permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/custom-role-actions-scopes/)
+      for more information.
+    tags:
+    - Resource Group
+    source: openapi/grafana-com-openapi.json

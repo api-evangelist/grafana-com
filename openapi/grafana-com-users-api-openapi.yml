@@ -1,0 +1,473 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Users API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Users
+paths:
+  /users:
+    get:
+      description: Returns all users that the authenticated user has permission to view, admin permission required.
+      tags:
+      - Users
+      summary: Get users
+      operationId: searchUsers
+      parameters:
+      - description: Limit the maximum number of users to return per page
+        name: perpage
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1000
+      - description: Page index for starting fetching users
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      responses:
+        '200':
+          $ref: '#/components/responses/searchUsersResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /users/lookup:
+    get:
+      tags:
+      - Users
+      summary: Get user by login or email
+      operationId: getUserByLoginOrEmail
+      parameters:
+      - description: loginOrEmail of the user
+        name: loginOrEmail
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/userResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /users/search:
+    get:
+      tags:
+      - Users
+      summary: Get users with paging
+      operationId: searchUsersWithPaging
+      responses:
+        '200':
+          $ref: '#/components/responses/searchUsersWithPagingResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /users/{user_id}:
+    get:
+      tags:
+      - Users
+      summary: Get user by id
+      operationId: getUserByID
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/userResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: Update the user identified by id.
+      tags:
+      - Users
+      summary: Update user
+      operationId: updateUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '409':
+          $ref: '#/components/responses/conflictError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserCommand'
+        description: To change the email, name, login, theme, provide another one.
+        required: true
+  /users/{user_id}/orgs:
+    get:
+      description: Get organizations for user identified by id.
+      tags:
+      - Users
+      summary: Get organizations for user
+      operationId: getUserOrgList
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getUserOrgListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /users/{user_id}/teams:
+    get:
+      description: Get teams for user identified by id.
+      tags:
+      - Users
+      summary: Get teams for user
+      operationId: getUserTeams
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getUserTeamsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchUsersWithPagingResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchUserQueryResult'
+    getUserTeamsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TeamDTO'
+    searchUsersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserSearchHitDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getUserOrgListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserOrgDTO'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    userResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserProfileDTO'
+  schemas:
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    UpdateUserCommand:
+      type: object
+      properties:
+        email:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        theme:
+          type: string
+    UserProfileDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isDisabled:
+          type: boolean
+        isExternal:
+          type: boolean
+        isExternallySynced:
+          type: boolean
+        isGrafanaAdmin:
+          type: boolean
+        isGrafanaAdminExternallySynced:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        theme:
+          type: string
+        uid:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    UserOrgDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    UserSearchHitDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        created:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isAdmin:
+          type: boolean
+        isDisabled:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        lastSeenAt:
+          type: string
+          format: date-time
+        lastSeenAtAge:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+        uid:
+          type: string
+    TeamDTO:
+      type: object
+      required:
+      - id
+      - uid
+      - orgId
+      - name
+      - isProvisioned
+      - memberCount
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        avatarUrl:
+          type: string
+        email:
+          type: string
+        externalUID:
+          type: string
+        id:
+          description: '@deprecated Use UID instead'
+          type: integer
+          format: int64
+        isProvisioned:
+          type: boolean
+        memberCount:
+          type: integer
+          format: int64
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        permission:
+          $ref: '#/components/schemas/TeamPermissionType'
+        uid:
+          type: string
+    TeamPermissionType:
+      type: integer
+      format: int64
+    SearchUserQueryResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserSearchHitDTO'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

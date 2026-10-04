@@ -1,0 +1,316 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Recording Rules API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: recording_rules
+paths:
+  /recording-rules:
+    get:
+      tags:
+      - recording_rules
+      summary: 'Lists all rules in the database: active or deleted'
+      operationId: listRecordingRules
+      responses:
+        '200':
+          $ref: '#/components/responses/listRecordingRulesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      tags:
+      - recording_rules
+      summary: Update the active status of a rule
+      operationId: updateRecordingRule
+      responses:
+        '200':
+          $ref: '#/components/responses/recordingRuleResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordingRuleJSON'
+        required: true
+    post:
+      tags:
+      - recording_rules
+      summary: Create a recording rule that is then registered and started
+      operationId: createRecordingRule
+      responses:
+        '200':
+          $ref: '#/components/responses/recordingRuleResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordingRuleJSON'
+        required: true
+  /recording-rules/test:
+    post:
+      tags:
+      - recording_rules
+      summary: Test a recording rule
+      operationId: testCreateRecordingRule
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecordingRuleJSON'
+        required: true
+  /recording-rules/writer:
+    get:
+      tags:
+      - recording_rules
+      summary: Return the prometheus remote write target
+      operationId: getRecordingRuleWriteTarget
+      responses:
+        '200':
+          $ref: '#/components/responses/recordingRuleWriteTargetResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: It returns a 422 if there is not an existing prometheus data source configured.
+      tags:
+      - recording_rules
+      summary: Create a remote write target
+      operationId: createRecordingRuleWriteTarget
+      responses:
+        '200':
+          $ref: '#/components/responses/recordingRuleWriteTargetResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
+        required: true
+    delete:
+      tags:
+      - recording_rules
+      summary: Delete the remote write target
+      operationId: deleteRecordingRuleWriteTarget
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /recording-rules/{recordingRuleID}:
+    delete:
+      tags:
+      - recording_rules
+      summary: Delete removes the rule from the registry and stops it
+      operationId: deleteRecordingRule
+      parameters:
+      - name: recordingRuleID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  schemas:
+    PrometheusRemoteWriteTargetJSON:
+      type: object
+      properties:
+        data_source_uid:
+          type: string
+        id:
+          type: string
+        remote_write_path:
+          type: string
+    RecordingRuleJSON:
+      description: RecordingRuleJSON is the external representation of a recording rule
+      type: object
+      properties:
+        active:
+          type: boolean
+        count:
+          type: boolean
+        description:
+          type: string
+        dest_data_source_uid:
+          type: string
+        id:
+          type: string
+        interval:
+          type: integer
+          format: int64
+        name:
+          type: string
+        prom_name:
+          type: string
+        queries:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        range:
+          type: integer
+          format: int64
+        target_ref_id:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    listRecordingRulesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RecordingRuleJSON'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    recordingRuleWriteTargetResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    recordingRuleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RecordingRuleJSON'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,423 +1,18 @@
 aid: grafana-com
 url: https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml
 deliveryModel:
-  model: open-core
-  license: AGPL-3.0
-  license_evidence:
-    repo: grafana/grafana
-    spdx: AGPL-3.0
-    stars: 76907
-  open_source: true
+  model: unknown
+  open_source: unknown
   commercial: true
   callable_host: false
-  label: Open core · an OSS project plus a commercial hosted product
-  confidence: medium
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
   source:
   - pricing
-  - repository-license
-  generated: '2026-09-25'
+  - repository-unlicensed
+  generated: '2026-08-28'
   method: derived
 specificationVersion: '0.23'
-apis:
-- aid: grafana-com:grafana-http-api
-  name: Grafana HTTP API
-  tags:
-  - Observability
-  - Grafana
-  - Dashboards
-  - HTTP API
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    name: Canonical OpenAPI Specification (api-merged.json)
-    type: OpenAPI
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
-    name: Authentication
-    type: Authentication
-  description: The full Grafana HTTP API surface for self-managed Grafana and Grafana Enterprise. Covers
-    dashboards, folders, data sources, organizations, users, teams, service accounts, API keys, access control
-    (RBAC), preferences, library elements, annotations, snapshots, short URLs, query history, alerting
-    provisioning, correlations, SSO settings, and admin operations. The canonical OpenAPI 2.0 specification
-    is published as `public/api-merged.json` in the grafana/grafana repository and powers the official
-    grafana-openapi-client-go SDK and the terraform-provider-grafana resources.
-- aid: grafana-com:grafana-dashboard-api
-  name: Grafana Dashboard API
-  tags:
-  - Observability
-  - Grafana
-  - Dashboards
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
-    name: Dashboard Versions
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
-    name: Dashboard Permissions
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
-    name: Shared (Public) Dashboards
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Create, read, update, delete, search, version, and permission dashboards. Exposes the Kubernetes-style
-    `/apis/dashboard.grafana.app/v1/namespaces/:namespace/dashboards` resource (and the legacy `/api/dashboards/`
-    endpoints) for declarative dashboard management, public dashboard sharing, version history, and per-dashboard
-    permission assignment.
-- aid: grafana-com:grafana-folder-api
-  name: Grafana Folder and Search API
-  tags:
-  - Observability
-  - Grafana
-  - Folders
-  - Search
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
-    name: Folder/Dashboard Search
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
-    name: Folder Permissions
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Manage Grafana folders, perform cross-folder dashboard search, and administer folder-level
-    permissions. Folders are the primary organizational unit for grouping dashboards and applying access
-    control inheritance.
-- aid: grafana-com:grafana-data-source-api
-  name: Grafana Data Source API
-  tags:
-  - Observability
-  - Grafana
-  - Data Sources
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
-    name: Data Source Permissions
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
-    name: Data Source LBAC Rules
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Programmatically register and manage Grafana data sources (Prometheus, Loki, Tempo, Mimir,
-    Pyroscope, Postgres, MySQL, Elasticsearch, InfluxDB, CloudWatch, Azure Monitor, Google Cloud Monitoring,
-    and 150+ more). Includes per-data-source permission management and label-based access control (LBAC)
-    rules for fine-grained tenant isolation.
-- aid: grafana-com:grafana-alerting-api
-  name: Grafana Alerting Provisioning API
-  tags:
-  - Observability
-  - Grafana
-  - Alerting
-  - Provisioning
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Provision Grafana Alerting resources programmatically — alert rules, contact points, mute timings,
-    notification policies, and notification templates. Supports headers for file-provisioning workflows and
-    GitOps-style alert-as-code patterns alongside the unified alerting subsystem.
-- aid: grafana-com:grafana-annotations-api
-  name: Grafana Annotations API
-  tags:
-  - Observability
-  - Grafana
-  - Annotation
-  tags_raw:
-  - Observability
-  - Grafana
-  - Annotations
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Create, read, update, and delete annotations on Grafana dashboards. Annotations mark events
-    (deploys, incidents, releases) on time-series panels and can be scoped to a dashboard, panel, or organization,
-    and tagged for filtering.
-- aid: grafana-com:grafana-org-api
-  name: Grafana Organization and Users API
-  tags:
-  - Observability
-  - Grafana
-  - Organization
-  - User
-  - Team
-  tags_raw:
-  - Observability
-  - Grafana
-  - Organizations
-  - Users
-  - Teams
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/org/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
-    name: Users
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
-    name: Teams
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
-    name: Team Sync
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
-    name: Preferences
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Manage Grafana organizations, users, teams, team membership, external team sync, and user
-    or org-scoped preferences (default home dashboard, theme, timezone, week start).
-- aid: grafana-com:grafana-rbac-api
-  name: Grafana Access Control (RBAC) API
-  tags:
-  - Observability
-  - Grafana
-  - RBAC
-  - Access Control
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
-    name: Service Accounts
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
-    name: SSO Settings
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Manage fine-grained role-based access control assignments, custom roles, permission grants
-    against folders/dashboards/data sources, service accounts, service account tokens, and SSO provider
-    settings (SAML, OAuth, LDAP). Replaces the legacy API-key system as the recommended authentication
-    surface for automation.
-- aid: grafana-com:grafana-admin-api
-  name: Grafana Admin API
-  tags:
-  - Observability
-  - Grafana
-  - Administration
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
-    name: Enterprise Licensing
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
-    name: Reporting (Enterprise)
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
-    name: Query and Resource Caching (Enterprise)
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Server-wide administrative endpoints including global users, settings, server stats, encryption
-    keys, pause-all-alerts, plus Grafana Enterprise extensions for licensing, scheduled PDF/CSV reporting,
-    and query/resource caching configuration.
-- aid: grafana-com:grafana-library-elements-api
-  name: Grafana Library Elements API
-  tags:
-  - Observability
-  - Grafana
-  - Library Elements
-  - Panels
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Manage reusable library panels and library variables. Library elements let dashboard authors
-    define a panel or variable once and reference it across many dashboards, with updates propagating to
-    every consumer.
-- aid: grafana-com:grafana-correlations-api
-  name: Grafana Correlations API
-  tags:
-  - Observability
-  - Grafana
-  - Correlations
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Define correlations between data sources to enable in-place pivoting (e.g. trace ID in Tempo to
-    logs in Loki) inside Explore and dashboards. Powers the "click a value, jump to related telemetry" UX
-    that connects metrics, logs, traces, and profiles.
-- aid: grafana-com:grafana-snapshot-shorturl-api
-  name: Grafana Snapshot, Short URL, and Query History API
-  tags:
-  - Observability
-  - Grafana
-  - Snapshots
-  - ShortURLs
-  tags_raw:
-  - Observability
-  - Grafana
-  - Snapshots
-  - Short URLs
-  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
-  properties:
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
-    name: Snapshots
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
-    name: Short URLs
-    type: Documentation
-  - url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
-    name: Query History
-    type: Documentation
-  - url: https://github.com/grafana/grafana/blob/main/public/api-merged.json
-    type: OpenAPI
-  description: Capture and share dashboard snapshots (rendered point-in-time copies including data), generate
-    short URLs for long Explore queries and dashboard links, and read or write a user's Explore query history.
-- aid: grafana-com:grafana-cloud-api
-  name: Grafana Cloud API
-  tags:
-  - Observability
-  - Grafana Cloud
-  - Stacks
-  - Access Policies
-  humanURL: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
-  properties:
-  - url: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
-    type: Documentation
-  - url: https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
-    name: Access Policies and Tokens
-    type: Authentication
-  description: Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies, and
-    tokens at `https://grafana.com/api`. Authenticated with Cloud Access Policy bearer tokens. The recommended
-    automation surface for provisioning Grafana Cloud environments, multi-tenant onboarding, and Terraform
-    workflows.
-- aid: grafana-com:loki-http-api
-  name: Grafana Loki HTTP API
-  tags:
-  - Observability
-  - Loki
-  - Logs
-  - LogQL
-  humanURL: https://grafana.com/docs/loki/latest/reference/loki-http-api/
-  properties:
-  - url: https://grafana.com/docs/loki/latest/reference/loki-http-api/
-    type: Documentation
-  - url: https://github.com/grafana/loki
-    type: SourceCode
-  description: Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion),
-    `/loki/api/v1/query` and `/query_range` (LogQL), `/loki/api/v1/labels`, `/loki/api/v1/series`, `/loki/api/v1/tail`
-    (websocket streaming), plus ruler, status, and admin endpoints. Prometheus-style label model applied to
-    log streams.
-- aid: grafana-com:mimir-http-api
-  name: Grafana Mimir HTTP API
-  tags:
-  - Observability
-  - Mimir
-  - Metrics
-  - Prometheus
-  humanURL: https://grafana.com/docs/mimir/latest/references/http-api/
-  properties:
-  - url: https://grafana.com/docs/mimir/latest/references/http-api/
-    type: Documentation
-  - url: https://github.com/grafana/mimir
-    type: SourceCode
-  description: Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes
-    Prometheus remote-write at `/api/v1/push`, the full Prometheus query API (`/api/v1/query`, `/query_range`,
-    `/series`, `/labels`), ruler endpoints for recording and alerting rules, alertmanager configuration,
-    and per-tenant admin endpoints.
-- aid: grafana-com:tempo-http-api
-  name: Grafana Tempo HTTP API
-  tags:
-  - Observability
-  - Tempo
-  - Traces
-  - TraceQL
-  humanURL: https://grafana.com/docs/tempo/latest/api_docs/
-  properties:
-  - url: https://grafana.com/docs/tempo/latest/api_docs/
-    type: Documentation
-  - url: https://github.com/grafana/tempo
-    type: SourceCode
-  description: High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace
-    lookup by ID (`/api/traces/{traceID}`), TraceQL search (`/api/search`), tag and value listing, and metrics
-    derived from spans. Stores traces in object storage (S3, GCS, Azure Blob) with bloom-filter index.
-- aid: grafana-com:pyroscope-http-api
-  name: Grafana Pyroscope HTTP API
-  tags:
-  - Observability
-  - Pyroscope
-  - Profiling
-  - Continuous Profiling
-  humanURL: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
-  properties:
-  - url: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
-    type: Documentation
-  - url: https://github.com/grafana/pyroscope
-    type: SourceCode
-  description: Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles,
-    query flame graphs and merge profiles, and run profile-based comparisons. Pyroscope merged with Grafana
-    Phlare to form the current Pyroscope project.
-- aid: grafana-com:k6-cloud-api
-  name: Grafana k6 Cloud API
-  tags:
-  - Performance
-  - Load Testing
-  - k6
-  humanURL: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
-  properties:
-  - url: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
-    type: Documentation
-  - url: https://github.com/grafana/k6
-    type: SourceCode
-  description: Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations,
-    test runs, thresholds, and results. Pairs with the open-source `k6` CLI for JavaScript-authored performance
-    and load tests and is integrated into Grafana Cloud Performance Testing.
-- aid: grafana-com:oncall-api
-  name: Grafana OnCall API
-  tags:
-  - Incident Response
-  - On-Call
-  - On-Call Scheduling
-  tags_raw:
-  - Incident Response
-  - OnCall
-  - On-call Scheduling
-  humanURL: https://grafana.com/docs/oncall/latest/oncall-api-reference/
-  properties:
-  - url: https://grafana.com/docs/oncall/latest/oncall-api-reference/
-    type: Documentation
-  - url: https://github.com/grafana/oncall
-    type: SourceCode
-  description: Programmatic access to OnCall alert groups, integrations, escalation chains, schedules,
-    on-call shifts, routes, slack channels, webhooks, and users. Powers on-call rotation management and
-    alert routing for the broader Grafana IRM (Incident Response Management) suite.
-- aid: grafana-com:synthetic-monitoring-api
-  name: Grafana Synthetic Monitoring API
-  tags:
-  - Observability
-  - Synthetic Monitoring
-  - Uptime
-  humanURL: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
-  properties:
-  - url: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
-    type: Documentation
-  - url: https://github.com/grafana/synthetic-monitoring-agent
-    type: SourceCode
-  description: Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step
-    scripted browser, gRPC) executed from Grafana Labs' global probe network plus optional private probes.
-    Results land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
 name: Grafana
 tags:
 - Observability
@@ -428,20 +23,8 @@ tags:
 - Traces
 - Profiling
 - Alerting
-- Open Source
-- Grafana Labs
-tags_raw:
-- Observability
-- Monitoring
-- Dashboards
-- Logs
-- Metrics
-- Traces
-- Profiling
-- Alerting
-- Open Source
-- Grafana Labs
 - Open-Source
+- Grafana Labs
 kind: contract
 accessModel:
   pricing: freemium
@@ -457,7 +40,72 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/grafana-com.png
 access: 3rd-Party
+created: '2026-05-25T00:00:00.000Z'
+modified: '2026-05-25'
+position: Consuming
+description: Grafana Labs builds the open and composable observability stack used by millions of engineers
+  to visualize, query, alert on, and explore their metrics, logs, traces, and profiles. The flagship Grafana
+  OSS dashboarding platform is paired with Grafana Loki (logs), Grafana Mimir (Prometheus-compatible metrics),
+  Grafana Tempo (distributed traces), and Grafana Pyroscope (continuous profiling) — all under the LGTM
+  stack. Grafana Cloud delivers the entire portfolio as a managed SaaS with a generous free tier, while
+  Grafana Enterprise extends self-managed deployments with premium plugins, reporting, RBAC, LBAC, and
+  caching. The ecosystem extends to Grafana k6 (load testing), Grafana Alloy (OpenTelemetry-native collector),
+  Grafana Beyla (eBPF auto-instrumentation), Grafana Faro (frontend observability), Grafana OnCall (incident
+  response), and Synthetic Monitoring. A canonical OpenAPI specification at public/api-merged.json powers
+  the official Go client, the Terraform provider, the Grafana Operator, and a deep dashboards-as-code
+  toolchain (Foundation SDK, Grafonnet, Grizzly, Scenes).
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
 common:
+- type: AgenticAccess
+  url: agentic-access/grafana-com-agentic-access.yml
+- type: FinOps
+  url: finops/grafana-com-finops.yml
+- type: RateLimits
+  url: rate-limits/grafana-com-rate-limits.yml
+- type: Plans
+  url: plans/grafana-com-plans-pricing.yml
+- type: Spectral
+  url: rules/grafana-com-rules.yml
+- type: Vocabulary
+  url: vocabulary/grafana-com-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DataModel
+  url: data-model/grafana-com-data-model.yml
+- type: ChangeLog
+  url: changelog/grafana-com-changelog.yml
+- type: Compliance
+  url: https://trust.grafana.com/
+- type: Security
+  url: security/grafana-com-vulnerability-disclosure.yml
+- type: Authentication
+  url: authentication/grafana-com-authentication.yml
+- type: ErrorCatalog
+  url: errors/grafana-com-problem-types.yml
+- type: Conformance
+  url: conformance/grafana-com-conformance.yml
+- type: LLMsTxt
+  url: llms/grafana-com-llms.txt
+- type: SecurityTxt
+  url: well-known/grafana-com-status-security.txt
+- type: WellKnown
+  url: well-known/grafana-com-well-known.yml
+- type: Hosts
+  url: hosts/grafana-com-hosts.yml
+- type: Vendors
+  url: vendors/grafana-com-vendors.yml
+- type: Newsroom
+  url: https://grafana.com/press/
+- type: Login
+  url: https://grafana.com/auth/sign-in/
+- type: GettingStarted
+  url: https://grafana.com/docs/learning-paths/grafana-cloud-onboarding
+- type: VulnerabilityDisclosure
+  url: security/grafana-com-vulnerability-disclosure.yml
 - type: Website
   url: https://www.grafana.com/
 - type: TrustCenter
@@ -683,7 +331,7 @@ common:
     - geo: Global
       unit: 1000
       label: Active Series
-      price: 6.50
+      price: 6.5
       metric: series
       timeFrame: month
       description: Per 1,000 active series above free tier.
@@ -695,7 +343,7 @@ common:
     - geo: Global
       unit: 1
       label: Ingested
-      price: 0.50
+      price: 0.5
       metric: GB
       timeFrame: usage
       description: Per GB ingested above free tier.
@@ -707,7 +355,7 @@ common:
     - geo: Global
       unit: 1
       label: Ingested
-      price: 0.50
+      price: 0.5
       metric: GB
       timeFrame: usage
       description: Per GB ingested above free tier.
@@ -719,7 +367,7 @@ common:
     - geo: Global
       unit: 1
       label: Ingested
-      price: 0.50
+      price: 0.5
       metric: GB
       timeFrame: usage
       description: Per GB ingested above free tier.
@@ -823,8 +471,6 @@ common:
   url: https://twitter.com/grafana
 - type: YouTube
   url: https://www.youtube.com/c/Grafana
-- type: Mastodon
-  url: https://fosstodon.org/@grafana
 - type: Features
   data:
   - Open-source Grafana — composable observability and dashboarding platform (AGPLv3)
@@ -875,22 +521,3136 @@ common:
   - https://github.com/grafana/grafana/blob/main/public/api-merged.json
   - https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
   updated: '2026-05-25'
-created: '2026-05-25T00:00:00.000Z'
-modified: '2026-05-25'
-position: Consuming
-description: Grafana Labs builds the open and composable observability stack used by millions of engineers to
-  visualize, query, alert on, and explore their metrics, logs, traces, and profiles. The flagship Grafana OSS
-  dashboarding platform is paired with Grafana Loki (logs), Grafana Mimir (Prometheus-compatible metrics),
-  Grafana Tempo (distributed traces), and Grafana Pyroscope (continuous profiling) — all under the LGTM stack.
-  Grafana Cloud delivers the entire portfolio as a managed SaaS with a generous free tier, while Grafana
-  Enterprise extends self-managed deployments with premium plugins, reporting, RBAC, LBAC, and caching. The
-  ecosystem extends to Grafana k6 (load testing), Grafana Alloy (OpenTelemetry-native collector), Grafana
-  Beyla (eBPF auto-instrumentation), Grafana Faro (frontend observability), Grafana OnCall (incident
-  response), and Synthetic Monitoring. A canonical OpenAPI specification at public/api-merged.json powers
-  the official Go client, the Terraform provider, the Grafana Operator, and a deep dashboards-as-code toolchain
-  (Foundation SDK, Grafonnet, Grizzly, Scenes).
-maintainers:
-- FN: Kin Lane
-  email: info@apievangelist.com
-  X: apievangelist
-  url: https://apievangelist.com
+- type: Mastodon
+  url: https://fosstodon.org/@grafana
+apis:
+- aid: grafana-com:grafana-cloud-api
+  name: Grafana Cloud API
+  tags:
+  - Observability
+  - Grafana Cloud
+  - Stacks
+  - Access Policies
+  humanURL: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+    type: Documentation
+  - url: https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
+    name: Access Policies and Tokens
+    type: Authentication
+  description: Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies,
+    and tokens at `https://grafana.com/api`. Authenticated with Cloud Access Policy bearer tokens. The
+    recommended automation surface for provisioning Grafana Cloud environments, multi-tenant onboarding,
+    and Terraform workflows.
+- aid: grafana-com:loki-http-api
+  name: Grafana Loki HTTP API
+  tags:
+  - Observability
+  - Loki
+  - Logs
+  - LogQL
+  humanURL: https://grafana.com/docs/loki/latest/reference/loki-http-api/
+  properties:
+  - url: https://grafana.com/docs/loki/latest/reference/loki-http-api/
+    type: Documentation
+  - url: https://github.com/grafana/loki
+    type: SourceCode
+  description: Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion),
+    `/loki/api/v1/query` and `/query_range` (LogQL), `/loki/api/v1/labels`, `/loki/api/v1/series`, `/loki/api/v1/tail`
+    (websocket streaming), plus ruler, status, and admin endpoints. Prometheus-style label model applied
+    to log streams.
+- aid: grafana-com:mimir-http-api
+  name: Grafana Mimir HTTP API
+  tags:
+  - Observability
+  - Mimir
+  - Metrics
+  - Prometheus
+  humanURL: https://grafana.com/docs/mimir/latest/references/http-api/
+  properties:
+  - url: https://grafana.com/docs/mimir/latest/references/http-api/
+    type: Documentation
+  - url: https://github.com/grafana/mimir
+    type: SourceCode
+  description: Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes
+    Prometheus remote-write at `/api/v1/push`, the full Prometheus query API (`/api/v1/query`, `/query_range`,
+    `/series`, `/labels`), ruler endpoints for recording and alerting rules, alertmanager configuration,
+    and per-tenant admin endpoints.
+- aid: grafana-com:tempo-http-api
+  name: Grafana Tempo HTTP API
+  tags:
+  - Observability
+  - Tempo
+  - Traces
+  - TraceQL
+  humanURL: https://grafana.com/docs/tempo/latest/api_docs/
+  properties:
+  - url: https://grafana.com/docs/tempo/latest/api_docs/
+    type: Documentation
+  - url: https://github.com/grafana/tempo
+    type: SourceCode
+  description: High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace
+    lookup by ID (`/api/traces/{traceID}`), TraceQL search (`/api/search`), tag and value listing, and
+    metrics derived from spans. Stores traces in object storage (S3, GCS, Azure Blob) with bloom-filter
+    index.
+- aid: grafana-com:pyroscope-http-api
+  name: Grafana Pyroscope HTTP API
+  tags:
+  - Observability
+  - Pyroscope
+  - Profiling
+  - Continuous Profiling
+  humanURL: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
+  properties:
+  - url: https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/
+    type: Documentation
+  - url: https://github.com/grafana/pyroscope
+    type: SourceCode
+  description: Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles,
+    query flame graphs and merge profiles, and run profile-based comparisons. Pyroscope merged with Grafana
+    Phlare to form the current Pyroscope project.
+- aid: grafana-com:k6-cloud-api
+  name: Grafana k6 Cloud API
+  tags:
+  - Performance
+  - Load Testing
+  - k6
+  humanURL: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/
+    type: Documentation
+  - url: https://github.com/grafana/k6
+    type: SourceCode
+  description: Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations,
+    test runs, thresholds, and results. Pairs with the open-source `k6` CLI for JavaScript-authored performance
+    and load tests and is integrated into Grafana Cloud Performance Testing.
+- aid: grafana-com:oncall-api
+  name: Grafana OnCall API
+  tags:
+  - Incident Response
+  - On-Call
+  - On-Call Scheduling
+  tags_raw:
+  - Incident Response
+  - OnCall
+  - On-call Scheduling
+  humanURL: https://grafana.com/docs/oncall/latest/oncall-api-reference/
+  properties:
+  - url: https://grafana.com/docs/oncall/latest/oncall-api-reference/
+    type: Documentation
+  - url: https://github.com/grafana/oncall
+    type: SourceCode
+  description: Programmatic access to OnCall alert groups, integrations, escalation chains, schedules,
+    on-call shifts, routes, slack channels, webhooks, and users. Powers on-call rotation management and
+    alert routing for the broader Grafana IRM (Incident Response Management) suite.
+- aid: grafana-com:synthetic-monitoring-api
+  name: Grafana Synthetic Monitoring API
+  tags:
+  - Observability
+  - Synthetic Monitoring
+  - Uptime
+  humanURL: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
+  properties:
+  - url: https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/
+    type: Documentation
+  - url: https://github.com/grafana/synthetic-monitoring-agent
+    type: SourceCode
+  description: Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step
+    scripted browser, gRPC) executed from Grafana Labs' global probe network plus optional private probes.
+    Results land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
+- aid: grafana-com:grafana-com-access-control-api
+  name: Grafana Access Control API
+  description: 'The API can be used to create, update, get and list roles, and create or remove built-in
+    role assignments. To use the API, you would need to enable fine-grained access control.
+
+    This only available in Grafana Enterprise.
+
+    The API does not currently work with an API Token. So in order to use these API endpoints you will
+    have to use Basic auth.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - access_control
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-access-control-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-admin-api
+  name: Grafana Admin API
+  description: The Admin HTTP API does not currently work with an API Token. API Tokens are currently
+    only linked to an organization and an organization role. They cannot be given the permission of server
+    admin, only users can be given that permission. So in order to use these API calls you will have to
+    use Basic Auth and the Grafana user must have the Grafana Admin permission. (The default admin user
+    is called admin and has permission to use this API.)
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - admin
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-admin-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-admin-ldap-api
+  name: Grafana Admin Ldap API
+  description: The admin_ldap API from Grafana — 5 operation(s) for admin_ldap.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - admin_ldap
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-admin-ldap-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-admin-provisioning-api
+  name: Grafana Admin Provisioning API
+  description: The admin_provisioning API from Grafana — 4 operation(s) for admin_provisioning.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - admin_provisioning
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-admin-provisioning-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-admin-users-api
+  name: Grafana Admin Users API
+  description: The admin_users API from Grafana — 11 operation(s) for admin_users.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - admin_users
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-admin-users-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-annotations-api
+  name: Grafana Annotations API
+  description: Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana
+    database (sqlite, mysql or postgres). Annotations can be organization annotations that can be shown
+    on any dashboard by configuring an annotation data source - they are filtered by tags. Or they can
+    be tied to a panel on a dashboard and are then only shown on that panel.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-annotations-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-convert-prometheus-api
+  name: Grafana Convert Prometheus API
+  description: The convert_prometheus API from Grafana — 6 operation(s) for convert_prometheus.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - convert_prometheus
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-convert-prometheus-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-correlations-api
+  name: Grafana Correlations API
+  description: The correlations API from Grafana — 4 operation(s) for correlations.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - correlations
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-correlations-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-dashboard-public-api
+  name: Grafana Dashboard Public API
+  description: The dashboard_public API from Grafana — 6 operation(s) for dashboard_public.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - dashboard_public
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-dashboard-public-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-dashboards-api
+  name: Grafana Dashboards API
+  description: The dashboards API from Grafana — 20 operation(s) for dashboards.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - dashboards
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-dashboards-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-devices-api
+  name: Grafana Devices API
+  description: The devices API from Grafana — 2 operation(s) for devices.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - devices
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-devices-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-enterprise-api
+  name: Grafana Enterprise API
+  description: These are only available in Grafana Enterprise
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - enterprise
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-enterprise-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-folders-api
+  name: Grafana Folders API
+  description: 'Folders are identified by the identifier (id) and the unique identifier (uid).
+
+    The identifier (id) of a folder is an auto-incrementing numeric value and is only unique per Grafana
+    install.
+
+    The unique identifier (uid) of a folder can be used for uniquely identify folders between multiple
+    Grafana installs. It’s automatically generated if not provided when creating a folder. The uid allows
+    having consistent URLs for accessing folders and when syncing folders between multiple Grafana installs.
+    This means that changing the title of a folder will not break any bookmarked links to that folder.
+
+    The uid can have a maximum length of 40 characters.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - folders
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-folders-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-health-api
+  name: Grafana Health API
+  description: The health API from Grafana — 2 operation(s) for health.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - health
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-health-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-invites-api
+  name: Grafana Invites API
+  description: The invites API from Grafana — 2 operation(s) for invites.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - invites
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-invites-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-library-elements-api
+  name: Grafana Library Elements API
+  description: 'The identifier (ID) of a library element is an auto-incrementing numeric value that is
+    unique per Grafana install.
+
+    The unique identifier (UID) of a library element uniquely identifies library elements between multiple
+    Grafana installs. It’s automatically generated unless you specify it during library element creation.
+    The UID provides consistent URLs for accessing library elements and when syncing library elements
+    between multiple Grafana installs.
+
+    The maximum length of a UID is 40 characters.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - library_elements
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-library-elements-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-licensing-api
+  name: Grafana Licensing API
+  description: 'Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise.
+
+    If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints
+    you would need to have relevant permissions. Refer to specific resources to understand what permissions
+    are required.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - licensing
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-licensing-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-migrations-api
+  name: Grafana Migrations API
+  description: The migrations API from Grafana — 10 operation(s) for migrations.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - migrations
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-migrations-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-org-api
+  name: Grafana Org API
+  description: If you are running Grafana Enterprise and have Fine-grained access control enabled, for
+    some endpoints you would need to have relevant permissions. Refer to specific resources to understand
+    what permissions are required.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - org
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-org-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-orgs-api
+  name: Grafana Orgs API
+  description: The Admin Organizations HTTP API does not currently work with an API Token. API Tokens
+    are currently only linked to an organization and an organization role. They cannot be given the permission
+    of server admin, only users can be given that permission. So in order to use these API calls you will
+    have to use Basic Auth and the Grafana user must have the Grafana Admin permission (The default admin
+    user is called `admin` and has permission to use this API).
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - orgs
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-orgs-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-permissions-api
+  name: Grafana Permissions API
+  description: Permissions with `folderId=-1` are the default permissions for users with the Viewer and
+    Editor roles. Permissions can be set for a user, a team or a role (Viewer or Editor). Permissions
+    cannot be set for Admins - they always have access to everything.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - permissions
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-permissions-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-playlists-api
+  name: Grafana Playlists API
+  description: The playlists API from Grafana — 3 operation(s) for playlists.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - playlists
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-playlists-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-preferences-api
+  name: Grafana Preferences API
+  description: The preferences API from Grafana — 3 operation(s) for preferences.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-preferences-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-provisioning-api
+  name: Grafana Provisioning API
+  description: The provisioning API from Grafana — 17 operation(s) for provisioning.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - provisioning
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-provisioning-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-query-history-api
+  name: Grafana Query History API
+  description: 'The identifier (ID) of a query in query history is an auto-incrementing numeric value
+    that is unique per Grafana install.
+
+    The unique identifier (UID) of a query history uniquely identifies queries in query history between
+    multiple Grafana installs. It’s automatically generated. The UID provides consistent URLs for accessing
+    queries in query history.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - query_history
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-query-history-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-quota-api
+  name: Grafana Quota API
+  description: The quota API from Grafana — 6 operation(s) for quota.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - quota
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-quota-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-recording-rules-api
+  name: Grafana Recording Rules API
+  description: The recording_rules API from Grafana — 4 operation(s) for recording_rules.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - recording_rules
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-recording-rules-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-reports-api
+  name: Grafana Reports API
+  description: 'This API allows you to interact programmatically with the Reporting feature.
+
+    Reporting is only available in Grafana Enterprise. Read more about Grafana Enterprise.
+
+    If you have Fine-grained access Control enabled, for some endpoints you would need to have relevant
+    permissions. Refer to specific resources to understand what permissions are required.'
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - reports
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-reports-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-saml-api
+  name: Grafana SAML API
+  description: The saml API from Grafana — 4 operation(s) for saml.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - saml
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-saml-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-search-api
+  name: Grafana Search API
+  description: The search API from Grafana — 2 operation(s) for search.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-search-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-service-accounts-api
+  name: Grafana Service Accounts API
+  description: If you are running Grafana Enterprise, for some endpoints you'll need to have specific
+    permissions. Refer to [Role-based access control permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/custom-role-actions-scopes/)
+    for more information.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - service_accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-service-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-signed-in-user-api
+  name: Grafana Signed In User API
+  description: The signed_in_user API from Grafana — 10 operation(s) for signed_in_user.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - signed_in_user
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-signed-in-user-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-signing-keys-api
+  name: Grafana Signing Keys API
+  description: The signing_keys API from Grafana — 1 operation(s) for signing_keys.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - signing_keys
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-signing-keys-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-snapshots-api
+  name: Grafana Snapshots API
+  description: The snapshots API from Grafana — 5 operation(s) for snapshots.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - snapshots
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-snapshots-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-sso-settings-api
+  name: Grafana SSO Settings API
+  description: The sso_settings API from Grafana — 2 operation(s) for sso_settings.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - sso_settings
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-sso-settings-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-sync-team-groups-api
+  name: Grafana Sync Team Groups API
+  description: The sync_team_groups API from Grafana — 2 operation(s) for sync_team_groups.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - sync_team_groups
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-sync-team-groups-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-teams-api
+  name: Grafana Teams API
+  description: This API can be used to create/update/delete Teams and to add/remove users to Teams. All
+    actions require that the user has the Admin role for the organization.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - teams
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-teams-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-user-api
+  name: Grafana User API
+  description: The user API from Grafana — 1 operation(s) for user.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-user-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-users-api
+  name: Grafana Users API
+  description: The users API from Grafana — 6 operation(s) for users.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-users-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-versions-api
+  name: Grafana Versions API
+  description: The versions API from Grafana — 3 operation(s) for versions.
+  humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
+  tags:
+  - versions
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-versions-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+- aid: grafana-com:grafana-com-data-sources-api
+  name: Grafana Data Sources API
+  description: If you are running Grafana Enterprise and have Fine-grained access control enabled, for
+    some endpoints you would need to have relevant permissions. Refer to specific resources to understand
+    what permissions are required.
+  humanURL: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/grafana-com-data-sources-api-openapi.yml
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/
+  - type: Authentication
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/authentication/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/data_source/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/annotations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/org/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/user/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/preferences/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/access_control/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/admin/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/licensing/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/reporting/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/library_element/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/correlations/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/short_url/
+  - type: Documentation
+    url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
+tags_raw:
+- Observability
+- Monitoring
+- Dashboards
+- Logs
+- Metrics
+- Traces
+- Profiling
+- Alerting
+- Open Source
+- Grafana Labs
+x-coverage:
+  state: unreadable
+  reason: no-machine-readable-spec
+  method: derived
+  generated: '2026-10-04'
+  generator: derive-coverage.py (pre-flight evidence)
+  detail: the company publishes developer documentation but serves no machine-readable contract from it
+  evidence:
+  - url: https://www.grafana.com/
+    status: 200
+x-enrichment:
+  date: '2026-10-04'
+  status: enriched
+  artifacts_added: 23
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

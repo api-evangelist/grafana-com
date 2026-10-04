@@ -1,0 +1,330 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Licensing API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: 'Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise.
+
+    If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have relevant permissions. Refer to specific resources to understand what permissions are required.'
+  name: Licensing
+paths:
+  /licensing/check:
+    get:
+      tags:
+      - Licensing
+      summary: Check license availability
+      operationId: getStatus
+      responses:
+        '200':
+          $ref: '#/components/responses/getStatusResponse'
+  /licensing/custom-permissions:
+    get:
+      description: 'You need to have a permission with action `licensing.reports:read`.
+
+
+        Deprecated. There is currently no replacement for this endpoint. Please reach out to Grafana support if you rely on this endpoint.'
+      tags:
+      - Licensing
+      summary: Get custom permissions report
+      operationId: getCustomPermissionsReport
+      deprecated: true
+      responses:
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /licensing/custom-permissions-csv:
+    get:
+      description: 'You need to have a permission with action `licensing.reports:read`.
+
+
+        Deprecated. There is currently no replacement for this endpoint. Please reach out to Grafana support if you rely on this endpoint.'
+      tags:
+      - Licensing
+      summary: Get custom permissions report in CSV format
+      operationId: getCustomPermissionsCSV
+      deprecated: true
+      responses:
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /licensing/refresh-stats:
+    get:
+      description: You need to have a permission with action `licensing:read`.
+      tags:
+      - Licensing
+      summary: Refresh license stats
+      operationId: refreshLicenseStats
+      responses:
+        '200':
+          $ref: '#/components/responses/refreshLicenseStatsResponse'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /licensing/token:
+    get:
+      description: You need to have a permission with action `licensing:read`.
+      tags:
+      - Licensing
+      summary: Get license token
+      operationId: getLicenseToken
+      responses:
+        '200':
+          $ref: '#/components/responses/getLicenseTokenResponse'
+    post:
+      description: You need to have a permission with action `licensing:write`.
+      tags:
+      - Licensing
+      summary: Create license token
+      operationId: postLicenseToken
+      responses:
+        '200':
+          $ref: '#/components/responses/getLicenseTokenResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteTokenCommand'
+        required: true
+    delete:
+      description: 'Removes the license stored in the Grafana database. Available in Grafana Enterprise v7.4+.
+
+
+        You need to have a permission with action `licensing:delete`.'
+      tags:
+      - Licensing
+      summary: Remove license from database
+      operationId: deleteLicenseToken
+      responses:
+        '202':
+          $ref: '#/components/responses/acceptedResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteTokenCommand'
+        required: true
+  /licensing/token/renew:
+    post:
+      description: 'Manually ask license issuer for a new token. Available in Grafana Enterprise v7.4+.
+
+
+        You need to have a permission with action `licensing:write`.'
+      tags:
+      - Licensing
+      summary: Manually force license refresh
+      operationId: postRenewLicenseToken
+      responses:
+        '200':
+          $ref: '#/components/responses/postRenewLicenseTokenResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    postRenewLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: boolean
+    getLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Token'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getStatusResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: boolean
+    refreshLicenseStatsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActiveUserStats'
+    acceptedResponse:
+      description: AcceptedResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    Token:
+      type: object
+      properties:
+        account:
+          type: string
+        anonymousRatio:
+          type: integer
+          format: int64
+        company:
+          type: string
+        details_url:
+          type: string
+        exp:
+          type: integer
+          format: int64
+        iat:
+          type: integer
+          format: int64
+        included_users:
+          type: integer
+          format: int64
+        iss:
+          type: string
+        jti:
+          type: string
+        lexp:
+          type: integer
+          format: int64
+        lic_exp_warn_days:
+          type: integer
+          format: int64
+        lid:
+          type: string
+        limit_by:
+          type: string
+        max_concurrent_user_sessions:
+          type: integer
+          format: int64
+        nbf:
+          type: integer
+          format: int64
+        prod:
+          type: array
+          items:
+            type: string
+        slug:
+          type: string
+        status:
+          $ref: '#/components/schemas/TokenStatus'
+        sub:
+          type: string
+        tok_exp_warn_days:
+          type: integer
+          format: int64
+        trial:
+          type: boolean
+        trial_exp:
+          type: integer
+          format: int64
+        update_days:
+          type: integer
+          format: int64
+        usage_billing:
+          type: boolean
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    ActiveUserStats:
+      type: object
+      properties:
+        active_admins_and_editors:
+          type: integer
+          format: int64
+        active_anonymous_devices:
+          type: integer
+          format: int64
+        active_users:
+          type: integer
+          format: int64
+        active_viewers:
+          type: integer
+          format: int64
+    TokenStatus:
+      type: integer
+      format: int64
+    DeleteTokenCommand:
+      type: object
+      properties:
+        instance:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,367 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Preferences API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Preferences
+paths:
+  /org/preferences:
+    get:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Preferences
+      summary: Get Current Org Prefs
+      operationId: getOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getPreferencesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Preferences
+      summary: Update Current Org Prefs
+      operationId: updateOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrefsCmd'
+        required: true
+    patch:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/namespace
+      tags:
+      - Preferences
+      summary: Patch Current Org Prefs
+      operationId: patchOrgPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchPrefsCmd'
+        required: true
+  /teams/{team_id}/preferences:
+    get:
+      tags:
+      - Preferences
+      summary: Get Team Preferences
+      operationId: getTeamPreferences
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPreferencesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      tags:
+      - Preferences
+      summary: Update Team Preferences
+      operationId: updateTeamPreferences
+      parameters:
+      - name: team_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrefsCmd'
+        required: true
+  /user/preferences:
+    get:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+      tags:
+      - Preferences
+      summary: Get user preferences
+      operationId: getUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/getPreferencesResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: 'Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+
+
+        Omitting a key (`theme`, `homeDashboardUID`, `timezone`) will cause the current value to be replaced with the system default value.'
+      tags:
+      - Preferences
+      summary: Update user preferences
+      operationId: updateUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrefsCmd'
+        required: true
+    patch:
+      description: Use /apis/preferences.grafana.app/v1/namespaces/{namespace}/preferences/user-{uid}
+      tags:
+      - Preferences
+      summary: Patch user preferences
+      operationId: patchUserPreferences
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchPrefsCmd'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getPreferencesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreferencesSpec'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    UpdatePrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    PreferencesNavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    QueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          type: string
+    NavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    PatchPrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    PreferencesSpec:
+      type: object
+      properties:
+        homeDashboardUID:
+          description: UID for the home dashboard
+          type: string
+        homeURL:
+          description: 'Explicit home URL (NOTE: this can only be modified in the system settings)'
+          type: string
+        language:
+          description: Selected language
+          type: string
+        navbar:
+          $ref: '#/components/schemas/PreferencesNavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/PreferencesQueryHistoryPreference'
+        theme:
+          description: user interface theme
+          type: string
+        timezone:
+          description: The timezone selection
+          type: string
+        weekStart:
+          description: day of the week (sunday, monday, etc)
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

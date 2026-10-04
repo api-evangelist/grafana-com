@@ -1,0 +1,556 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Admin Users API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: admin_users
+paths:
+  /admin/users:
+    post:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:create`.
+
+        Note that OrgId is an optional parameter that can be used to assign a new user to a different organization when `auto_assign_org` is set to `true`.'
+      tags:
+      - admin_users
+      summary: Create new user
+      operationId: adminCreateUser
+      responses:
+        '200':
+          $ref: '#/components/responses/adminCreateUserResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '412':
+          $ref: '#/components/responses/preconditionFailedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminCreateUserForm'
+        required: true
+  /admin/users/{user_id}:
+    delete:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:delete` and scope `global.users:*`.
+      tags:
+      - admin_users
+      summary: Delete global User
+      operationId: adminDeleteUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/auth-tokens:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:list` and scope `global.users:*`.
+      tags:
+      - admin_users
+      summary: Return a list of all auth tokens (devices) that the user currently have logged…
+      operationId: adminGetUserAuthTokens
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/adminGetUserAuthTokensResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/disable:
+    post:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:disable` and scope `global.users:1` (userIDScope).
+      tags:
+      - admin_users
+      summary: Disable user
+      operationId: adminDisableUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/enable:
+    post:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users:enable` and scope `global.users:1` (userIDScope).
+      tags:
+      - admin_users
+      summary: Enable user
+      operationId: adminEnableUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/logout:
+    post:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.logout` and scope `global.users:*`.
+      tags:
+      - admin_users
+      summary: Logout user revokes all auth tokens (devices) for the user.
+      operationId: adminLogoutUser
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/password:
+    put:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.password:update` and scope `global.users:*`.
+      tags:
+      - admin_users
+      summary: Set password for user
+      operationId: adminUpdateUserPassword
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateUserPasswordForm'
+        required: true
+  /admin/users/{user_id}/permissions:
+    put:
+      description: 'Only works with Basic Authentication (username and password). See introduction for an explanation.
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.'
+      tags:
+      - admin_users
+      summary: Set permissions for user
+      operationId: adminUpdateUserPermissions
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateUserPermissionsForm'
+        required: true
+  /admin/users/{user_id}/quotas:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:list` and scope `global.users:1` (userIDScope).
+      tags:
+      - admin_users
+      summary: Fetch user quota
+      operationId: getUserQuota
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getQuotaResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/users/{user_id}/quotas/{quota_target}:
+    put:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.quotas:update` and scope `global.users:1` (userIDScope).
+      tags:
+      - admin_users
+      summary: Update user quota
+      operationId: updateUserQuota
+      parameters:
+      - name: quota_target
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuotaCmd'
+        required: true
+  /admin/users/{user_id}/revoke-auth-token:
+    post:
+      description: 'Revokes the given auth token (device) for the user. User of issued auth token (device) will no longer be logged in and will be required to authenticate again upon next activity.
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.authtoken:update` and scope `global.users:*`.'
+      tags:
+      - admin_users
+      summary: Revoke auth token for user
+      operationId: adminRevokeUserAuthToken
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeAuthTokenCmd'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    adminGetUserAuthTokensResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserToken'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQuotaResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/QuotaDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    adminCreateUserResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AdminCreateUserResponse'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    preconditionFailedError:
+      description: PreconditionFailedError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    QuotaDTO:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        org_id:
+          type: integer
+          format: int64
+        target:
+          type: string
+        used:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    UserToken:
+      description: UserToken represents a user token
+      type: object
+      properties:
+        AuthToken:
+          type: string
+        AuthTokenSeen:
+          type: boolean
+        ClientIp:
+          type: string
+        CreatedAt:
+          type: integer
+          format: int64
+        ExternalSessionId:
+          type: integer
+          format: int64
+        Id:
+          type: integer
+          format: int64
+        PrevAuthToken:
+          type: string
+        RevokedAt:
+          type: integer
+          format: int64
+        RotatedAt:
+          type: integer
+          format: int64
+        SeenAt:
+          type: integer
+          format: int64
+        UnhashedToken:
+          type: string
+        UpdatedAt:
+          type: integer
+          format: int64
+        UserAgent:
+          type: string
+        UserId:
+          type: integer
+          format: int64
+    AdminUpdateUserPasswordForm:
+      type: object
+      properties:
+        password:
+          $ref: '#/components/schemas/Password'
+    AdminCreateUserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        uid:
+          type: string
+    AdminCreateUserForm:
+      type: object
+      properties:
+        email:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        password:
+          $ref: '#/components/schemas/Password'
+    UpdateQuotaCmd:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        target:
+          type: string
+    Password:
+      type: string
+    AdminUpdateUserPermissionsForm:
+      type: object
+      properties:
+        isGrafanaAdmin:
+          type: boolean
+    RevokeAuthTokenCmd:
+      type: object
+      properties:
+        authTokenId:
+          type: integer
+          format: int64
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

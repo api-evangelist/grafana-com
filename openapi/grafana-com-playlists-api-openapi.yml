@@ -1,0 +1,368 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Playlists API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Playlists
+paths:
+  /playlists:
+    get:
+      description: Please refer to new API.
+      tags:
+      - Playlists
+      summary: Get playlists
+      operationId: searchPlaylists
+      deprecated: true
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/searchPlaylistsResponse'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: Please refer to new API.
+      tags:
+      - Playlists
+      summary: Create playlist
+      operationId: createPlaylist
+      deprecated: true
+      responses:
+        '200':
+          $ref: '#/components/responses/createPlaylistResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlaylistCommand'
+        required: true
+  /playlists/{uid}:
+    get:
+      description: Please refer to new API.
+      tags:
+      - Playlists
+      summary: Get playlist
+      operationId: getPlaylist
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPlaylistResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: Please refer to new API.
+      tags:
+      - Playlists
+      summary: Update playlist
+      operationId: updatePlaylist
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/updatePlaylistResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlaylistCommand'
+        required: true
+    delete:
+      description: Please refer to new API.
+      tags:
+      - Playlists
+      summary: Delete playlist
+      operationId: deletePlaylist
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /playlists/{uid}/items:
+    get:
+      description: Please refer to new API instead (items are included in the playlist spec).
+      tags:
+      - Playlists
+      summary: Get playlist items
+      operationId: getPlaylistItems
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPlaylistItemsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getPlaylistResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PlaylistDTO'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    updatePlaylistResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PlaylistDTO'
+    createPlaylistResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Playlist'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getPlaylistItemsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PlaylistItemDTO'
+    searchPlaylistsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Playlists'
+  schemas:
+    UpdatePlaylistCommand:
+      type: object
+      properties:
+        interval:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaylistItem'
+        name:
+          type: string
+        uid:
+          type: string
+    Playlist:
+      description: Playlist model
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        interval:
+          type: string
+        name:
+          type: string
+        uid:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    CreatePlaylistCommand:
+      type: object
+      properties:
+        interval:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaylistItem'
+        name:
+          type: string
+    PlaylistItem:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int64
+        PlaylistId:
+          type: integer
+          format: int64
+        order:
+          type: integer
+          format: int64
+        title:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+    PlaylistDTO:
+      type: object
+      properties:
+        interval:
+          description: Interval sets the time between switching views in a playlist.
+          type: string
+        items:
+          description: The ordered list of items that the playlist will iterate over.
+          type: array
+          items:
+            $ref: '#/components/schemas/PlaylistItemDTO'
+        name:
+          description: Name of the playlist.
+          type: string
+        uid:
+          description: 'Unique playlist identifier. Generated on creation, either by the
+
+            creator of the playlist of by the application.'
+          type: string
+    PlaylistItemDTO:
+      type: object
+      properties:
+        title:
+          description: Title is an unused property -- it will be removed in the future
+          type: string
+        type:
+          description: Type of the item.
+          type: string
+        value:
+          description: 'Value depends on type and describes the playlist item.
+
+
+            - dashboard_by_id: The value is an internal numerical identifier set by Grafana. This
+
+            is not portable as the numerical identifier is non-deterministic between different instances.
+
+            Will be replaced by dashboard_by_uid in the future. (deprecated)
+
+            - dashboard_by_tag: The value is a tag which is set on any number of dashboards. All
+
+            dashboards behind the tag will be added to the playlist.
+
+            - dashboard_by_uid: The value is the dashboard UID'
+          type: string
+    Playlists:
+      type: array
+      items:
+        $ref: '#/components/schemas/Playlist'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

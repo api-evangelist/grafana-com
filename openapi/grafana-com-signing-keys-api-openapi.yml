@@ -1,0 +1,671 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Signing Keys API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: signing_keys
+paths:
+  /signing-keys/keys:
+    get:
+      description: 'Required permissions
+
+        None'
+      tags:
+      - signing_keys
+      summary: Get JSON Web Key Set (JWKS) with all the keys that can be used to verify tokens…
+      operationId: retrieveJWKS
+      responses:
+        '200':
+          $ref: '#/components/responses/jwksResponse'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  schemas:
+    URL:
+      type: string
+      format: url
+    ExtKeyUsage:
+      description: Each of the ExtKeyUsage* constants define a unique action.
+      type: integer
+      format: int64
+      title: ExtKeyUsage represents an extended set of actions that are valid for a given key.
+    JSONWebKey:
+      description: 'JSONWebKey represents a public or private key in JWK format. It can be
+
+        marshaled into JSON and unmarshaled from JSON.'
+      type: object
+      properties:
+        Algorithm:
+          description: Key algorithm, parsed from `alg` header.
+          type: string
+        CertificateThumbprintSHA1:
+          description: X.509 certificate thumbprint (SHA-1), parsed from `x5t` header.
+          type: array
+          items:
+            type: integer
+            format: uint8
+        CertificateThumbprintSHA256:
+          description: X.509 certificate thumbprint (SHA-256), parsed from `x5t#S256` header.
+          type: array
+          items:
+            type: integer
+            format: uint8
+        Certificates:
+          description: X.509 certificate chain, parsed from `x5c` header.
+          type: array
+          items:
+            $ref: '#/components/schemas/Certificate'
+        CertificatesURL:
+          $ref: '#/components/schemas/URL'
+        Key:
+          description: 'Key is the Go in-memory representation of this key. It must have one
+
+            of these types:
+
+            - ed25519.PublicKey
+
+            - ed25519.PrivateKey
+
+            - *ecdsa.PublicKey
+
+            - *ecdsa.PrivateKey
+
+            - *rsa.PublicKey
+
+            - *rsa.PrivateKey
+
+            - []byte (a symmetric key)
+
+
+            When marshaling this JSONWebKey into JSON, the "kty" header parameter
+
+            will be automatically set based on the type of this field.'
+        KeyID:
+          description: Key identifier, parsed from `kid` header.
+          type: string
+        Use:
+          description: Key use, parsed from `use` header.
+          type: string
+    PublicKeyAlgorithm:
+      type: integer
+      format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    ObjectIdentifier:
+      type: array
+      title: An ObjectIdentifier represents an ASN.1 OBJECT IDENTIFIER.
+      items:
+        type: integer
+        format: int64
+    AttributeTypeAndValue:
+      description: 'When parsed as part of a pkix.Name structure in a crypto/x509 type,
+
+        the Value will be
+
+
+        - a string if the ASN.1 type is PrintableString, IA5String,
+
+        NumericString, BMPString, T61String, or UTF8String;
+
+        - an int64 if the ASN.1 type is INTEGER;
+
+        - an asn1.BitString if the ASN.1 type is BIT STRING;
+
+        - a []byte if the ASN.1 type is OCTET STRING;
+
+        - an asn1.ObjectIdentifier if the ASN.1 type is OBJECT IDENTIFIER;
+
+        - a time.Time if the ASN.1 type is UTCTIME or GENERALIZEDTIME;
+
+        - a bool if the ASN.1 type is BOOLEAN;
+
+        - nil if the ASN.1 type is NULL;
+
+        - an asn1.RawValue otherwise.'
+      type: object
+      title: 'AttributeTypeAndValue mirrors the ASN.1 structure of the same name in
+
+        RFC 5280, Section 4.1.2.4.'
+      properties:
+        Type:
+          $ref: '#/components/schemas/ObjectIdentifier'
+        Value: {}
+    KeyUsage:
+      description: 'KeyUsage represents the set of actions that are valid for a given key. It''s
+
+        a bitmap of the KeyUsage* constants.'
+      type: integer
+      format: int64
+    PolicyMapping:
+      type: object
+      title: PolicyMapping represents a policy mapping entry in the policyMappings extension.
+      properties:
+        IssuerDomainPolicy:
+          description: 'IssuerDomainPolicy contains a policy OID the issuing certificate considers
+
+            equivalent to SubjectDomainPolicy in the subject certificate.'
+          type: string
+        SubjectDomainPolicy:
+          description: 'SubjectDomainPolicy contains a OID the issuing certificate considers
+
+            equivalent to IssuerDomainPolicy in the subject certificate.'
+          type: string
+    IPNet:
+      type: object
+      title: An IPNet represents an IP network.
+      properties:
+        IP:
+          type: string
+        Mask:
+          $ref: '#/components/schemas/IPMask'
+    IPMask:
+      description: See type [IPNet] and func [ParseCIDR] for details.
+      type: array
+      title: 'An IPMask is a bitmask that can be used to manipulate
+
+        IP addresses for IP addressing and routing.'
+      items:
+        type: integer
+        format: uint8
+    Name:
+      description: 'Name represents an X.509 distinguished name. This only includes the common
+
+        elements of a DN. Note that Name is only an approximation of the X.509
+
+        structure. If an accurate representation is needed, asn1.Unmarshal the raw
+
+        subject or issuer as an [RDNSequence].'
+      type: object
+      properties:
+        CommonName:
+          type: string
+        Country:
+          type: array
+          items:
+            type: string
+        ExtraNames:
+          description: 'ExtraNames contains attributes to be copied, raw, into any marshaled
+
+            distinguished names. Values override any attributes with the same OID.
+
+            The ExtraNames field is not populated when parsing, see Names.'
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeTypeAndValue'
+        Locality:
+          type: array
+          items:
+            type: string
+        Names:
+          description: 'Names contains all parsed attributes. When parsing distinguished names,
+
+            this can be used to extract non-standard attributes that are not parsed
+
+            by this package. When marshaling to RDNSequences, the Names field is
+
+            ignored, see ExtraNames.'
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeTypeAndValue'
+        Organization:
+          type: array
+          items:
+            type: string
+        OrganizationalUnit:
+          type: array
+          items:
+            type: string
+        PostalCode:
+          type: array
+          items:
+            type: string
+        Province:
+          type: array
+          items:
+            type: string
+        SerialNumber:
+          type: string
+        StreetAddress:
+          type: array
+          items:
+            type: string
+    Extension:
+      description: 'Extension represents the ASN.1 structure of the same name. See RFC
+
+        5280, section 4.2.'
+      type: object
+      properties:
+        Critical:
+          type: boolean
+        Id:
+          $ref: '#/components/schemas/ObjectIdentifier'
+        Value:
+          type: array
+          items:
+            type: integer
+            format: uint8
+    Certificate:
+      type: object
+      title: A Certificate represents an X.509 certificate.
+      properties:
+        AuthorityKeyId:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        BasicConstraintsValid:
+          description: 'BasicConstraintsValid indicates whether IsCA, MaxPathLen,
+
+            and MaxPathLenZero are valid.'
+          type: boolean
+        CRLDistributionPoints:
+          description: CRL Distribution Points
+          type: array
+          items:
+            type: string
+        DNSNames:
+          description: 'Subject Alternate Name values. (Note that these values may not be valid
+
+            if invalid values were contained within a parsed certificate. For
+
+            example, an element of DNSNames may not be a valid DNS domain name.)'
+          type: array
+          items:
+            type: string
+        EmailAddresses:
+          type: array
+          items:
+            type: string
+        ExcludedDNSDomains:
+          type: array
+          items:
+            type: string
+        ExcludedEmailAddresses:
+          type: array
+          items:
+            type: string
+        ExcludedIPRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/IPNet'
+        ExcludedURIDomains:
+          type: array
+          items:
+            type: string
+        ExtKeyUsage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtKeyUsage'
+        Extensions:
+          description: 'Extensions contains raw X.509 extensions. When parsing certificates,
+
+            this can be used to extract non-critical extensions that are not
+
+            parsed by this package. When marshaling certificates, the Extensions
+
+            field is ignored, see ExtraExtensions.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Extension'
+        ExtraExtensions:
+          description: 'ExtraExtensions contains extensions to be copied, raw, into any
+
+            marshaled certificates. Values override any extensions that would
+
+            otherwise be produced based on the other fields. The ExtraExtensions
+
+            field is not populated when parsing certificates, see Extensions.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Extension'
+        IPAddresses:
+          type: array
+          items:
+            type: string
+        InhibitAnyPolicy:
+          description: 'InhibitAnyPolicy and InhibitAnyPolicyZero indicate the presence and value
+
+            of the inhibitAnyPolicy extension.
+
+
+            The value of InhibitAnyPolicy indicates the number of additional
+
+            certificates in the path after this certificate that may use the
+
+            anyPolicy policy OID to indicate a match with any other policy.
+
+
+            When parsing a certificate, a positive non-zero InhibitAnyPolicy means
+
+            that the field was specified, -1 means it was unset, and
+
+            InhibitAnyPolicyZero being true mean that the field was explicitly set to
+
+            zero. The case of InhibitAnyPolicy==0 with InhibitAnyPolicyZero==false
+
+            should be treated equivalent to -1 (unset).'
+          type: integer
+          format: int64
+        InhibitAnyPolicyZero:
+          description: 'InhibitAnyPolicyZero indicates that InhibitAnyPolicy==0 should be
+
+            interpreted as an actual maximum path length of zero. Otherwise, that
+
+            combination is interpreted as InhibitAnyPolicy not being set.'
+          type: boolean
+        InhibitPolicyMapping:
+          description: 'InhibitPolicyMapping and InhibitPolicyMappingZero indicate the presence
+
+            and value of the inhibitPolicyMapping field of the policyConstraints
+
+            extension.
+
+
+            The value of InhibitPolicyMapping indicates the number of additional
+
+            certificates in the path after this certificate that may use policy
+
+            mapping.
+
+
+            When parsing a certificate, a positive non-zero InhibitPolicyMapping
+
+            means that the field was specified, -1 means it was unset, and
+
+            InhibitPolicyMappingZero being true mean that the field was explicitly
+
+            set to zero. The case of InhibitPolicyMapping==0 with
+
+            InhibitPolicyMappingZero==false should be treated equivalent to -1
+
+            (unset).'
+          type: integer
+          format: int64
+        InhibitPolicyMappingZero:
+          description: 'InhibitPolicyMappingZero indicates that InhibitPolicyMapping==0 should be
+
+            interpreted as an actual maximum path length of zero. Otherwise, that
+
+            combination is interpreted as InhibitAnyPolicy not being set.'
+          type: boolean
+        IsCA:
+          type: boolean
+        Issuer:
+          $ref: '#/components/schemas/Name'
+        IssuingCertificateURL:
+          type: array
+          items:
+            type: string
+        KeyUsage:
+          $ref: '#/components/schemas/KeyUsage'
+        MaxPathLen:
+          description: 'MaxPathLen and MaxPathLenZero indicate the presence and
+
+            value of the BasicConstraints'' "pathLenConstraint".
+
+
+            When parsing a certificate, a positive non-zero MaxPathLen
+
+            means that the field was specified, -1 means it was unset,
+
+            and MaxPathLenZero being true mean that the field was
+
+            explicitly set to zero. The case of MaxPathLen==0 with MaxPathLenZero==false
+
+            should be treated equivalent to -1 (unset).
+
+
+            When generating a certificate, an unset pathLenConstraint
+
+            can be requested with either MaxPathLen == -1 or using the
+
+            zero value for both MaxPathLen and MaxPathLenZero.'
+          type: integer
+          format: int64
+        MaxPathLenZero:
+          description: 'MaxPathLenZero indicates that BasicConstraintsValid==true
+
+            and MaxPathLen==0 should be interpreted as an actual
+
+            maximum path length of zero. Otherwise, that combination is
+
+            interpreted as MaxPathLen not being set.'
+          type: boolean
+        NotAfter:
+          type: string
+          format: date-time
+        NotBefore:
+          type: string
+          format: date-time
+        OCSPServer:
+          description: RFC 5280, 4.2.2.1 (Authority Information Access)
+          type: array
+          items:
+            type: string
+        PermittedDNSDomains:
+          type: array
+          items:
+            type: string
+        PermittedDNSDomainsCritical:
+          description: Name constraints
+          type: boolean
+        PermittedEmailAddresses:
+          type: array
+          items:
+            type: string
+        PermittedIPRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/IPNet'
+        PermittedURIDomains:
+          type: array
+          items:
+            type: string
+        Policies:
+          description: 'Policies contains all policy identifiers included in the certificate.
+
+            See CreateCertificate for context about how this field and the PolicyIdentifiers field
+
+            interact.
+
+            In Go 1.22, encoding/gob cannot handle and ignores this field.'
+          type: array
+          items:
+            type: string
+        PolicyIdentifiers:
+          description: 'PolicyIdentifiers contains asn1.ObjectIdentifiers, the components
+
+            of which are limited to int32. If a certificate contains a policy which
+
+            cannot be represented by asn1.ObjectIdentifier, it will not be included in
+
+            PolicyIdentifiers, but will be present in Policies, which contains all parsed
+
+            policy OIDs.
+
+            See CreateCertificate for context about how this field and the Policies field
+
+            interact.'
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectIdentifier'
+        PolicyMappings:
+          description: PolicyMappings contains a list of policy mappings included in the certificate.
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyMapping'
+        PublicKey: {}
+        PublicKeyAlgorithm:
+          $ref: '#/components/schemas/PublicKeyAlgorithm'
+        Raw:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RawIssuer:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RawSignatureAlgorithm:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RawSubject:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RawSubjectPublicKeyInfo:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RawTBSCertificate:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        RequireExplicitPolicy:
+          description: 'RequireExplicitPolicy and RequireExplicitPolicyZero indicate the presence
+
+            and value of the requireExplicitPolicy field of the policyConstraints
+
+            extension.
+
+
+            The value of RequireExplicitPolicy indicates the number of additional
+
+            certificates in the path after this certificate before an explicit policy
+
+            is required for the rest of the path. When an explicit policy is required,
+
+            each subsequent certificate in the path must contain a required policy OID,
+
+            or a policy OID which has been declared as equivalent through the policy
+
+            mapping extension.
+
+
+            When parsing a certificate, a positive non-zero RequireExplicitPolicy
+
+            means that the field was specified, -1 means it was unset, and
+
+            RequireExplicitPolicyZero being true mean that the field was explicitly
+
+            set to zero. The case of RequireExplicitPolicy==0 with
+
+            RequireExplicitPolicyZero==false should be treated equivalent to -1
+
+            (unset).'
+          type: integer
+          format: int64
+        RequireExplicitPolicyZero:
+          description: 'RequireExplicitPolicyZero indicates that RequireExplicitPolicy==0 should be
+
+            interpreted as an actual maximum path length of zero. Otherwise, that
+
+            combination is interpreted as InhibitAnyPolicy not being set.'
+          type: boolean
+        SerialNumber:
+          type: integer
+        Signature:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        SignatureAlgorithm:
+          $ref: '#/components/schemas/SignatureAlgorithm'
+        Subject:
+          $ref: '#/components/schemas/Name'
+        SubjectKeyId:
+          type: array
+          items:
+            type: integer
+            format: uint8
+        URIs:
+          type: array
+          items:
+            $ref: '#/components/schemas/URL'
+        UnhandledCriticalExtensions:
+          description: 'UnhandledCriticalExtensions contains a list of extension IDs that
+
+            were not (fully) processed when parsing. Verify will fail if this
+
+            slice is non-empty, unless verification is delegated to an OS
+
+            library which understands all the critical extensions.
+
+
+            Users can access these extensions using Extensions and can remove
+
+            elements from this slice if they believe that they have been
+
+            handled.'
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectIdentifier'
+        UnknownExtKeyUsage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ObjectIdentifier'
+        Version:
+          type: integer
+          format: int64
+    SignatureAlgorithm:
+      type: integer
+      format: int64
+  responses:
+    jwksResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              keys:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JSONWebKey'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

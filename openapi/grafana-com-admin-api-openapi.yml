@@ -1,0 +1,193 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Admin API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: The Admin HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization and an organization role. They cannot be given the permission of server admin, only users can be given that permission. So in order to use these API calls you will have to use Basic Auth and the Grafana user must have the Grafana Admin permission. (The default admin user is called admin and has permission to use this API.)
+  name: Admin
+paths:
+  /admin/settings:
+    get:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `settings:read` and scopes: `settings:*`, `settings:auth.saml:` and `settings:auth.saml:enabled` (property level).'
+      tags:
+      - Admin
+      summary: Fetch settings
+      operationId: adminGetSettings
+      responses:
+        '200':
+          $ref: '#/components/responses/adminGetSettingsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+      security:
+      - basic: []
+  /admin/stats:
+    get:
+      description: 'Only works with Basic Authentication (username and password). See introduction for an explanation.
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `server:stats:read`.'
+      tags:
+      - Admin
+      summary: Fetch Grafana Stats
+      operationId: adminGetStats
+      responses:
+        '200':
+          $ref: '#/components/responses/adminGetStatsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    adminGetStatsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AdminStats'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    adminGetSettingsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SettingsBag'
+  schemas:
+    AdminStats:
+      type: object
+      properties:
+        activeAdmins:
+          type: integer
+          format: int64
+        activeDevices:
+          type: integer
+          format: int64
+        activeEditors:
+          type: integer
+          format: int64
+        activeSessions:
+          type: integer
+          format: int64
+        activeUsers:
+          type: integer
+          format: int64
+        activeViewers:
+          type: integer
+          format: int64
+        admins:
+          type: integer
+          format: int64
+        alerts:
+          type: integer
+          format: int64
+        dailyActiveAdmins:
+          type: integer
+          format: int64
+        dailyActiveEditors:
+          type: integer
+          format: int64
+        dailyActiveSessions:
+          type: integer
+          format: int64
+        dailyActiveUsers:
+          type: integer
+          format: int64
+        dailyActiveViewers:
+          type: integer
+          format: int64
+        dashboards:
+          type: integer
+          format: int64
+        datasources:
+          type: integer
+          format: int64
+        editors:
+          type: integer
+          format: int64
+        monthlyActiveUsers:
+          type: integer
+          format: int64
+        orgs:
+          type: integer
+          format: int64
+        playlists:
+          type: integer
+          format: int64
+        snapshots:
+          type: integer
+          format: int64
+        stars:
+          type: integer
+          format: int64
+        tags:
+          type: integer
+          format: int64
+        users:
+          type: integer
+          format: int64
+        viewers:
+          type: integer
+          format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SettingsBag:
+      type: object
+      additionalProperties:
+        type: object
+        additionalProperties:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

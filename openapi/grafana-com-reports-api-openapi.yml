@@ -1,0 +1,758 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Reports API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: 'This API allows you to interact programmatically with the Reporting feature.
+
+    Reporting is only available in Grafana Enterprise. Read more about Grafana Enterprise.
+
+    If you have Fine-grained access Control enabled, for some endpoints you would need to have relevant permissions. Refer to specific resources to understand what permissions are required.'
+  name: Reports
+paths:
+  /reports:
+    get:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports:read` with scope `reports:*`.'
+      tags:
+      - Reports
+      summary: List reports
+      operationId: getReports
+      responses:
+        '200':
+          $ref: '#/components/responses/getReportsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: 'Available to org admins only and with a valid license.
+
+
+        You need to have a permission with action `reports.admin:create`.'
+      tags:
+      - Reports
+      summary: Create a report
+      operationId: createReport
+      responses:
+        '200':
+          $ref: '#/components/responses/createReportResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateReport'
+        required: true
+  /reports/dashboards/{uid}:
+    get:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports:read` with scope `reports:*`.'
+      tags:
+      - Reports
+      summary: List reports by dashboard uid
+      operationId: getReportsByDashboardUID
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getReportsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /reports/email:
+    post:
+      description: 'Generate and send a report. This API waits for the report to be generated before returning. We recommend that you set the client’s timeout to at least 60 seconds. Available to org admins only and with a valid license.
+
+
+        Only available in Grafana Enterprise v7.0+.
+
+        This API endpoint is experimental and may be deprecated in a future release. On deprecation, a migration strategy will be provided and the endpoint will remain functional until the next major release of Grafana.
+
+
+        You need to have a permission with action `reports:send`.'
+      tags:
+      - Reports
+      summary: Send a report
+      operationId: sendReport
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportEmail'
+        required: true
+  /reports/images/:image:
+    get:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports.settings:read`.'
+      tags:
+      - Reports
+      summary: Get custom branding report image
+      operationId: getSettingsImage
+      responses:
+        '200':
+          $ref: '#/components/responses/contentResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /reports/render/csvs:
+    get:
+      description: Available to all users and with a valid license.
+      tags:
+      - Reports
+      summary: Download a CSV report
+      operationId: renderReportCSVs
+      parameters:
+      - name: dashboards
+        in: query
+        schema:
+          type: string
+      - name: title
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/contentResponse'
+        '204':
+          $ref: '#/components/responses/noContentResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /reports/render/pdfs:
+    get:
+      description: Available to all users and with a valid license.
+      tags:
+      - Reports
+      summary: Render report for multiple dashboards
+      operationId: renderReportPDFs
+      parameters:
+      - name: dashboards
+        in: query
+        schema:
+          type: string
+      - name: orientation
+        in: query
+        schema:
+          type: string
+      - name: layout
+        in: query
+        schema:
+          type: string
+      - name: title
+        in: query
+        schema:
+          type: string
+      - name: scaleFactor
+        in: query
+        schema:
+          type: string
+      - name: includeTables
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/contentResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /reports/settings:
+    get:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports.settings:read`x.'
+      tags:
+      - Reports
+      summary: Get report settings
+      operationId: getReportSettings
+      responses:
+        '200':
+          $ref: '#/components/responses/getReportSettingsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports.settings:write`xx.'
+      tags:
+      - Reports
+      summary: Save settings
+      operationId: saveReportSettings
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportSettings'
+        required: true
+  /reports/test-email:
+    post:
+      description: 'Available to org admins only and with a valid license.
+
+
+        You need to have a permission with action `reports:send`.'
+      tags:
+      - Reports
+      summary: Send test report via email
+      operationId: sendTestEmail
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateReport'
+        required: true
+  /reports/{id}:
+    get:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports:read` with scope `reports:id:`.
+
+
+        Requesting reports using the internal id will stop workgin in the future
+
+        Use the reporting apiserver to manage reports. See: /apis/reporting.grafana.app/'
+      tags:
+      - Reports
+      summary: Get a report
+      operationId: getReport
+      deprecated: true
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getReportResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    put:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports.admin:write` with scope `reports:id:`.
+
+
+        Requesting reports using the internal id will stop workgin in the future
+
+        Use the reporting apiserver to manage reports. See: /apis/reporting.grafana.app/'
+      tags:
+      - Reports
+      summary: Update a report
+      operationId: updateReport
+      deprecated: true
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrUpdateReport'
+        required: true
+    delete:
+      description: 'Available to org admins only and with a valid or expired license.
+
+
+        You need to have a permission with action `reports.delete` with scope `reports:id:`.
+
+
+        Requesting reports using the internal id will stop workgin in the future
+
+        Use the reporting apiserver to manage reports. See: /apis/reporting.grafana.app/'
+      tags:
+      - Reports
+      summary: Delete a report
+      operationId: deleteReport
+      deprecated: true
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  schemas:
+    ReportBrandingOptions:
+      type: object
+      properties:
+        emailFooterLink:
+          type: string
+        emailFooterMode:
+          type: string
+        emailFooterText:
+          type: string
+        emailLogoUrl:
+          type: string
+        reportLogoUrl:
+          type: string
+    State:
+      type: string
+    ReportSchedule:
+      type: object
+      properties:
+        dayOfMonth:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        frequency:
+          type: string
+        intervalAmount:
+          type: integer
+          format: int64
+        intervalFrequency:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        workdaysOnly:
+          type: boolean
+    FooterItem:
+      type: object
+      properties:
+        color:
+          type: string
+        fontSize:
+          type: string
+        fontStyle:
+          type: string
+        fontWeight:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    Report:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportDashboard'
+        enableCsv:
+          type: boolean
+        enableDashboardUrl:
+          type: boolean
+        formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/ReportOptions'
+        orgId:
+          type: integer
+          format: int64
+        recipients:
+          type: string
+        replyTo:
+          type: string
+        scaleFactor:
+          type: integer
+          format: int64
+        schedule:
+          $ref: '#/components/schemas/ReportSchedule'
+        state:
+          $ref: '#/components/schemas/State'
+        subject:
+          type: string
+        uid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportURLItem'
+        userId:
+          type: integer
+          format: int64
+    ReportTimeRange:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    ReportURLItem:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+    ReportEmail:
+      type: object
+      properties:
+        emails:
+          description: Comma-separated list of emails to which to send the report to.
+          type: string
+        id:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
+          type: string
+          format: int64
+        useEmailsFromReport:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
+          type: boolean
+    ReportDashboard:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/ReportDashboardID'
+        reportVariables: {}
+        timeRange:
+          $ref: '#/components/schemas/ReportTimeRange'
+    ReportOptions:
+      type: object
+      properties:
+        csvEncoding:
+          type: string
+        layout:
+          type: string
+        orientation:
+          type: string
+        pdfCombineOneFile:
+          type: boolean
+        pdfShowTemplateVariables:
+          type: boolean
+        timeRange:
+          $ref: '#/components/schemas/ReportTimeRange'
+    ReportSettings:
+      type: object
+      properties:
+        branding:
+          $ref: '#/components/schemas/ReportBrandingOptions'
+        embeddedImageTheme:
+          type: string
+        footerFontFamily:
+          type: string
+        footerItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/FooterItem'
+        id:
+          type: integer
+          format: int64
+        orgId:
+          type: integer
+          format: int64
+        pdfDashboardTitleEnabled:
+          type: boolean
+        pdfHeaderEnabled:
+          type: boolean
+        pdfTheme:
+          type: string
+        pdfTimeRangeEnabled:
+          type: boolean
+        userId:
+          type: integer
+          format: int64
+    Type:
+      type: string
+    ReportDashboardID:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        uid:
+          type: string
+    CreateOrUpdateReport:
+      type: object
+      properties:
+        dashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportDashboard'
+        enableCsv:
+          type: boolean
+        enableDashboardUrl:
+          type: boolean
+        formats:
+          type: array
+          items:
+            $ref: '#/components/schemas/Type'
+        message:
+          type: string
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/ReportOptions'
+        recipients:
+          type: string
+        replyTo:
+          type: string
+        scaleFactor:
+          type: integer
+          format: int64
+        schedule:
+          $ref: '#/components/schemas/ReportSchedule'
+        state:
+          $ref: '#/components/schemas/State'
+        subject:
+          type: string
+        urls:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReportURLItem'
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getReportSettingsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReportSettings'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getReportsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Report'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    contentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: integer
+              format: uint8
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getReportResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Report'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    noContentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+    createReportResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+              message:
+                type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,307 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Permissions API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: Permissions with `folderId=-1` are the default permissions for users with the Viewer and Editor roles. Permissions can be set for a user, a team or a role (Viewer or Editor). Permissions cannot be set for Admins - they always have access to everything.
+  name: Permissions
+paths:
+  /dashboards/uid/{uid}/permissions:
+    get:
+      description: 'Use: /apis/dashboard.grafana.app/v1/namespaces/{ns}/dashboards/{uid}/access'
+      tags:
+      - Permissions
+      summary: Gets all existing permissions for the given dashboard
+      operationId: getDashboardPermissionsListByUID
+      deprecated: true
+      parameters:
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getDashboardPermissionsListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      description: This operation will remove existing permissions if they’re not included in the request.
+      tags:
+      - Permissions
+      summary: Updates permissions for a dashboard
+      operationId: updateDashboardPermissionsByUID
+      deprecated: true
+      parameters:
+      - description: The dashboard UID
+        name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDashboardACLCommand'
+        required: true
+  /folders/{folder_uid}/permissions:
+    get:
+      tags:
+      - Permissions
+      summary: Gets all existing permissions for the folder with the given `uid`
+      operationId: getFolderPermissionList
+      deprecated: true
+      parameters:
+      - name: folder_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getFolderPermissionListResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    post:
+      tags:
+      - Permissions
+      summary: Updates permissions for a folder.
+      operationId: updateFolderPermissions
+      parameters:
+      - name: folder_uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDashboardACLCommand'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getDashboardPermissionsListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardACLInfoDTO'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getFolderPermissionListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardACLInfoDTO'
+  schemas:
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    DashboardaccessPermissionType:
+      type: integer
+      format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    UpdateDashboardACLCommand:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardACLUpdateItem'
+    DashboardACLInfoDTO:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        dashboardId:
+          type: integer
+          format: int64
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderUid:
+          type: string
+        inherited:
+          type: boolean
+        isFolder:
+          type: boolean
+        permission:
+          $ref: '#/components/schemas/DashboardaccessPermissionType'
+        permissionName:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        slug:
+          type: string
+        team:
+          type: string
+        teamAvatarUrl:
+          type: string
+        teamEmail:
+          type: string
+        teamId:
+          type: integer
+          format: int64
+        teamUid:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        url:
+          type: string
+        userAvatarUrl:
+          type: string
+        userEmail:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        userLogin:
+          type: string
+        userUid:
+          type: string
+    DashboardACLUpdateItem:
+      type: object
+      properties:
+        permission:
+          $ref: '#/components/schemas/DashboardaccessPermissionType'
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        teamId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

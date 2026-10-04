@@ -1,0 +1,1133 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Dashboard Public API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: dashboard_public
+paths:
+  /dashboards/public-dashboards:
+    get:
+      description: Get list of public dashboards
+      tags:
+      - dashboard_public
+      operationId: listPublicDashboards
+      responses:
+        '200':
+          $ref: '#/components/responses/listPublicDashboardsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: List public dashboards
+      x-summary-source: derived
+  /dashboards/uid/{dashboardUid}/public-dashboards:
+    get:
+      description: Get public dashboard by dashboardUid
+      tags:
+      - dashboard_public
+      operationId: getPublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Get public dashboard
+      x-summary-source: derived
+    post:
+      description: Create public dashboard for a dashboard
+      tags:
+      - dashboard_public
+      operationId: createPublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/createPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicDashboardDTO'
+        required: true
+      summary: Create public dashboard
+      x-summary-source: derived
+  /dashboards/uid/{dashboardUid}/public-dashboards/{uid}:
+    delete:
+      description: Delete public dashboard for a dashboard
+      tags:
+      - dashboard_public
+      operationId: deletePublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Delete public dashboard
+      x-summary-source: derived
+    patch:
+      description: Update public dashboard for a dashboard
+      tags:
+      - dashboard_public
+      operationId: updatePublicDashboard
+      parameters:
+      - name: dashboardUid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: uid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/updatePublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicDashboardDTO'
+        required: true
+      summary: Update public dashboard
+      x-summary-source: derived
+  /public/dashboards/{accessToken}:
+    get:
+      description: Get public dashboard for view
+      tags:
+      - dashboard_public
+      operationId: viewPublicDashboard
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/viewPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: View public dashboard
+      x-summary-source: derived
+  /public/dashboards/{accessToken}/annotations:
+    get:
+      description: Get annotations for a public dashboard
+      tags:
+      - dashboard_public
+      operationId: getPublicAnnotations
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getPublicAnnotationsResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Get public annotations
+      x-summary-source: derived
+  /public/dashboards/{accessToken}/panels/{panelId}/query:
+    post:
+      description: Get results for a given panel on a public dashboard
+      tags:
+      - dashboard_public
+      operationId: queryPublicDashboard
+      parameters:
+      - name: accessToken
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: panelId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/queryPublicDashboardResponse'
+        '400':
+          $ref: '#/components/responses/badRequestPublicError'
+        '401':
+          $ref: '#/components/responses/unauthorisedPublicError'
+        '403':
+          $ref: '#/components/responses/forbiddenPublicError'
+        '404':
+          $ref: '#/components/responses/notFoundPublicError'
+        '500':
+          $ref: '#/components/responses/internalServerPublicError'
+      summary: Query public dashboard
+      x-summary-source: derived
+components:
+  schemas:
+    Json:
+      type: object
+    InternalDataLink:
+      description: InternalDataLink definition to allow Explore links to be constructed in the backend
+      type: object
+      properties:
+        datasourceName:
+          type: string
+        datasourceUid:
+          type: string
+        panelsState:
+          $ref: '#/components/schemas/ExplorePanelsState'
+        query: {}
+        timeRange:
+          $ref: '#/components/schemas/TimeRange'
+        transformations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkTransformationConfig'
+    Source:
+      type: string
+      title: Source type defines the status source.
+    PublicDashboardListResponseWithPagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        publicDashboards:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicDashboardListResponse'
+        totalCount:
+          type: integer
+          format: int64
+    AnnotationPermission:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/AnnotationActions'
+    Field:
+      description: 'A Field is essentially a slice of various types with extra properties and methods.
+
+        See NewField() for supported types.
+
+
+        The slice data in the Field is a not exported, so methods on the Field are used to to manipulate its data.'
+      type: object
+      title: Field represents a typed column of data within a Frame.
+      properties:
+        config:
+          $ref: '#/components/schemas/FieldConfig'
+        labels:
+          $ref: '#/components/schemas/FrameLabels'
+        name:
+          description: 'Name is default identifier of the field. The name does not have to be unique, but the combination
+
+            of name and Labels should be unique for proper behavior in all situations.'
+          type: string
+    PublicDashboard:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        annotationsEnabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        createdBy:
+          type: integer
+          format: int64
+        dashboardUid:
+          type: string
+        isEnabled:
+          type: boolean
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmailDTO'
+        share:
+          $ref: '#/components/schemas/ShareType'
+        timeSelectionEnabled:
+          type: boolean
+        uid:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: integer
+          format: int64
+    DashboardFullWithMeta:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Json'
+        meta:
+          $ref: '#/components/schemas/DashboardMeta'
+    VisType:
+      type: string
+      title: VisType is used to indicate how the data should be visualized in explore.
+    ValueMapping:
+      description: ValueMapping allows mapping input values to text and color
+      type: object
+    NoticeSeverity:
+      type: integer
+      format: int64
+      title: NoticeSeverity is a type for the Severity property of a Notice.
+    Frame:
+      description: 'Each Field is well typed by its FieldType and supports optional Labels.
+
+
+        A Frame is a general data container for Grafana. A Frame can be table data
+
+        or time series data depending on its content and field types.'
+      type: object
+      title: Frame is a columnar data structure where each column is a Field.
+      properties:
+        Fields:
+          description: 'Fields are the columns of a frame.
+
+            All Fields must be of the same the length when marshalling the Frame for transmission.
+
+            There should be no `nil` entries in the Fields slice (making them pointers was a mistake).'
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        Meta:
+          $ref: '#/components/schemas/FrameMeta'
+        Name:
+          description: Name is used in some Grafana visualizations.
+          type: string
+        RefID:
+          description: RefID is a property that can be set to match a Frame to its originating query.
+          type: string
+    FrameType:
+      description: 'A FrameType string, when present in a frame''s metadata, asserts that the
+
+        frame''s structure conforms to the FrameType''s specification.
+
+        This property is currently optional, so FrameType may be FrameTypeUnknown even if the properties of
+
+        the Frame correspond to a defined FrameType.'
+      type: string
+    AnnotationQuery:
+      description: 'TODO docs
+
+        FROM: AnnotationQuery in grafana-data/src/types/annotations.ts'
+      type: object
+      properties:
+        builtIn:
+          description: Set to 1 for the standard annotation query all dashboards have by default.
+          type: number
+          format: double
+        datasource:
+          $ref: '#/components/schemas/DataSourceRef'
+        enable:
+          description: When enabled the annotation query is issued with every dashboard refresh
+          type: boolean
+        filter:
+          $ref: '#/components/schemas/AnnotationPanelFilter'
+        hide:
+          description: 'Annotation queries can be toggled on or off at the top of the dashboard.
+
+            When hide is true, the toggle is not shown in the dashboard.'
+          type: boolean
+        iconColor:
+          description: Color to use for the annotation event markers
+          type: string
+        name:
+          description: Name of annotation.
+          type: string
+        placement:
+          description: Placement can be used to display the annotation query somewhere else on the dashboard other than the default location.
+          type: string
+        target:
+          $ref: '#/components/schemas/AnnotationTarget'
+        type:
+          description: TODO -- this should not exist here, it is based on the --grafana-- datasource
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    FieldTypeConfig:
+      description: FieldTypeConfig has type specific configs, only one should be active at a time
+      type: object
+      properties:
+        enum:
+          $ref: '#/components/schemas/EnumFieldConfig'
+    DashboardMeta:
+      type: object
+      properties:
+        annotationsPermissions:
+          $ref: '#/components/schemas/AnnotationPermission'
+        apiVersion:
+          type: string
+        canAdmin:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+        canSave:
+          type: boolean
+        canStar:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderTitle:
+          type: string
+        folderUid:
+          type: string
+        folderUrl:
+          type: string
+        hasAcl:
+          type: boolean
+        isFolder:
+          type: boolean
+        isSnapshot:
+          type: boolean
+        provisioned:
+          type: boolean
+        provisionedExternalId:
+          type: string
+        publicDashboardEnabled:
+          type: boolean
+        slug:
+          type: string
+        type:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        url:
+          type: string
+        version:
+          type: integer
+          format: int64
+    PublicDashboardListResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        dashboardUid:
+          type: string
+        isEnabled:
+          type: boolean
+        slug:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+    DataSourceRef:
+      description: Ref to a DataSource instance
+      type: object
+      properties:
+        type:
+          description: The plugin type-id
+          type: string
+        uid:
+          description: Specific datasource instance
+          type: string
+    EmailDTO:
+      type: object
+      properties:
+        recipient:
+          type: string
+        uid:
+          type: string
+    QueryDataResponse:
+      description: It is the return type of a QueryData call.
+      type: object
+      title: QueryDataResponse contains the results from a QueryDataRequest.
+      properties:
+        results:
+          $ref: '#/components/schemas/Responses'
+    AnnotationActions:
+      type: object
+      properties:
+        canAdd:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+    DataLink:
+      description: DataLink define what
+      type: object
+      properties:
+        internal:
+          $ref: '#/components/schemas/InternalDataLink'
+        targetBlank:
+          type: boolean
+        title:
+          type: string
+        url:
+          type: string
+    SupportedTransformationTypes:
+      type: string
+    Frames:
+      description: 'It is the main data container within a backend.DataResponse.
+
+        There should be no `nil` entries in the Frames slice (making them pointers was a mistake).'
+      type: array
+      title: Frames is a slice of Frame pointers.
+      items:
+        $ref: '#/components/schemas/Frame'
+    ConfFloat64:
+      description: 'ConfFloat64 is a float64. It Marshals float64 values of NaN of Inf
+
+        to null.'
+      type: number
+      format: double
+    EnumFieldConfig:
+      description: 'Enum field config
+
+        Vector values are used as lookup keys into the enum fields'
+      type: object
+      properties:
+        color:
+          description: Color is the color value for a given index (empty is undefined)
+          type: array
+          items:
+            type: string
+        description:
+          description: Description of the enum state
+          type: array
+          items:
+            type: string
+        icon:
+          description: Icon supports setting an icon for a given index value
+          type: array
+          items:
+            type: string
+        text:
+          description: Value is the string display value for a given index
+          type: array
+          items:
+            type: string
+    DataResponse:
+      description: 'A map of RefIDs (unique query identifiers) to this type makes up the Responses property of a QueryDataResponse.
+
+        The Error property is used to allow for partial success responses from the containing QueryDataResponse.'
+      type: object
+      title: DataResponse contains the results from a DataQuery.
+      properties:
+        Error:
+          description: Error is a property to be set if the corresponding DataQuery has an error.
+          type: string
+        ErrorSource:
+          $ref: '#/components/schemas/Source'
+        Frames:
+          $ref: '#/components/schemas/Frames'
+        Status:
+          $ref: '#/components/schemas/Status'
+    QueryStat:
+      description: 'The embedded FieldConfig''s display name must be set.
+
+        It corresponds to the QueryResultMetaStat on the frontend (https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L53).'
+      type: object
+      title: QueryStat is used for storing arbitrary statistics metadata related to a query and its result, e.g. total request time, data processing time.
+      properties:
+        color:
+          description: 'Map values to a display color
+
+            NOTE: this interface is under development in the frontend... so simple map for now'
+          type: object
+          additionalProperties: {}
+        custom:
+          description: Panel Specific Values
+          type: object
+          additionalProperties: {}
+        decimals:
+          type: integer
+          format: uint16
+        description:
+          description: Description is human readable field metadata
+          type: string
+        displayName:
+          description: DisplayName overrides Grafana default naming, should not be used from a data source
+          type: string
+        displayNameFromDS:
+          description: DisplayNameFromDS overrides Grafana default naming strategy.
+          type: string
+        filterable:
+          description: Filterable indicates if the Field's data can be filtered by additional calls.
+          type: boolean
+        interval:
+          description: 'Interval indicates the expected regular step between values in the series.
+
+            When an interval exists, consumers can identify "missing" values when the expected value is not present.
+
+            The grafana timeseries visualization will render disconnected values when missing values are found it the time field.
+
+            The interval uses the same units as the values.  For time.Time, this is defined in milliseconds.'
+          type: number
+          format: double
+        links:
+          description: The behavior when clicking on a result
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLink'
+        mappings:
+          $ref: '#/components/schemas/ValueMappings'
+        max:
+          $ref: '#/components/schemas/ConfFloat64'
+        min:
+          $ref: '#/components/schemas/ConfFloat64'
+        noValue:
+          description: Alternative to empty string
+          type: string
+        path:
+          description: 'Path is an explicit path to the field in the datasource. When the frame meta includes a path,
+
+            this will default to `${frame.meta.path}/${field.name}
+
+
+            When defined, this value can be used as an identifier within the datasource scope, and
+
+            may be used as an identifier to update values in a subsequent request'
+          type: string
+        thresholds:
+          $ref: '#/components/schemas/ThresholdsConfig'
+        type:
+          $ref: '#/components/schemas/FieldTypeConfig'
+        unit:
+          description: Numeric Options
+          type: string
+        value:
+          type: number
+          format: double
+        writeable:
+          description: Writeable indicates that the datasource knows how to update this value
+          type: boolean
+    TimeRange:
+      description: Redefining this to avoid an import cycle
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+    PublicDashboardDTO:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        annotationsEnabled:
+          type: boolean
+        isEnabled:
+          type: boolean
+        share:
+          $ref: '#/components/schemas/ShareType'
+        timeSelectionEnabled:
+          type: boolean
+        uid:
+          type: string
+    ValueMappings:
+      type: array
+      items:
+        $ref: '#/components/schemas/ValueMapping'
+    ThresholdsMode:
+      description: ThresholdsMode absolute or percentage
+      type: string
+    FrameMeta:
+      description: 'https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L11
+
+        NOTE -- in javascript this can accept any `[key: string]: any;` however
+
+        this interface only exposes the values we want to be exposed'
+      type: object
+      title: 'FrameMeta matches:'
+      properties:
+        channel:
+          description: Channel is the path to a stream in grafana live that has real-time updates for this data.
+          type: string
+        custom:
+          description: Custom datasource specific values.
+        dataTopic:
+          $ref: '#/components/schemas/DataTopic'
+        executedQueryString:
+          description: 'ExecutedQueryString is the raw query sent to the underlying system. All macros and templating
+
+            have been applied.  When metadata contains this value, it will be shown in the query inspector.'
+          type: string
+        notices:
+          description: 'Notices provide additional information about the data in the Frame that
+
+            Grafana can display to the user in the user interface.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Notice'
+        path:
+          description: Path is a browsable path on the datasource.
+          type: string
+        pathSeparator:
+          description: PathSeparator defines the separator pattern to decode a hierarchy. The default separator is '/'.
+          type: string
+        preferredVisualisationPluginId:
+          description: 'PreferredVisualizationPluginId sets the panel plugin id to use to render the data when using Explore. If
+
+            the plugin cannot be found will fall back to PreferredVisualization.'
+          type: string
+        preferredVisualisationType:
+          $ref: '#/components/schemas/VisType'
+        stats:
+          description: Stats is an array of query result statistics.
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryStat'
+        type:
+          $ref: '#/components/schemas/FrameType'
+        typeVersion:
+          $ref: '#/components/schemas/FrameTypeVersion'
+        uniqueRowIdFields:
+          description: 'Array of field indices which values create a unique id for each row. Ideally this should be globally unique ID
+
+            but that isn''t guarantied. Should help with keeping track and deduplicating rows in visualizations, especially
+
+            with streaming data with frequent updates.'
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: TraceID in Tempo, table name + primary key in SQL
+    Notice:
+      type: object
+      title: Notice provides a structure for presenting notifications in Grafana's user interface.
+      properties:
+        inspect:
+          $ref: '#/components/schemas/InspectType'
+        link:
+          description: 'Link is an optional link for display in the user interface and can be an
+
+            absolute URL or a path relative to Grafana''s root url.'
+          type: string
+        severity:
+          $ref: '#/components/schemas/NoticeSeverity'
+        text:
+          description: Text is freeform descriptive text for the notice.
+          type: string
+    InspectType:
+      type: integer
+      format: int64
+      title: InspectType is a type for the Inspect property of a Notice.
+    publicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      required:
+      - statusCode
+      - messageId
+      properties:
+        extra:
+          description: Extra Additional information about the error
+          type: object
+          additionalProperties: {}
+        message:
+          description: Message A human readable message
+          type: string
+        messageId:
+          description: MessageID A unique identifier for the error
+          type: string
+        statusCode:
+          description: StatusCode The HTTP status code returned
+          type: integer
+          format: int64
+    AnnotationEvent:
+      type: object
+      properties:
+        color:
+          type: string
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isRegion:
+          type: boolean
+        panelId:
+          type: integer
+          format: int64
+        source:
+          $ref: '#/components/schemas/AnnotationQuery'
+        tags:
+          type: array
+          items:
+            type: string
+        text:
+          type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    Threshold:
+      description: Threshold a single step on the threshold list
+      type: object
+      properties:
+        color:
+          type: string
+        state:
+          type: string
+        value:
+          $ref: '#/components/schemas/ConfFloat64'
+    DataTopic:
+      type: string
+      title: DataTopic is used to identify which topic the frame should be assigned to.
+    LinkTransformationConfig:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          $ref: '#/components/schemas/SupportedTransformationTypes'
+    Status:
+      type: integer
+      format: int64
+    AnnotationTarget:
+      description: 'TODO: this should be a regular DataQuery that depends on the selected dashboard
+
+        these match the properties of the "grafana" datasouce that is default in most dashboards'
+      type: object
+      properties:
+        limit:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: integer
+          format: int64
+        matchAny:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: boolean
+        tags:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: array
+          items:
+            type: string
+        type:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: string
+    FrameTypeVersion:
+      type: array
+      title: FrameType is a 2 number version (Major / Minor).
+      items:
+        type: integer
+        format: uint64
+    ExplorePanelsState:
+      description: This is an object constructed with the keys as the values of the enum VisType and the value being a bag of properties
+    FrameLabels:
+      description: Labels are used to add metadata to an object.  The JSON will always be sorted keys
+      type: object
+      additionalProperties:
+        type: string
+    ShareType:
+      type: string
+    AnnotationPanelFilter:
+      type: object
+      properties:
+        exclude:
+          description: Should the specified panels be included or excluded
+          type: boolean
+        ids:
+          description: Panel IDs that should be included or excluded
+          type: array
+          items:
+            type: integer
+            format: uint8
+    ThresholdsConfig:
+      description: ThresholdsConfig setup thresholds
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/ThresholdsMode'
+        steps:
+          description: Must be sorted by 'value', first value is always -Infinity
+          type: array
+          items:
+            $ref: '#/components/schemas/Threshold'
+    FieldConfig:
+      type: object
+      title: FieldConfig represents the display properties for a Field.
+      properties:
+        color:
+          description: 'Map values to a display color
+
+            NOTE: this interface is under development in the frontend... so simple map for now'
+          type: object
+          additionalProperties: {}
+        custom:
+          description: Panel Specific Values
+          type: object
+          additionalProperties: {}
+        decimals:
+          type: integer
+          format: uint16
+        description:
+          description: Description is human readable field metadata
+          type: string
+        displayName:
+          description: DisplayName overrides Grafana default naming, should not be used from a data source
+          type: string
+        displayNameFromDS:
+          description: DisplayNameFromDS overrides Grafana default naming strategy.
+          type: string
+        filterable:
+          description: Filterable indicates if the Field's data can be filtered by additional calls.
+          type: boolean
+        interval:
+          description: 'Interval indicates the expected regular step between values in the series.
+
+            When an interval exists, consumers can identify "missing" values when the expected value is not present.
+
+            The grafana timeseries visualization will render disconnected values when missing values are found it the time field.
+
+            The interval uses the same units as the values.  For time.Time, this is defined in milliseconds.'
+          type: number
+          format: double
+        links:
+          description: The behavior when clicking on a result
+          type: array
+          items:
+            $ref: '#/components/schemas/DataLink'
+        mappings:
+          $ref: '#/components/schemas/ValueMappings'
+        max:
+          $ref: '#/components/schemas/ConfFloat64'
+        min:
+          $ref: '#/components/schemas/ConfFloat64'
+        noValue:
+          description: Alternative to empty string
+          type: string
+        path:
+          description: 'Path is an explicit path to the field in the datasource. When the frame meta includes a path,
+
+            this will default to `${frame.meta.path}/${field.name}
+
+
+            When defined, this value can be used as an identifier within the datasource scope, and
+
+            may be used as an identifier to update values in a subsequent request'
+          type: string
+        thresholds:
+          $ref: '#/components/schemas/ThresholdsConfig'
+        type:
+          $ref: '#/components/schemas/FieldTypeConfig'
+        unit:
+          description: Numeric Options
+          type: string
+        writeable:
+          description: Writeable indicates that the datasource knows how to update this value
+          type: boolean
+    Responses:
+      description: 'The QueryData method the QueryDataHandler method will set the RefId
+
+        property on the DataResponses'' frames based on these RefIDs.'
+      type: object
+      title: Responses is a map of RefIDs (Unique Query ID) to DataResponses.
+      additionalProperties:
+        $ref: '#/components/schemas/DataResponse'
+  responses:
+    internalServerPublicError:
+      description: InternalServerPublicError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    notFoundPublicError:
+      description: NotFoundPublicError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    unauthorisedPublicError:
+      description: UnauthorisedPublicError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    forbiddenPublicError:
+      description: ForbiddenPublicError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    getPublicAnnotationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AnnotationEvent'
+    badRequestPublicError:
+      description: BadRequestPublicError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    updatePublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    viewPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardFullWithMeta'
+    createPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    queryPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryDataResponse'
+    getPublicDashboardResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboard'
+    listPublicDashboardsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicDashboardListResponseWithPagination'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

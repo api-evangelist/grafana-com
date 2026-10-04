@@ -1,0 +1,277 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Search API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Search
+paths:
+  /search:
+    get:
+      tags:
+      - Search
+      operationId: search
+      parameters:
+      - description: Search Query
+        name: query
+        in: query
+        schema:
+          type: string
+      - description: List of tags to search for
+        name: tag
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Type to search for, dash-folder or dash-db
+
+          Description:
+
+          - `dash-folder` - Search for folder
+
+          - `dash-db` - Seatch for dashboard'
+        name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - dash-folder
+          - dash-db
+      - description: 'List of dashboard id’s to search for
+
+          This is deprecated: users should use the `dashboardUIDs` query parameter instead'
+        name: dashboardIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - description: List of dashboard uid’s to search for
+        name: dashboardUIDs
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'List of folder id’s to search in for dashboards
+
+          If it''s `0` then it will query for the top level folders
+
+          This is deprecated: users should use the `folderUIDs` query parameter instead
+
+
+          Deprecated: use FolderUIDs instead'
+        name: folderIds
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            format: int64
+      - description: 'List of folder UID’s to search in for dashboards
+
+          If it''s an empty string then it will query for the top level folders'
+        name: folderUIDs
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Flag indicating if only starred Dashboards should be returned
+        name: starred
+        in: query
+        schema:
+          type: boolean
+      - description: Limit the number of returned results (max 5000)
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Use this parameter to access hits beyond limit. Numbering starts at 1. limit param acts as page size. Only available in Grafana v6.2+.
+        name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+      - description: Set to `Edit` to return dashboards/folders that the user can edit
+        name: permission
+        in: query
+        schema:
+          type: string
+          enum:
+          - Edit
+          - View
+          default: View
+      - description: Sort method; for listing all the possible sort methods use the search sorting endpoint.
+        name: sort
+        in: query
+        schema:
+          type: string
+          enum:
+          - alpha-asc
+          - alpha-desc
+          default: alpha-asc
+      - description: Flag indicating if only soft deleted Dashboards should be returned
+        name: deleted
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          $ref: '#/components/responses/searchResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '422':
+          $ref: '#/components/responses/unprocessableEntityError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      summary: Search
+      x-summary-source: derived
+  /search/sorting:
+    get:
+      tags:
+      - Search
+      summary: List search sorting options
+      operationId: listSortOptions
+      responses:
+        '200':
+          $ref: '#/components/responses/listSortOptionsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    listSortOptionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+              displayName:
+                type: string
+              meta:
+                type: string
+              name:
+                type: string
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HitList'
+  schemas:
+    Hit:
+      type: object
+      properties:
+        description:
+          type: string
+        folderId:
+          type: integer
+          format: int64
+        folderTitle:
+          type: string
+        folderUid:
+          type: string
+        folderUrl:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isDeleted:
+          type: boolean
+        isStarred:
+          type: boolean
+        orgId:
+          type: integer
+          format: int64
+        permanentlyDeleteDate:
+          type: string
+          format: date-time
+        slug:
+          type: string
+        sortMeta:
+          type: integer
+          format: int64
+        sortMetaName:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        title:
+          type: string
+        type:
+          $ref: '#/components/schemas/HitType'
+        uid:
+          type: string
+        uri:
+          type: string
+        url:
+          type: string
+    HitList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Hit'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    HitType:
+      type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

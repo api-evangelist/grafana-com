@@ -1,0 +1,6 @@
+generated: '2026-10-04'
+method: probed
+generator: harvest-llms.py
+source: https://grafana.com/docs/learning-hub/
+bytes: 15453
+note: saved verbatim; the provider's own document

@@ -1,0 +1,423 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Snapshots API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Snapshots
+paths:
+  /dashboard/snapshots:
+    get:
+      tags:
+      - Snapshots
+      summary: List snapshots
+      operationId: searchDashboardSnapshots
+      parameters:
+      - description: Search Query
+        name: query
+        in: query
+        schema:
+          type: string
+      - description: Limit the number of returned results
+        name: limit
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1000
+      responses:
+        '200':
+          $ref: '#/components/responses/searchDashboardSnapshotsResponse'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /snapshot/shared-options:
+    get:
+      tags:
+      - Snapshots
+      summary: Get snapshot sharing settings
+      operationId: getSharingOptions
+      responses:
+        '200':
+          $ref: '#/components/responses/getSharingOptionsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+  /snapshots:
+    post:
+      description: Snapshot public mode should be enabled or authentication is required.
+      tags:
+      - Snapshots
+      summary: When creating a snapshot using the API, you have to provide the full dashboard…
+      operationId: createDashboardSnapshot
+      responses:
+        '200':
+          $ref: '#/components/responses/createDashboardSnapshotResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDashboardSnapshotCommand'
+        required: true
+  /snapshots-delete/{deleteKey}:
+    get:
+      description: Snapshot public mode should be enabled or authentication is required.
+      tags:
+      - Snapshots
+      summary: Delete Snapshot by deleteKey
+      operationId: deleteDashboardSnapshotByDeleteKey
+      parameters:
+      - name: deleteKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /snapshots/{key}:
+    get:
+      tags:
+      - Snapshots
+      summary: Get Snapshot by Key
+      operationId: getDashboardSnapshot
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getDashboardSnapshotResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    delete:
+      tags:
+      - Snapshots
+      summary: Delete Snapshot by Key
+      operationId: deleteDashboardSnapshot
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getSharingOptionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              externalEnabled:
+                type: boolean
+              externalSnapshotName:
+                type: string
+              externalSnapshotURL:
+                type: string
+    createDashboardSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              deleteKey:
+                description: Unique key used to delete the snapshot. It is different from the key so that only the creator can delete the snapshot.
+                type: string
+              deleteUrl:
+                type: string
+              id:
+                description: Snapshot id
+                type: integer
+                format: int64
+              key:
+                description: Unique key
+                type: string
+              url:
+                type: string
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchDashboardSnapshotsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardSnapshotDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getDashboardSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardFullWithMeta'
+  schemas:
+    Json:
+      type: object
+    AnnotationPermission:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/AnnotationActions'
+    DashboardFullWithMeta:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/Json'
+        meta:
+          $ref: '#/components/schemas/DashboardMeta'
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    DashboardMeta:
+      type: object
+      properties:
+        annotationsPermissions:
+          $ref: '#/components/schemas/AnnotationPermission'
+        apiVersion:
+          type: string
+        canAdmin:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+        canSave:
+          type: boolean
+        canStar:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        folderId:
+          description: 'Deprecated: use FolderUID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        folderTitle:
+          type: string
+        folderUid:
+          type: string
+        folderUrl:
+          type: string
+        hasAcl:
+          type: boolean
+        isFolder:
+          type: boolean
+        isSnapshot:
+          type: boolean
+        provisioned:
+          type: boolean
+        provisionedExternalId:
+          type: string
+        publicDashboardEnabled:
+          type: boolean
+        slug:
+          type: string
+        type:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        url:
+          type: string
+        version:
+          type: integer
+          format: int64
+    AnnotationActions:
+      type: object
+      properties:
+        canAdd:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+    Unstructured:
+      description: 'Unstructured allows objects that do not have Golang structs registered to be manipulated
+
+        generically.'
+      type: object
+      properties:
+        Object:
+          description: 'Object is a JSON compatible map with string, float, int, bool, []any,
+
+            or map[string]any children.'
+          type: object
+          additionalProperties: {}
+    CreateDashboardSnapshotCommand:
+      type: object
+      required:
+      - dashboard
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation of an object.
+
+            Servers should convert recognized schemas to the latest internal value, and
+
+            may reject unrecognized values.
+
+            More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        dashboard:
+          $ref: '#/components/schemas/Unstructured'
+        deleteKey:
+          description: Unique key used to delete the snapshot. It is different from the `key` so that only the creator can delete the snapshot. Required if `external` is `true`.
+          type: string
+        expires:
+          description: When the snapshot should expire in seconds in seconds. Default is never to expire.
+          type: integer
+          format: int64
+          default: 0
+        external:
+          description: 'these are passed when storing an external snapshot ref
+
+            Save the snapshot on an external server rather than locally.'
+          type: boolean
+          default: false
+        key:
+          description: Define the unique key. Required if `external` is `true`.
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this object represents.
+
+            Servers may infer this from the endpoint the client submits requests to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        name:
+          description: Snapshot name
+          type: string
+    DashboardSnapshotDTO:
+      description: DashboardSnapshotDTO without dashboard map
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        expires:
+          type: string
+          format: date-time
+        external:
+          type: boolean
+        externalUrl:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        updated:
+          type: string
+          format: date-time
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

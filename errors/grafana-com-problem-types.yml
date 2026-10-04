@@ -1,0 +1,79 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/grafana-com-openapi.json
+format: custom
+envelope:
+  media_type: null
+  schema: ForbiddenError
+coverage:
+  operations: 314
+  statuses_declared: 11
+problems:
+- status: 400
+  title: Bad Request
+  description: ValidationError
+  operations: 124
+  media_types: []
+  schema: ValidationError
+- status: 401
+  title: Unauthorized
+  description: null
+  operations: 220
+  media_types: []
+  schema: null
+- status: 403
+  title: Forbidden
+  description: ForbiddenError
+  operations: 263
+  media_types: []
+  schema: ForbiddenError
+- status: 404
+  title: Not Found
+  description: NotFound
+  operations: 138
+  media_types: []
+  schema: NotFound
+- status: 406
+  title: Not Acceptable
+  description: null
+  operations: 1
+  media_types: []
+  schema: null
+- status: 409
+  title: Conflict
+  description: PublicError
+  operations: 22
+  media_types: []
+  schema: PublicError
+- status: 410
+  title: Gone
+  description: null
+  operations: 1
+  media_types: []
+  schema: null
+- status: 412
+  title: Precondition Failed
+  description: null
+  operations: 5
+  media_types: []
+  schema: null
+- status: 422
+  title: Unprocessable Content
+  description: null
+  operations: 7
+  media_types: []
+  schema: null
+- status: 500
+  title: Internal Server Error
+  description: null
+  operations: 254
+  media_types: []
+  schema: null
+- status: 503
+  title: Service Unavailable
+  description: null
+  operations: 1
+  media_types: []
+  schema: null

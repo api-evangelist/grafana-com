@@ -1,0 +1,2085 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Provisioning API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: Provisioning
+paths:
+  /v1/provisioning/alert-rules:
+    get:
+      tags:
+      - Provisioning
+      summary: Get all the alert rules
+      operationId: RouteGetAlertRules
+      deprecated: true
+      responses:
+        '200':
+          description: ProvisionedAlertRules
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedAlertRules'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+    post:
+      tags:
+      - Provisioning
+      summary: Create a new alert rule
+      operationId: RoutePostAlertRule
+      deprecated: true
+      parameters:
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ProvisionedAlertRule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedAlertRule'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProvisionedAlertRule'
+  /v1/provisioning/alert-rules/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export all alert rules in provisioning file format
+      operationId: RouteGetAlertRulesExport
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      - description: UIDs of folders from which to export rules
+        name: folderUid
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Name of group of rules to export. Must be specified only together with a single folder UID
+        name: group
+        in: query
+        schema:
+          type: string
+      - description: UID of alert rule to export. If specified, parameters folderUid and group must be empty.
+        name: ruleUid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+  /v1/provisioning/alert-rules/{UID}:
+    get:
+      tags:
+      - Provisioning
+      summary: Get a specific alert rule by UID
+      operationId: RouteGetAlertRule
+      deprecated: true
+      parameters:
+      - description: Alert rule UID
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ProvisionedAlertRule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedAlertRule'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+    put:
+      tags:
+      - Provisioning
+      summary: Update an existing alert rule
+      operationId: RoutePutAlertRule
+      deprecated: true
+      parameters:
+      - description: Alert rule UID
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ProvisionedAlertRule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProvisionedAlertRule'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProvisionedAlertRule'
+    delete:
+      tags:
+      - Provisioning
+      summary: Delete a specific alert rule by UID
+      operationId: RouteDeleteAlertRule
+      deprecated: true
+      parameters:
+      - description: Alert rule UID
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ' The alert rule was deleted successfully.'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+  /v1/provisioning/alert-rules/{UID}/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export an alert rule in provisioning file format
+      operationId: RouteGetAlertRuleExport
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      - description: Alert rule UID
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+  /v1/provisioning/contact-points:
+    get:
+      tags:
+      - Provisioning
+      summary: Get all the contact points
+      operationId: RouteGetContactpoints
+      deprecated: true
+      parameters:
+      - description: Filter by name
+        name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ContactPoints
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactPoints'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+    post:
+      tags:
+      - Provisioning
+      summary: Create a contact point
+      operationId: RoutePostContactpoints
+      deprecated: true
+      parameters:
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '202':
+          description: EmbeddedContactPoint
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedContactPoint'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedContactPoint'
+  /v1/provisioning/contact-points/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export all contact points in provisioning file format
+      operationId: RouteGetContactpointsExport
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      - description: Whether any contained secure settings should be decrypted or left redacted. Redacted settings will contain RedactedValue instead. Currently, only org admin can view decrypted secure settings.
+        name: decrypt
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Filter by name
+        name: name
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: PermissionDenied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+  /v1/provisioning/contact-points/{UID}:
+    put:
+      tags:
+      - Provisioning
+      summary: Update an existing contact point
+      operationId: RoutePutContactpoint
+      deprecated: true
+      parameters:
+      - description: UID is the contact point unique identifier
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Ack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ack'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddedContactPoint'
+    delete:
+      tags:
+      - Provisioning
+      summary: Delete a contact point
+      operationId: RouteDeleteContactpoints
+      deprecated: true
+      parameters:
+      - description: UID is the contact point unique identifier
+        name: UID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: ' The contact point was deleted successfully.'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+  /v1/provisioning/folder/{FolderUID}/rule-groups/{Group}:
+    get:
+      tags:
+      - Provisioning
+      summary: Get a rule group
+      operationId: RouteGetAlertRuleGroup
+      deprecated: true
+      parameters:
+      - name: FolderUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertRuleGroup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRuleGroup'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+    put:
+      tags:
+      - Provisioning
+      summary: Create or update alert rule group
+      operationId: RoutePutAlertRuleGroup
+      deprecated: true
+      parameters:
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      - name: FolderUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertRuleGroup
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertRuleGroup'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertRuleGroup'
+    delete:
+      description: Delete rule group
+      tags:
+      - Provisioning
+      operationId: RouteDeleteAlertRuleGroup
+      deprecated: true
+      parameters:
+      - name: FolderUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ' The alert rule group was deleted successfully.'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+      summary: Route delete alert rule group
+      x-summary-source: derived
+  /v1/provisioning/folder/{FolderUID}/rule-groups/{Group}/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export an alert rule group in provisioning file format
+      operationId: RouteGetAlertRuleGroupExport
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      - name: FolderUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Group
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+  /v1/provisioning/mute-timings:
+    get:
+      tags:
+      - Provisioning
+      summary: Get all the mute timings
+      operationId: RouteGetMuteTimings
+      deprecated: true
+      responses:
+        '200':
+          description: MuteTimings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MuteTimings'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+    post:
+      tags:
+      - Provisioning
+      summary: Create a new mute timing
+      operationId: RoutePostMuteTiming
+      deprecated: true
+      parameters:
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '201':
+          description: MuteTimeInterval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MuteTimeInterval'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MuteTimeInterval'
+  /v1/provisioning/mute-timings/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export all mute timings in provisioning format
+      operationId: RouteExportMuteTimings
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: PermissionDenied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+  /v1/provisioning/mute-timings/{name}:
+    get:
+      tags:
+      - Provisioning
+      summary: Get a mute timing
+      operationId: RouteGetMuteTiming
+      deprecated: true
+      parameters:
+      - description: Mute timing name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: MuteTimeInterval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MuteTimeInterval'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: ' Not found.'
+    put:
+      tags:
+      - Provisioning
+      summary: Replace an existing mute timing
+      operationId: RoutePutMuteTiming
+      deprecated: true
+      parameters:
+      - description: Mute timing name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '202':
+          description: MuteTimeInterval
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MuteTimeInterval'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MuteTimeInterval'
+    delete:
+      tags:
+      - Provisioning
+      summary: Delete a mute timing
+      operationId: RouteDeleteMuteTiming
+      deprecated: true
+      parameters:
+      - description: Mute timing name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Version of mute timing to use for optimistic concurrency. Leave empty to disable validation
+        name: version
+        in: query
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ' The mute timing was deleted successfully.'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+  /v1/provisioning/mute-timings/{name}/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export a mute timing in provisioning format
+      operationId: RouteExportMuteTiming
+      parameters:
+      - description: Whether to initiate a download of the file or not.
+        name: download
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Format of the downloaded file. Supported yaml, json or hcl. Accept header can also be used, but the query parameter will take precedence.
+        name: format
+        in: query
+        schema:
+          type: string
+          enum:
+          - yaml
+          - json
+          - hcl
+          default: yaml
+      - description: Mute timing name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: PermissionDenied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/PermissionDenied'
+  /v1/provisioning/policies:
+    get:
+      tags:
+      - Provisioning
+      summary: Get the notification policy tree
+      operationId: RouteGetPolicyTree
+      deprecated: true
+      responses:
+        '200':
+          description: Route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+    put:
+      tags:
+      - Provisioning
+      summary: Sets the notification policy tree
+      operationId: RoutePutPolicyTree
+      deprecated: true
+      parameters:
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Ack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ack'
+        '400':
+          description: ValidationError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+        description: The new notification routing tree to use
+    delete:
+      tags:
+      - Provisioning
+      summary: Clears the notification policy tree
+      operationId: RouteResetPolicyTree
+      deprecated: true
+      responses:
+        '202':
+          description: Ack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ack'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+  /v1/provisioning/policies/export:
+    get:
+      tags:
+      - Provisioning
+      summary: Export the notification policy tree in provisioning file format
+      operationId: RouteGetPolicyTreeExport
+      responses:
+        '200':
+          description: AlertingFileExport
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/AlertingFileExport'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+            application/terraform+hcl:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+            text/yaml:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+            text/hcl:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+  /v1/provisioning/templates:
+    get:
+      tags:
+      - Provisioning
+      summary: Get all notification template groups
+      operationId: RouteGetTemplates
+      deprecated: true
+      responses:
+        '200':
+          description: NotificationTemplates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTemplates'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+  /v1/provisioning/templates/{name}:
+    get:
+      tags:
+      - Provisioning
+      summary: Get a notification template group
+      operationId: RouteGetTemplate
+      deprecated: true
+      parameters:
+      - description: Template group name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: NotificationTemplate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTemplate'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+    put:
+      tags:
+      - Provisioning
+      summary: Updates an existing notification template group
+      operationId: RoutePutTemplate
+      deprecated: true
+      parameters:
+      - description: Template group name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: X-Disable-Provenance
+        in: header
+        schema:
+          type: string
+      responses:
+        '202':
+          description: NotificationTemplate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTemplate'
+        '400':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationTemplateContent'
+    delete:
+      tags:
+      - Provisioning
+      summary: Delete a notification template group
+      operationId: RouteDeleteTemplate
+      deprecated: true
+      parameters:
+      - description: Template group name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Version of template to use for optimistic concurrency. Leave empty to disable validation
+        name: version
+        in: query
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ' The template was deleted successfully.'
+        '403':
+          description: ForbiddenError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '409':
+          description: PublicError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicError'
+components:
+  schemas:
+    Json:
+      type: object
+    Matcher:
+      type: object
+      title: Matcher models the matching of a label.
+      properties:
+        Name:
+          type: string
+        Type:
+          $ref: '#/components/schemas/MatchType'
+        Value:
+          type: string
+    MatchType:
+      type: integer
+      format: int64
+      title: MatchType is an enum for label matching types.
+    Ack:
+      type: object
+    PermissionDenied:
+      type: object
+    NotificationPolicyExport:
+      type: object
+      title: NotificationPolicyExport is the provisioned file export of alerting.NotificiationPolicyV1.
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        orgId:
+          type: integer
+          format: int64
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteExport'
+    Route:
+      description: 'A Route is a node that contains definitions of how to handle alerts. This is modified
+
+        from the upstream alertmanager in that it adds the ObjectMatchers property.'
+      type: object
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Route'
+    AlertRuleGroup:
+      type: object
+      properties:
+        folderUid:
+          type: string
+        interval:
+          type: integer
+          format: int64
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProvisionedAlertRule'
+        title:
+          type: string
+    RawMessage:
+      type: object
+    AlertRuleNotificationSettings:
+      type: object
+      required:
+      - receiver
+      properties:
+        active_time_intervals:
+          description: 'Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+
+            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+
+            at the time that matches any interval.'
+          type: array
+          items:
+            type: string
+          example:
+          - maintenance
+        group_by:
+          description: 'Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+
+            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+
+            use the special value ''...'' as the sole label name.
+
+            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+
+            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+
+            Must include ''alertname'' and ''grafana_folder'' if not using ''...''.'
+          type: array
+          default:
+          - alertname
+          - grafana_folder
+          items:
+            type: string
+          example:
+          - alertname
+          - grafana_folder
+          - cluster
+        group_interval:
+          description: 'Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+
+            which an initial notification has already been sent. (Usually ~5m or more.)'
+          type: string
+          example: 5m
+        group_wait:
+          description: 'Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+
+            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)'
+          type: string
+          example: 30s
+        mute_time_intervals:
+          description: 'Override the times when notifications should be muted. These must match the name of a mute time interval defined
+
+            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+
+            otherwise acts normally.'
+          type: array
+          items:
+            type: string
+          example:
+          - maintenance
+        policy:
+          description: 'Name of the notification policy to route alerts through.
+
+            Mutually exclusive with all other fields, cannot be used with contact point routing via the "receiver" field.'
+          type: string
+          example: '"Alerting Team"'
+        receiver:
+          description: Name of the receiver to send notifications to.
+          type: string
+          example: grafana-default-email
+        repeat_interval:
+          description: 'Override how long to wait before sending a notification again if it has already been sent successfully for an
+
+            alert. (Usually ~3h or more).
+
+            Note that this parameter is implicitly bound by Alertmanager''s `--data.retention` configuration flag.
+
+            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+
+            occurs first. `repeat_interval` should not be less than `group_interval`.'
+          type: string
+          example: 4h
+    ObjectMatchers:
+      type: array
+      title: ObjectMatchers is a list of matchers that can be used to filter alerts.
+      items:
+        $ref: '#/components/schemas/ObjectMatcher'
+    Record:
+      type: object
+      required:
+      - metric
+      - from
+      properties:
+        from:
+          description: Which expression node should be used as the input for the recorded metric.
+          type: string
+          example: A
+        metric:
+          description: Name of the recorded metric.
+          type: string
+          example: grafana_alerts_ratio
+        target_datasource_uid:
+          description: Which data source should be used to write the output of the recording rule, specified by UID.
+          type: string
+          example: my-prom
+    AlertRuleRecordExport:
+      type: object
+      title: Record is the provisioned export of models.Record.
+      properties:
+        from:
+          type: string
+        metric:
+          type: string
+        targetDatasourceUid:
+          type: string
+    ValidationError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: error message
+    PublicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties: {}
+        message:
+          type: string
+        messageId:
+          type: string
+        statusCode:
+          type: integer
+          format: int64
+    MatchRegexps:
+      type: object
+      title: MatchRegexps represents a map of Regexp.
+      additionalProperties:
+        type: string
+    AlertingFileExport:
+      type: object
+      title: AlertingFileExport is the full provisioned file export.
+      properties:
+        apiVersion:
+          type: integer
+          format: int64
+        contactPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactPointExport'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRuleGroupExport'
+        muteTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MuteTimeIntervalExport'
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationPolicyExport'
+    EmbeddedContactPoint:
+      description: 'EmbeddedContactPoint is the contact point type that is used
+
+        by grafanas embedded alertmanager implementation.'
+      type: object
+      required:
+      - type
+      - settings
+      properties:
+        disableResolveMessage:
+          type: boolean
+          example: false
+        name:
+          description: 'Name is used as grouping key in the UI. Contact points with the
+
+            same name will be grouped in the UI.'
+          type: string
+          example: webhook_1
+        provenance:
+          type: string
+          readOnly: true
+        settings:
+          $ref: '#/components/schemas/Json'
+        type:
+          type: string
+          enum:
+          - alertmanager
+          - dingding
+          - discord
+          - email
+          - googlechat
+          - kafka
+          - line
+          - opsgenie
+          - pagerduty
+          - pushover
+          - sensugo
+          - slack
+          - teams
+          - telegram
+          - threema
+          - victorops
+          - webhook
+          - wecom
+          example: webhook
+        uid:
+          description: 'UID is the unique identifier of the contact point. The UID can be
+
+            set by the user.'
+          type: string
+          maxLength: 40
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-\_]+$
+          example: my_external_reference
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
+    TimeInterval:
+      type: object
+      title: TimeInterval represents a named set of time intervals for which a route should be muted.
+      properties:
+        name:
+          type: string
+        time_intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+    NotFound:
+      type: object
+    ContactPointExport:
+      type: object
+      title: ContactPointExport is the provisioned file export of alerting.ContactPointV1.
+      properties:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiverExport'
+    Matchers:
+      description: 'Matchers is a slice of Matchers that is sortable, implements Stringer, and
+
+        provides a Matches method to match a LabelSet against all Matchers in the
+
+        slice. Note that some users of Matchers might require it to be sorted.'
+      type: array
+      items:
+        $ref: '#/components/schemas/Matcher'
+    NotificationTemplates:
+      type: array
+      items:
+        $ref: '#/components/schemas/NotificationTemplate'
+    MuteTimings:
+      type: array
+      items:
+        $ref: '#/components/schemas/MuteTimeInterval'
+    AlertRuleGroupExport:
+      type: object
+      title: AlertRuleGroupExport is the provisioned file export of AlertRuleGroupV1.
+      properties:
+        folder:
+          type: string
+        interval:
+          $ref: '#/components/schemas/Duration'
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRuleExport'
+    MuteTimeIntervalExport:
+      type: object
+      properties:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        time_intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+    AlertRuleNotificationSettingsExport:
+      type: object
+      title: AlertRuleNotificationSettingsExport is the provisioned export of models.NotificationSettings.
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+    NotificationTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+        template:
+          type: string
+        version:
+          type: string
+    ProvisionedAlertRules:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProvisionedAlertRule'
+    MuteTimeInterval:
+      type: object
+      title: MuteTimeInterval represents a named set of time intervals for which a route should be muted.
+      properties:
+        name:
+          type: string
+        time_intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+    RouteExport:
+      description: 'RouteExport is the provisioned file export of definitions.Route. This is needed to hide fields that aren''t useable in
+
+        provisioning file format. An alternative would be to define a custom MarshalJSON and MarshalYAML that excludes them.'
+      type: object
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteExport'
+    ReceiverExport:
+      type: object
+      title: ReceiverExport is the provisioned file export of alerting.ReceiverV1.
+      properties:
+        disableResolveMessage:
+          type: boolean
+        settings:
+          $ref: '#/components/schemas/RawMessage'
+        type:
+          type: string
+        uid:
+          type: string
+    AlertQueryExport:
+      type: object
+      title: AlertQueryExport is the provisioned export of models.AlertQuery.
+      properties:
+        datasourceUid:
+          type: string
+        model:
+          type: object
+          additionalProperties: {}
+        queryType:
+          type: string
+        refId:
+          type: string
+        relativeTimeRange:
+          $ref: '#/components/schemas/RelativeTimeRangeExport'
+    RelativeTimeRangeExport:
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int64
+        to:
+          type: integer
+          format: int64
+    ContactPoints:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmbeddedContactPoint'
+    ProvisionedAlertRule:
+      type: object
+      required:
+      - orgID
+      - folderUID
+      - ruleGroup
+      - title
+      - condition
+      - data
+      - noDataState
+      - execErrState
+      - for
+      properties:
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            runbook_url: https://supercoolrunbook.com/page/13
+        condition:
+          type: string
+          example: A
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertQuery'
+          example:
+          - datasourceUid: __expr__
+            model:
+              conditions:
+              - evaluator:
+                  params:
+                  - 0
+                  - 0
+                  type: gt
+                operator:
+                  type: and
+                query:
+                  params: []
+                reducer:
+                  params: []
+                  type: avg
+                type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: 1 == 1
+              hide: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+              type: math
+            queryType: ''
+            refId: A
+            relativeTimeRange:
+              from: 0
+              to: 0
+        execErrState:
+          type: string
+          enum:
+          - OK
+          - Alerting
+          - Error
+        folderUID:
+          type: string
+          example: project_x
+        for:
+          type: string
+          format: duration
+        id:
+          type: integer
+          format: int64
+        isPaused:
+          type: boolean
+          example: false
+        keep_firing_for:
+          type: string
+          format: duration
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          example:
+            team: sre-team-1
+        missingSeriesEvalsToResolve:
+          type: integer
+          format: int64
+          example: 2
+        noDataState:
+          type: string
+          enum:
+          - Alerting
+          - NoData
+          - OK
+        notification_settings:
+          $ref: '#/components/schemas/AlertRuleNotificationSettings'
+        orgID:
+          type: integer
+          format: int64
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+        record:
+          $ref: '#/components/schemas/Record'
+        ruleGroup:
+          type: string
+          maxLength: 190
+          minLength: 1
+          example: eval_group_1
+        title:
+          type: string
+          maxLength: 190
+          minLength: 1
+          example: Always firing
+        uid:
+          type: string
+          maxLength: 40
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-_]+$
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+    ForbiddenError:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/PublicError'
+    Provenance:
+      type: string
+    AlertQuery:
+      type: object
+      title: AlertQuery represents a single query associated with an alert definition.
+      properties:
+        datasourceUid:
+          description: Grafana data source unique identifier; it should be '__expr__' for a Server Side Expression operation.
+          type: string
+        model:
+          description: JSON is the raw JSON query and includes the above properties as well as custom properties.
+          type: object
+        queryType:
+          description: 'QueryType is an optional identifier for the type of query.
+
+            It can be used to distinguish different types of queries.'
+          type: string
+        refId:
+          description: RefID is the unique identifier of the query, set by the frontend call.
+          type: string
+        relativeTimeRange:
+          $ref: '#/components/schemas/RelativeTimeRange'
+    AlertRuleExport:
+      type: object
+      title: AlertRuleExport is the provisioned file export of models.AlertRule.
+      properties:
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+        condition:
+          type: string
+        dashboardUid:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertQueryExport'
+        execErrState:
+          type: string
+          enum:
+          - OK
+          - Alerting
+          - Error
+        for:
+          $ref: '#/components/schemas/Duration'
+        isPaused:
+          type: boolean
+        keepFiringFor:
+          $ref: '#/components/schemas/Duration'
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        missing_series_evals_to_resolve:
+          type: integer
+          format: int64
+        noDataState:
+          type: string
+          enum:
+          - Alerting
+          - NoData
+          - OK
+        notification_settings:
+          $ref: '#/components/schemas/AlertRuleNotificationSettingsExport'
+        panelId:
+          type: integer
+          format: int64
+        record:
+          $ref: '#/components/schemas/AlertRuleRecordExport'
+        title:
+          type: string
+        uid:
+          type: string
+    NotificationTemplateContent:
+      type: object
+      properties:
+        template:
+          type: string
+        version:
+          type: string
+    RelativeTimeRange:
+      description: 'RelativeTimeRange is the per query start and end time
+
+        for requests.'
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/Duration'
+        to:
+          $ref: '#/components/schemas/Duration'
+    ObjectMatcher:
+      type: array
+      title: ObjectMatcher is a matcher that can be used to filter alerts.
+      items:
+        type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,235 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Admin Ldap API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- name: admin_ldap
+paths:
+  /admin/ldap-sync-status:
+    get:
+      description: You need to have a permission with action `ldap.status:read`.
+      tags:
+      - admin_ldap
+      summary: Returns the current state of the LDAP background sync integration
+      operationId: getSyncStatus
+      responses:
+        '200':
+          $ref: '#/components/responses/getSyncStatusResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /admin/ldap/reload:
+    post:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.config:reload`.
+      tags:
+      - admin_ldap
+      summary: Reloads the LDAP configuration
+      operationId: reloadLDAPCfg
+      responses:
+        '410':
+          $ref: '#/components/responses/goneError'
+      security:
+      - basic: []
+  /admin/ldap/status:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.status:read`.
+      tags:
+      - admin_ldap
+      summary: Attempts to connect to all the configured LDAP servers and returns information…
+      operationId: getLDAPStatus
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/ldap/sync/{user_id}:
+    post:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:sync`.
+      tags:
+      - admin_ldap
+      summary: Enables a single Grafana user to be synchronized against LDAP
+      operationId: postSyncUserWithLDAP
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /admin/ldap/{user_name}:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `ldap.user:read`.
+      tags:
+      - admin_ldap
+      summary: Finds an user based on a username in LDAP.
+      operationId: getUserFromLDAP
+      parameters:
+      - name: user_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    getSyncStatusResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActiveSyncStatusDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    goneError:
+      description: GoneError is returned when the requested endpoint was removed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+  schemas:
+    SyncResult:
+      type: object
+      title: SyncResult holds the result of a sync with LDAP. This gives us information on which users were updated and how.
+      properties:
+        Elapsed:
+          $ref: '#/components/schemas/Duration'
+        FailedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/FailedUser'
+        MissingUserIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        Started:
+          type: string
+          format: date-time
+        UpdatedUserIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    ActiveSyncStatusDTO:
+      description: ActiveSyncStatusDTO holds the information for LDAP background Sync
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        nextSync:
+          type: string
+          format: date-time
+        prevSync:
+          $ref: '#/components/schemas/SyncResult'
+        schedule:
+          type: string
+    FailedUser:
+      description: FailedUser holds the information of an user that failed
+      type: object
+      properties:
+        Error:
+          type: string
+        Login:
+          type: string
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

@@ -1,0 +1,743 @@
+openapi: 3.2.0
+info:
+  description: 'The Grafana backend exposes an HTTP API, the same API is used by the frontend to do
+
+    everything from saving dashboards, creating users and updating data sources.'
+  title: Grafana HTTP API. Orgs API
+  contact:
+    name: Grafana Labs
+    url: https://grafana.com
+    email: hello@grafana.com
+  version: 0.0.1
+servers:
+- url: /api
+security:
+- basic: []
+- api_key: []
+tags:
+- description: The Admin Organizations HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization and an organization role. They cannot be given the permission of server admin, only users can be given that permission. So in order to use these API calls you will have to use Basic Auth and the Grafana user must have the Grafana Admin permission (The default admin user is called `admin` and has permission to use this API).
+  name: Orgs
+paths:
+  /orgs:
+    get:
+      tags:
+      - Orgs
+      summary: Search all Organizations
+      operationId: searchOrgs
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1
+      - description: 'Number of items per page
+
+          The totalCount field in the response can be used for pagination list E.g. if totalCount is equal to 100 teams and the perpage parameter is set to 10 then there are 10 pages of teams.'
+        name: perpage
+        in: query
+        schema:
+          type: integer
+          format: int64
+          default: 1000
+      - name: name
+        in: query
+        schema:
+          type: string
+      - description: If set it will return results where the query value is contained in the name field. Query values with spaces need to be URL encoded.
+        name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/searchOrgsResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '409':
+          $ref: '#/components/responses/conflictError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+    post:
+      description: Only works if users.allow_org_create is set.
+      tags:
+      - Orgs
+      summary: Create Organization
+      operationId: createOrg
+      responses:
+        '200':
+          $ref: '#/components/responses/createOrgResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '409':
+          $ref: '#/components/responses/conflictError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrgCommand'
+        required: true
+  /orgs/name/{org_name}:
+    get:
+      tags:
+      - Orgs
+      summary: Get Organization by Name
+      operationId: getOrgByName
+      parameters:
+      - name: org_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/getOrgByNameResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /orgs/{org_id}:
+    get:
+      tags:
+      - Orgs
+      summary: Get Organization by ID
+      operationId: getOrgByID
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getOrgByIDResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+    put:
+      tags:
+      - Orgs
+      summary: Update Organization
+      operationId: updateOrg
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgForm'
+        required: true
+    delete:
+      tags:
+      - Orgs
+      summary: Delete Organization
+      operationId: deleteOrgByID
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /orgs/{org_id}/address:
+    put:
+      tags:
+      - Orgs
+      summary: Update Organization's address
+      operationId: updateOrgAddress
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgAddressForm'
+        required: true
+  /orgs/{org_id}/quotas:
+    get:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:read` and scope `org:id:1` (orgIDScope).
+      tags:
+      - Orgs
+      summary: Fetch Organization quota
+      operationId: getOrgQuota
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getQuotaResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+  /orgs/{org_id}/quotas/{quota_target}:
+    put:
+      description: If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `orgs.quotas:write` and scope `org:id:1` (orgIDScope).
+      tags:
+      - Orgs
+      summary: Update user quota
+      operationId: updateOrgQuota
+      parameters:
+      - name: quota_target
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuotaCmd'
+        required: true
+  /orgs/{org_id}/users:
+    get:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:read` with scope `users:*`.'
+      tags:
+      - Orgs
+      summary: Get Users in Organization
+      operationId: getOrgUsers
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/getOrgUsersResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+    post:
+      description: 'Adds a global user to the current organization.
+
+
+        If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:add` with scope `users:*`.'
+      tags:
+      - Orgs
+      summary: Add a new user to the current organization
+      operationId: addOrgUser
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddOrgUserCommand'
+        required: true
+  /orgs/{org_id}/users/search:
+    get:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:read` with scope `users:*`.'
+      tags:
+      - Orgs
+      summary: Search Users in Organization
+      operationId: searchOrgUsers
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/searchOrgUsersResponse'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      security:
+      - basic: []
+  /orgs/{org_id}/users/{user_id}:
+    delete:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users:remove` with scope `users:*`.'
+      tags:
+      - Orgs
+      summary: Delete user in current organization
+      operationId: removeOrgUser
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+    patch:
+      description: 'If you are running Grafana Enterprise and have Fine-grained access control enabled
+
+        you need to have a permission with action: `org.users.role:update` with scope `users:*`.'
+      tags:
+      - Orgs
+      summary: Update Users in Organization
+      operationId: updateOrgUser
+      parameters:
+      - name: org_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          $ref: '#/components/responses/okResponse'
+        '400':
+          $ref: '#/components/responses/badRequestError'
+        '401':
+          $ref: '#/components/responses/unauthorisedError'
+        '403':
+          $ref: '#/components/responses/forbiddenError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgUserCommand'
+        required: true
+components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getOrgByNameResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrgDetailsDTO'
+    createOrgResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - orgId
+            - message
+            properties:
+              message:
+                description: Message Message of the created org.
+                type: string
+                example: Data source added
+              orgId:
+                description: ID Identifier of the created org.
+                type: integer
+                format: int64
+                example: 65
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQuotaResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/QuotaDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchOrgUsersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchOrgUsersQueryResult'
+    getOrgUsersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrgUserDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getOrgByIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrgDetailsDTO'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchOrgsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrgDTO'
+  schemas:
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+    QuotaDTO:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        org_id:
+          type: integer
+          format: int64
+        target:
+          type: string
+        used:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SearchOrgUsersQueryResult:
+      type: object
+      properties:
+        orgUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgUserDTO'
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+    UpdateOrgAddressForm:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+    OrgDetailsDTO:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    UpdateOrgUserCommand:
+      type: object
+      properties:
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    UpdateOrgForm:
+      type: object
+      properties:
+        name:
+          type: string
+    OrgUserDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        created:
+          type: string
+          format: date-time
+        email:
+          type: string
+        isDisabled:
+          type: boolean
+        isExternallySynced:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        lastSeenAt:
+          type: string
+          format: date-time
+        lastSeenAtAge:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+        uid:
+          type: string
+        userId:
+          type: integer
+          format: int64
+    UpdateQuotaCmd:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        target:
+          type: string
+    OrgDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    AddOrgUserCommand:
+      type: object
+      properties:
+        loginOrEmail:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    CreateOrgCommand:
+      type: object
+      properties:
+        name:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: Authorization
+      in: header
+    basic:
+      type: http
+      scheme: basic

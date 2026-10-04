@@ -1,0 +1,214 @@
+generated: '2026-10-04'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/grafana-com-openapi.json
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: probed
+note: No MCP server was found. The pre-flight posted tools/list to /mcp on api.grafana.com, api.terraform.io, api.fosstodon.org, grafana.com;
+  verdict absent. Candidate tools below are derived from the 314 operation(s) in the provider's own OpenAPI (40 listed); they describe what a
+  server WOULD expose, not one that exists.
+tools:
+- name: list_roles
+  operationId: listRoles
+  method: GET
+  path: /access-control/roles
+  description: Get all roles.
+- name: create_role
+  operationId: createRole
+  method: POST
+  path: /access-control/roles
+  description: Create a new custom role.
+- name: get_role
+  operationId: getRole
+  method: GET
+  path: /access-control/roles/{roleUID}
+  description: Get a role.
+- name: update_role
+  operationId: updateRole
+  method: PUT
+  path: /access-control/roles/{roleUID}
+  description: Update a custom role.
+- name: delete_role
+  operationId: deleteRole
+  method: DELETE
+  path: /access-control/roles/{roleUID}
+  description: Delete a custom role.
+- name: get_role_assignments
+  operationId: getRoleAssignments
+  method: GET
+  path: /access-control/roles/{roleUID}/assignments
+  description: Get role assignments.
+- name: set_role_assignments
+  operationId: setRoleAssignments
+  method: PUT
+  path: /access-control/roles/{roleUID}/assignments
+  description: Set role assignments.
+- name: get_access_control_status
+  operationId: getAccessControlStatus
+  method: GET
+  path: /access-control/status
+  description: Get status.
+- name: list_teams_roles
+  operationId: listTeamsRoles
+  method: POST
+  path: /access-control/teams/roles/search
+  description: List roles assigned to multiple teams.
+- name: list_team_roles
+  operationId: listTeamRoles
+  method: GET
+  path: /access-control/teams/{teamId}/roles
+  description: Get team roles.
+- name: set_team_roles
+  operationId: setTeamRoles
+  method: PUT
+  path: /access-control/teams/{teamId}/roles
+  description: Update team role.
+- name: add_team_role
+  operationId: addTeamRole
+  method: POST
+  path: /access-control/teams/{teamId}/roles
+  description: Add team role.
+- name: remove_team_role
+  operationId: removeTeamRole
+  method: DELETE
+  path: /access-control/teams/{teamId}/roles/{roleUID}
+  description: Remove team role.
+- name: list_users_roles
+  operationId: listUsersRoles
+  method: POST
+  path: /access-control/users/roles/search
+  description: List roles assigned to multiple users.
+- name: list_user_roles
+  operationId: listUserRoles
+  method: GET
+  path: /access-control/users/{userId}/roles
+  description: List roles assigned to a user.
+- name: set_user_roles
+  operationId: setUserRoles
+  method: PUT
+  path: /access-control/users/{userId}/roles
+  description: Set user role assignments.
+- name: add_user_role
+  operationId: addUserRole
+  method: POST
+  path: /access-control/users/{userId}/roles
+  description: Add a user role assignment.
+- name: remove_user_role
+  operationId: removeUserRole
+  method: DELETE
+  path: /access-control/users/{userId}/roles/{roleUID}
+  description: Remove a user role assignment.
+- name: get_resource_description
+  operationId: getResourceDescription
+  method: GET
+  path: /access-control/{resource}/description
+  description: Get a description of a resource's access control properties.
+- name: get_resource_permissions
+  operationId: getResourcePermissions
+  method: GET
+  path: /access-control/{resource}/{resourceID}
+  description: Get permissions for a resource.
+- name: set_resource_permissions
+  operationId: setResourcePermissions
+  method: POST
+  path: /access-control/{resource}/{resourceID}
+  description: Set resource permissions.
+- name: set_resource_permissions_for_built_in_role
+  operationId: setResourcePermissionsForBuiltInRole
+  method: POST
+  path: /access-control/{resource}/{resourceID}/builtInRoles/{builtInRole}
+  description: Set resource permissions for a built-in role.
+- name: set_resource_permissions_for_team
+  operationId: setResourcePermissionsForTeam
+  method: POST
+  path: /access-control/{resource}/{resourceID}/teams/{teamID}
+  description: Set resource permissions for a team.
+- name: set_resource_permissions_for_user
+  operationId: setResourcePermissionsForUser
+  method: POST
+  path: /access-control/{resource}/{resourceID}/users/{userID}
+  description: Set resource permissions for a user.
+- name: get_sync_status
+  operationId: getSyncStatus
+  method: GET
+  path: /admin/ldap-sync-status
+  description: Returns the current state of the LDAP background sync integration.
+- name: reload_ldapcfg
+  operationId: reloadLDAPCfg
+  method: POST
+  path: /admin/ldap/reload
+  description: Reloads the LDAP configuration.
+- name: get_ldapstatus
+  operationId: getLDAPStatus
+  method: GET
+  path: /admin/ldap/status
+  description: Attempts to connect to all the configured LDAP servers and returns information on whenever they're available or not.
+- name: post_sync_user_with_ldap
+  operationId: postSyncUserWithLDAP
+  method: POST
+  path: /admin/ldap/sync/{user_id}
+  description: Enables a single Grafana user to be synchronized against LDAP.
+- name: get_user_from_ldap
+  operationId: getUserFromLDAP
+  method: GET
+  path: /admin/ldap/{user_name}
+  description: Finds an user based on a username in LDAP. This helps illustrate how would the particular user be mapped in Grafana when synced.
+- name: admin_provisioning_reload_access_control
+  operationId: adminProvisioningReloadAccessControl
+  method: POST
+  path: /admin/provisioning/access-control/reload
+  description: You need to have a permission with action `provisioning:reload` with scope `provisioners:accesscontrol`.
+- name: admin_provisioning_reload_dashboards
+  operationId: adminProvisioningReloadDashboards
+  method: POST
+  path: /admin/provisioning/dashboards/reload
+  description: Reload dashboard provisioning configurations.
+- name: admin_provisioning_reload_datasources
+  operationId: adminProvisioningReloadDatasources
+  method: POST
+  path: /admin/provisioning/datasources/reload
+  description: Reload datasource provisioning configurations.
+- name: admin_provisioning_reload_plugins
+  operationId: adminProvisioningReloadPlugins
+  method: POST
+  path: /admin/provisioning/plugins/reload
+  description: Reload plugin provisioning configurations.
+- name: admin_get_settings
+  operationId: adminGetSettings
+  method: GET
+  path: /admin/settings
+  description: Fetch settings.
+- name: admin_get_stats
+  operationId: adminGetStats
+  method: GET
+  path: /admin/stats
+  description: Fetch Grafana Stats.
+- name: admin_create_user
+  operationId: adminCreateUser
+  method: POST
+  path: /admin/users
+  description: Create new user.
+- name: admin_delete_user
+  operationId: adminDeleteUser
+  method: DELETE
+  path: /admin/users/{user_id}
+  description: Delete global User.
+- name: admin_get_user_auth_tokens
+  operationId: adminGetUserAuthTokens
+  method: GET
+  path: /admin/users/{user_id}/auth-tokens
+  description: Return a list of all auth tokens (devices) that the user currently have logged in from.
+- name: admin_disable_user
+  operationId: adminDisableUser
+  method: POST
+  path: /admin/users/{user_id}/disable
+  description: Disable user.
+- name: admin_enable_user
+  operationId: adminEnableUser
+  method: POST
+  path: /admin/users/{user_id}/enable
+  description: Enable user.
