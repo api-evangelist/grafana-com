@@ -110,6 +110,40 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
+  responses:
+    contentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: integer
+              format: uint8
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
     ErrorResponseBody:
       type: object
@@ -128,40 +162,6 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-  responses:
-    contentResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: integer
-              format: uint8
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

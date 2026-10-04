@@ -363,95 +363,7 @@ paths:
               $ref: '#/components/schemas/UpdatePrefsCmd'
         required: true
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getPreferencesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PreferencesSpec'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    searchTeamsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SearchTeamQueryResult'
-    getTeamMembersResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/TeamMemberDTO'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    createTeamResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-              teamId:
-                type: integer
-                format: int64
-              uid:
-                type: string
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getTeamByIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TeamDTO'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    conflictError:
-      description: ConflictError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    QueryHistoryPreference:
-      type: object
-      properties:
-        homeTab:
-          type: string
     SetTeamMembershipsCommand:
       type: object
       properties:
@@ -463,17 +375,33 @@ components:
           type: array
           items:
             type: string
-    UpdateTeamCommand:
+    SearchTeamQueryResult:
       type: object
       properties:
-        email:
-          type: string
-        name:
-          type: string
-    SuccessResponseBody:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamDTO'
+        totalCount:
+          type: integer
+          format: int64
+    NavbarPreference:
       type: object
       properties:
-        message:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    QueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
           type: string
     ErrorResponseBody:
       type: object
@@ -492,96 +420,6 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-    AddTeamMemberCommand:
-      type: object
-      required:
-      - userId
-      properties:
-        userId:
-          type: integer
-          format: int64
-    PreferencesSpec:
-      type: object
-      properties:
-        homeDashboardUID:
-          description: UID for the home dashboard
-          type: string
-        homeURL:
-          description: 'Explicit home URL (NOTE: this can only be modified in the system settings)'
-          type: string
-        language:
-          description: Selected language
-          type: string
-        navbar:
-          $ref: '#/components/schemas/PreferencesNavbarPreference'
-        queryHistory:
-          $ref: '#/components/schemas/PreferencesQueryHistoryPreference'
-        theme:
-          description: user interface theme
-          type: string
-        timezone:
-          description: The timezone selection
-          type: string
-        weekStart:
-          description: day of the week (sunday, monday, etc)
-          type: string
-    UpdatePrefsCmd:
-      type: object
-      properties:
-        homeDashboardId:
-          description: 'The numerical :id of a favorited dashboard
-
-            Deprecated: Use HomeDashboardUID instead'
-          type: integer
-          format: int64
-          default: 0
-        homeDashboardUID:
-          type: string
-        language:
-          type: string
-        navbar:
-          $ref: '#/components/schemas/NavbarPreference'
-        queryHistory:
-          $ref: '#/components/schemas/QueryHistoryPreference'
-        theme:
-          type: string
-          enum:
-          - light
-          - dark
-          - system
-        timezone:
-          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
-          type: string
-        weekStart:
-          type: string
-    TeamPermissionType:
-      type: integer
-      format: int64
-    UpdateTeamMemberCommand:
-      type: object
-      properties:
-        permission:
-          $ref: '#/components/schemas/TeamPermissionType'
-    PreferencesQueryHistoryPreference:
-      type: object
-      properties:
-        homeTab:
-          description: 'one of: '''' | ''query'' | ''starred'';'
-          type: string
-    PreferencesNavbarPreference:
-      type: object
-      properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
-    NavbarPreference:
-      type: object
-      properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
     TeamMemberDTO:
       type: object
       properties:
@@ -616,6 +454,13 @@ components:
           format: int64
         userUID:
           type: string
+    PreferencesNavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
     TeamDTO:
       type: object
       required:
@@ -654,22 +499,55 @@ components:
           $ref: '#/components/schemas/TeamPermissionType'
         uid:
           type: string
-    SearchTeamQueryResult:
+    TeamPermissionType:
+      type: integer
+      format: int64
+    PreferencesSpec:
       type: object
       properties:
-        page:
+        homeDashboardUID:
+          description: UID for the home dashboard
+          type: string
+        homeURL:
+          description: 'Explicit home URL (NOTE: this can only be modified in the system settings)'
+          type: string
+        language:
+          description: Selected language
+          type: string
+        navbar:
+          $ref: '#/components/schemas/PreferencesNavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/PreferencesQueryHistoryPreference'
+        theme:
+          description: user interface theme
+          type: string
+        timezone:
+          description: The timezone selection
+          type: string
+        weekStart:
+          description: day of the week (sunday, monday, etc)
+          type: string
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
+          type: string
+    AddTeamMemberCommand:
+      type: object
+      required:
+      - userId
+      properties:
+        userId:
           type: integer
           format: int64
-        perPage:
-          type: integer
-          format: int64
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamDTO'
-        totalCount:
-          type: integer
-          format: int64
+    UpdateTeamCommand:
+      type: object
+      properties:
+        email:
+          type: string
+        name:
+          type: string
     CreateTeamCommand:
       type: object
       required:
@@ -679,6 +557,128 @@ components:
           type: string
         name:
           type: string
+    UpdatePrefsCmd:
+      type: object
+      properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    UpdateTeamMemberCommand:
+      type: object
+      properties:
+        permission:
+          $ref: '#/components/schemas/TeamPermissionType'
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getTeamByIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TeamDTO'
+    getTeamMembersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TeamMemberDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createTeamResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              teamId:
+                type: integer
+                format: int64
+              uid:
+                type: string
+    searchTeamsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchTeamQueryResult'
+    getPreferencesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreferencesSpec'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

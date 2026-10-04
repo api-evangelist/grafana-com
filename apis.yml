@@ -535,13 +535,15 @@ apis:
   properties:
   - url: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
     type: Documentation
-  - url: https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
+  - url: >-
+      https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/
     name: Access Policies and Tokens
     type: Authentication
-  description: Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies,
-    and tokens at `https://grafana.com/api`. Authenticated with Cloud Access Policy bearer tokens. The
-    recommended automation surface for provisioning Grafana Cloud environments, multi-tenant onboarding,
-    and Terraform workflows.
+  description: >-
+    Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies, and tokens
+    at `https://grafana.com/api`. Authenticated with Cloud Access Policy bearer tokens. The recommended
+    automation surface for provisioning Grafana Cloud environments, multi-tenant onboarding, and Terraform
+    workflows.
 - aid: grafana-com:loki-http-api
   name: Grafana Loki HTTP API
   tags:
@@ -555,10 +557,10 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/loki
     type: SourceCode
-  description: Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion),
-    `/loki/api/v1/query` and `/query_range` (LogQL), `/loki/api/v1/labels`, `/loki/api/v1/series`, `/loki/api/v1/tail`
-    (websocket streaming), plus ruler, status, and admin endpoints. Prometheus-style label model applied
-    to log streams.
+  description: >-
+    Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion), `/loki/api/v1/query`
+    and `/query_range` (LogQL), `/loki/api/v1/labels`, `/loki/api/v1/series`, `/loki/api/v1/tail` (websocket
+    streaming), plus ruler, status, and admin endpoints. Prometheus-style label model applied to log streams.
 - aid: grafana-com:mimir-http-api
   name: Grafana Mimir HTTP API
   tags:
@@ -572,10 +574,11 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/mimir
     type: SourceCode
-  description: Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes
-    Prometheus remote-write at `/api/v1/push`, the full Prometheus query API (`/api/v1/query`, `/query_range`,
-    `/series`, `/labels`), ruler endpoints for recording and alerting rules, alertmanager configuration,
-    and per-tenant admin endpoints.
+  description: >-
+    Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes Prometheus
+    remote-write at `/api/v1/push`, the full Prometheus query API (`/api/v1/query`, `/query_range`, `/series`,
+    `/labels`), ruler endpoints for recording and alerting rules, alertmanager configuration, and per-tenant
+    admin endpoints.
 - aid: grafana-com:tempo-http-api
   name: Grafana Tempo HTTP API
   tags:
@@ -589,10 +592,10 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/tempo
     type: SourceCode
-  description: High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace
-    lookup by ID (`/api/traces/{traceID}`), TraceQL search (`/api/search`), tag and value listing, and
-    metrics derived from spans. Stores traces in object storage (S3, GCS, Azure Blob) with bloom-filter
-    index.
+  description: >-
+    High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace lookup
+    by ID (`/api/traces/{traceID}`), TraceQL search (`/api/search`), tag and value listing, and metrics
+    derived from spans. Stores traces in object storage (S3, GCS, Azure Blob) with bloom-filter index.
 - aid: grafana-com:pyroscope-http-api
   name: Grafana Pyroscope HTTP API
   tags:
@@ -606,8 +609,9 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/pyroscope
     type: SourceCode
-  description: Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles,
-    query flame graphs and merge profiles, and run profile-based comparisons. Pyroscope merged with Grafana
+  description: >-
+    Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles, query
+    flame graphs and merge profiles, and run profile-based comparisons. Pyroscope merged with Grafana
     Phlare to form the current Pyroscope project.
 - aid: grafana-com:k6-cloud-api
   name: Grafana k6 Cloud API
@@ -621,8 +625,9 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/k6
     type: SourceCode
-  description: Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations,
-    test runs, thresholds, and results. Pairs with the open-source `k6` CLI for JavaScript-authored performance
+  description: >-
+    Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations, test
+    runs, thresholds, and results. Pairs with the open-source `k6` CLI for JavaScript-authored performance
     and load tests and is integrated into Grafana Cloud Performance Testing.
 - aid: grafana-com:oncall-api
   name: Grafana OnCall API
@@ -640,9 +645,10 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/oncall
     type: SourceCode
-  description: Programmatic access to OnCall alert groups, integrations, escalation chains, schedules,
-    on-call shifts, routes, slack channels, webhooks, and users. Powers on-call rotation management and
-    alert routing for the broader Grafana IRM (Incident Response Management) suite.
+  description: >-
+    Programmatic access to OnCall alert groups, integrations, escalation chains, schedules, on-call shifts,
+    routes, slack channels, webhooks, and users. Powers on-call rotation management and alert routing
+    for the broader Grafana IRM (Incident Response Management) suite.
 - aid: grafana-com:synthetic-monitoring-api
   name: Grafana Synthetic Monitoring API
   tags:
@@ -655,18 +661,20 @@ apis:
     type: Documentation
   - url: https://github.com/grafana/synthetic-monitoring-agent
     type: SourceCode
-  description: Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step
-    scripted browser, gRPC) executed from Grafana Labs' global probe network plus optional private probes.
-    Results land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
+  description: >-
+    Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step scripted
+    browser, gRPC) executed from Grafana Labs' global probe network plus optional private probes. Results
+    land as Prometheus metrics and Loki logs in the connected Grafana Cloud stack.
 - aid: grafana-com:grafana-com-access-control-api
   name: Grafana Access Control API
-  description: 'The API can be used to create, update, get and list roles, and create or remove built-in
-    role assignments. To use the API, you would need to enable fine-grained access control.
+  description: >-
+    The API can be used to create, update, get and list roles, and create or remove built-in role assignments.
+    To use the API, you would need to enable fine-grained access control.
 
     This only available in Grafana Enterprise.
 
     The API does not currently work with an API Token. So in order to use these API endpoints you will
-    have to use Basic auth.'
+    have to use Basic auth.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - access_control
@@ -737,11 +745,12 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-admin-api
   name: Grafana Admin API
-  description: The Admin HTTP API does not currently work with an API Token. API Tokens are currently
-    only linked to an organization and an organization role. They cannot be given the permission of server
-    admin, only users can be given that permission. So in order to use these API calls you will have to
-    use Basic Auth and the Grafana user must have the Grafana Admin permission. (The default admin user
-    is called admin and has permission to use this API.)
+  description: >-
+    The Admin HTTP API does not currently work with an API Token. API Tokens are currently only linked
+    to an organization and an organization role. They cannot be given the permission of server admin,
+    only users can be given that permission. So in order to use these API calls you will have to use Basic
+    Auth and the Grafana user must have the Grafana Admin permission. (The default admin user is called
+    admin and has permission to use this API.)
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - admin
@@ -1025,10 +1034,11 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-annotations-api
   name: Grafana Annotations API
-  description: Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana
-    database (sqlite, mysql or postgres). Annotations can be organization annotations that can be shown
-    on any dashboard by configuring an annotation data source - they are filtered by tags. Or they can
-    be tied to a panel on a dashboard and are then only shown on that panel.
+  description: >-
+    Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana database
+    (sqlite, mysql or postgres). Annotations can be organization annotations that can be shown on any
+    dashboard by configuring an annotation data source - they are filtered by tags. Or they can be tied
+    to a panel on a dashboard and are then only shown on that panel.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - annotations
@@ -1525,7 +1535,8 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-folders-api
   name: Grafana Folders API
-  description: 'Folders are identified by the identifier (id) and the unique identifier (uid).
+  description: >-
+    Folders are identified by the identifier (id) and the unique identifier (uid).
 
     The identifier (id) of a folder is an auto-incrementing numeric value and is only unique per Grafana
     install.
@@ -1535,7 +1546,7 @@ apis:
     having consistent URLs for accessing folders and when syncing folders between multiple Grafana installs.
     This means that changing the title of a folder will not break any bookmarked links to that folder.
 
-    The uid can have a maximum length of 40 characters.'
+    The uid can have a maximum length of 40 characters.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - folders
@@ -1748,15 +1759,16 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-library-elements-api
   name: Grafana Library Elements API
-  description: 'The identifier (ID) of a library element is an auto-incrementing numeric value that is
-    unique per Grafana install.
+  description: >-
+    The identifier (ID) of a library element is an auto-incrementing numeric value that is unique per
+    Grafana install.
 
     The unique identifier (UID) of a library element uniquely identifies library elements between multiple
     Grafana installs. It’s automatically generated unless you specify it during library element creation.
     The UID provides consistent URLs for accessing library elements and when syncing library elements
     between multiple Grafana installs.
 
-    The maximum length of a UID is 40 characters.'
+    The maximum length of a UID is 40 characters.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - library_elements
@@ -1827,11 +1839,12 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-licensing-api
   name: Grafana Licensing API
-  description: 'Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise.
+  description: >-
+    Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise.
 
     If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints
     you would need to have relevant permissions. Refer to specific resources to understand what permissions
-    are required.'
+    are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - licensing
@@ -1973,9 +1986,10 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-org-api
   name: Grafana Org API
-  description: If you are running Grafana Enterprise and have Fine-grained access control enabled, for
-    some endpoints you would need to have relevant permissions. Refer to specific resources to understand
-    what permissions are required.
+  description: >-
+    If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints
+    you would need to have relevant permissions. Refer to specific resources to understand what permissions
+    are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - org
@@ -2046,11 +2060,12 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-orgs-api
   name: Grafana Orgs API
-  description: The Admin Organizations HTTP API does not currently work with an API Token. API Tokens
-    are currently only linked to an organization and an organization role. They cannot be given the permission
-    of server admin, only users can be given that permission. So in order to use these API calls you will
-    have to use Basic Auth and the Grafana user must have the Grafana Admin permission (The default admin
-    user is called `admin` and has permission to use this API).
+  description: >-
+    The Admin Organizations HTTP API does not currently work with an API Token. API Tokens are currently
+    only linked to an organization and an organization role. They cannot be given the permission of server
+    admin, only users can be given that permission. So in order to use these API calls you will have to
+    use Basic Auth and the Grafana user must have the Grafana Admin permission (The default admin user
+    is called `admin` and has permission to use this API).
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - orgs
@@ -2121,9 +2136,10 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-permissions-api
   name: Grafana Permissions API
-  description: Permissions with `folderId=-1` are the default permissions for users with the Viewer and
-    Editor roles. Permissions can be set for a user, a team or a role (Viewer or Editor). Permissions
-    cannot be set for Admins - they always have access to everything.
+  description: >-
+    Permissions with `folderId=-1` are the default permissions for users with the Viewer and Editor roles.
+    Permissions can be set for a user, a team or a role (Viewer or Editor). Permissions cannot be set
+    for Admins - they always have access to everything.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - permissions
@@ -2407,12 +2423,13 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-query-history-api
   name: Grafana Query History API
-  description: 'The identifier (ID) of a query in query history is an auto-incrementing numeric value
-    that is unique per Grafana install.
+  description: >-
+    The identifier (ID) of a query in query history is an auto-incrementing numeric value that is unique
+    per Grafana install.
 
     The unique identifier (UID) of a query history uniquely identifies queries in query history between
     multiple Grafana installs. It’s automatically generated. The UID provides consistent URLs for accessing
-    queries in query history.'
+    queries in query history.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - query_history
@@ -2625,12 +2642,13 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-reports-api
   name: Grafana Reports API
-  description: 'This API allows you to interact programmatically with the Reporting feature.
+  description: >-
+    This API allows you to interact programmatically with the Reporting feature.
 
     Reporting is only available in Grafana Enterprise. Read more about Grafana Enterprise.
 
     If you have Fine-grained access Control enabled, for some endpoints you would need to have relevant
-    permissions. Refer to specific resources to understand what permissions are required.'
+    permissions. Refer to specific resources to understand what permissions are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - reports
@@ -2843,8 +2861,9 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-service-accounts-api
   name: Grafana Service Accounts API
-  description: If you are running Grafana Enterprise, for some endpoints you'll need to have specific
-    permissions. Refer to [Role-based access control permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/custom-role-actions-scopes/)
+  description: >-
+    If you are running Grafana Enterprise, for some endpoints you'll need to have specific permissions.
+    Refer to [Role-based access control permissions](https://grafana.com/docs/grafana/latest/administration/roles-and-permissions/access-control/custom-role-actions-scopes/)
     for more information.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
@@ -3271,8 +3290,9 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-teams-api
   name: Grafana Teams API
-  description: This API can be used to create/update/delete Teams and to add/remove users to Teams. All
-    actions require that the user has the Admin role for the organization.
+  description: >-
+    This API can be used to create/update/delete Teams and to add/remove users to Teams. All actions require
+    that the user has the Admin role for the organization.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
   - teams
@@ -3556,9 +3576,10 @@ apis:
     url: https://grafana.com/docs/grafana/latest/developers/http_api/query_history/
 - aid: grafana-com:grafana-com-data-sources-api
   name: Grafana Data Sources API
-  description: If you are running Grafana Enterprise and have Fine-grained access control enabled, for
-    some endpoints you would need to have relevant permissions. Refer to specific resources to understand
-    what permissions are required.
+  description: >-
+    If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints
+    you would need to have relevant permissions. Refer to specific resources to understand what permissions
+    are required.
   humanURL: https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/
   tags:
   - Data Sources

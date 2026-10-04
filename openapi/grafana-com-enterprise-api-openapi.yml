@@ -1682,56 +1682,54 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
-    State:
-      type: string
-    FooterItem:
+    PrometheusRemoteWriteTargetJSON:
       type: object
       properties:
-        color:
+        data_source_uid:
           type: string
-        fontSize:
+        id:
           type: string
-        fontStyle:
+        remote_write_path:
           type: string
-        fontWeight:
-          type: string
-        type:
-          type: string
-        value:
-          type: string
-    CreateRoleForm:
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
+    SetUserRolesCommand:
       type: object
       properties:
-        description:
-          type: string
-        displayName:
-          type: string
         global:
           type: boolean
-        group:
-          type: string
-        hidden:
+        includeHidden:
           type: boolean
-        name:
-          type: string
-        permissions:
+        roleUids:
           type: array
           items:
-            $ref: '#/components/schemas/Permission'
-        uid:
-          type: string
-    SuccessResponseBody:
+            type: string
+    ErrorResponseBody:
       type: object
+      required:
+      - message
       properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
         message:
+          description: a human readable version of the error
           type: string
-    AddUserRoleCommand:
-      type: object
-      properties:
-        global:
-          type: boolean
-        roleUid:
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    TokenStatus:
+      type: integer
+      format: int64
     UpdateTeamLBACCommand:
       type: object
       properties:
@@ -1739,17 +1737,36 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TeamLBACRule'
-    Type:
-      type: string
-    SetTeamRolesCommand:
+    ReportSettings:
       type: object
       properties:
-        includeHidden:
-          type: boolean
-        roleUids:
+        branding:
+          $ref: '#/components/schemas/ReportBrandingOptions'
+        embeddedImageTheme:
+          type: string
+        footerFontFamily:
+          type: string
+        footerItems:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/FooterItem'
+        id:
+          type: integer
+          format: int64
+        orgId:
+          type: integer
+          format: int64
+        pdfDashboardTitleEnabled:
+          type: boolean
+        pdfHeaderEnabled:
+          type: boolean
+        pdfTheme:
+          type: string
+        pdfTimeRangeEnabled:
+          type: boolean
+        userId:
+          type: integer
+          format: int64
     RoleDTO:
       type: object
       required:
@@ -1793,181 +1810,28 @@ components:
         version:
           type: integer
           format: int64
-    ReportDashboardID:
+    ReportSchedule:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-        name:
+        dayOfMonth:
           type: string
-        uid:
-          type: string
-    SetUserRolesCommand:
-      type: object
-      properties:
-        global:
-          type: boolean
-        includeHidden:
-          type: boolean
-        roleUids:
-          type: array
-          items:
-            type: string
-    SyncResult:
-      type: object
-      title: SyncResult holds the result of a sync with LDAP. This gives us information on which users were updated and how.
-      properties:
-        Elapsed:
-          $ref: '#/components/schemas/Duration'
-        FailedUsers:
-          type: array
-          items:
-            $ref: '#/components/schemas/FailedUser'
-        MissingUserIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-        Started:
+        endDate:
           type: string
           format: date-time
-        UpdatedUserIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-    TeamGroupMapping:
-      description: '---------------------'
-      type: object
-      properties:
-        groupId:
+        frequency:
           type: string
-    SetRoleAssignmentsCommand:
-      type: object
-      properties:
-        service_accounts:
-          type: array
-          items:
-            type: integer
-            format: int64
-        teams:
-          type: array
-          items:
-            type: integer
-            format: int64
-        users:
-          type: array
-          items:
-            type: integer
-            format: int64
-    RecordingRuleJSON:
-      description: RecordingRuleJSON is the external representation of a recording rule
-      type: object
-      properties:
-        active:
+        intervalAmount:
+          type: integer
+          format: int64
+        intervalFrequency:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        workdaysOnly:
           type: boolean
-        count:
-          type: boolean
-        description:
-          type: string
-        dest_data_source_uid:
-          type: string
-        id:
-          type: string
-        interval:
-          type: integer
-          format: int64
-        name:
-          type: string
-        prom_name:
-          type: string
-        queries:
-          type: array
-          items:
-            type: object
-            additionalProperties: {}
-        range:
-          type: integer
-          format: int64
-        target_ref_id:
-          type: string
-    AddTeamRoleCommand:
-      type: object
-      properties:
-        roleUid:
-          type: string
-    FailedUser:
-      description: FailedUser holds the information of an user that failed
-      type: object
-      properties:
-        Error:
-          type: string
-        Login:
-          type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    ReportURLItem:
-      type: object
-      properties:
-        title:
-          type: string
-        url:
-          type: string
-    SearchTeamGroupsQueryResult:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int64
-        perPage:
-          type: integer
-          format: int64
-        teamGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/TeamGroupDTO'
-        totalCount:
-          type: integer
-          format: int64
-    ActiveUserStats:
-      type: object
-      properties:
-        active_admins_and_editors:
-          type: integer
-          format: int64
-        active_anonymous_devices:
-          type: integer
-          format: int64
-        active_users:
-          type: integer
-          format: int64
-        active_viewers:
-          type: integer
-          format: int64
-    Duration:
-      description: 'A Duration represents the elapsed time between two instants
-
-        as an int64 nanosecond count. The representation limits the
-
-        largest representable duration to approximately 290 years.'
-      type: integer
-      format: int64
     ReportOptions:
       type: object
       properties:
@@ -1983,55 +1847,49 @@ components:
           type: boolean
         timeRange:
           $ref: '#/components/schemas/ReportTimeRange'
-    TeamLBACRules:
+    CacheConfigSetter:
+      description: 'ConfigSetter defines the cache parameters that users can configure per datasource
+
+        This is only intended to be consumed by the SetCache HTTP Handler'
       type: object
       properties:
-        rules:
+        dataSourceID:
+          type: integer
+          format: int64
+        dataSourceUID:
+          type: string
+        enabled:
+          type: boolean
+        ttlQueriesMs:
+          description: TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+          type: integer
+          format: int64
+        ttlResourcesMs:
+          type: integer
+          format: int64
+        useDefaultTTL:
+          description: If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+          type: boolean
+    State:
+      type: string
+    RolesSearchQuery:
+      type: object
+      properties:
+        includeHidden:
+          type: boolean
+        orgId:
+          type: integer
+          format: int64
+        teamIds:
           type: array
           items:
-            $ref: '#/components/schemas/TeamLBACRule'
-    Permission:
-      description: Permission is the model for access control permissions
-      type: object
-      properties:
-        action:
-          type: string
-        created:
-          type: string
-          format: date-time
-        scope:
-          type: string
-        updated:
-          type: string
-          format: date-time
-    UpdateRoleCommand:
-      type: object
-      required:
-      - displayName
-      - description
-      - group
-      properties:
-        description:
-          type: string
-        displayName:
-          type: string
-        global:
-          type: boolean
-        group:
-          type: string
-        hidden:
-          type: boolean
-        name:
-          type: string
-        permissions:
+            type: integer
+            format: int64
+        userIds:
           type: array
           items:
-            $ref: '#/components/schemas/Permission'
-    DeleteTokenCommand:
-      type: object
-      properties:
-        instance:
-          type: string
+            type: integer
+            format: int64
     Token:
       type: object
       properties:
@@ -2096,59 +1954,121 @@ components:
           format: int64
         usage_billing:
           type: boolean
-    CacheConfigResponse:
+    ReportEmail:
       type: object
       properties:
-        created:
+        emails:
+          description: Comma-separated list of emails to which to send the report to.
           type: string
-          format: date-time
-        dataSourceID:
-          description: Fields that can be set by the API caller - read/write
-          type: integer
-          format: int64
-        dataSourceUID:
+        id:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
           type: string
-        defaultTTLMs:
-          description: 'These are returned by the HTTP API, but are managed internally - read-only
-
-            Note: ''created'' and ''updated'' are special properties managed automatically by xorm, but we are setting them manually'
-          type: integer
           format: int64
-        enabled:
+        useEmailsFromReport:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
           type: boolean
+    SuccessResponseBody:
+      type: object
+      properties:
         message:
           type: string
-        ttlQueriesMs:
-          description: TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+    SearchTeamGroupsQueryResult:
+      type: object
+      properties:
+        page:
           type: integer
           format: int64
-        ttlResourcesMs:
+        perPage:
           type: integer
           format: int64
-        updated:
+        teamGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamGroupDTO'
+        totalCount:
+          type: integer
+          format: int64
+    RoleAssignmentsDTO:
+      type: object
+      properties:
+        role_uid:
+          type: string
+        service_accounts:
+          type: array
+          items:
+            type: integer
+            format: int64
+        teams:
+          type: array
+          items:
+            type: integer
+            format: int64
+        users:
+          type: array
+          items:
+            type: integer
+            format: int64
+    SyncResult:
+      type: object
+      title: SyncResult holds the result of a sync with LDAP. This gives us information on which users were updated and how.
+      properties:
+        Elapsed:
+          $ref: '#/components/schemas/Duration'
+        FailedUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/FailedUser'
+        MissingUserIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        Started:
           type: string
           format: date-time
-        useDefaultTTL:
-          description: If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+        UpdatedUserIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    CreateRoleForm:
+      type: object
+      properties:
+        description:
+          type: string
+        displayName:
+          type: string
+        global:
           type: boolean
-    RolesSearchQuery:
+        group:
+          type: string
+        hidden:
+          type: boolean
+        name:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+        uid:
+          type: string
+    SetTeamRolesCommand:
       type: object
       properties:
         includeHidden:
           type: boolean
-        orgId:
-          type: integer
-          format: int64
-        teamIds:
+        roleUids:
           type: array
           items:
-            type: integer
-            format: int64
-        userIds:
-          type: array
-          items:
-            type: integer
-            format: int64
+            type: string
+    FailedUser:
+      description: FailedUser holds the information of an user that failed
+      type: object
+      properties:
+        Error:
+          type: string
+        Login:
+          type: string
     Report:
       type: object
       properties:
@@ -2204,11 +2124,51 @@ components:
         userId:
           type: integer
           format: int64
-    RoleAssignmentsDTO:
+    TeamGroupMapping:
+      description: '---------------------'
       type: object
       properties:
-        role_uid:
+        groupId:
           type: string
+    ReportBrandingOptions:
+      type: object
+      properties:
+        emailFooterLink:
+          type: string
+        emailFooterMode:
+          type: string
+        emailFooterText:
+          type: string
+        emailLogoUrl:
+          type: string
+        reportLogoUrl:
+          type: string
+    UpdateRoleCommand:
+      type: object
+      required:
+      - displayName
+      - description
+      - group
+      properties:
+        description:
+          type: string
+        displayName:
+          type: string
+        global:
+          type: boolean
+        group:
+          type: string
+        hidden:
+          type: boolean
+        name:
+          type: string
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+    SetRoleAssignmentsCommand:
+      type: object
+      properties:
         service_accounts:
           type: array
           items:
@@ -2224,46 +2184,13 @@ components:
           items:
             type: integer
             format: int64
-    CacheConfigSetter:
-      description: 'ConfigSetter defines the cache parameters that users can configure per datasource
-
-        This is only intended to be consumed by the SetCache HTTP Handler'
+    TeamLBACRules:
       type: object
       properties:
-        dataSourceID:
-          type: integer
-          format: int64
-        dataSourceUID:
-          type: string
-        enabled:
-          type: boolean
-        ttlQueriesMs:
-          description: TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
-          type: integer
-          format: int64
-        ttlResourcesMs:
-          type: integer
-          format: int64
-        useDefaultTTL:
-          description: If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
-          type: boolean
-    TeamGroupDTO:
-      type: object
-      properties:
-        groupId:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        teamId:
-          type: integer
-          format: int64
-        teamUid:
-          type: string
-        uid:
-          description: 'Deprecated: always empty; no per-entry id.'
-          type: string
-          x-deprecated: true
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/TeamLBACRule'
     CreateOrUpdateReport:
       type: object
       properties:
@@ -2302,70 +2229,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportURLItem'
-    ReportBrandingOptions:
+    Permission:
+      description: Permission is the model for access control permissions
       type: object
       properties:
-        emailFooterLink:
+        action:
           type: string
-        emailFooterMode:
-          type: string
-        emailFooterText:
-          type: string
-        emailLogoUrl:
-          type: string
-        reportLogoUrl:
-          type: string
-    ReportSchedule:
-      type: object
-      properties:
-        dayOfMonth:
-          type: string
-        endDate:
+        created:
           type: string
           format: date-time
-        frequency:
+        scope:
           type: string
-        intervalAmount:
-          type: integer
-          format: int64
-        intervalFrequency:
-          type: string
-        startDate:
+        updated:
           type: string
           format: date-time
-        timeZone:
-          type: string
-        workdaysOnly:
-          type: boolean
-    PrometheusRemoteWriteTargetJSON:
+    TeamLBACRule:
       type: object
       properties:
-        data_source_uid:
+        rules:
+          type: array
+          items:
+            type: string
+        teamId:
           type: string
-        id:
+        teamUid:
           type: string
-        remote_write_path:
-          type: string
-    ReportTimeRange:
-      type: object
-      properties:
-        from:
-          type: string
-        to:
-          type: string
-    ReportEmail:
-      type: object
-      properties:
-        emails:
-          description: Comma-separated list of emails to which to send the report to.
-          type: string
-        id:
-          description: Send the report to the emails specified in the report. Required if emails is not present.
-          type: string
-          format: int64
-        useEmailsFromReport:
-          description: Send the report to the emails specified in the report. Required if emails is not present.
-          type: boolean
     ReportDashboard:
       type: object
       properties:
@@ -2374,36 +2262,13 @@ components:
         reportVariables: {}
         timeRange:
           $ref: '#/components/schemas/ReportTimeRange'
-    ReportSettings:
+    AccessControlStatus:
       type: object
       properties:
-        branding:
-          $ref: '#/components/schemas/ReportBrandingOptions'
-        embeddedImageTheme:
-          type: string
-        footerFontFamily:
-          type: string
-        footerItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/FooterItem'
-        id:
-          type: integer
-          format: int64
-        orgId:
-          type: integer
-          format: int64
-        pdfDashboardTitleEnabled:
+        enabled:
           type: boolean
-        pdfHeaderEnabled:
-          type: boolean
-        pdfTheme:
-          type: string
-        pdfTimeRangeEnabled:
-          type: boolean
-        userId:
-          type: integer
-          format: int64
+    Type:
+      type: string
     ActiveSyncStatusDTO:
       description: ActiveSyncStatusDTO holds the information for LDAP background Sync
       type: object
@@ -2417,62 +2282,195 @@ components:
           $ref: '#/components/schemas/SyncResult'
         schedule:
           type: string
-    TokenStatus:
-      type: integer
-      format: int64
-    TeamLBACRule:
+    AddUserRoleCommand:
       type: object
       properties:
-        rules:
-          type: array
-          items:
-            type: string
-        teamId:
+        global:
+          type: boolean
+        roleUid:
           type: string
+    TeamGroupDTO:
+      type: object
+      properties:
+        groupId:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        teamId:
+          type: integer
+          format: int64
         teamUid:
           type: string
-    AccessControlStatus:
+        uid:
+          description: 'Deprecated: always empty; no per-entry id.'
+          type: string
+          x-deprecated: true
+    ReportURLItem:
       type: object
       properties:
+        title:
+          type: string
+        url:
+          type: string
+    RecordingRuleJSON:
+      description: RecordingRuleJSON is the external representation of a recording rule
+      type: object
+      properties:
+        active:
+          type: boolean
+        count:
+          type: boolean
+        description:
+          type: string
+        dest_data_source_uid:
+          type: string
+        id:
+          type: string
+        interval:
+          type: integer
+          format: int64
+        name:
+          type: string
+        prom_name:
+          type: string
+        queries:
+          type: array
+          items:
+            type: object
+            additionalProperties: {}
+        range:
+          type: integer
+          format: int64
+        target_ref_id:
+          type: string
+    ActiveUserStats:
+      type: object
+      properties:
+        active_admins_and_editors:
+          type: integer
+          format: int64
+        active_anonymous_devices:
+          type: integer
+          format: int64
+        active_users:
+          type: integer
+          format: int64
+        active_viewers:
+          type: integer
+          format: int64
+    FooterItem:
+      type: object
+      properties:
+        color:
+          type: string
+        fontSize:
+          type: string
+        fontStyle:
+          type: string
+        fontWeight:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+    ReportTimeRange:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          type: string
+    DeleteTokenCommand:
+      type: object
+      properties:
+        instance:
+          type: string
+    AddTeamRoleCommand:
+      type: object
+      properties:
+        roleUid:
+          type: string
+    CacheConfigResponse:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        dataSourceID:
+          description: Fields that can be set by the API caller - read/write
+          type: integer
+          format: int64
+        dataSourceUID:
+          type: string
+        defaultTTLMs:
+          description: 'These are returned by the HTTP API, but are managed internally - read-only
+
+            Note: ''created'' and ''updated'' are special properties managed automatically by xorm, but we are setting them manually'
+          type: integer
+          format: int64
         enabled:
           type: boolean
+        message:
+          type: string
+        ttlQueriesMs:
+          description: TTL MS, or "time to live", is how long a cached item will stay in the cache before it is removed (in milliseconds)
+          type: integer
+          format: int64
+        ttlResourcesMs:
+          type: integer
+          format: int64
+        updated:
+          type: string
+          format: date-time
+        useDefaultTTL:
+          description: If UseDefaultTTL is enabled, then the TTLQueriesMS and TTLResourcesMS in this object is always sent as the default TTL located in grafana.ini
+          type: boolean
+    ReportDashboardID:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        uid:
+          type: string
   responses:
-    recordingRuleResponse:
+    getReportSettingsResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RecordingRuleJSON'
-    refreshLicenseStatsResponse:
+            $ref: '#/components/schemas/ReportSettings'
+    getStatusResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ActiveUserStats'
-    noContentResponse:
+            type: boolean
+    createRoleResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            type: object
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    setRoleAssignmentsResponse:
+            $ref: '#/components/schemas/RoleDTO'
+    getReportsResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RoleAssignmentsDTO'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
+            type: array
+            items:
+              $ref: '#/components/schemas/Report'
+    getAllRolesResponse:
+      description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
+            type: array
+            items:
+              $ref: '#/components/schemas/RoleDTO'
     searchTeamGroupsResponse:
       description: (empty)
       content:
@@ -2481,43 +2479,74 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/SearchTeamGroupsQueryResult'
-    getSyncStatusResponse:
+    getRoleAssignmentsResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ActiveSyncStatusDTO'
-    contentResponse:
+            $ref: '#/components/schemas/RoleAssignmentsDTO'
+    postRenewLicenseTokenResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            type: array
-            items:
-              type: integer
-              format: uint8
-    listUsersRolesResponse:
-      description: (empty)
+            type: boolean
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                $ref: '#/components/schemas/RoleDTO'
-    getLicenseTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Token'
+            $ref: '#/components/schemas/ErrorResponseBody'
     badRequestError:
       description: BadRequestError is returned when the request is invalid and it cannot be processed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    getLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Token'
+    getAccessControlStatusResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccessControlStatus'
+    acceptedResponse:
+      description: AcceptedResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getTeamGroupsApiResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TeamGroupDTO'
+    getReportResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Report'
+    getTeamLBACRulesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TeamLBACRules'
     listTeamsRolesResponse:
       description: (empty)
       content:
@@ -2528,84 +2557,30 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/RoleDTO'
-    getAccessControlStatusResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AccessControlStatus'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    postRenewLicenseTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: boolean
-    getReportsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Report'
-    getTeamGroupsApiResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/TeamGroupDTO'
-    getAllRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleDTO'
-    getRoleResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleDTO'
     recordingRuleWriteTargetResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getStatusResponse:
+    getSyncStatusResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            type: boolean
-    getReportResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Report'
-    acceptedResponse:
-      description: AcceptedResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            $ref: '#/components/schemas/ActiveSyncStatusDTO'
     createReportResponse:
       description: (empty)
       content:
@@ -2618,6 +2593,59 @@ components:
                 format: int64
               message:
                 type: string
+    listRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RoleDTO'
+    listRecordingRulesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RecordingRuleJSON'
+    getRoleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RoleDTO'
+    noContentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+    listUsersRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoleDTO'
+    contentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: integer
+              format: uint8
+    recordingRuleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RecordingRuleJSON'
     updateTeamLBACRulesResponse:
       description: (empty)
       content:
@@ -2638,58 +2666,30 @@ components:
                   $ref: '#/components/schemas/TeamLBACRule'
               uid:
                 type: string
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     unprocessableEntityError:
       description: UnprocessableEntityError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getReportSettingsResponse:
+    refreshLicenseStatsResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ReportSettings'
-    getTeamLBACRulesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TeamLBACRules'
-    listRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleDTO'
-    createRoleResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleDTO'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getRoleAssignmentsResponse:
+            $ref: '#/components/schemas/ActiveUserStats'
+    setRoleAssignmentsResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RoleAssignmentsDTO'
-    listRecordingRulesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RecordingRuleJSON'
   securitySchemes:
     api_key:
       type: apiKey

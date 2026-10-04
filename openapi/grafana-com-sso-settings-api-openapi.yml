@@ -169,28 +169,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getSSOSettingsResponse:
-      description: (empty)
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              id:
-                type: string
-              provider:
-                type: string
-              settings:
-                type: object
-                additionalProperties: {}
-              source:
-                type: string
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
+            $ref: '#/components/schemas/ErrorResponseBody'
     listSSOSettingsResponse:
       description: (empty)
       content:
@@ -209,24 +199,34 @@ components:
                   additionalProperties: {}
                 source:
                   type: string
+    getSSOSettingsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              provider:
+                type: string
+              settings:
+                type: object
+                additionalProperties: {}
+              source:
+                type: string
     badRequestError:
       description: BadRequestError is returned when the request is invalid and it cannot be processed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            $ref: '#/components/schemas/SuccessResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
@@ -234,11 +234,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -255,6 +250,11 @@ components:
 
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
           type: string
   securitySchemes:
     api_key:

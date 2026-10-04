@@ -404,44 +404,108 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getReportSettingsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReportSettings'
+    getReportsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Report'
+    getReportResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Report'
+    contentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: integer
+              format: uint8
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createReportResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                format: int64
+              message:
+                type: string
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    noContentResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    ReportBrandingOptions:
+    ErrorResponseBody:
       type: object
+      required:
+      - message
       properties:
-        emailFooterLink:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
           type: string
-        emailFooterMode:
+        message:
+          description: a human readable version of the error
           type: string
-        emailFooterText:
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-        emailLogoUrl:
-          type: string
-        reportLogoUrl:
-          type: string
-    State:
-      type: string
-    ReportSchedule:
-      type: object
-      properties:
-        dayOfMonth:
-          type: string
-        endDate:
-          type: string
-          format: date-time
-        frequency:
-          type: string
-        intervalAmount:
-          type: integer
-          format: int64
-        intervalFrequency:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        timeZone:
-          type: string
-        workdaysOnly:
-          type: boolean
     FooterItem:
       type: object
       properties:
@@ -457,11 +521,51 @@ components:
           type: string
         value:
           type: string
-    SuccessResponseBody:
+    ReportTimeRange:
       type: object
       properties:
-        message:
+        from:
           type: string
+        to:
+          type: string
+    ReportSettings:
+      type: object
+      properties:
+        branding:
+          $ref: '#/components/schemas/ReportBrandingOptions'
+        embeddedImageTheme:
+          type: string
+        footerFontFamily:
+          type: string
+        footerItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/FooterItem'
+        id:
+          type: integer
+          format: int64
+        orgId:
+          type: integer
+          format: int64
+        pdfDashboardTitleEnabled:
+          type: boolean
+        pdfHeaderEnabled:
+          type: boolean
+        pdfTheme:
+          type: string
+        pdfTimeRangeEnabled:
+          type: boolean
+        userId:
+          type: integer
+          format: int64
+    ReportDashboard:
+      type: object
+      properties:
+        dashboard:
+          $ref: '#/components/schemas/ReportDashboardID'
+        reportVariables: {}
+        timeRange:
+          $ref: '#/components/schemas/ReportTimeRange'
     Report:
       type: object
       properties:
@@ -517,58 +621,43 @@ components:
         userId:
           type: integer
           format: int64
-    ReportTimeRange:
+    Type:
+      type: string
+    ReportSchedule:
       type: object
       properties:
-        from:
+        dayOfMonth:
           type: string
-        to:
+        endDate:
           type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          format: date-time
+        frequency:
           type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    ReportURLItem:
-      type: object
-      properties:
-        title:
-          type: string
-        url:
-          type: string
-    ReportEmail:
-      type: object
-      properties:
-        emails:
-          description: Comma-separated list of emails to which to send the report to.
-          type: string
-        id:
-          description: Send the report to the emails specified in the report. Required if emails is not present.
-          type: string
+        intervalAmount:
+          type: integer
           format: int64
-        useEmailsFromReport:
-          description: Send the report to the emails specified in the report. Required if emails is not present.
+        intervalFrequency:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        timeZone:
+          type: string
+        workdaysOnly:
           type: boolean
-    ReportDashboard:
+    ReportBrandingOptions:
       type: object
       properties:
-        dashboard:
-          $ref: '#/components/schemas/ReportDashboardID'
-        reportVariables: {}
-        timeRange:
-          $ref: '#/components/schemas/ReportTimeRange'
+        emailFooterLink:
+          type: string
+        emailFooterMode:
+          type: string
+        emailFooterText:
+          type: string
+        emailLogoUrl:
+          type: string
+        reportLogoUrl:
+          type: string
     ReportOptions:
       type: object
       properties:
@@ -584,47 +673,32 @@ components:
           type: boolean
         timeRange:
           $ref: '#/components/schemas/ReportTimeRange'
-    ReportSettings:
+    ReportURLItem:
       type: object
       properties:
-        branding:
-          $ref: '#/components/schemas/ReportBrandingOptions'
-        embeddedImageTheme:
+        title:
           type: string
-        footerFontFamily:
+        url:
           type: string
-        footerItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/FooterItem'
-        id:
-          type: integer
-          format: int64
-        orgId:
-          type: integer
-          format: int64
-        pdfDashboardTitleEnabled:
-          type: boolean
-        pdfHeaderEnabled:
-          type: boolean
-        pdfTheme:
-          type: string
-        pdfTimeRangeEnabled:
-          type: boolean
-        userId:
-          type: integer
-          format: int64
-    Type:
+    State:
       type: string
-    ReportDashboardID:
+    ReportEmail:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-        name:
+        emails:
+          description: Comma-separated list of emails to which to send the report to.
           type: string
-        uid:
+        id:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
+          type: string
+          format: int64
+        useEmailsFromReport:
+          description: Send the report to the emails specified in the report. Required if emails is not present.
+          type: boolean
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
           type: string
     CreateOrUpdateReport:
       type: object
@@ -664,90 +738,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ReportURLItem'
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getReportSettingsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ReportSettings'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getReportsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Report'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    contentResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: integer
-              format: uint8
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getReportResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Report'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    noContentResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-    createReportResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                format: int64
-              message:
-                type: string
+    ReportDashboardID:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        uid:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey

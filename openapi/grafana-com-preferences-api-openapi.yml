@@ -197,30 +197,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getPreferencesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PreferencesSpec'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     internalServerError:
       description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    getPreferencesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PreferencesSpec'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
@@ -228,16 +228,62 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    PreferencesQueryHistoryPreference:
+    NavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    QueryHistoryPreference:
       type: object
       properties:
         homeTab:
-          description: 'one of: '''' | ''query'' | ''starred'';'
           type: string
-    SuccessResponseBody:
+    PatchPrefsCmd:
       type: object
       properties:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
+          type: integer
+          format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
         message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
     UpdatePrefsCmd:
       type: object
@@ -268,70 +314,6 @@ components:
           type: string
         weekStart:
           type: string
-    PreferencesNavbarPreference:
-      type: object
-      properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    QueryHistoryPreference:
-      type: object
-      properties:
-        homeTab:
-          type: string
-    NavbarPreference:
-      type: object
-      properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
-    PatchPrefsCmd:
-      type: object
-      properties:
-        homeDashboardId:
-          description: 'The numerical :id of a favorited dashboard
-
-            Deprecated: Use HomeDashboardUID instead'
-          type: integer
-          format: int64
-          default: 0
-        homeDashboardUID:
-          type: string
-        language:
-          type: string
-        navbar:
-          $ref: '#/components/schemas/NavbarPreference'
-        queryHistory:
-          $ref: '#/components/schemas/QueryHistoryPreference'
-        theme:
-          type: string
-          enum:
-          - light
-          - dark
-        timezone:
-          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
-          type: string
-        weekStart:
-          type: string
     PreferencesSpec:
       type: object
       properties:
@@ -357,6 +339,24 @@ components:
         weekStart:
           description: day of the week (sunday, monday, etc)
           type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
+          type: string
+    PreferencesNavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
   securitySchemes:
     api_key:
       type: apiKey

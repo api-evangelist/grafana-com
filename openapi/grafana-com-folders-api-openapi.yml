@@ -318,101 +318,6 @@ paths:
               $ref: '#/components/schemas/UpdateDashboardACLCommand'
         required: true
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getFoldersResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/FolderSearchHit'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getFolderPermissionListResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/DashboardACLInfoDTO'
-    folderResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Folder'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getFolderDescendantCountsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DescendantCounts'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    conflictError:
-      description: ConflictError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    deleteFolderResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - id
-            - title
-            - message
-            properties:
-              id:
-                description: ID Identifier of the deleted folder.
-                type: integer
-                format: int64
-                example: 65
-              message:
-                description: Message Message of the deleted folder.
-                type: string
-                example: Folder My Folder deleted
-              title:
-                description: Title of the deleted folder.
-                type: string
-                example: My Folder
   schemas:
     DashboardACLInfoDTO:
       type: object
@@ -530,25 +435,6 @@ components:
         version:
           type: integer
           format: int64
-    Metadata:
-      description: 'Metadata contains user accesses for a given resource
-
-        Ex: map[string]bool{"create":true, "delete": true}'
-      type: object
-      additionalProperties:
-        type: boolean
-    ManagerKind:
-      description: It can be a user or a tool or a generic API client.
-      type: string
-      title: ManagerKind is the type of manager, which is responsible for managing the resource.
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-    DashboardaccessPermissionType:
-      type: integer
-      format: int64
     ErrorResponseBody:
       type: object
       required:
@@ -565,39 +451,6 @@ components:
 
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    UpdateFolderCommand:
-      description: 'UpdateFolderCommand captures the information required by the folder service
-
-        to update a folder. Use Move to update a folder''s parent folder.'
-      type: object
-      properties:
-        description:
-          description: NewDescription it's an optional parameter used for overriding the existing folder description
-          type: string
-        overwrite:
-          description: Overwrite only used by the legacy folder implementation
-          type: boolean
-        title:
-          description: NewTitle it's an optional parameter used for overriding the existing folder title
-          type: string
-        version:
-          description: Version only used by the legacy folder implementation
-          type: integer
-          format: int64
-    FolderSearchHit:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        managedBy:
-          $ref: '#/components/schemas/ManagerKind'
-        parentUid:
-          type: string
-        title:
-          type: string
-        uid:
           type: string
     DashboardACLUpdateItem:
       type: object
@@ -617,11 +470,20 @@ components:
         userId:
           type: integer
           format: int64
-    DescendantCounts:
+    FolderSearchHit:
       type: object
-      additionalProperties:
-        type: integer
-        format: int64
+      properties:
+        id:
+          type: integer
+          format: int64
+        managedBy:
+          $ref: '#/components/schemas/ManagerKind'
+        parentUid:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
     MoveFolderCommand:
       description: 'MoveFolderCommand captures the information required by the folder service
 
@@ -630,6 +492,34 @@ components:
       properties:
         parentUid:
           type: string
+    DescendantCounts:
+      type: object
+      additionalProperties:
+        type: integer
+        format: int64
+    UpdateFolderCommand:
+      description: 'UpdateFolderCommand captures the information required by the folder service
+
+        to update a folder. Use Move to update a folder''s parent folder.'
+      type: object
+      properties:
+        description:
+          description: NewDescription it's an optional parameter used for overriding the existing folder description
+          type: string
+        overwrite:
+          description: Overwrite only used by the legacy folder implementation
+          type: boolean
+        title:
+          description: NewTitle it's an optional parameter used for overriding the existing folder title
+          type: string
+        version:
+          description: Version only used by the legacy folder implementation
+          type: integer
+          format: int64
+    ManagerKind:
+      description: It can be a user or a tool or a generic API client.
+      type: string
+      title: ManagerKind is the type of manager, which is responsible for managing the resource.
     CreateFolderCommand:
       description: 'CreateFolderCommand captures the information required by the folder service
 
@@ -651,6 +541,116 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DashboardACLUpdateItem'
+    DashboardaccessPermissionType:
+      type: integer
+      format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    Metadata:
+      description: 'Metadata contains user accesses for a given resource
+
+        Ex: map[string]bool{"create":true, "delete": true}'
+      type: object
+      additionalProperties:
+        type: boolean
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getFolderPermissionListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/DashboardACLInfoDTO'
+    getFolderDescendantCountsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DescendantCounts'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    deleteFolderResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - title
+            - message
+            properties:
+              id:
+                description: ID Identifier of the deleted folder.
+                type: integer
+                format: int64
+                example: 65
+              message:
+                description: Message Message of the deleted folder.
+                type: string
+                example: Folder My Folder deleted
+              title:
+                description: Title of the deleted folder.
+                type: string
+                example: My Folder
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getFoldersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/FolderSearchHit'
+    folderResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Folder'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

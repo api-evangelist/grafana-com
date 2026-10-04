@@ -792,135 +792,21 @@ paths:
         '403':
           $ref: '#/components/responses/forbiddenError'
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    setRoleAssignmentsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleAssignmentsDTO'
-    listRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleDTO'
-    getAllRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleDTO'
-    getResourcePermissionsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/resourcePermissionDTO'
-    resourcePermissionsDescription:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Description'
-    getRoleResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleDTO'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    createRoleResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleDTO'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    listUsersRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                $ref: '#/components/schemas/RoleDTO'
-    getRoleAssignmentsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleAssignmentsDTO'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    listTeamsRolesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                $ref: '#/components/schemas/RoleDTO'
-    acceptedResponse:
-      description: AcceptedResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getAccessControlStatusResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AccessControlStatus'
   schemas:
-    AddTeamRoleCommand:
+    Permission:
+      description: Permission is the model for access control permissions
       type: object
       properties:
-        roleUid:
+        action:
           type: string
+        created:
+          type: string
+          format: date-time
+        scope:
+          type: string
+        updated:
+          type: string
+          format: date-time
     SetResourcePermissionCommand:
       type: object
       properties:
@@ -934,57 +820,28 @@ components:
         userId:
           type: integer
           format: int64
-    CreateRoleForm:
+    Assignments:
       type: object
       properties:
-        description:
-          type: string
-        displayName:
-          type: string
+        builtInRoles:
+          type: boolean
+        serviceAccounts:
+          type: boolean
+        teams:
+          type: boolean
+        users:
+          type: boolean
+    SetUserRolesCommand:
+      type: object
+      properties:
         global:
           type: boolean
-        group:
-          type: string
-        hidden:
-          type: boolean
-        name:
-          type: string
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-        uid:
-          type: string
-    setPermissionsCommand:
-      type: object
-      properties:
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/SetResourcePermissionCommand'
-    RolesSearchQuery:
-      type: object
-      properties:
         includeHidden:
           type: boolean
-        orgId:
-          type: integer
-          format: int64
-        teamIds:
+        roleUids:
           type: array
           items:
-            type: integer
-            format: int64
-        userIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
+            type: string
     ErrorResponseBody:
       type: object
       required:
@@ -1022,31 +879,72 @@ components:
           items:
             type: integer
             format: int64
-    AddUserRoleCommand:
+    resourcePermissionDTO:
       type: object
       properties:
-        global:
-          type: boolean
-        roleUid:
-          type: string
-    SetTeamRolesCommand:
-      type: object
-      properties:
-        includeHidden:
-          type: boolean
-        roleUids:
+        actions:
           type: array
           items:
             type: string
-    Description:
+        builtInRole:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isInherited:
+          type: boolean
+        isManaged:
+          type: boolean
+        isServiceAccount:
+          type: boolean
+        permission:
+          type: string
+        roleName:
+          type: string
+        team:
+          type: string
+        teamAvatarUrl:
+          type: string
+        teamId:
+          type: integer
+          format: int64
+        teamUid:
+          type: string
+        userAvatarUrl:
+          type: string
+        userId:
+          type: integer
+          format: int64
+        userLogin:
+          type: string
+        userUid:
+          type: string
+    setPermissionCommand:
       type: object
       properties:
-        assignments:
-          $ref: '#/components/schemas/Assignments'
+        permission:
+          type: string
+    CreateRoleForm:
+      type: object
+      properties:
+        description:
+          type: string
+        displayName:
+          type: string
+        global:
+          type: boolean
+        group:
+          type: string
+        hidden:
+          type: boolean
+        name:
+          type: string
         permissions:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Permission'
+        uid:
+          type: string
     RoleDTO:
       type: object
       required:
@@ -1090,49 +988,39 @@ components:
         version:
           type: integer
           format: int64
-    SetUserRolesCommand:
+    SetTeamRolesCommand:
       type: object
       properties:
-        global:
-          type: boolean
         includeHidden:
           type: boolean
         roleUids:
           type: array
           items:
             type: string
-    Permission:
-      description: Permission is the model for access control permissions
+    AccessControlStatus:
       type: object
       properties:
-        action:
-          type: string
-        created:
-          type: string
-          format: date-time
-        scope:
-          type: string
-        updated:
-          type: string
-          format: date-time
-    SetRoleAssignmentsCommand:
+        enabled:
+          type: boolean
+    setPermissionsCommand:
       type: object
       properties:
-        service_accounts:
+        permissions:
           type: array
           items:
-            type: integer
-            format: int64
-        teams:
-          type: array
-          items:
-            type: integer
-            format: int64
-        users:
-          type: array
-          items:
-            type: integer
-            format: int64
+            $ref: '#/components/schemas/SetResourcePermissionCommand'
+    AddTeamRoleCommand:
+      type: object
+      properties:
+        roleUid:
+          type: string
+    AddUserRoleCommand:
+      type: object
+      properties:
+        global:
+          type: boolean
+        roleUid:
+          type: string
     UpdateRoleCommand:
       type: object
       required:
@@ -1156,67 +1044,179 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Permission'
-    setPermissionCommand:
+    Description:
       type: object
       properties:
-        permission:
-          type: string
-    AccessControlStatus:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-    Assignments:
-      type: object
-      properties:
-        builtInRoles:
-          type: boolean
-        serviceAccounts:
-          type: boolean
-        teams:
-          type: boolean
-        users:
-          type: boolean
-    resourcePermissionDTO:
-      type: object
-      properties:
-        actions:
+        assignments:
+          $ref: '#/components/schemas/Assignments'
+        permissions:
           type: array
           items:
             type: string
-        builtInRole:
-          type: string
-        id:
+    SetRoleAssignmentsCommand:
+      type: object
+      properties:
+        service_accounts:
+          type: array
+          items:
+            type: integer
+            format: int64
+        teams:
+          type: array
+          items:
+            type: integer
+            format: int64
+        users:
+          type: array
+          items:
+            type: integer
+            format: int64
+    RolesSearchQuery:
+      type: object
+      properties:
+        includeHidden:
+          type: boolean
+        orgId:
           type: integer
           format: int64
-        isInherited:
-          type: boolean
-        isManaged:
-          type: boolean
-        isServiceAccount:
-          type: boolean
-        permission:
+        teamIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+        userIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
           type: string
-        roleName:
-          type: string
-        team:
-          type: string
-        teamAvatarUrl:
-          type: string
-        teamId:
-          type: integer
-          format: int64
-        teamUid:
-          type: string
-        userAvatarUrl:
-          type: string
-        userId:
-          type: integer
-          format: int64
-        userLogin:
-          type: string
-        userUid:
-          type: string
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createRoleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RoleDTO'
+    getAllRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RoleDTO'
+    getRoleAssignmentsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RoleAssignmentsDTO'
+    listUsersRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoleDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getResourcePermissionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/resourcePermissionDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getAccessControlStatusResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccessControlStatus'
+    acceptedResponse:
+      description: AcceptedResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    listRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RoleDTO'
+    getRoleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RoleDTO'
+    listTeamsRolesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                $ref: '#/components/schemas/RoleDTO'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    resourcePermissionsDescription:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Description'
+    setRoleAssignmentsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RoleAssignmentsDTO'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

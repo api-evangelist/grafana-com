@@ -199,46 +199,15 @@ paths:
               $ref: '#/components/schemas/PatchQueryCommentInQueryHistoryCommand'
         required: true
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getQueryHistoryResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/QueryHistoryResponse'
-    getQueryHistoryDeleteQueryResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/QueryHistoryDeleteQueryResponse'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getQueryHistorySearchResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/QueryHistorySearchResponse'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
     Json:
       type: object
+    QueryHistoryResponse:
+      description: QueryHistoryResponse is a response struct for QueryHistoryDTO
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/QueryHistoryDTO'
     QueryHistoryDTO:
       type: object
       properties:
@@ -258,33 +227,13 @@ components:
           type: boolean
         uid:
           type: string
-    QueryHistorySearchResponse:
+    PatchQueryCommentInQueryHistoryCommand:
+      description: PatchQueryCommentInQueryHistoryCommand is the command for updating comment for query in query history
       type: object
       properties:
-        result:
-          $ref: '#/components/schemas/QueryHistorySearchResult'
-    QueryHistorySearchResult:
-      type: object
-      properties:
-        page:
-          type: integer
-          format: int64
-        perPage:
-          type: integer
-          format: int64
-        queryHistory:
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryHistoryDTO'
-        totalCount:
-          type: integer
-          format: int64
-    QueryHistoryResponse:
-      description: QueryHistoryResponse is a response struct for QueryHistoryDTO
-      type: object
-      properties:
-        result:
-          $ref: '#/components/schemas/QueryHistoryDTO'
+        comment:
+          description: Updated comment
+          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -302,6 +251,22 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    QueryHistorySearchResult:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        queryHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryHistoryDTO'
+        totalCount:
+          type: integer
+          format: int64
     QueryHistoryDeleteQueryResponse:
       description: QueryHistoryDeleteQueryResponse is the response struct for deleting a query from query history
       type: object
@@ -311,13 +276,11 @@ components:
           format: int64
         message:
           type: string
-    PatchQueryCommentInQueryHistoryCommand:
-      description: PatchQueryCommentInQueryHistoryCommand is the command for updating comment for query in query history
+    QueryHistorySearchResponse:
       type: object
       properties:
-        comment:
-          description: Updated comment
-          type: string
+        result:
+          $ref: '#/components/schemas/QueryHistorySearchResult'
     CreateQueryInQueryHistoryCommand:
       description: CreateQueryInQueryHistoryCommand is the command for adding query history
       type: object
@@ -330,6 +293,43 @@ components:
           example: PE1C5CBDA0504A6A3
         queries:
           $ref: '#/components/schemas/Json'
+  responses:
+    getQueryHistoryResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistoryResponse'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQueryHistorySearchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistorySearchResponse'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQueryHistoryDeleteQueryResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistoryDeleteQueryResponse'
   securitySchemes:
     api_key:
       type: apiKey

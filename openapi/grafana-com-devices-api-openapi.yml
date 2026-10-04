@@ -52,46 +52,44 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    devicesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/deviceDTO'
-    devicesSearchResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SearchDeviceQueryResult'
   schemas:
+    DeviceSearchHitDTO:
+      type: object
+      properties:
+        clientIp:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        deviceId:
+          type: string
+        lastSeenAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        userAgent:
+          type: string
+    deviceDTO:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+        clientIp:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        deviceId:
+          type: string
+        lastSeenAt:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        userAgent:
+          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -125,43 +123,45 @@ components:
         totalCount:
           type: integer
           format: int64
-    deviceDTO:
-      type: object
-      properties:
-        avatarUrl:
-          type: string
-        clientIp:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        deviceId:
-          type: string
-        lastSeenAt:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
-        userAgent:
-          type: string
-    DeviceSearchHitDTO:
-      type: object
-      properties:
-        clientIp:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        deviceId:
-          type: string
-        lastSeenAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        userAgent:
-          type: string
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    devicesSearchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchDeviceQueryResult'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    devicesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/deviceDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

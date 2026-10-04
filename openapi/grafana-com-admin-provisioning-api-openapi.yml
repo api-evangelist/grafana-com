@@ -92,8 +92,20 @@ paths:
       - basic: []
 components:
   responses:
+    acceptedResponse:
+      description: AcceptedResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
@@ -104,30 +116,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    acceptedResponse:
-      description: AcceptedResponse
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -144,6 +139,11 @@ components:
 
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
           type: string
   securitySchemes:
     api_key:

@@ -227,11 +227,6 @@ components:
           format: int64
         target_ref_id:
           type: string
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -249,6 +244,11 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
   responses:
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
@@ -256,26 +256,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    listRecordingRulesResponse:
-      description: (empty)
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RecordingRuleJSON'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    recordingRuleWriteTargetResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
+            $ref: '#/components/schemas/ErrorResponseBody'
     notFoundError:
       description: NotFoundError is returned when the requested resource was not found.
       content:
@@ -288,24 +274,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    listRecordingRulesResponse:
+      description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            type: array
+            items:
+              $ref: '#/components/schemas/RecordingRuleJSON'
     recordingRuleResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/RecordingRuleJSON'
+    recordingRuleWriteTargetResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

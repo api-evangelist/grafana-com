@@ -198,26 +198,6 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    searchUsersWithPagingResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SearchUserQueryResult'
-    getUserTeamsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/TeamDTO'
     searchUsersResponse:
       description: (empty)
       content:
@@ -226,8 +206,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/UserSearchHitDTO'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
@@ -240,18 +220,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/UserOrgDTO'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     internalServerError:
       description: InternalServerError is a general error indicating something went wrong internally.
       content:
@@ -264,17 +232,70 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    searchUsersWithPagingResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchUserQueryResult'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     userResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UserProfileDTO'
+    getUserTeamsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/TeamDTO'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    SuccessResponseBody:
+    UserOrgDTO:
       type: object
       properties:
-        message:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    UpdateUserCommand:
+      type: object
+      properties:
+        email:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        theme:
           type: string
     ErrorResponseBody:
       type: object
@@ -293,79 +314,6 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-    UpdateUserCommand:
-      type: object
-      properties:
-        email:
-          type: string
-        login:
-          type: string
-        name:
-          type: string
-        theme:
-          type: string
-    UserProfileDTO:
-      type: object
-      properties:
-        accessControl:
-          type: object
-          additionalProperties:
-            type: boolean
-        authLabels:
-          type: array
-          items:
-            type: string
-        avatarUrl:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        email:
-          type: string
-        id:
-          type: integer
-          format: int64
-        isDisabled:
-          type: boolean
-        isExternal:
-          type: boolean
-        isExternallySynced:
-          type: boolean
-        isGrafanaAdmin:
-          type: boolean
-        isGrafanaAdminExternallySynced:
-          type: boolean
-        isProvisioned:
-          type: boolean
-        login:
-          type: string
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        theme:
-          type: string
-        uid:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
-    UserOrgDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        role:
-          type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
     UserSearchHitDTO:
       type: object
       properties:
@@ -463,6 +411,58 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserSearchHitDTO'
+    UserProfileDTO:
+      type: object
+      properties:
+        accessControl:
+          type: object
+          additionalProperties:
+            type: boolean
+        authLabels:
+          type: array
+          items:
+            type: string
+        avatarUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        isDisabled:
+          type: boolean
+        isExternal:
+          type: boolean
+        isExternallySynced:
+          type: boolean
+        isGrafanaAdmin:
+          type: boolean
+        isGrafanaAdminExternallySynced:
+          type: boolean
+        isProvisioned:
+          type: boolean
+        login:
+          type: string
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        theme:
+          type: string
+        uid:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey

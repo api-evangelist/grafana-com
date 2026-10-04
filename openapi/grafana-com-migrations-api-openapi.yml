@@ -368,18 +368,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     cloudMigrationSessionListResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CloudMigrationSessionListResponseDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    resourceDependenciesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceDependenciesResponseDTO'
     cloudMigrationGetTokenResponse:
       description: (empty)
       content:
@@ -388,6 +400,36 @@ components:
             $ref: '#/components/schemas/GetAccessTokenResponseDTO'
     cloudMigrationDeleteTokenResponse:
       description: (empty)
+    createSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateSnapshotResponseDTO'
+    getSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetSnapshotResponseDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    cloudMigrationCreateTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateAccessTokenResponseDTO'
+    snapshotListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SnapshotListResponseDTO'
     cloudMigrationSessionResponse:
       description: (empty)
       content:
@@ -400,71 +442,113 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getSnapshotResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetSnapshotResponseDTO'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    createSnapshotResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateSnapshotResponseDTO'
-    resourceDependenciesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ResourceDependenciesResponseDTO'
-    cloudMigrationCreateTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateAccessTokenResponseDTO'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    snapshotListResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SnapshotListResponseDTO'
   schemas:
-    CloudMigrationSessionListResponseDTO:
+    SnapshotListResponseDTO:
       type: object
       properties:
-        sessions:
+        snapshots:
           type: array
           items:
-            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
-    GetAccessTokenResponseDTO:
+            $ref: '#/components/schemas/SnapshotDTO'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    CreateAccessTokenResponseDTO:
       type: object
       properties:
-        createdAt:
+        token:
           type: string
-        displayName:
+    ResourceDependencyDTO:
+      type: object
+      properties:
+        dependencies:
+          type: array
+          items:
+            type: string
+            enum:
+            - DASHBOARD
+            - DATASOURCE
+            - FOLDER
+            - LIBRARY_ELEMENT
+            - ALERT_RULE
+            - ALERT_RULE_GROUP
+            - CONTACT_POINT
+            - NOTIFICATION_POLICY
+            - NOTIFICATION_TEMPLATE
+            - MUTE_TIMING
+            - PLUGIN
+        resourceType:
           type: string
-        expiresAt:
+          enum:
+          - DASHBOARD
+          - DATASOURCE
+          - FOLDER
+          - LIBRARY_ELEMENT
+          - ALERT_RULE
+          - ALERT_RULE_GROUP
+          - CONTACT_POINT
+          - NOTIFICATION_POLICY
+          - NOTIFICATION_TEMPLATE
+          - MUTE_TIMING
+          - PLUGIN
+    CloudMigrationSessionResponseDTO:
+      type: object
+      properties:
+        created:
           type: string
-        firstUsedAt:
+          format: date-time
+        slug:
           type: string
-        id:
+        uid:
           type: string
-        lastUsedAt:
+        updated:
           type: string
+          format: date-time
+    CreateSnapshotResponseDTO:
+      type: object
+      properties:
+        uid:
+          type: string
+    CreateSnapshotRequestDTO:
+      type: object
+      properties:
+        resourceTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DASHBOARD
+            - DATASOURCE
+            - FOLDER
+            - LIBRARY_ELEMENT
+            - ALERT_RULE
+            - ALERT_RULE_GROUP
+            - CONTACT_POINT
+            - NOTIFICATION_POLICY
+            - NOTIFICATION_TEMPLATE
+            - MUTE_TIMING
+            - PLUGIN
+    ResourceDependenciesResponseDTO:
+      type: object
+      properties:
+        resourceDependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceDependencyDTO'
     GetSnapshotResponseDTO:
       type: object
       properties:
@@ -513,60 +597,18 @@ components:
           additionalProperties:
             type: integer
             format: int64
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
     CloudMigrationSessionRequestDTO:
       type: object
       properties:
         authToken:
           type: string
-    CreateSnapshotResponseDTO:
+    CloudMigrationSessionListResponseDTO:
       type: object
       properties:
-        uid:
-          type: string
-    ResourceDependenciesResponseDTO:
-      type: object
-      properties:
-        resourceDependencies:
+        sessions:
           type: array
           items:
-            $ref: '#/components/schemas/ResourceDependencyDTO'
-    CloudMigrationSessionResponseDTO:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-        slug:
-          type: string
-        uid:
-          type: string
-        updated:
-          type: string
-          format: date-time
-    SnapshotListResponseDTO:
-      type: object
-      properties:
-        snapshots:
-          type: array
-          items:
-            $ref: '#/components/schemas/SnapshotDTO'
+            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
     MigrateDataResponseItemDTO:
       type: object
       required:
@@ -620,63 +662,21 @@ components:
           - NOTIFICATION_TEMPLATE
           - MUTE_TIMING
           - PLUGIN
-    CreateAccessTokenResponseDTO:
+    GetAccessTokenResponseDTO:
       type: object
       properties:
-        token:
+        createdAt:
           type: string
-    ResourceDependencyDTO:
-      type: object
-      properties:
-        dependencies:
-          type: array
-          items:
-            type: string
-            enum:
-            - DASHBOARD
-            - DATASOURCE
-            - FOLDER
-            - LIBRARY_ELEMENT
-            - ALERT_RULE
-            - ALERT_RULE_GROUP
-            - CONTACT_POINT
-            - NOTIFICATION_POLICY
-            - NOTIFICATION_TEMPLATE
-            - MUTE_TIMING
-            - PLUGIN
-        resourceType:
+        displayName:
           type: string
-          enum:
-          - DASHBOARD
-          - DATASOURCE
-          - FOLDER
-          - LIBRARY_ELEMENT
-          - ALERT_RULE
-          - ALERT_RULE_GROUP
-          - CONTACT_POINT
-          - NOTIFICATION_POLICY
-          - NOTIFICATION_TEMPLATE
-          - MUTE_TIMING
-          - PLUGIN
-    CreateSnapshotRequestDTO:
-      type: object
-      properties:
-        resourceTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - DASHBOARD
-            - DATASOURCE
-            - FOLDER
-            - LIBRARY_ELEMENT
-            - ALERT_RULE
-            - ALERT_RULE_GROUP
-            - CONTACT_POINT
-            - NOTIFICATION_POLICY
-            - NOTIFICATION_TEMPLATE
-            - MUTE_TIMING
-            - PLUGIN
+        expiresAt:
+          type: string
+        firstUsedAt:
+          type: string
+        id:
+          type: string
+        lastUsedAt:
+          type: string
     SnapshotDTO:
       description: Base snapshot without results
       type: object

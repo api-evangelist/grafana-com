@@ -156,8 +156,26 @@ paths:
           $ref: '#/components/responses/unauthorisedError'
 components:
   responses:
+    searchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HitList'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
       content:
         application/json:
           schema:
@@ -177,25 +195,30 @@ components:
                 type: string
               name:
                 type: string
-    unprocessableEntityError:
-      description: UnprocessableEntityError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    searchResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HitList'
   schemas:
+    HitList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Hit'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    HitType:
+      type: string
     Hit:
       type: object
       properties:
@@ -244,29 +267,6 @@ components:
           type: string
         url:
           type: string
-    HitList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Hit'
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    HitType:
-      type: string
   securitySchemes:
     api_key:
       type: apiKey

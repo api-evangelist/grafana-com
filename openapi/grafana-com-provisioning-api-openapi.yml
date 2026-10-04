@@ -1298,6 +1298,24 @@ components:
   schemas:
     Json:
       type: object
+    TimeInterval:
+      type: object
+      title: TimeInterval represents a named set of time intervals for which a route should be muted.
+      properties:
+        name:
+          type: string
+        time_intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
     Matcher:
       type: object
       title: Matcher models the matching of a label.
@@ -1308,103 +1326,16 @@ components:
           $ref: '#/components/schemas/MatchType'
         Value:
           type: string
-    MatchType:
-      type: integer
-      format: int64
-      title: MatchType is an enum for label matching types.
-    Ack:
+    MuteTimeInterval:
       type: object
-    PermissionDenied:
-      type: object
-    NotificationPolicyExport:
-      type: object
-      title: NotificationPolicyExport is the provisioned file export of alerting.NotificiationPolicyV1.
+      title: MuteTimeInterval represents a named set of time intervals for which a route should be muted.
       properties:
-        active_time_intervals:
+        name:
+          type: string
+        time_intervals:
           type: array
           items:
-            type: string
-        continue:
-          type: boolean
-        group_by:
-          type: array
-          items:
-            type: string
-        group_interval:
-          type: string
-        group_wait:
-          type: string
-        match:
-          description: Deprecated. Remove before v1.0 release.
-          type: object
-          additionalProperties:
-            type: string
-        match_re:
-          $ref: '#/components/schemas/MatchRegexps'
-        matchers:
-          $ref: '#/components/schemas/Matchers'
-        mute_time_intervals:
-          type: array
-          items:
-            type: string
-        object_matchers:
-          $ref: '#/components/schemas/ObjectMatchers'
-        orgId:
-          type: integer
-          format: int64
-        receiver:
-          type: string
-        repeat_interval:
-          type: string
-        routes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RouteExport'
-    Route:
-      description: 'A Route is a node that contains definitions of how to handle alerts. This is modified
-
-        from the upstream alertmanager in that it adds the ObjectMatchers property.'
-      type: object
-      properties:
-        active_time_intervals:
-          type: array
-          items:
-            type: string
-        continue:
-          type: boolean
-        group_by:
-          type: array
-          items:
-            type: string
-        group_interval:
-          type: string
-        group_wait:
-          type: string
-        match:
-          description: Deprecated. Remove before v1.0 release.
-          type: object
-          additionalProperties:
-            type: string
-        match_re:
-          $ref: '#/components/schemas/MatchRegexps'
-        matchers:
-          $ref: '#/components/schemas/Matchers'
-        mute_time_intervals:
-          type: array
-          items:
-            type: string
-        object_matchers:
-          $ref: '#/components/schemas/ObjectMatchers'
-        provenance:
-          $ref: '#/components/schemas/Provenance'
-        receiver:
-          type: string
-        repeat_interval:
-          type: string
-        routes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Route'
+            $ref: '#/components/schemas/TimeInterval'
     AlertRuleGroup:
       type: object
       properties:
@@ -1419,439 +1350,17 @@ components:
             $ref: '#/components/schemas/ProvisionedAlertRule'
         title:
           type: string
-    RawMessage:
-      type: object
-    AlertRuleNotificationSettings:
-      type: object
-      required:
-      - receiver
-      properties:
-        active_time_intervals:
-          description: 'Override the times when notifications should not be muted. These must match the name of a mute time interval defined
-
-            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
-
-            at the time that matches any interval.'
-          type: array
-          items:
-            type: string
-          example:
-          - maintenance
-        group_by:
-          description: 'Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
-
-            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
-
-            use the special value ''...'' as the sole label name.
-
-            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
-
-            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
-
-            Must include ''alertname'' and ''grafana_folder'' if not using ''...''.'
-          type: array
-          default:
-          - alertname
-          - grafana_folder
-          items:
-            type: string
-          example:
-          - alertname
-          - grafana_folder
-          - cluster
-        group_interval:
-          description: 'Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
-
-            which an initial notification has already been sent. (Usually ~5m or more.)'
-          type: string
-          example: 5m
-        group_wait:
-          description: 'Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
-
-            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)'
-          type: string
-          example: 30s
-        mute_time_intervals:
-          description: 'Override the times when notifications should be muted. These must match the name of a mute time interval defined
-
-            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
-
-            otherwise acts normally.'
-          type: array
-          items:
-            type: string
-          example:
-          - maintenance
-        policy:
-          description: 'Name of the notification policy to route alerts through.
-
-            Mutually exclusive with all other fields, cannot be used with contact point routing via the "receiver" field.'
-          type: string
-          example: '"Alerting Team"'
-        receiver:
-          description: Name of the receiver to send notifications to.
-          type: string
-          example: grafana-default-email
-        repeat_interval:
-          description: 'Override how long to wait before sending a notification again if it has already been sent successfully for an
-
-            alert. (Usually ~3h or more).
-
-            Note that this parameter is implicitly bound by Alertmanager''s `--data.retention` configuration flag.
-
-            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
-
-            occurs first. `repeat_interval` should not be less than `group_interval`.'
-          type: string
-          example: 4h
-    ObjectMatchers:
-      type: array
-      title: ObjectMatchers is a list of matchers that can be used to filter alerts.
-      items:
-        $ref: '#/components/schemas/ObjectMatcher'
-    Record:
-      type: object
-      required:
-      - metric
-      - from
-      properties:
-        from:
-          description: Which expression node should be used as the input for the recorded metric.
-          type: string
-          example: A
-        metric:
-          description: Name of the recorded metric.
-          type: string
-          example: grafana_alerts_ratio
-        target_datasource_uid:
-          description: Which data source should be used to write the output of the recording rule, specified by UID.
-          type: string
-          example: my-prom
-    AlertRuleRecordExport:
-      type: object
-      title: Record is the provisioned export of models.Record.
-      properties:
-        from:
-          type: string
-        metric:
-          type: string
-        targetDatasourceUid:
-          type: string
     ValidationError:
       type: object
       properties:
         message:
           type: string
           example: error message
-    PublicError:
-      description: 'PublicError is derived from Error and only contains information
-
-        available to the end user.'
+    ForbiddenError:
       type: object
       properties:
-        extra:
-          type: object
-          additionalProperties: {}
-        message:
-          type: string
-        messageId:
-          type: string
-        statusCode:
-          type: integer
-          format: int64
-    MatchRegexps:
-      type: object
-      title: MatchRegexps represents a map of Regexp.
-      additionalProperties:
-        type: string
-    AlertingFileExport:
-      type: object
-      title: AlertingFileExport is the full provisioned file export.
-      properties:
-        apiVersion:
-          type: integer
-          format: int64
-        contactPoints:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactPointExport'
-        groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlertRuleGroupExport'
-        muteTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MuteTimeIntervalExport'
-        policies:
-          type: array
-          items:
-            $ref: '#/components/schemas/NotificationPolicyExport'
-    EmbeddedContactPoint:
-      description: 'EmbeddedContactPoint is the contact point type that is used
-
-        by grafanas embedded alertmanager implementation.'
-      type: object
-      required:
-      - type
-      - settings
-      properties:
-        disableResolveMessage:
-          type: boolean
-          example: false
-        name:
-          description: 'Name is used as grouping key in the UI. Contact points with the
-
-            same name will be grouped in the UI.'
-          type: string
-          example: webhook_1
-        provenance:
-          type: string
-          readOnly: true
-        settings:
-          $ref: '#/components/schemas/Json'
-        type:
-          type: string
-          enum:
-          - alertmanager
-          - dingding
-          - discord
-          - email
-          - googlechat
-          - kafka
-          - line
-          - opsgenie
-          - pagerduty
-          - pushover
-          - sensugo
-          - slack
-          - teams
-          - telegram
-          - threema
-          - victorops
-          - webhook
-          - wecom
-          example: webhook
-        uid:
-          description: 'UID is the unique identifier of the contact point. The UID can be
-
-            set by the user.'
-          type: string
-          maxLength: 40
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-\_]+$
-          example: my_external_reference
-    Duration:
-      description: 'A Duration represents the elapsed time between two instants
-
-        as an int64 nanosecond count. The representation limits the
-
-        largest representable duration to approximately 290 years.'
-      type: integer
-      format: int64
-    TimeInterval:
-      type: object
-      title: TimeInterval represents a named set of time intervals for which a route should be muted.
-      properties:
-        name:
-          type: string
-        time_intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-    NotFound:
-      type: object
-    ContactPointExport:
-      type: object
-      title: ContactPointExport is the provisioned file export of alerting.ContactPointV1.
-      properties:
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        receivers:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReceiverExport'
-    Matchers:
-      description: 'Matchers is a slice of Matchers that is sortable, implements Stringer, and
-
-        provides a Matches method to match a LabelSet against all Matchers in the
-
-        slice. Note that some users of Matchers might require it to be sorted.'
-      type: array
-      items:
-        $ref: '#/components/schemas/Matcher'
-    NotificationTemplates:
-      type: array
-      items:
-        $ref: '#/components/schemas/NotificationTemplate'
-    MuteTimings:
-      type: array
-      items:
-        $ref: '#/components/schemas/MuteTimeInterval'
-    AlertRuleGroupExport:
-      type: object
-      title: AlertRuleGroupExport is the provisioned file export of AlertRuleGroupV1.
-      properties:
-        folder:
-          type: string
-        interval:
-          $ref: '#/components/schemas/Duration'
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlertRuleExport'
-    MuteTimeIntervalExport:
-      type: object
-      properties:
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        time_intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-    AlertRuleNotificationSettingsExport:
-      type: object
-      title: AlertRuleNotificationSettingsExport is the provisioned export of models.NotificationSettings.
-      properties:
-        active_time_intervals:
-          type: array
-          items:
-            type: string
-        group_by:
-          type: array
-          items:
-            type: string
-        group_interval:
-          type: string
-        group_wait:
-          type: string
-        mute_time_intervals:
-          type: array
-          items:
-            type: string
-        receiver:
-          type: string
-        repeat_interval:
-          type: string
-    NotificationTemplate:
-      type: object
-      properties:
-        name:
-          type: string
-        provenance:
-          $ref: '#/components/schemas/Provenance'
-        template:
-          type: string
-        version:
-          type: string
-    ProvisionedAlertRules:
-      type: array
-      items:
-        $ref: '#/components/schemas/ProvisionedAlertRule'
-    MuteTimeInterval:
-      type: object
-      title: MuteTimeInterval represents a named set of time intervals for which a route should be muted.
-      properties:
-        name:
-          type: string
-        time_intervals:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeInterval'
-    RouteExport:
-      description: 'RouteExport is the provisioned file export of definitions.Route. This is needed to hide fields that aren''t useable in
-
-        provisioning file format. An alternative would be to define a custom MarshalJSON and MarshalYAML that excludes them.'
-      type: object
-      properties:
-        active_time_intervals:
-          type: array
-          items:
-            type: string
-        continue:
-          type: boolean
-        group_by:
-          type: array
-          items:
-            type: string
-        group_interval:
-          type: string
-        group_wait:
-          type: string
-        match:
-          description: Deprecated. Remove before v1.0 release.
-          type: object
-          additionalProperties:
-            type: string
-        match_re:
-          $ref: '#/components/schemas/MatchRegexps'
-        matchers:
-          $ref: '#/components/schemas/Matchers'
-        mute_time_intervals:
-          type: array
-          items:
-            type: string
-        object_matchers:
-          $ref: '#/components/schemas/ObjectMatchers'
-        receiver:
-          type: string
-        repeat_interval:
-          type: string
-        routes:
-          type: array
-          items:
-            $ref: '#/components/schemas/RouteExport'
-    ReceiverExport:
-      type: object
-      title: ReceiverExport is the provisioned file export of alerting.ReceiverV1.
-      properties:
-        disableResolveMessage:
-          type: boolean
-        settings:
-          $ref: '#/components/schemas/RawMessage'
-        type:
-          type: string
-        uid:
-          type: string
-    AlertQueryExport:
-      type: object
-      title: AlertQueryExport is the provisioned export of models.AlertQuery.
-      properties:
-        datasourceUid:
-          type: string
-        model:
-          type: object
-          additionalProperties: {}
-        queryType:
-          type: string
-        refId:
-          type: string
-        relativeTimeRange:
-          $ref: '#/components/schemas/RelativeTimeRangeExport'
-    RelativeTimeRangeExport:
-      type: object
-      properties:
-        from:
-          type: integer
-          format: int64
-        to:
-          type: integer
-          format: int64
-    ContactPoints:
-      type: array
-      items:
-        $ref: '#/components/schemas/EmbeddedContactPoint'
+        body:
+          $ref: '#/components/schemas/PublicError'
     ProvisionedAlertRule:
       type: object
       required:
@@ -1974,13 +1483,453 @@ components:
           type: string
           format: date-time
           readOnly: true
-    ForbiddenError:
+    MuteTimeIntervalExport:
       type: object
       properties:
-        body:
-          $ref: '#/components/schemas/PublicError'
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        time_intervals:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeInterval'
+    Record:
+      type: object
+      required:
+      - metric
+      - from
+      properties:
+        from:
+          description: Which expression node should be used as the input for the recorded metric.
+          type: string
+          example: A
+        metric:
+          description: Name of the recorded metric.
+          type: string
+          example: grafana_alerts_ratio
+        target_datasource_uid:
+          description: Which data source should be used to write the output of the recording rule, specified by UID.
+          type: string
+          example: my-prom
+    ContactPointExport:
+      type: object
+      title: ContactPointExport is the provisioned file export of alerting.ContactPointV1.
+      properties:
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        receivers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReceiverExport'
+    MatchType:
+      type: integer
+      format: int64
+      title: MatchType is an enum for label matching types.
+    Route:
+      description: 'A Route is a node that contains definitions of how to handle alerts. This is modified
+
+        from the upstream alertmanager in that it adds the ObjectMatchers property.'
+      type: object
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Route'
+    Matchers:
+      description: 'Matchers is a slice of Matchers that is sortable, implements Stringer, and
+
+        provides a Matches method to match a LabelSet against all Matchers in the
+
+        slice. Note that some users of Matchers might require it to be sorted.'
+      type: array
+      items:
+        $ref: '#/components/schemas/Matcher'
+    ContactPoints:
+      type: array
+      items:
+        $ref: '#/components/schemas/EmbeddedContactPoint'
+    AlertRuleRecordExport:
+      type: object
+      title: Record is the provisioned export of models.Record.
+      properties:
+        from:
+          type: string
+        metric:
+          type: string
+        targetDatasourceUid:
+          type: string
+    NotFound:
+      type: object
+    MatchRegexps:
+      type: object
+      title: MatchRegexps represents a map of Regexp.
+      additionalProperties:
+        type: string
+    RelativeTimeRange:
+      description: 'RelativeTimeRange is the per query start and end time
+
+        for requests.'
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/Duration'
+        to:
+          $ref: '#/components/schemas/Duration'
+    AlertRuleNotificationSettings:
+      type: object
+      required:
+      - receiver
+      properties:
+        active_time_intervals:
+          description: 'Override the times when notifications should not be muted. These must match the name of a mute time interval defined
+
+            in the alertmanager configuration time_intervals section. All notifications will be suppressed unless they are sent
+
+            at the time that matches any interval.'
+          type: array
+          items:
+            type: string
+          example:
+          - maintenance
+        group_by:
+          description: 'Override the labels by which incoming alerts are grouped together. For example, multiple alerts coming in for
+
+            cluster=A and alertname=LatencyHigh would be batched into a single group. To aggregate by all possible labels
+
+            use the special value ''...'' as the sole label name.
+
+            This effectively disables aggregation entirely, passing through all alerts as-is. This is unlikely to be what
+
+            you want, unless you have a very low alert volume or your upstream notification system performs its own grouping.
+
+            Must include ''alertname'' and ''grafana_folder'' if not using ''...''.'
+          type: array
+          default:
+          - alertname
+          - grafana_folder
+          items:
+            type: string
+          example:
+          - alertname
+          - grafana_folder
+          - cluster
+        group_interval:
+          description: 'Override how long to wait before sending a notification about new alerts that are added to a group of alerts for
+
+            which an initial notification has already been sent. (Usually ~5m or more.)'
+          type: string
+          example: 5m
+        group_wait:
+          description: 'Override how long to initially wait to send a notification for a group of alerts. Allows to wait for an
+
+            inhibiting alert to arrive or collect more initial alerts for the same group. (Usually ~0s to few minutes.)'
+          type: string
+          example: 30s
+        mute_time_intervals:
+          description: 'Override the times when notifications should be muted. These must match the name of a mute time interval defined
+
+            in the alertmanager configuration time_intervals section. When muted it will not send any notifications, but
+
+            otherwise acts normally.'
+          type: array
+          items:
+            type: string
+          example:
+          - maintenance
+        policy:
+          description: 'Name of the notification policy to route alerts through.
+
+            Mutually exclusive with all other fields, cannot be used with contact point routing via the "receiver" field.'
+          type: string
+          example: '"Alerting Team"'
+        receiver:
+          description: Name of the receiver to send notifications to.
+          type: string
+          example: grafana-default-email
+        repeat_interval:
+          description: 'Override how long to wait before sending a notification again if it has already been sent successfully for an
+
+            alert. (Usually ~3h or more).
+
+            Note that this parameter is implicitly bound by Alertmanager''s `--data.retention` configuration flag.
+
+            Notifications will be resent after either repeat_interval or the data retention period have passed, whichever
+
+            occurs first. `repeat_interval` should not be less than `group_interval`.'
+          type: string
+          example: 4h
+    NotificationTemplateContent:
+      type: object
+      properties:
+        template:
+          type: string
+        version:
+          type: string
+    ObjectMatcher:
+      type: array
+      title: ObjectMatcher is a matcher that can be used to filter alerts.
+      items:
+        type: string
+    AlertingFileExport:
+      type: object
+      title: AlertingFileExport is the full provisioned file export.
+      properties:
+        apiVersion:
+          type: integer
+          format: int64
+        contactPoints:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactPointExport'
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRuleGroupExport'
+        muteTimes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MuteTimeIntervalExport'
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationPolicyExport'
+    AlertRuleGroupExport:
+      type: object
+      title: AlertRuleGroupExport is the provisioned file export of AlertRuleGroupV1.
+      properties:
+        folder:
+          type: string
+        interval:
+          $ref: '#/components/schemas/Duration'
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertRuleExport'
+    AlertQueryExport:
+      type: object
+      title: AlertQueryExport is the provisioned export of models.AlertQuery.
+      properties:
+        datasourceUid:
+          type: string
+        model:
+          type: object
+          additionalProperties: {}
+        queryType:
+          type: string
+        refId:
+          type: string
+        relativeTimeRange:
+          $ref: '#/components/schemas/RelativeTimeRangeExport'
+    MuteTimings:
+      type: array
+      items:
+        $ref: '#/components/schemas/MuteTimeInterval'
+    RelativeTimeRangeExport:
+      type: object
+      properties:
+        from:
+          type: integer
+          format: int64
+        to:
+          type: integer
+          format: int64
+    Ack:
+      type: object
+    RawMessage:
+      type: object
+    ProvisionedAlertRules:
+      type: array
+      items:
+        $ref: '#/components/schemas/ProvisionedAlertRule'
+    NotificationTemplates:
+      type: array
+      items:
+        $ref: '#/components/schemas/NotificationTemplate'
+    RouteExport:
+      description: 'RouteExport is the provisioned file export of definitions.Route. This is needed to hide fields that aren''t useable in
+
+        provisioning file format. An alternative would be to define a custom MarshalJSON and MarshalYAML that excludes them.'
+      type: object
+      properties:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteExport'
+    EmbeddedContactPoint:
+      description: 'EmbeddedContactPoint is the contact point type that is used
+
+        by grafanas embedded alertmanager implementation.'
+      type: object
+      required:
+      - type
+      - settings
+      properties:
+        disableResolveMessage:
+          type: boolean
+          example: false
+        name:
+          description: 'Name is used as grouping key in the UI. Contact points with the
+
+            same name will be grouped in the UI.'
+          type: string
+          example: webhook_1
+        provenance:
+          type: string
+          readOnly: true
+        settings:
+          $ref: '#/components/schemas/Json'
+        type:
+          type: string
+          enum:
+          - alertmanager
+          - dingding
+          - discord
+          - email
+          - googlechat
+          - kafka
+          - line
+          - opsgenie
+          - pagerduty
+          - pushover
+          - sensugo
+          - slack
+          - teams
+          - telegram
+          - threema
+          - victorops
+          - webhook
+          - wecom
+          example: webhook
+        uid:
+          description: 'UID is the unique identifier of the contact point. The UID can be
+
+            set by the user.'
+          type: string
+          maxLength: 40
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-\_]+$
+          example: my_external_reference
+    ReceiverExport:
+      type: object
+      title: ReceiverExport is the provisioned file export of alerting.ReceiverV1.
+      properties:
+        disableResolveMessage:
+          type: boolean
+        settings:
+          $ref: '#/components/schemas/RawMessage'
+        type:
+          type: string
+        uid:
+          type: string
+    PublicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties: {}
+        message:
+          type: string
+        messageId:
+          type: string
+        statusCode:
+          type: integer
+          format: int64
+    NotificationTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+        provenance:
+          $ref: '#/components/schemas/Provenance'
+        template:
+          type: string
+        version:
+          type: string
     Provenance:
       type: string
+    PermissionDenied:
+      type: object
     AlertQuery:
       type: object
       title: AlertQuery represents a single query associated with an alert definition.
@@ -2001,6 +1950,11 @@ components:
           type: string
         relativeTimeRange:
           $ref: '#/components/schemas/RelativeTimeRange'
+    ObjectMatchers:
+      type: array
+      title: ObjectMatchers is a list of matchers that can be used to filter alerts.
+      items:
+        $ref: '#/components/schemas/ObjectMatcher'
     AlertRuleExport:
       type: object
       title: AlertRuleExport is the provisioned file export of models.AlertRule.
@@ -2053,28 +2007,74 @@ components:
           type: string
         uid:
           type: string
-    NotificationTemplateContent:
+    NotificationPolicyExport:
       type: object
+      title: NotificationPolicyExport is the provisioned file export of alerting.NotificiationPolicyV1.
       properties:
-        template:
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        continue:
+          type: boolean
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
           type: string
-        version:
+        group_wait:
           type: string
-    RelativeTimeRange:
-      description: 'RelativeTimeRange is the per query start and end time
-
-        for requests.'
+        match:
+          description: Deprecated. Remove before v1.0 release.
+          type: object
+          additionalProperties:
+            type: string
+        match_re:
+          $ref: '#/components/schemas/MatchRegexps'
+        matchers:
+          $ref: '#/components/schemas/Matchers'
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        object_matchers:
+          $ref: '#/components/schemas/ObjectMatchers'
+        orgId:
+          type: integer
+          format: int64
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteExport'
+    AlertRuleNotificationSettingsExport:
       type: object
+      title: AlertRuleNotificationSettingsExport is the provisioned export of models.NotificationSettings.
       properties:
-        from:
-          $ref: '#/components/schemas/Duration'
-        to:
-          $ref: '#/components/schemas/Duration'
-    ObjectMatcher:
-      type: array
-      title: ObjectMatcher is a matcher that can be used to filter alerts.
-      items:
-        type: string
+        active_time_intervals:
+          type: array
+          items:
+            type: string
+        group_by:
+          type: array
+          items:
+            type: string
+        group_interval:
+          type: string
+        group_wait:
+          type: string
+        mute_time_intervals:
+          type: array
+          items:
+            type: string
+        receiver:
+          type: string
+        repeat_interval:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey

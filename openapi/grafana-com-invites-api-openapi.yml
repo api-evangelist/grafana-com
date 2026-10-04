@@ -87,32 +87,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     internalServerError:
       description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
@@ -125,13 +107,64 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/TempUserDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
     SMTPNotEnabledError:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    AddInviteForm:
+      type: object
+      properties:
+        loginOrEmail:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        sendEmail:
+          type: boolean
     TempUserDTO:
       type: object
       properties:
@@ -179,39 +212,6 @@ components:
           type: string
     TempUserStatus:
       type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    AddInviteForm:
-      type: object
-      properties:
-        loginOrEmail:
-          type: string
-        name:
-          type: string
-        role:
-          type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
-        sendEmail:
-          type: boolean
   securitySchemes:
     api_key:
       type: apiKey

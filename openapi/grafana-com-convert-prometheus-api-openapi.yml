@@ -459,6 +459,50 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
 components:
   schemas:
+    PrometheusRuleGroup:
+      type: object
+      properties:
+        interval:
+          $ref: '#/components/schemas/Duration'
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        limit:
+          type: integer
+          format: int64
+        name:
+          type: string
+        query_offset:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusRule'
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
+    NotFound:
+      type: object
+    ForbiddenError:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/PublicError'
+    ConvertPrometheusResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        errorType:
+          type: string
+        status:
+          type: string
     PrometheusNamespace:
       type: object
       properties:
@@ -469,46 +513,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/PrometheusRuleGroup'
-    PublicError:
-      description: 'PublicError is derived from Error and only contains information
-
-        available to the end user.'
-      type: object
-      properties:
-        extra:
-          type: object
-          additionalProperties: {}
-        message:
-          type: string
-        messageId:
-          type: string
-        statusCode:
-          type: integer
-          format: int64
-    ForbiddenError:
-      type: object
-      properties:
-        body:
-          $ref: '#/components/schemas/PublicError'
-    Duration:
-      description: 'A Duration represents the elapsed time between two instants
-
-        as an int64 nanosecond count. The representation limits the
-
-        largest representable duration to approximately 290 years.'
-      type: integer
-      format: int64
-    ConvertPrometheusResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        errorType:
-          type: string
-        status:
-          type: string
-    NotFound:
-      type: object
     PrometheusRule:
       type: object
       properties:
@@ -530,26 +534,22 @@ components:
             type: string
         record:
           type: string
-    PrometheusRuleGroup:
+    PublicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
       type: object
       properties:
-        interval:
-          $ref: '#/components/schemas/Duration'
-        labels:
+        extra:
           type: object
-          additionalProperties:
-            type: string
-        limit:
+          additionalProperties: {}
+        message:
+          type: string
+        messageId:
+          type: string
+        statusCode:
           type: integer
           format: int64
-        name:
-          type: string
-        query_offset:
-          type: string
-        rules:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrometheusRule'
   securitySchemes:
     api_key:
       type: apiKey

@@ -1,7 +1,7 @@
 {
   "provider": "grafana-com",
   "sources": [
-    "grafana-com-openapi.json"
+    "_original/grafana-com-openapi.json"
   ],
   "outputs": [
     "grafana-com-access-control-api-openapi.yml",
@@ -47,11 +47,12 @@
     "grafana-com-versions-api-openapi.yml"
   ],
   "archived": [
-    "archived openapi/grafana-com-openapi.json"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "grafana-com-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
     "grafana-com-openapi.json: declared missing tag: admin_ldap",
     "grafana-com-openapi.json: declared missing tag: admin_provisioning",
@@ -79,7 +80,50 @@
     "grafana-com-openapi.json: declared missing tag: user",
     "grafana-com-openapi.json: declared missing tag: users",
     "grafana-com-openapi.json: declared missing tag: versions",
-    "apis.yml register: written (+41 apis, 49 total)"
+    "superseded outputs removed: grafana-com-data-sources-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 49 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "grafana-com-access-control-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-admin-ldap-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-admin-provisioning-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-admin-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-annotations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-convert-prometheus-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-correlations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-dashboard-public-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-dashboards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-data-sources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-devices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-enterprise-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-invites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-library-elements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-licensing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-migrations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-org-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-orgs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-permissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-playlists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-preferences-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-provisioning-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-query-history-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-quota-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-recording-rules-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-saml-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-service-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-signed-in-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-signing-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-snapshots-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-sso-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-sync-team-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-teams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "grafana-com-versions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

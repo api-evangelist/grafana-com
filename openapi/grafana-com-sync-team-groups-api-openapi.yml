@@ -155,12 +155,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     getTeamGroupsApiResponse:
       description: (empty)
       content:
@@ -175,12 +181,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     searchTeamGroupsResponse:
       description: (empty)
       content:
@@ -189,24 +189,19 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/SearchTeamGroupsQueryResult'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
     TeamGroupMapping:
       description: '---------------------'
       type: object
@@ -229,6 +224,11 @@ components:
 
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
           type: string
     SearchTeamGroupsQueryResult:
       type: object

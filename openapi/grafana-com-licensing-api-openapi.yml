@@ -149,38 +149,14 @@ paths:
         required: true
 components:
   responses:
+    acceptedResponse:
+      description: AcceptedResponse
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    postRenewLicenseTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: boolean
-    getLicenseTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Token'
-    unprocessableEntityError:
-      description: UnprocessableEntityError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
       content:
         application/json:
           schema:
@@ -191,8 +167,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
@@ -203,19 +179,63 @@ components:
         application/json:
           schema:
             type: boolean
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     refreshLicenseStatsResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ActiveUserStats'
-    acceptedResponse:
-      description: AcceptedResponse
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Token'
+    postRenewLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: boolean
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
+    DeleteTokenCommand:
+      type: object
+      properties:
+        instance:
+          type: string
+    ActiveUserStats:
+      type: object
+      properties:
+        active_admins_and_editors:
+          type: integer
+          format: int64
+        active_anonymous_devices:
+          type: integer
+          format: int64
+        active_users:
+          type: integer
+          format: int64
+        active_viewers:
+          type: integer
+          format: int64
     Token:
       type: object
       properties:
@@ -297,29 +317,9 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-    ActiveUserStats:
-      type: object
-      properties:
-        active_admins_and_editors:
-          type: integer
-          format: int64
-        active_anonymous_devices:
-          type: integer
-          format: int64
-        active_users:
-          type: integer
-          format: int64
-        active_viewers:
-          type: integer
-          format: int64
     TokenStatus:
       type: integer
       format: int64
-    DeleteTokenCommand:
-      type: object
-      properties:
-        instance:
-          type: string
   securitySchemes:
     api_key:
       type: apiKey

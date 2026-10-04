@@ -121,9 +121,108 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
+  schemas:
+    RestoreDashboardVersionCommand:
+      type: object
+      properties:
+        version:
+          type: integer
+          format: int64
+    Json:
+      type: object
+    DashboardVersionMeta:
+      description: 'DashboardVersionMeta extends the DashboardVersionDTO with the names
+
+        associated with the UserIds, overriding the field with the same name from
+
+        the DashboardVersionDTO model.'
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        dashboardId:
+          type: integer
+          format: int64
+        data:
+          $ref: '#/components/schemas/Json'
+        id:
+          type: integer
+          format: int64
+        message:
+          type: string
+        parentVersion:
+          type: integer
+          format: int64
+        restoredFrom:
+          type: integer
+          format: int64
+        uid:
+          type: string
+        version:
+          type: integer
+          format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    DashboardVersionResponseMeta:
+      type: object
+      properties:
+        continueToken:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardVersionMeta'
   responses:
+    dashboardVersionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardVersionResponseMeta'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    dashboardVersionResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardVersionMeta'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
       content:
         application/json:
           schema:
@@ -171,111 +270,12 @@ components:
                 type: integer
                 format: int64
                 example: 2
-    dashboardVersionsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DashboardVersionResponseMeta'
-    dashboardVersionResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DashboardVersionMeta'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-  schemas:
-    Json:
-      type: object
-    DashboardVersionMeta:
-      description: 'DashboardVersionMeta extends the DashboardVersionDTO with the names
-
-        associated with the UserIds, overriding the field with the same name from
-
-        the DashboardVersionDTO model.'
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-        createdBy:
-          type: string
-        dashboardId:
-          type: integer
-          format: int64
-        data:
-          $ref: '#/components/schemas/Json'
-        id:
-          type: integer
-          format: int64
-        message:
-          type: string
-        parentVersion:
-          type: integer
-          format: int64
-        restoredFrom:
-          type: integer
-          format: int64
-        uid:
-          type: string
-        version:
-          type: integer
-          format: int64
-    DashboardVersionResponseMeta:
-      type: object
-      properties:
-        continueToken:
-          type: string
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardVersionMeta'
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    RestoreDashboardVersionCommand:
-      type: object
-      properties:
-        version:
-          type: integer
-          format: int64
   securitySchemes:
     api_key:
       type: apiKey

@@ -33,14 +33,54 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
-    URL:
-      type: string
-      format: url
-    ExtKeyUsage:
-      description: Each of the ExtKeyUsage* constants define a unique action.
-      type: integer
-      format: int64
-      title: ExtKeyUsage represents an extended set of actions that are valid for a given key.
+    AttributeTypeAndValue:
+      description: 'When parsed as part of a pkix.Name structure in a crypto/x509 type,
+
+        the Value will be
+
+
+        - a string if the ASN.1 type is PrintableString, IA5String,
+
+        NumericString, BMPString, T61String, or UTF8String;
+
+        - an int64 if the ASN.1 type is INTEGER;
+
+        - an asn1.BitString if the ASN.1 type is BIT STRING;
+
+        - a []byte if the ASN.1 type is OCTET STRING;
+
+        - an asn1.ObjectIdentifier if the ASN.1 type is OBJECT IDENTIFIER;
+
+        - a time.Time if the ASN.1 type is UTCTIME or GENERALIZEDTIME;
+
+        - a bool if the ASN.1 type is BOOLEAN;
+
+        - nil if the ASN.1 type is NULL;
+
+        - an asn1.RawValue otherwise.'
+      type: object
+      title: 'AttributeTypeAndValue mirrors the ASN.1 structure of the same name in
+
+        RFC 5280, Section 4.1.2.4.'
+      properties:
+        Type:
+          $ref: '#/components/schemas/ObjectIdentifier'
+        Value: {}
+    Extension:
+      description: 'Extension represents the ASN.1 structure of the same name. See RFC
+
+        5280, section 4.2.'
+      type: object
+      properties:
+        Critical:
+          type: boolean
+        Id:
+          $ref: '#/components/schemas/ObjectIdentifier'
+        Value:
+          type: array
+          items:
+            type: integer
+            format: uint8
     JSONWebKey:
       description: 'JSONWebKey represents a public or private key in JWK format. It can be
 
@@ -98,102 +138,23 @@ components:
         Use:
           description: Key use, parsed from `use` header.
           type: string
-    PublicKeyAlgorithm:
-      type: integer
-      format: int64
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
     ObjectIdentifier:
       type: array
       title: An ObjectIdentifier represents an ASN.1 OBJECT IDENTIFIER.
       items:
         type: integer
         format: int64
-    AttributeTypeAndValue:
-      description: 'When parsed as part of a pkix.Name structure in a crypto/x509 type,
-
-        the Value will be
-
-
-        - a string if the ASN.1 type is PrintableString, IA5String,
-
-        NumericString, BMPString, T61String, or UTF8String;
-
-        - an int64 if the ASN.1 type is INTEGER;
-
-        - an asn1.BitString if the ASN.1 type is BIT STRING;
-
-        - a []byte if the ASN.1 type is OCTET STRING;
-
-        - an asn1.ObjectIdentifier if the ASN.1 type is OBJECT IDENTIFIER;
-
-        - a time.Time if the ASN.1 type is UTCTIME or GENERALIZEDTIME;
-
-        - a bool if the ASN.1 type is BOOLEAN;
-
-        - nil if the ASN.1 type is NULL;
-
-        - an asn1.RawValue otherwise.'
-      type: object
-      title: 'AttributeTypeAndValue mirrors the ASN.1 structure of the same name in
-
-        RFC 5280, Section 4.1.2.4.'
-      properties:
-        Type:
-          $ref: '#/components/schemas/ObjectIdentifier'
-        Value: {}
-    KeyUsage:
-      description: 'KeyUsage represents the set of actions that are valid for a given key. It''s
-
-        a bitmap of the KeyUsage* constants.'
+    URL:
+      type: string
+      format: url
+    SignatureAlgorithm:
       type: integer
       format: int64
-    PolicyMapping:
-      type: object
-      title: PolicyMapping represents a policy mapping entry in the policyMappings extension.
-      properties:
-        IssuerDomainPolicy:
-          description: 'IssuerDomainPolicy contains a policy OID the issuing certificate considers
-
-            equivalent to SubjectDomainPolicy in the subject certificate.'
-          type: string
-        SubjectDomainPolicy:
-          description: 'SubjectDomainPolicy contains a OID the issuing certificate considers
-
-            equivalent to IssuerDomainPolicy in the subject certificate.'
-          type: string
-    IPNet:
-      type: object
-      title: An IPNet represents an IP network.
-      properties:
-        IP:
-          type: string
-        Mask:
-          $ref: '#/components/schemas/IPMask'
-    IPMask:
-      description: See type [IPNet] and func [ParseCIDR] for details.
-      type: array
-      title: 'An IPMask is a bitmask that can be used to manipulate
-
-        IP addresses for IP addressing and routing.'
-      items:
-        type: integer
-        format: uint8
+    ExtKeyUsage:
+      description: Each of the ExtKeyUsage* constants define a unique action.
+      type: integer
+      format: int64
+      title: ExtKeyUsage represents an extended set of actions that are valid for a given key.
     Name:
       description: 'Name represents an X.509 distinguished name. This only includes the common
 
@@ -256,21 +217,43 @@ components:
           type: array
           items:
             type: string
-    Extension:
-      description: 'Extension represents the ASN.1 structure of the same name. See RFC
+    KeyUsage:
+      description: 'KeyUsage represents the set of actions that are valid for a given key. It''s
 
-        5280, section 4.2.'
+        a bitmap of the KeyUsage* constants.'
+      type: integer
+      format: int64
+    PolicyMapping:
       type: object
+      title: PolicyMapping represents a policy mapping entry in the policyMappings extension.
       properties:
-        Critical:
-          type: boolean
-        Id:
-          $ref: '#/components/schemas/ObjectIdentifier'
-        Value:
-          type: array
-          items:
-            type: integer
-            format: uint8
+        IssuerDomainPolicy:
+          description: 'IssuerDomainPolicy contains a policy OID the issuing certificate considers
+
+            equivalent to SubjectDomainPolicy in the subject certificate.'
+          type: string
+        SubjectDomainPolicy:
+          description: 'SubjectDomainPolicy contains a OID the issuing certificate considers
+
+            equivalent to IssuerDomainPolicy in the subject certificate.'
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     Certificate:
       type: object
       title: A Certificate represents an X.509 certificate.
@@ -640,10 +623,33 @@ components:
         Version:
           type: integer
           format: int64
-    SignatureAlgorithm:
+    IPNet:
+      type: object
+      title: An IPNet represents an IP network.
+      properties:
+        IP:
+          type: string
+        Mask:
+          $ref: '#/components/schemas/IPMask'
+    IPMask:
+      description: See type [IPNet] and func [ParseCIDR] for details.
+      type: array
+      title: 'An IPMask is a bitmask that can be used to manipulate
+
+        IP addresses for IP addressing and routing.'
+      items:
+        type: integer
+        format: uint8
+    PublicKeyAlgorithm:
       type: integer
       format: int64
   responses:
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     jwksResponse:
       description: (empty)
       content:
@@ -655,12 +661,6 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/JSONWebKey'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey
