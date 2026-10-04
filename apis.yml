@@ -1,16 +1,21 @@
 aid: grafana-com
 url: https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml
 deliveryModel:
-  model: unknown
-  open_source: unknown
+  model: open-core
+  license: AGPL-3.0
+  license_evidence:
+    repo: grafana/grafana
+    spdx: AGPL-3.0
+    stars: 76907
+  open_source: true
   commercial: true
   callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: medium
   source:
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 specificationVersion: '0.23'
 apis:
@@ -423,7 +428,7 @@ tags:
 - Traces
 - Profiling
 - Alerting
-- Open-Source
+- Open Source
 - Grafana Labs
 tags_raw:
 - Observability
@@ -436,6 +441,7 @@ tags_raw:
 - Alerting
 - Open Source
 - Grafana Labs
+- Open-Source
 kind: contract
 accessModel:
   pricing: freemium
