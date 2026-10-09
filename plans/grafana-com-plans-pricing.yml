@@ -1,3 +1,8 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (dated 2026-05-25 by the file itself), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
+generated: '2026-05-25'
 name: Grafana API Plans
 specification: API Commons Plans
 specificationVersion: '0.1'
@@ -261,3 +266,69 @@ plans:
         unit: 1
         price: Call
         userMultiplied: false
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - negotiated
+  units:
+  - compute
+  - data
+  - negotiated
+  - object
+  - period
+  - seat
+  plans:
+  - name: Grafana Cloud Free
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - data
+    - object
+    - other
+    - period
+    - seat
+    periods:
+    - month
+    - per-use
+  - name: Grafana Cloud Pro
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - compute
+    - data
+    - object
+    - other
+    - period
+    - seat
+    periods:
+    - month
+    - per-use
+  - name: Grafana Cloud Advanced
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Grafana Cloud Enterprise
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Grafana Enterprise (self-managed)
+    access: negotiated
+    model: negotiated
+    model_how: stated
+    units:
+    - seat
+    periods:
+    - year

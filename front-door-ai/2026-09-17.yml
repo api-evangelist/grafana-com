@@ -7,13 +7,16 @@ front_door_ai:
   probed_at: '2026-09-17'
   host: www.grafana.com
   final_host: grafana.com
-  ownership: inherited
+  ownership: shared
   owner: grafana
   shares_host_with:
   - grafana
-  inherited_from: grafana.com
+  inherited_from: null
+  alias_of: grafana.com
   verdict: scored
   score: null
+  band: null
+  band_label: null
   host_score: 14
   density: null
   words: 767
