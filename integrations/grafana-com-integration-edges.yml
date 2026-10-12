@@ -1,0 +1,6332 @@
+generated: '2026-10-13'
+method: searched
+checked:
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
+- https://grafana.com/grafana/plugins/
+marketplace_apps:
+- marketplace: own
+  channel: partner-built
+  app: grafana-com
+  url: https://grafana.com/grafana/plugins/
+  app_count: 370
+  adapter: sweep-observability.py:grafana-plugins-api
+  listed: 370
+edges:
+- partner_name: OpenTelemetry
+  partner: null
+  type: contract
+  channel: network-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
+  contract_reference:
+    register: OpenTelemetry ecosystem + registry (opentelemetry.io data/)
+    spec_file: null
+    role: otlp-native
+    registered_name: Grafana Labs
+    matched_domain: grafana.com
+    partner_match: domain+verified
+    api_families:
+    - otlp-native
+    records:
+    - vendors.yaml: Grafana Labs
+      nativeOTLP: true
+    detected_by: sweep-observability.py
+    detected: '2026-10-13'
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+- partner_name: startree
+  app: StarTree Pinot
+  partner: startree
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/startree-pinot-datasource/
+  category: Data Source
+  partner_domain: startree.ai
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Grafana Assistant
+  app: Grafana Assistant
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-assistant-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Infinity
+  app: Infinity
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/yesoreyeram-infinity-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Vercel
+  app: Vercel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-vercel-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: crestdata
+  app: Dell PowerScale
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-dellemcpowerscale-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Graphviz
+  app: Graphviz
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-graphviz-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Phenisys
+  app: Microsoft Teams Observability
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/phenisys-msteamsobservability-app/
+  category: Application
+  partner_domain: phenisys.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: GitHub
+  app: GitHub
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-github-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Kenso Software
+  app: SPC Box Plot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spcboxplot-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Alert list
+  app: Alert list
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/alertlist/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Alertmanager
+  app: Alertmanager
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/alertmanager/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Annotations list
+  app: Annotations list
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/annolist/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Bar chart
+  app: Bar chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/barchart/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Bar gauge
+  app: Bar gauge
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/bargauge/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Candlestick
+  app: Candlestick
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/candlestick/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Dashboard list
+  app: Dashboard list
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/dashlist/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Debug
+  app: Debug
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/debug/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Gauge
+  app: Gauge
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/gauge/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Geomap
+  app: Geomap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/geomap/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Graph (old)
+  app: Graph (old)
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/graph/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Heatmap
+  app: Heatmap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/heatmap/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Histogram
+  app: Histogram
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/histogram/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Stat
+  app: Stat
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/stat/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Table
+  app: Table
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/table/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: TestData
+  app: TestData
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-testdata-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Text
+  app: Text
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/text/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Time series
+  app: Time series
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/timeseries/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: XY Chart
+  app: XY Chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/xychart/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: blackcowmoo
+  app: ' Google Analytics'
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/blackcowmoo-googleanalytics-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: 3CX
+  app: 3CX
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tcx-3cx-app/
+  category: Application
+  partner_domain: 3cx.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Andrew Rodgers
+  app: ACE.SVG
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/aceiot-svg-panel/
+  category: Panel
+  partner_domain: aceiotsolutions.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Adobe Analytics
+  app: Adobe Analytics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-adobeanalytics-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: aggregations.io
+  app: Aggregations.io
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/aggregations-io-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Akamai
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-akamai-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: ovhcloud
+  app: Akvorado
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ovhcloud-akvorado-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: dzaczek
+  app: Alpine Clock Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dzaczek-alpineclock-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Vertamedia
+  app: Altinity plugin for ClickHouse
+  partner: null
+  partner_match: null
+  partner_candidate: altinity
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/vertamedia-clickhouse-datasource/
+  category: Data Source
+  partner_domain: altinity.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Amazon Athena
+  app: Amazon Athena
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-athena-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Amazon Aurora
+  app: Amazon Aurora
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-aurora-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Amazon Managed Service for Prometheus
+  app: Amazon Managed Service for Prometheus
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-amazonprometheus-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Amazon Redshift
+  app: Amazon Redshift
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-redshift-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Amazon Timestream
+  app: Amazon Timestream
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-timestream-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: macropower
+  app: Analytics Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/macropower-analytics-panel/
+  category: Panel
+  partner_domain: jacobcolvin.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Anodot
+  app: Anodot
+  partner: anodot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/anodot-panel/
+  category: Panel
+  partner_domain: anodot.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Anodot
+  app: Anodot Datasource
+  partner: anodot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/anodot-datasource/
+  category: Data Source
+  partner_domain: anodot.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: hadesarchitect
+  app: Apache Cassandra
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/hadesarchitect-cassandra-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: apache
+  app: Apache IoTDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/apache-iotdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: AppDynamics
+  app: AppDynamics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/dlopes7-appdynamics-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: esnet
+  app: Arc Diagram
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/esnet-arcdiagram-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Consensys
+  app: Ask O11y
+  partner: consensys
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/consensys-asko11y-app/
+  category: Application
+  partner_domain: consensys.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: AstraDB
+  app: AstraDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-astradb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: rocketcom
+  app: Astro Theme
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/rocketcom-astrotheme-panel/
+  category: Panel
+  partner_domain: astrouxds.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Atlassian Statuspage
+  app: Atlassian Statuspage
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-atlassianstatuspage-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: AWS Application Signals
+  app: AWS Application Signals
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-x-ray-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: ivlabsdev
+  app: AWS Cost Explorer
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ivlabsdev-awscostexplorer-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Amazon Web Services
+  app: AWS Data Sources
+  partner: null
+  partner_match: null
+  partner_candidate: grafana-com
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/aws-datasource-provisioner-app/
+  category: Application
+  partner_domain: grafana.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: AWS IoT SiteWise
+  app: AWS IoT SiteWise
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-iot-sitewise-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: AWS IoT TwinMaker App
+  app: AWS IoT TwinMaker App
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-iot-twinmaker-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Axiom
+  app: Axiom
+  partner: axiom
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/axiomhq-axiom-datasource/
+  category: Data Source
+  partner_domain: axiom.co
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: azure
+  app: Azure Cloud Native Monitoring
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/azure-monitor-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Azure Cosmos DB
+  app: Azure Cosmos DB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-azurecosmosdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Azure Data Explorer Datasource
+  app: Azure Data Explorer Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-azure-data-explorer-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Azure DevOps
+  app: Azure DevOps
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-azuredevops-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Azure Monitor
+  app: Azure Monitor
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-azure-monitor-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Azure Monitor Managed Service for Prometheus
+  app: Azure Monitor Managed Service for Prometheus
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-azureprometheus-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: timomyl
+  app: Breadcrumb
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/timomyl-breadcrumb-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Digvijay Richhariya
+  app: Bubble Chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/digrich-bubblechart-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: netsage
+  app: Bump Chart Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/netsage-bumpchart-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Calendar
+  app: Business Calendar
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-calendar-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Charts
+  app: Business Charts
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-echarts-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Forms
+  app: Business Forms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-form-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Input
+  app: Business Input
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-static-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Links
+  app: Business Links
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-links-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Media
+  app: Business Media
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-image-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business News
+  app: Business News
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-rss-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Volkov Labs
+  app: Business Satellite
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-grapi-datasource/
+  category: Data Source
+  partner_domain: volkovlabs.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Table
+  app: Business Table
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-table-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Text
+  app: Business Text
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-dynamictext-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Business Variable
+  app: Business Variable
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/volkovlabs-variable-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: speakyourcode
+  app: Button Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/speakyourcode-button-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: tim012432
+  app: Calendar Heatmap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tim012432-calendarheatmap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Canvas
+  app: Canvas
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/canvas/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Catchpoint
+  app: Catchpoint
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-catchpoint-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: esara
+  app: Causely
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/esara-causely-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: sebastiangunreben
+  app: CDF - Cumulative Distribution Function
+  partner: null
+  partner_match: null
+  partner_candidate: acid
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sebastiangunreben-cdf-panel/
+  category: Panel
+  partner_domain: wikipedia.org
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Chaos Mesh Org
+  app: Chaos Mesh
+  partner: chaos-mesh
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/chaosmeshorg-datasource/
+  category: Data Source
+  partner_domain: chaos-mesh.org
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: corpglory
+  app: Chartwerk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/corpglory-chartwerk-panel/
+  category: Panel
+  partner_domain: corpglory.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Checkmk
+  app: Checkmk data source
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/checkmk-cloud-datasource/
+  category: Data Source
+  partner_domain: checkmk.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Cisco ASA
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-ciscoasa-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Cisco ISE
+  partner: null
+  partner_match: null
+  partner_candidate: agntcy
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-ciscoise-datasource/
+  category: Data Source
+  partner_domain: cisco.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Cisco Meraki
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-ciscomeraki-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Citrix Cloud
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-citrixcloud-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Citrix DaaS
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-citrixdaas-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: timurdigital
+  app: Claude Code Stats
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/timurdigital-claudestats-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: ClickHouse
+  app: ClickHouse
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-clickhouse-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Clock
+  app: Clock
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-clock-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Cloudflare
+  app: Cloudflare
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-cloudflare-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: CloudWatch
+  app: CloudWatch
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/cloudwatch/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Computest
+  app: CloudWatch Alarm
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/computest-cloudwatchalarm-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: cnos
+  app: CnosDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/cnos-cnosdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: CockroachDB
+  app: CockroachDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-cockroachdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Cognite
+  app: Cognite Data Fusion
+  partner: cognite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/cognitedata-datasource/
+  category: Data Source
+  partner_domain: cognite.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Arnaud Marchand
+  app: Colored SVG Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/snuids-svg-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: zestairlove
+  app: Compact Hostmap Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/zestairlove-compacthostmap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: leoswing
+  app: CompareQueries
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/leoswing-comparequeries-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: integrationmatters
+  app: Comparison Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/integrationmatters-comparison-panel/
+  category: Panel
+  partner_domain: integrationmatters.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: oceandatatools
+  app: Compass
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/oceandatatools-compass-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: monitorcloudops
+  app: Convertify
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/monitorcloudops-convertify-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: cPacket
+  app: cPacket Utility Bundle
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/cpacket-cclearutilitybundle-app/
+  category: Application
+  partner_domain: cpacket.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: criblcloud
+  app: Cribl Search
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/criblcloud-search-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Marcus Olsson
+  app: CSV
+  partner: null
+  partner_match: null
+  partner_candidate: grafana-com
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-csv-datasource/
+  category: Data Source
+  partner_domain: grafana.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Cube
+  app: Cube
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-cube-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: ekacnet
+  app: Cubism Graph
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ekacnet-cubismgrafana-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Brian Gann
+  app: D3 Gauge
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/briangann-gauge-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Databricks
+  app: Databricks
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-databricks-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Datadog
+  app: Datadog
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-datadog-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Sentinel One
+  app: Dataset
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sentinelone-dataset-datasource/
+  category: Data Source
+  partner_domain: dataset.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Brian Gann
+  app: Datatable Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/briangann-datatable-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: dbeast
+  app: DBeast Monitor for Elastic Stack
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dbeast-dbeastmonitor-app/
+  category: Application
+  partner_domain: dbeast.co
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Jeremy Branham
+  app: Diagram
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/jdbranham-diagram-panel/
+  category: Panel
+  partner_domain: savantly.net
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: DigitalRCS
+  app: DigitalRCS-TimeOverlay-Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/digitalrcs-timeoverlay-panel/
+  category: Panel
+  partner_domain: digitalrcs.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Cloud Intelligence
+  app: DoiT Cloud Intelligence
+  partner: null
+  partner_match: null
+  partner_candidate: doit
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/doitintl-doitcloudintelligence-datasource/
+  category: Data Source
+  partner_domain: doit.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: CESNET
+  app: DP³
+  partner: cesnet
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/cesnet-dp3-app/
+  category: Application
+  partner_domain: cesnet.cz
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Drone
+  app: Drone
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-drone-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: grafadruid
+  app: Druid
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/grafadruid-druid-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: dalvany
+  app: Dynamic image panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dalvany-image-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: DynamoDB
+  app: DynamoDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-dynamodb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Dynatrace
+  app: Dynatrace
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-dynatrace-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Elasticsearch
+  app: Elasticsearch
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/elasticsearch/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Embrace
+  app: Embrace
+  partner: embrace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/embraceio-metric-app/
+  category: Application
+  partner_domain: embrace.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: larona
+  app: ePict Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/larona-epict-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: esnet
+  app: ESnet Chord
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/esnet-chord-panel/
+  category: Panel
+  partner_domain: es.net
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: esnet
+  app: ESnet Matrix Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/esnet-matrix-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: factry
+  app: Factry Historian Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/factry-historian-datasource/
+  category: Data Source
+  partner_domain: factry.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Falcon LogScale
+  app: Falcon LogScale
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-falconlogscale-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: siostech
+  app: fiap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/siostech-fiap-datasource/
+  category: Data Source
+  partner_domain: sios.jp
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: clarity89
+  app: Finnhub
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/clarity89-finnhub-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: pgollangi
+  app: Firestore
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/pgollangi-firestore-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: andrewbmchugh
+  app: Flow
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/andrewbmchugh-flow-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: verticle
+  app: Flowhook Webhooks Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/verticle-flowhook-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: anilhut
+  app: FlowX
+  partner: null
+  partner_match: null
+  partner_candidate: gumroad
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/anilhut-flowx-panel/
+  category: Panel
+  partner_domain: gumroad.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: FortiGate
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-fortigate-datasource/
+  category: Data Source
+  partner_domain: fortinet.net
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: foxglovedev
+  app: Foxglove
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/foxglovedev-foxglove-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Fraunhofer IOSB
+  app: FROST SensorThings API Plugin
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/iosb-sensorthings-datasource/
+  category: Data Source
+  partner_domain: fraunhofer.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: mckn
+  app: Funnel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/mckn-funnel-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Marcus Olsson
+  app: Gantt
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-gantt-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: arabian9ts
+  app: GCP Status
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/arabian9ts-gcpstatus-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: felixrelleum
+  app: Geomap Panel WMS
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/felixrelleum-geomapwms-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: GitLab
+  app: GitLab
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-gitlab-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: gizmodata
+  app: GizmoSQL
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/gizmodata-gizmosql-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Google BigQuery
+  app: Google BigQuery
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-bigquery-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: googlecloud
+  app: Google Cloud Logging
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/googlecloud-logging-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Google Cloud Monitoring
+  app: Google Cloud Monitoring
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/stackdriver/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: googlecloud
+  app: Google Cloud Trace
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/googlecloud-trace-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Google Sheets
+  app: Google Sheets
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-googlesheets-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Advisor
+  app: Grafana Advisor
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-advisor-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Enterprise Logs
+  app: Grafana Enterprise Logs
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-enterprise-logs-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Enterprise Metrics
+  app: Grafana Enterprise Metrics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-metrics-enterprise-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Enterprise Traces
+  app: Grafana Enterprise Traces
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-enterprise-traces-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Logs Drilldown
+  app: Grafana Logs Drilldown
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-lokiexplore-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Metrics Drilldown
+  app: Grafana Metrics Drilldown
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-metricsdrilldown-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Profiles Drilldown
+  app: Grafana Profiles Drilldown
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-pyroscope-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Pyroscope
+  app: Grafana Pyroscope
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-pyroscope-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Grafana Traces Drilldown
+  app: Grafana Traces Drilldown
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-exploretraces-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: jaops
+  app: Grafana Yamcs JAOPS
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/jaops-yamcs-app/
+  category: Application
+  partner_domain: jaops.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: neildengg
+  app: Grafmaid
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/neildengg-grafmaid-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Graphite
+  app: Graphite
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/graphite/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Groonga
+  app: Groonga
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/groonga-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: svennergr
+  app: hackerone-datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/svennergr-hackerone-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: harperfast
+  app: Harper
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/harperfast-harper-datasource/
+  category: Data Source
+  partner_domain: harpersystems.dev
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: needleinajaystack
+  app: Haystack
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/needleinajaystack-haystack-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Helin
+  app: Helin Connect Data Hub
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/helindata-connectdatahub-datasource/
+  category: Data Source
+  partner_domain: helindata.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: apricote
+  app: Hetzner Cloud
+  partner: null
+  partner_match: null
+  partner_candidate: hetzner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/apricote-hcloud-datasource/
+  category: Data Source
+  partner_domain: hetzner.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Honeycomb
+  app: Honeycomb
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-honeycomb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: taminomara
+  app: Host Overview
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/taminomara-hostoverview-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Marcus Olsson
+  app: Hourly heatmap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-hourly-heatmap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: hpehpc
+  app: HPE Clusterview
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/hpehpc-grafanaclusterview-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: gapit
+  app: HTML graphics
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/gapit-htmlgraphics-panel/
+  category: Panel
+  partner_domain: gapit.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: hydrolix.io
+  app: Hydrolix
+  partner: hydrolix
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/hydrolix-hydrolix-datasource/
+  category: Data Source
+  partner_domain: hydrolix.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: IBM Db2
+  app: IBM Db2
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-ibmdb2-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: IBM
+  app: IBM RMF
+  partner: ibm
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ibm-rmf-app/
+  category: Application
+  partner_domain: ibm.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: rocketsoftware
+  app: IBM Z OMEGAMON
+  partner: null
+  partner_match: null
+  partner_candidate: api-harmony
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/rocketsoftware-omegamon-app/
+  category: Application
+  partner_domain: ibm.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: mesak
+  app: Image Save
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/mesak-imagesave-panel/
+  category: Panel
+  partner_domain: mesak.tw
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: innorenew
+  app: Indoor air quality floor plan
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/innorenew-iaq-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: tailos
+  app: Indoor Map
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tailosstg-map-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: InfluxDB
+  app: InfluxDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/influxdb/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: crestdata
+  app: Infoblox Universal DDI
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-infobloxuddi-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Instana
+  app: Instana
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/instana-datasource/
+  category: Data Source
+  partner_domain: instana.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Interactive learning
+  app: Interactive learning
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-pathfinder-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: EQUANS Zuid-Nederland bv
+  app: Interactive Tree Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/equansdatahub-tree-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: ITRS Group
+  app: ITRS Analytics
+  partner: null
+  partner_match: null
+  partner_candidate: geneos
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/itrs-analytics-datasource/
+  category: Data Source
+  partner_domain: itrsgroup.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Antreklabs
+  app: IyziTrace
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/antreklabs-iyzitrace-app/
+  category: Application
+  partner_domain: antreklabs.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Jaeger
+  app: Jaeger
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/jaeger/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Jenkins
+  app: Jenkins
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-jenkins-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Jira
+  app: Jira
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-jira-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Šimon Podlipský
+  app: JSON
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/simpod-json-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: JSON API
+  app: JSON API
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-json-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: nagasudhirpulla
+  app: JSON Fetcher
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/nagasudhirpulla-api-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: hamedkarbasi93
+  app: Kafka
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/hamedkarbasi93-kafka-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: aquaqanalytics
+  app: kdb+
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/aquaqanalytics-kdbbackend-datasource/
+  category: Data Source
+  partner_domain: aquaq.co.uk
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Kentik
+  app: Kentik
+  partner: kentik
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kentik-connect-datasource/
+  category: Data Source
+  partner_domain: kentik.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Kentik
+  app: Kentik Connect Pro
+  partner: kentik
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kentik-connect-app/
+  category: Application
+  partner_domain: kentik.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: kinetica
+  app: Kinetica
+  partner: kinetica
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kinetica-grafana-datasource/
+  category: Data Source
+  partner_domain: kinetica.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: teosibileau
+  app: Leaflet Choropleth
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/teosibileau-leafletchoropleth-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: LLM
+  app: LLM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-llm-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: LogicMonitor Devices
+  app: LogicMonitor Devices
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-logicmonitor-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Loki
+  app: Loki
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/loki/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Loki-Operational
+  app: Loki-Operational
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-lokioperational-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Looker
+  app: Looker
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-looker-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: instabug
+  app: Luciq
+  partner: instabug
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/instabug-instabug-app/
+  category: Application
+  partner_domain: luciq.ai
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Vadim Pyatakov
+  app: Mapgl
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/vaduga-mapgl-panel/
+  category: Panel
+  partner_domain: mapgl.org
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: flaminggoat
+  app: MapTrack3D
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/flaminggoat-maptrack3d-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: bsull
+  app: Materialize
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/bsull-materialize-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: thiagoarrais
+  app: Matomo Tracker
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/thiagoarrais-matomotracking-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: manassehzhou
+  app: MaxCompute
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/manassehzhou-maxcompute-datasource/
+  category: Data Source
+  partner_domain: aliyun.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Microsoft SQL Server
+  app: Microsoft SQL Server
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/mssql/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Mock
+  app: Mock
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-mock-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: dataspex
+  app: MonetDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dataspex-monetdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: MongoDB
+  app: MongoDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-mongodb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Moogsoft
+  app: Moogsoft AIOps
+  partner: moogsoft
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/moogsoft-aiops-app/
+  category: Application
+  partner_domain: moogsoft.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: boazreicher
+  app: Mosaic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/boazreicher-mosaicplot-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: MQTT
+  app: MQTT
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-mqtt-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: arabian9ts
+  app: MUX-Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/arabian9ts-mux-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: MySQL
+  app: MySQL
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/mysql/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: kniepdennis
+  app: Neo4j Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kniepdennis-neo4j-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: NetApp ONTAP
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-netappontap-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: netboxlabs
+  app: NetBox Labs
+  partner: netbox-labs
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/netboxlabs-netbox-datasource/
+  category: Data Source
+  partner_domain: netboxlabs.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: netdatacloud
+  app: netdata
+  partner: netdata
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/netdatacloud-netdata-datasource/
+  category: Data Source
+  partner_domain: netdata.cloud
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Netlify
+  app: Netlify
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-netlify-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: esnet
+  app: Network Map Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/esnet-networkmap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: tamirsuliman
+  app: Network Weathermap NG
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tamirsuliman-weathermap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: New Relic
+  app: New Relic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-newrelic-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: hamedkarbasi93
+  app: Node Graph API
+  partner: null
+  partner_match: null
+  partner_candidate: grafana-com
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/hamedkarbasi93-nodegraphapi-datasource/
+  category: Data Source
+  partner_domain: grafana.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: nominal
+  app: Nominal
+  partner: nominal
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/nominal-nominalds-datasource/
+  category: Data Source
+  partner_domain: nominal.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: dvelop
+  app: OData
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dvelop-odata-datasource/
+  category: Data Source
+  partner_domain: d-velop.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: sameeraswal
+  app: Odometer
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sameeraswal-odometer-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: opengemini
+  app: openGemini
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/opengemini-opengemini-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Grid Protection Alliance
+  app: openHistorian
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/gridprotectionalliance-openhistorian-datasource/
+  category: Data Source
+  partner_domain: gridprotectionalliance.org
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: The OpenNMS Group Inc.
+  app: OpenNMS Plugin for Grafana
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/opennms-opennms-app/
+  category: Application
+  partner_domain: opennms.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: OpenSearch
+  app: OpenSearch
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-opensearch-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: OpenTSDB
+  app: OpenTSDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/opentsdb/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: operato
+  app: Operato Windrose
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/operato-windrose-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: NFROptimiz
+  app: Optimiz-SevOne Plugin
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/optimiz-sevone-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Oracle
+  app: Oracle Cloud Infrastructure Logs
+  partner: oracle
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/oci-logs-datasource/
+  category: Data Source
+  partner_domain: oracle.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Oracle
+  app: Oracle Cloud Infrastructure Metrics
+  partner: oracle
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/oci-metrics-datasource/
+  category: Data Source
+  partner_domain: oracle.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Oracle Database
+  app: Oracle Database
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-oracle-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Orchestra Cities by Martel
+  app: Orchestra Cities Icon Stat Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/orchestracities-iconstat-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Orchestra Cities by Martel
+  app: Orchestra Cities Map
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/orchestracities-map-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: timomyl
+  app: Organisations
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/timomyl-organisations-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: blueswen
+  app: Organization Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/blueswen-organization-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Grid Protection Alliance
+  app: OSIsoft-PI
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/gridprotectionalliance-osisoftpi-datasource/
+  category: Data Source
+  partner_domain: gridprotectionalliance.org
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: PagerDuty
+  app: PagerDuty
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-pagerduty-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Smile
+  app: Palindrome.js
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/smile-palindromejs-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: isaozler
+  app: Pareto Chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/isaozler-paretochart-panel/
+  category: Panel
+  partner_domain: isaozler.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: tobiasworkstech
+  app: Parquet-S3-Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tobiasworkstech-parquets3-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: parseable
+  app: Parseable
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/parseable-parseable-datasource/
+  category: Data Source
+  partner_domain: parseable.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Niko Schmuck
+  app: Percentage Trend
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/nikosc-percenttrend-panel/
+  category: Panel
+  partner_domain: nava.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: sskgo
+  app: PerfCurve
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sskgo-perfcurve-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Performance Co-Pilot
+  app: Performance Co-Pilot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/performancecopilot-pcp-app/
+  category: Application
+  partner_domain: pcp.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: philipsgis
+  app: Phlowchart
+  partner: philips
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/philipsgis-phlowchart-panel/
+  category: Panel
+  partner_domain: philips.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: pixie
+  app: Pixie Grafana Datasource Plugin
+  partner: pixie
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/pixie-pixie-datasource/
+  category: Data Source
+  partner_domain: px.dev
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: nLine
+  app: Plotly
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/nline-plotlyjs-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: ae3e
+  app: Plotly panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ae3e-plotly-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: sni
+  app: PNP
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sni-pnp-datasource/
+  category: Data Source
+  partner_domain: consol.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Polystat
+  app: Polystat
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-polystat-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: PostgreSQL
+  app: PostgreSQL
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-postgresql-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: crestdata
+  app: Prisma Compute
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-prismacompute-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Prometheus
+  app: Prometheus
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/prometheus/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Prometheus Alerting
+  app: Prometheus Alerting
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-prometheusalerting-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: camptocamp
+  app: Prometheus AlertManager Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/camptocamp-prometheus-alertmanager-datasource/
+  category: Data Source
+  partner_domain: camptocamp.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: Proofpoint Tap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-proofpointtap-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: ventura
+  app: Psychart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ventura-psychrometric-panel/
+  category: Panel
+  partner_domain: nersc.gov
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: ventura
+  app: Pumpchart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ventura-pumpchart-panel/
+  category: Panel
+  partner_domain: nersc.gov
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: nyrix
+  app: Pyris
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/nyrix-pyris-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: betatech
+  app: QR code
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/betatech-qrcode-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: questdb
+  app: QuestDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/questdb-questdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: quickwit
+  app: Quickwit
+  partner: quickwit
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/quickwit-quickwit-datasource/
+  category: Data Source
+  partner_domain: quickwit.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: maormil
+  app: Rabbitmq
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/maormil-rabbitmq-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: teuwsenservices
+  app: Radio Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/teuwsenservices-radio-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: anyline
+  app: Range Slider Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/anyline-rangeslider-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Redis
+  app: Redis
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/redis-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Redis
+  app: Redis Application
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/redis-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Redis
+  app: Redis Explorer
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/redis-explorer-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: ccin2p3
+  app: Riemann streams
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ccin2p3-riemann-datasource/
+  category: Data Source
+  partner_domain: '['
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: g42
+  app: rqlite
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/g42-rqlite-datasource/
+  category: Data Source
+  partner_domain: rqlite.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: Rubrik Security Cloud
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-rubriksecuritycloud-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Salesforce
+  app: Salesforce
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-salesforce-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: netsage
+  app: Sankey Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/netsage-sankey-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: SAP HANA®
+  app: SAP HANA®
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-saphana-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: lucasbremond
+  app: Satellite Visualizer
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/lucasbremond-satellitevisualizer-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: scadavis
+  app: SCADAvis Synoptic Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/scadavis-synoptic-panel/
+  category: Panel
+  partner_domain: scadavis.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: michaeldmoore
+  app: Scatter
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/michaeldmoore-scatter-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Sentry
+  app: Sentry
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-sentry-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Novatec Consulting GmbH
+  app: Service Dependency Graph
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/novatec-sdg-panel/
+  category: Panel
+  partner_domain: novatec-gmbh.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: ServiceNow
+  app: ServiceNow
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-servicenow-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: crestdata
+  app: SharePoint
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-sharepoint-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: isaozler
+  app: Shift Selector
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/isaozler-shiftselector-panel/
+  category: Panel
+  partner_domain: isaozler.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: boazreicher
+  app: Sierra Plot
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/boazreicher-sierraplot-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Sift
+  app: Sift
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sift-grafana-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: tkurki
+  app: Signal K
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tkurki-signalk-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: innius
+  app: simple grpc datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/innius-grpc-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: monyskow
+  app: Simple OPC-UA
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/monyskow-simpleopcua-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: apache
+  app: SkyWalking
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/apache-skywalking-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: netsage
+  app: Slope Graph Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/netsage-slopegraph-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: sarika1731
+  app: Smart Analytics Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sarika1731-smartanalytics-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Snowflake
+  app: Snowflake
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-snowflake-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: lehmannch
+  app: Solar Flow
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/lehmannch-flow-panel/
+  category: Panel
+  partner_domain: lehmann.ch
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Solarwinds
+  app: Solarwinds
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-solarwinds-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Flanders Make
+  app: SPARQL
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/flandersmake-sparql-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Kenso Software
+  app: SPC Bullet
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spcbullet-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Kenso Software
+  app: SPC CAD
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spccad-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Kenso Software
+  app: SPC Characteristic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spccharacteristic-datasource/
+  category: Data Source
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Kenso Software
+  app: SPC Chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spc-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Kenso Software
+  app: SPC Chart PRO
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spcchartpro-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Kenso Software
+  app: SPC Histogram
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spchistogram-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Kenso Software
+  app: SPC Pareto
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/kensobi-spcpareto-panel/
+  category: Panel
+  partner_domain: kensobi.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: dzaczek
+  app: Split Flap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dzaczek-splitflap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Splunk
+  app: Splunk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-splunk-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Splunk Infrastructure Monitoring
+  app: Splunk Infrastructure Monitoring
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-splunk-monitoring-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: frser
+  app: SQLite
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/frser-sqlite-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Sqlyze Datasource
+  app: Sqlyze Datasource
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-odbc-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: serrrios
+  app: Status Overview Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/serrrios-statusoverview-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Vonage
+  app: Status Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/vonage-status-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Tech Ben
+  app: Status Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/benjaminfourmaux-status-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Strava
+  app: Strava
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-strava-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Streamr
+  app: Streamr
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/streamr-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Sumo Logic
+  app: Sumo Logic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-sumologic-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: fetzerch
+  app: Sun and Moon
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/fetzerch-sunandmoon-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: fiskaly
+  app: SurrealDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/fiskaly-surrealdb-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Synthetic Monitoring
+  app: Synthetic Monitoring
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-synthetic-monitoring-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: smelentyev
+  app: Table with Column Grouping
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/smelentyev-tablecolumngrouping-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: Tableau
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-tableau-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Tanium
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-tanium-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: Team Advanced Visualization Solutions
+  app: TAVS Spinner
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/tavs-spinner-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Tempo
+  app: Tempo
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/tempo/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: sni
+  app: Thruk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/sni-thruk-datasource/
+  category: Data Source
+  partner_domain: consol.de
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: williamvenner
+  app: Timepicker Buttons Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/williamvenner-timepickerbuttons-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: bsull
+  app: Tokio Console
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/bsull-console-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: tracehouse
+  app: TraceHouse
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/dmkskd-tracehouse-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: pr0ps
+  app: TrackMap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/pr0ps-trackmap-panel/
+  category: Panel
+  partner_domain: cmetcalfe.ca
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: heywesty
+  app: Traffic Light
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/heywesty-trafficlight-panel/
+  category: Panel
+  partner_domain: heywesty.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: pgillich
+  app: Tree View
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/pgillich-tree-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Treemap
+  app: Treemap
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/marcusolsson-treemap-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Arnaud Marchand
+  app: Trend Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/snuids-trend-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: trino
+  app: Trino
+  partner: trino
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/trino-datasource/
+  category: Data Source
+  partner_domain: trino.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: factry
+  app: Untimely
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/factry-untimely-panel/
+  category: Panel
+  partner_domain: factry.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: akdor1154
+  app: Vega
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/akdor1154-vega-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Vertica
+  app: Vertica
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/vertica-grafana-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: VictoriaMetrics
+  app: VictoriaLogs
+  partner: victoriametrics
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/victoriametrics-logs-datasource/
+  category: Data Source
+  partner_domain: victoriametrics.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: VictoriaMetrics
+  app: VictoriaMetrics
+  partner: victoriametrics
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/victoriametrics-metrics-datasource/
+  category: Data Source
+  partner_domain: victoriametrics.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: innius
+  app: Video
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/innius-video-panel/
+  category: Panel
+  partner_domain: innius.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: crestdata
+  app: VMware vSphere
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-vmwarevsphere-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: auxmoney-plugins
+  app: Waterfall Panel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/auxmoney-waterfall-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Wavefront
+  app: Wavefront
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-wavefront-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: armanfeyzi
+  app: Wazuh
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/armanfeyzi-wazuh-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: lework
+  app: Website Navigation
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/lework-lenav-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Golioth
+  app: WebSocket API
+  partner: golioth
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/golioth-websocket-datasource/
+  category: Data Source
+  partner_domain: golioth.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Lavender Shannon
+  app: Wild GraphQL Data Source
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/retrodaredevil-wildgraphql-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: magnesium
+  app: Word cloud
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/magnesium-wordcloud-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: XYZ Chart
+  app: XYZ Chart
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-xyzchart-panel/
+  category: Panel
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: ydbtech
+  app: YDB
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ydbtech-ydb-datasource/
+  category: Data Source
+  partner_domain: ydb.tech
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Yugabyte
+  app: Yugabyte
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-yugabyte-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Zabbix
+  app: Zabbix
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/alexanderzobnin-zabbix-app/
+  category: Application
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: Zendesk
+  app: Zendesk
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/grafana-zendesk-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: gabrielthomasjacobs
+  app: Zendesk Datasource Plugin
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/gabrielthomasjacobs-zendesk-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:community
+- partner_name: Zipkin
+  app: Zipkin
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://grafana.com/grafana/plugins/zipkin/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:grafana
+- partner_name: crestdata
+  app: Zoom
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-zoom-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Zscaler ZDX
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-zscalerzdx-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Zscaler ZIA
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-zscalerzia-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Zscaler ZPA
+  partner: null
+  partner_match: null
+  partner_candidate: zscaler
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-zscalerzpa-datasource/
+  category: Data Source
+  partner_domain: zscaler.com
+  detected_by: sweep-observability.py
+  detected: '2026-10-13'
+  badges:
+  - signature:commercial
+source:
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
+- https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
+- https://grafana.com/grafana/plugins/
