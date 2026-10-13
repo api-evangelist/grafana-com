@@ -60,6 +60,9 @@ maintainers:
   X: apievangelist
   url: https://apievangelist.com
 common:
+- type: CapabilityMap
+  url: capabilities/grafana-com-capability-edges.yml
+  name: Grafana Business Capability Map
 - type: AgenticAccess
   url: agentic-access/grafana-com-agentic-access.yml
 - type: FinOps
