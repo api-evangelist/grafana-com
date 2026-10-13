@@ -704,7 +704,7 @@
   arazzo: null
 - slug: grafana-com-axiom
   label: Axiom
-  partner: axiom
+  partner: axiom-co
   partner_name: Axiom
   category: Data Source
   type: marketplace

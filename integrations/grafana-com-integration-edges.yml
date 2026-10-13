@@ -1026,7 +1026,7 @@ edges:
   - signature:grafana
 - partner_name: Axiom
   app: Axiom
-  partner: axiom
+  partner: axiom-co
   partner_match: domain+name-among-holders
   partner_candidate: null
   type: marketplace
