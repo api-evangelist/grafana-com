@@ -1,6 +1,8 @@
 generated: '2026-10-13'
 method: searched
 checked:
+- https://aws.amazon.com/marketplace/
+- https://azuremarketplace.microsoft.com/
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
 - https://grafana.com/grafana/plugins/
@@ -6326,6 +6328,38 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:commercial
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=d104b10b-1189-4137-a9a4-d4520ea54ca7
+  listing_count: 2
+  apps:
+  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
+  - Grafana Cloud Bring Your Own Cloud (BYOC)
+  seller_name: Grafana Labs
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=Grafana%20Labs
+  listing_count: 2
+  apps:
+  - Azure Managed Grafana - Enterprise Plugins and Support
+  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
+  seller_name: Grafana Labs
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/

@@ -3807,3 +3807,27 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: grafana-com-aws-marketplace
+  label: AWS Marketplace
+  partner: amazon-web-services
+  partner_name: AWS Marketplace
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=d104b10b-1189-4137-a9a4-d4520ea54ca7
+  source: edge
+  relationship: distribution-channel
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-microsoft-azure-marketplace
+  label: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_name: Microsoft Azure Marketplace
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=Grafana%20Labs
+  source: edge
+  relationship: distribution-channel
+  status: not-a-workflow
+  arazzo: null
