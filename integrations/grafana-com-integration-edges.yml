@@ -3,9 +3,11 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://azuremarketplace.microsoft.com/
+- https://github.com/marketplace?type=actions
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
 - https://grafana.com/grafana/plugins/
+- https://marketplace.visualstudio.com/vscode
 marketplace_apps:
 - marketplace: own
   channel: partner-built
@@ -6360,6 +6362,46 @@ edges:
   seller_name: Grafana Labs
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/run-grafana-k6-tests
+  listing_count: 4
+  apps:
+  - Run Grafana k6 tests
+  - Setup Grafana k6
+  - k6registry
+  - Setup xk6
+  publisher_name: Grafana Labs
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/Grafana
+  listing_count: 3
+  apps:
+  - Jsonnet Language Server
+  - Grafana Alloy
+  - Grafana
+  publisher_name: Grafana
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
