@@ -3,6 +3,9 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://azuremarketplace.microsoft.com/
+- https://focus.finops.org/data-generators/
+- https://github.com/cncf/k8s-conformance
+- https://github.com/cncf/landscape
 - https://github.com/marketplace?type=actions
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
@@ -6402,6 +6405,67 @@ edges:
   - Verified domain
   detected_by: sweep-devtools.py
   detected: '2026-10-14'
+- partner_name: CNCF (Cloud Native Landscape)
+  partner: cncf
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Cloud native landscape
+  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    spec_file: null
+    standard: Cloud Native (CNCF)
+    role: cncf-member (Silver)
+    registered_name: Grafana Labs
+    registered_names:
+    - Grafana
+    - Grafana Labs
+    - Grafana Mimir
+    - Grafana Pyroscope
+    website: https://grafana.com
+    matched_domain: grafana.com
+    matched_by: domain+verified
+    member_tier: Silver
+    joined: '2017-11-01'
+    end_user: false
+    cncf_projects: []
+    landscape_categories:
+    - Observability and Analysis / Observability
+    landscape_entries: 3
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-cloud-native.py
+    detected: '2026-10-15'
+  detected_by: sweep-cloud-native.py
+  first_seen: '2026-10-15'
+- partner_name: FinOps Foundation (FOCUS)
+  partner: finops-foundation
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: FOCUS billing data
+  evidence: https://focus.finops.org/docs/implementation/data-generators/grafana/
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: FOCUS data generators (focus.finops.org/data-generators)
+    spec_file: null
+    standard: FOCUS (FinOps Open Cost and Usage Specification)
+    role: focus-data-generator
+    registered_name: Grafana
+    matched_domain: grafana.com
+    matched_by: domain+name-among-holders
+    focus_version_supported: '1.2'
+    page_domains:
+      grafana.com: 1
+    signal_note: 'participation only: the version is context, never read'
+    detected_by: sweep-cloud-native.py
+    detected: '2026-10-15'
+  detected_by: sweep-cloud-native.py
+  first_seen: '2026-10-15'
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
