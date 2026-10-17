@@ -114,27 +114,6 @@ paths:
       - basic: []
 components:
   schemas:
-    Duration:
-      description: 'A Duration represents the elapsed time between two instants
-
-        as an int64 nanosecond count. The representation limits the
-
-        largest representable duration to approximately 290 years.'
-      type: integer
-      format: int64
-    ActiveSyncStatusDTO:
-      description: ActiveSyncStatusDTO holds the information for LDAP background Sync
-      type: object
-      properties:
-        enabled:
-          type: boolean
-        nextSync:
-          type: string
-          format: date-time
-        prevSync:
-          $ref: '#/components/schemas/SyncResult'
-        schedule:
-          type: string
     ErrorResponseBody:
       type: object
       required:
@@ -152,6 +131,19 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    ActiveSyncStatusDTO:
+      description: ActiveSyncStatusDTO holds the information for LDAP background Sync
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        nextSync:
+          type: string
+          format: date-time
+        prevSync:
+          $ref: '#/components/schemas/SyncResult'
+        schedule:
+          type: string
     FailedUser:
       description: FailedUser holds the information of an user that failed
       type: object
@@ -165,6 +157,14 @@ components:
       properties:
         message:
           type: string
+    Duration:
+      description: 'A Duration represents the elapsed time between two instants
+
+        as an int64 nanosecond count. The representation limits the
+
+        largest representable duration to approximately 290 years.'
+      type: integer
+      format: int64
     SyncResult:
       type: object
       title: SyncResult holds the result of a sync with LDAP. This gives us information on which users were updated and how.
@@ -195,14 +195,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    goneError:
-      description: GoneError is returned when the requested endpoint was removed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
@@ -219,8 +213,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    goneError:
+      description: GoneError is returned when the requested endpoint was removed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:

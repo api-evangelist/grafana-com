@@ -352,8 +352,6 @@ paths:
         required: true
 components:
   schemas:
-    Password:
-      type: string
     AdminCreateUserForm:
       type: object
       properties:
@@ -368,29 +366,11 @@ components:
           format: int64
         password:
           $ref: '#/components/schemas/Password'
-    ErrorResponseBody:
+    SuccessResponseBody:
       type: object
-      required:
-      - message
       properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
         message:
-          description: a human readable version of the error
           type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    RevokeAuthTokenCmd:
-      type: object
-      properties:
-        authTokenId:
-          type: integer
-          format: int64
     UserToken:
       description: UserToken represents a user token
       type: object
@@ -431,6 +411,49 @@ components:
         UserId:
           type: integer
           format: int64
+    RevokeAuthTokenCmd:
+      type: object
+      properties:
+        authTokenId:
+          type: integer
+          format: int64
+    Password:
+      type: string
+    UpdateQuotaCmd:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        target:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    AdminUpdateUserPasswordForm:
+      type: object
+      properties:
+        password:
+          $ref: '#/components/schemas/Password'
+    AdminUpdateUserPermissionsForm:
+      type: object
+      properties:
+        isGrafanaAdmin:
+          type: boolean
     AdminCreateUserResponse:
       type: object
       properties:
@@ -440,24 +463,6 @@ components:
         message:
           type: string
         uid:
-          type: string
-    AdminUpdateUserPermissionsForm:
-      type: object
-      properties:
-        isGrafanaAdmin:
-          type: boolean
-    AdminUpdateUserPasswordForm:
-      type: object
-      properties:
-        password:
-          $ref: '#/components/schemas/Password'
-    UpdateQuotaCmd:
-      type: object
-      properties:
-        limit:
-          type: integer
-          format: int64
-        target:
           type: string
     QuotaDTO:
       type: object
@@ -476,38 +481,9 @@ components:
         user_id:
           type: integer
           format: int64
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
   responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    preconditionFailedError:
-      description: PreconditionFailedError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    adminCreateUserResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AdminCreateUserResponse'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
@@ -518,8 +494,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    adminCreateUserResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AdminCreateUserResponse'
+    preconditionFailedError:
+      description: PreconditionFailedError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
@@ -532,6 +520,24 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/QuotaDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     adminGetUserAuthTokensResponse:
       description: (empty)
       content:
@@ -540,12 +546,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/UserToken'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

@@ -596,85 +596,205 @@ paths:
               $ref: '#/components/schemas/MetricRequest'
         required: true
 components:
+  responses:
+    deleteCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteCorrelationResponseBody'
+    queryMetricsWithExpressionsRespons:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryDataResponse'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCorrelationResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    createOrUpdateDatasourceResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - name
+            - message
+            - datasource
+            properties:
+              datasource:
+                $ref: '#/components/schemas/DataSource'
+              id:
+                description: ID Identifier of the new data source.
+                type: integer
+                format: int64
+                example: 65
+              message:
+                description: Message Message of the deleted dashboard.
+                type: string
+                example: Data source added
+              name:
+                description: Name of the new data source.
+                type: string
+                example: My Data source
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    updateCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCorrelationResponseBody'
+    getCorrelationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCorrelationsBySourceUIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    deleteDataSourceByNameResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            - message
+            properties:
+              id:
+                description: ID Identifier of the deleted data source.
+                type: integer
+                format: int64
+                example: 65
+              message:
+                description: Message Message of the deleted dashboard.
+                type: string
+                example: Dashboard My Dashboard deleted
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getDataSourceResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataSource'
+    getDataSourceIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - id
+            properties:
+              id:
+                description: ID Identifier of the data source.
+                type: integer
+                format: int64
+                example: 65
+    getCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Correlation'
+    getDataSourcesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DataSourceList'
+    conflictError:
+      description: ConflictError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    Json:
-      type: object
-    CorrelationConfigUpdateDTO:
-      type: object
-      properties:
-        field:
-          description: Field used to attach the correlation link
-          type: string
-          example: message
-        target:
-          description: Target data query
-          type: object
-          additionalProperties: {}
-          example:
-            prop1: value1
-            prop2: value
-        transformations:
-          description: Source data transformations
-          type: array
-          items:
-            $ref: '#/components/schemas/Transformation'
-          example:
-          - type: logfmt
-          - expression: (Superman|Batman)
-            type: regex
-            variable: name
-    InternalDataLink:
-      description: InternalDataLink definition to allow Explore links to be constructed in the backend
+    ExplorePanelsState:
+      description: This is an object constructed with the keys as the values of the enum VisType and the value being a bag of properties
+    DataSourceListItemDTO:
       type: object
       properties:
-        datasourceName:
-          type: string
-        datasourceUid:
-          type: string
-        panelsState:
-          $ref: '#/components/schemas/ExplorePanelsState'
-        query: {}
-        timeRange:
-          $ref: '#/components/schemas/TimeRange'
-        transformations:
-          type: array
-          items:
-            $ref: '#/components/schemas/LinkTransformationConfig'
-    QueryDataResponse:
-      description: It is the return type of a QueryData call.
-      type: object
-      title: QueryDataResponse contains the results from a QueryDataRequest.
-      properties:
-        results:
-          $ref: '#/components/schemas/Responses'
-    VisType:
-      type: string
-      title: VisType is used to indicate how the data should be visualized in explore.
-    CreateCorrelationCommand:
-      description: CreateCorrelationCommand is the command for creating a correlation
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/CorrelationConfig'
-        description:
-          description: Optional description of the correlation
-          type: string
-          example: Logs to Traces
-        label:
-          description: Optional label identifying the correlation
-          type: string
-          example: My label
-        provisioned:
-          description: True if correlation was created with provisioning. This makes it read-only.
+        access:
+          $ref: '#/components/schemas/DsAccess'
+        basicAuth:
           type: boolean
-        targetUID:
-          description: Target data source UID to which the correlation is created. required if type = query
+        database:
           type: string
-          example: PE1C5CBDA0504A6A3
+        id:
+          type: integer
+          format: int64
+        isDefault:
+          type: boolean
+        jsonData:
+          $ref: '#/components/schemas/Json'
+        name:
+          type: string
+        orgId:
+          type: integer
+          format: int64
+        readOnly:
+          type: boolean
         type:
-          $ref: '#/components/schemas/CorrelationType'
-    SupportedTransformationTypes:
-      type: string
+          type: string
+        typeLogoUrl:
+          type: string
+        typeName:
+          type: string
+        uid:
+          type: string
+        url:
+          type: string
+        user:
+          type: string
     CorrelationConfig:
       type: object
       required:
@@ -696,28 +816,67 @@ components:
           $ref: '#/components/schemas/Transformations'
         type:
           $ref: '#/components/schemas/CorrelationType'
-    ErrorResponseBody:
+    FrameMeta:
+      description: 'https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L11
+
+        NOTE -- in javascript this can accept any `[key: string]: any;` however
+
+        this interface only exposes the values we want to be exposed'
       type: object
-      required:
-      - message
+      title: 'FrameMeta matches:'
       properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+        channel:
+          description: Channel is the path to a stream in grafana live that has real-time updates for this data.
           type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
+        custom:
+          description: Custom datasource specific values.
+        dataTopic:
+          $ref: '#/components/schemas/DataTopic'
+        executedQueryString:
+          description: 'ExecutedQueryString is the raw query sent to the underlying system. All macros and templating
 
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+            have been applied.  When metadata contains this value, it will be shown in the query inspector.'
           type: string
-    ValueMapping:
-      description: ValueMapping allows mapping input values to text and color
-      type: object
-    DsAccess:
-      type: string
+        notices:
+          description: 'Notices provide additional information about the data in the Frame that
+
+            Grafana can display to the user in the user interface.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Notice'
+        path:
+          description: Path is a browsable path on the datasource.
+          type: string
+        pathSeparator:
+          description: PathSeparator defines the separator pattern to decode a hierarchy. The default separator is '/'.
+          type: string
+        preferredVisualisationPluginId:
+          description: 'PreferredVisualizationPluginId sets the panel plugin id to use to render the data when using Explore. If
+
+            the plugin cannot be found will fall back to PreferredVisualization.'
+          type: string
+        preferredVisualisationType:
+          $ref: '#/components/schemas/VisType'
+        stats:
+          description: Stats is an array of query result statistics.
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryStat'
+        type:
+          $ref: '#/components/schemas/FrameType'
+        typeVersion:
+          $ref: '#/components/schemas/FrameTypeVersion'
+        uniqueRowIdFields:
+          description: 'Array of field indices which values create a unique id for each row. Ideally this should be globally unique ID
+
+            but that isn''t guarantied. Should help with keeping track and deduplicating rows in visualizations, especially
+
+            with streaming data with frequent updates.'
+          type: array
+          items:
+            type: integer
+            format: int64
+          example: TraceID in Tempo, table name + primary key in SQL
     FieldConfig:
       type: object
       title: FieldConfig represents the display properties for a Field.
@@ -791,6 +950,424 @@ components:
         writeable:
           description: Writeable indicates that the datasource knows how to update this value
           type: boolean
+    CorrelationConfigUpdateDTO:
+      type: object
+      properties:
+        field:
+          description: Field used to attach the correlation link
+          type: string
+          example: message
+        target:
+          description: Target data query
+          type: object
+          additionalProperties: {}
+          example:
+            prop1: value1
+            prop2: value
+        transformations:
+          description: Source data transformations
+          type: array
+          items:
+            $ref: '#/components/schemas/Transformation'
+          example:
+          - type: logfmt
+          - expression: (Superman|Batman)
+            type: regex
+            variable: name
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    Responses:
+      description: 'The QueryData method the QueryDataHandler method will set the RefId
+
+        property on the DataResponses'' frames based on these RefIDs.'
+      type: object
+      title: Responses is a map of RefIDs (Unique Query ID) to DataResponses.
+      additionalProperties:
+        $ref: '#/components/schemas/DataResponse'
+    QueryDataResponse:
+      description: It is the return type of a QueryData call.
+      type: object
+      title: QueryDataResponse contains the results from a QueryDataRequest.
+      properties:
+        results:
+          $ref: '#/components/schemas/Responses'
+    Source:
+      type: string
+      title: Source type defines the status source.
+    DataTopic:
+      type: string
+      title: DataTopic is used to identify which topic the frame should be assigned to.
+    InternalDataLink:
+      description: InternalDataLink definition to allow Explore links to be constructed in the backend
+      type: object
+      properties:
+        datasourceName:
+          type: string
+        datasourceUid:
+          type: string
+        panelsState:
+          $ref: '#/components/schemas/ExplorePanelsState'
+        query: {}
+        timeRange:
+          $ref: '#/components/schemas/TimeRange'
+        transformations:
+          type: array
+          items:
+            $ref: '#/components/schemas/LinkTransformationConfig'
+    DeleteCorrelationResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation deleted
+    AddDataSourceCommand:
+      description: Also acts as api DTO
+      type: object
+      properties:
+        access:
+          $ref: '#/components/schemas/DsAccess'
+        basicAuth:
+          type: boolean
+        basicAuthUser:
+          type: string
+        database:
+          type: string
+        isDefault:
+          type: boolean
+        jsonData:
+          $ref: '#/components/schemas/Json'
+        name:
+          type: string
+        secureJsonData:
+          type: object
+          additionalProperties:
+            type: string
+        type:
+          type: string
+        uid:
+          type: string
+        url:
+          type: string
+        user:
+          type: string
+        withCredentials:
+          type: boolean
+    SupportedTransformationTypes:
+      type: string
+    ThresholdsConfig:
+      description: ThresholdsConfig setup thresholds
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/ThresholdsMode'
+        steps:
+          description: Must be sorted by 'value', first value is always -Infinity
+          type: array
+          items:
+            $ref: '#/components/schemas/Threshold'
+    Notice:
+      type: object
+      title: Notice provides a structure for presenting notifications in Grafana's user interface.
+      properties:
+        inspect:
+          $ref: '#/components/schemas/InspectType'
+        link:
+          description: 'Link is an optional link for display in the user interface and can be an
+
+            absolute URL or a path relative to Grafana''s root url.'
+          type: string
+        severity:
+          $ref: '#/components/schemas/NoticeSeverity'
+        text:
+          description: Text is freeform descriptive text for the notice.
+          type: string
+    DsAccess:
+      type: string
+    Status:
+      type: integer
+      format: int64
+    DataSourceList:
+      type: array
+      items:
+        $ref: '#/components/schemas/DataSourceListItemDTO'
+    Frame:
+      description: 'Each Field is well typed by its FieldType and supports optional Labels.
+
+
+        A Frame is a general data container for Grafana. A Frame can be table data
+
+        or time series data depending on its content and field types.'
+      type: object
+      title: Frame is a columnar data structure where each column is a Field.
+      properties:
+        Fields:
+          description: 'Fields are the columns of a frame.
+
+            All Fields must be of the same the length when marshalling the Frame for transmission.
+
+            There should be no `nil` entries in the Fields slice (making them pointers was a mistake).'
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+        Meta:
+          $ref: '#/components/schemas/FrameMeta'
+        Name:
+          description: Name is used in some Grafana visualizations.
+          type: string
+        RefID:
+          description: RefID is a property that can be set to match a Frame to its originating query.
+          type: string
+    UpdateDataSourceCommand:
+      description: Also acts as api DTO
+      type: object
+      properties:
+        access:
+          $ref: '#/components/schemas/DsAccess'
+        basicAuth:
+          type: boolean
+        basicAuthUser:
+          type: string
+        database:
+          type: string
+        isDefault:
+          type: boolean
+        jsonData:
+          $ref: '#/components/schemas/Json'
+        name:
+          type: string
+        secureJsonData:
+          type: object
+          additionalProperties:
+            type: string
+        type:
+          type: string
+        uid:
+          type: string
+        url:
+          type: string
+        user:
+          type: string
+        version:
+          description: The previous version -- used for optimistic locking
+          type: integer
+          format: int64
+        withCredentials:
+          type: boolean
+    LinkTransformationConfig:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          $ref: '#/components/schemas/SupportedTransformationTypes'
+    FieldTypeConfig:
+      description: FieldTypeConfig has type specific configs, only one should be active at a time
+      type: object
+      properties:
+        enum:
+          $ref: '#/components/schemas/EnumFieldConfig'
+    EnumFieldConfig:
+      description: 'Enum field config
+
+        Vector values are used as lookup keys into the enum fields'
+      type: object
+      properties:
+        color:
+          description: Color is the color value for a given index (empty is undefined)
+          type: array
+          items:
+            type: string
+        description:
+          description: Description of the enum state
+          type: array
+          items:
+            type: string
+        icon:
+          description: Icon supports setting an icon for a given index value
+          type: array
+          items:
+            type: string
+        text:
+          description: Value is the string display value for a given index
+          type: array
+          items:
+            type: string
+    ConfFloat64:
+      description: 'ConfFloat64 is a float64. It Marshals float64 values of NaN of Inf
+
+        to null.'
+      type: number
+      format: double
+    FrameTypeVersion:
+      type: array
+      title: FrameType is a 2 number version (Major / Minor).
+      items:
+        type: integer
+        format: uint64
+    ThresholdsMode:
+      description: ThresholdsMode absolute or percentage
+      type: string
+    ValueMappings:
+      type: array
+      items:
+        $ref: '#/components/schemas/ValueMapping'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    Correlation:
+      description: Correlation is the model for correlations definitions
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfig'
+        description:
+          description: Description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Label identifying the correlation
+          type: string
+          example: My Label
+        orgId:
+          description: OrgID of the data source the correlation originates from
+          type: integer
+          format: int64
+          example: 1
+        provisioned:
+          description: Provisioned True if the correlation was created during provisioning
+          type: boolean
+        sourceUID:
+          description: UID of the data source the correlation originates from
+          type: string
+          example: d0oxYRg4z
+        targetUID:
+          description: UID of the data source the correlation points to
+          type: string
+          example: PE1C5CBDA0504A6A3
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+        uid:
+          description: Unique identifier of the correlation
+          type: string
+          example: 50xhMlg9k
+    Metadata:
+      description: 'Metadata contains user accesses for a given resource
+
+        Ex: map[string]bool{"create":true, "delete": true}'
+      type: object
+      additionalProperties:
+        type: boolean
+    UpdateCorrelationResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation updated
+        result:
+          $ref: '#/components/schemas/Correlation'
+    Json:
+      type: object
+    FrameLabels:
+      description: Labels are used to add metadata to an object.  The JSON will always be sorted keys
+      type: object
+      additionalProperties:
+        type: string
+    Transformations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Transformation'
+    CreateCorrelationCommand:
+      description: CreateCorrelationCommand is the command for creating a correlation
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfig'
+        description:
+          description: Optional description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Optional label identifying the correlation
+          type: string
+          example: My label
+        provisioned:
+          description: True if correlation was created with provisioning. This makes it read-only.
+          type: boolean
+        targetUID:
+          description: Target data source UID to which the correlation is created. required if type = query
+          type: string
+          example: PE1C5CBDA0504A6A3
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+    ValueMapping:
+      description: ValueMapping allows mapping input values to text and color
+      type: object
+    DataLink:
+      description: DataLink define what
+      type: object
+      properties:
+        internal:
+          $ref: '#/components/schemas/InternalDataLink'
+        targetBlank:
+          type: boolean
+        title:
+          type: string
+        url:
+          type: string
+    NoticeSeverity:
+      type: integer
+      format: int64
+      title: NoticeSeverity is a type for the Severity property of a Notice.
+    DataResponse:
+      description: 'A map of RefIDs (unique query identifiers) to this type makes up the Responses property of a QueryDataResponse.
+
+        The Error property is used to allow for partial success responses from the containing QueryDataResponse.'
+      type: object
+      title: DataResponse contains the results from a DataQuery.
+      properties:
+        Error:
+          description: Error is a property to be set if the corresponding DataQuery has an error.
+          type: string
+        ErrorSource:
+          $ref: '#/components/schemas/Source'
+        Frames:
+          $ref: '#/components/schemas/Frames'
+        Status:
+          $ref: '#/components/schemas/Status'
+    InspectType:
+      type: integer
+      format: int64
+      title: InspectType is a type for the Inspect property of a Notice.
+    FrameType:
+      description: 'A FrameType string, when present in a frame''s metadata, asserts that the
+
+        frame''s structure conforms to the FrameType''s specification.
+
+        This property is currently optional, so FrameType may be FrameTypeUnknown even if the properties of
+
+        the Frame correspond to a defined FrameType.'
+      type: string
     DataSource:
       type: object
       properties:
@@ -837,150 +1414,9 @@ components:
           format: int64
         withCredentials:
           type: boolean
-    DataSourceListItemDTO:
-      type: object
-      properties:
-        access:
-          $ref: '#/components/schemas/DsAccess'
-        basicAuth:
-          type: boolean
-        database:
-          type: string
-        id:
-          type: integer
-          format: int64
-        isDefault:
-          type: boolean
-        jsonData:
-          $ref: '#/components/schemas/Json'
-        name:
-          type: string
-        orgId:
-          type: integer
-          format: int64
-        readOnly:
-          type: boolean
-        type:
-          type: string
-        typeLogoUrl:
-          type: string
-        typeName:
-          type: string
-        uid:
-          type: string
-        url:
-          type: string
-        user:
-          type: string
-    Transformations:
-      type: array
-      items:
-        $ref: '#/components/schemas/Transformation'
-    AddDataSourceCommand:
-      description: Also acts as api DTO
-      type: object
-      properties:
-        access:
-          $ref: '#/components/schemas/DsAccess'
-        basicAuth:
-          type: boolean
-        basicAuthUser:
-          type: string
-        database:
-          type: string
-        isDefault:
-          type: boolean
-        jsonData:
-          $ref: '#/components/schemas/Json'
-        name:
-          type: string
-        secureJsonData:
-          type: object
-          additionalProperties:
-            type: string
-        type:
-          type: string
-        uid:
-          type: string
-        url:
-          type: string
-        user:
-          type: string
-        withCredentials:
-          type: boolean
-    FrameType:
-      description: 'A FrameType string, when present in a frame''s metadata, asserts that the
-
-        frame''s structure conforms to the FrameType''s specification.
-
-        This property is currently optional, so FrameType may be FrameTypeUnknown even if the properties of
-
-        the Frame correspond to a defined FrameType.'
+    VisType:
       type: string
-    Transformation:
-      type: object
-      properties:
-        expression:
-          type: string
-        field:
-          type: string
-        mapValue:
-          type: string
-        type:
-          type: string
-          enum:
-          - regex
-          - logfmt
-    Frames:
-      description: 'It is the main data container within a backend.DataResponse.
-
-        There should be no `nil` entries in the Frames slice (making them pointers was a mistake).'
-      type: array
-      title: Frames is a slice of Frame pointers.
-      items:
-        $ref: '#/components/schemas/Frame'
-    Correlation:
-      description: Correlation is the model for correlations definitions
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/CorrelationConfig'
-        description:
-          description: Description of the correlation
-          type: string
-          example: Logs to Traces
-        label:
-          description: Label identifying the correlation
-          type: string
-          example: My Label
-        orgId:
-          description: OrgID of the data source the correlation originates from
-          type: integer
-          format: int64
-          example: 1
-        provisioned:
-          description: Provisioned True if the correlation was created during provisioning
-          type: boolean
-        sourceUID:
-          description: UID of the data source the correlation originates from
-          type: string
-          example: d0oxYRg4z
-        targetUID:
-          description: UID of the data source the correlation points to
-          type: string
-          example: PE1C5CBDA0504A6A3
-        type:
-          $ref: '#/components/schemas/CorrelationType'
-        uid:
-          description: Unique identifier of the correlation
-          type: string
-          example: 50xhMlg9k
-    FieldTypeConfig:
-      description: FieldTypeConfig has type specific configs, only one should be active at a time
-      type: object
-      properties:
-        enum:
-          $ref: '#/components/schemas/EnumFieldConfig'
+      title: VisType is used to indicate how the data should be visualized in explore.
     MetricRequest:
       type: object
       required:
@@ -1017,9 +1453,20 @@ components:
           description: To End time in epoch timestamps in milliseconds or relative using Grafana time units.
           type: string
           example: now
-    DataTopic:
-      type: string
-      title: DataTopic is used to identify which topic the frame should be assigned to.
+    Transformation:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          type: string
+          enum:
+          - regex
+          - logfmt
     QueryStat:
       description: 'The embedded FieldConfig''s display name must be set.
 
@@ -1099,348 +1546,6 @@ components:
         writeable:
           description: Writeable indicates that the datasource knows how to update this value
           type: boolean
-    FrameTypeVersion:
-      type: array
-      title: FrameType is a 2 number version (Major / Minor).
-      items:
-        type: integer
-        format: uint64
-    DataLink:
-      description: DataLink define what
-      type: object
-      properties:
-        internal:
-          $ref: '#/components/schemas/InternalDataLink'
-        targetBlank:
-          type: boolean
-        title:
-          type: string
-        url:
-          type: string
-    Notice:
-      type: object
-      title: Notice provides a structure for presenting notifications in Grafana's user interface.
-      properties:
-        inspect:
-          $ref: '#/components/schemas/InspectType'
-        link:
-          description: 'Link is an optional link for display in the user interface and can be an
-
-            absolute URL or a path relative to Grafana''s root url.'
-          type: string
-        severity:
-          $ref: '#/components/schemas/NoticeSeverity'
-        text:
-          description: Text is freeform descriptive text for the notice.
-          type: string
-    Source:
-      type: string
-      title: Source type defines the status source.
-    Frame:
-      description: 'Each Field is well typed by its FieldType and supports optional Labels.
-
-
-        A Frame is a general data container for Grafana. A Frame can be table data
-
-        or time series data depending on its content and field types.'
-      type: object
-      title: Frame is a columnar data structure where each column is a Field.
-      properties:
-        Fields:
-          description: 'Fields are the columns of a frame.
-
-            All Fields must be of the same the length when marshalling the Frame for transmission.
-
-            There should be no `nil` entries in the Fields slice (making them pointers was a mistake).'
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
-        Meta:
-          $ref: '#/components/schemas/FrameMeta'
-        Name:
-          description: Name is used in some Grafana visualizations.
-          type: string
-        RefID:
-          description: RefID is a property that can be set to match a Frame to its originating query.
-          type: string
-    UpdateDataSourceCommand:
-      description: Also acts as api DTO
-      type: object
-      properties:
-        access:
-          $ref: '#/components/schemas/DsAccess'
-        basicAuth:
-          type: boolean
-        basicAuthUser:
-          type: string
-        database:
-          type: string
-        isDefault:
-          type: boolean
-        jsonData:
-          $ref: '#/components/schemas/Json'
-        name:
-          type: string
-        secureJsonData:
-          type: object
-          additionalProperties:
-            type: string
-        type:
-          type: string
-        uid:
-          type: string
-        url:
-          type: string
-        user:
-          type: string
-        version:
-          description: The previous version -- used for optimistic locking
-          type: integer
-          format: int64
-        withCredentials:
-          type: boolean
-    ConfFloat64:
-      description: 'ConfFloat64 is a float64. It Marshals float64 values of NaN of Inf
-
-        to null.'
-      type: number
-      format: double
-    ExplorePanelsState:
-      description: This is an object constructed with the keys as the values of the enum VisType and the value being a bag of properties
-    EnumFieldConfig:
-      description: 'Enum field config
-
-        Vector values are used as lookup keys into the enum fields'
-      type: object
-      properties:
-        color:
-          description: Color is the color value for a given index (empty is undefined)
-          type: array
-          items:
-            type: string
-        description:
-          description: Description of the enum state
-          type: array
-          items:
-            type: string
-        icon:
-          description: Icon supports setting an icon for a given index value
-          type: array
-          items:
-            type: string
-        text:
-          description: Value is the string display value for a given index
-          type: array
-          items:
-            type: string
-    ThresholdsMode:
-      description: ThresholdsMode absolute or percentage
-      type: string
-    InspectType:
-      type: integer
-      format: int64
-      title: InspectType is a type for the Inspect property of a Notice.
-    CorrelationType:
-      description: the type of correlation, either query for containing query information, or external for containing an external URL
-      type: string
-    ValueMappings:
-      type: array
-      items:
-        $ref: '#/components/schemas/ValueMapping'
-    CreateCorrelationResponseBody:
-      description: CreateCorrelationResponse is the response struct for CreateCorrelationCommand
-      type: object
-      properties:
-        message:
-          type: string
-          example: Correlation created
-        result:
-          $ref: '#/components/schemas/Correlation'
-    UpdateCorrelationCommand:
-      description: UpdateCorrelationCommand is the command for updating a correlation
-      type: object
-      properties:
-        config:
-          $ref: '#/components/schemas/CorrelationConfigUpdateDTO'
-        description:
-          description: Optional description of the correlation
-          type: string
-          example: Logs to Traces
-        label:
-          description: Optional label identifying the correlation
-          type: string
-          example: My label
-        type:
-          $ref: '#/components/schemas/CorrelationType'
-    Status:
-      type: integer
-      format: int64
-    Responses:
-      description: 'The QueryData method the QueryDataHandler method will set the RefId
-
-        property on the DataResponses'' frames based on these RefIDs.'
-      type: object
-      title: Responses is a map of RefIDs (Unique Query ID) to DataResponses.
-      additionalProperties:
-        $ref: '#/components/schemas/DataResponse'
-    FrameLabels:
-      description: Labels are used to add metadata to an object.  The JSON will always be sorted keys
-      type: object
-      additionalProperties:
-        type: string
-    ThresholdsConfig:
-      description: ThresholdsConfig setup thresholds
-      type: object
-      properties:
-        mode:
-          $ref: '#/components/schemas/ThresholdsMode'
-        steps:
-          description: Must be sorted by 'value', first value is always -Infinity
-          type: array
-          items:
-            $ref: '#/components/schemas/Threshold'
-    DataSourceList:
-      type: array
-      items:
-        $ref: '#/components/schemas/DataSourceListItemDTO'
-    NoticeSeverity:
-      type: integer
-      format: int64
-      title: NoticeSeverity is a type for the Severity property of a Notice.
-    DeleteCorrelationResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Correlation deleted
-    TimeRange:
-      description: Redefining this to avoid an import cycle
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-        to:
-          type: string
-          format: date-time
-    Threshold:
-      description: Threshold a single step on the threshold list
-      type: object
-      properties:
-        color:
-          type: string
-        state:
-          type: string
-        value:
-          $ref: '#/components/schemas/ConfFloat64'
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-    LinkTransformationConfig:
-      type: object
-      properties:
-        expression:
-          type: string
-        field:
-          type: string
-        mapValue:
-          type: string
-        type:
-          $ref: '#/components/schemas/SupportedTransformationTypes'
-    DataResponse:
-      description: 'A map of RefIDs (unique query identifiers) to this type makes up the Responses property of a QueryDataResponse.
-
-        The Error property is used to allow for partial success responses from the containing QueryDataResponse.'
-      type: object
-      title: DataResponse contains the results from a DataQuery.
-      properties:
-        Error:
-          description: Error is a property to be set if the corresponding DataQuery has an error.
-          type: string
-        ErrorSource:
-          $ref: '#/components/schemas/Source'
-        Frames:
-          $ref: '#/components/schemas/Frames'
-        Status:
-          $ref: '#/components/schemas/Status'
-    FrameMeta:
-      description: 'https://github.com/grafana/grafana/blob/master/packages/grafana-data/src/types/data.ts#L11
-
-        NOTE -- in javascript this can accept any `[key: string]: any;` however
-
-        this interface only exposes the values we want to be exposed'
-      type: object
-      title: 'FrameMeta matches:'
-      properties:
-        channel:
-          description: Channel is the path to a stream in grafana live that has real-time updates for this data.
-          type: string
-        custom:
-          description: Custom datasource specific values.
-        dataTopic:
-          $ref: '#/components/schemas/DataTopic'
-        executedQueryString:
-          description: 'ExecutedQueryString is the raw query sent to the underlying system. All macros and templating
-
-            have been applied.  When metadata contains this value, it will be shown in the query inspector.'
-          type: string
-        notices:
-          description: 'Notices provide additional information about the data in the Frame that
-
-            Grafana can display to the user in the user interface.'
-          type: array
-          items:
-            $ref: '#/components/schemas/Notice'
-        path:
-          description: Path is a browsable path on the datasource.
-          type: string
-        pathSeparator:
-          description: PathSeparator defines the separator pattern to decode a hierarchy. The default separator is '/'.
-          type: string
-        preferredVisualisationPluginId:
-          description: 'PreferredVisualizationPluginId sets the panel plugin id to use to render the data when using Explore. If
-
-            the plugin cannot be found will fall back to PreferredVisualization.'
-          type: string
-        preferredVisualisationType:
-          $ref: '#/components/schemas/VisType'
-        stats:
-          description: Stats is an array of query result statistics.
-          type: array
-          items:
-            $ref: '#/components/schemas/QueryStat'
-        type:
-          $ref: '#/components/schemas/FrameType'
-        typeVersion:
-          $ref: '#/components/schemas/FrameTypeVersion'
-        uniqueRowIdFields:
-          description: 'Array of field indices which values create a unique id for each row. Ideally this should be globally unique ID
-
-            but that isn''t guarantied. Should help with keeping track and deduplicating rows in visualizations, especially
-
-            with streaming data with frequent updates.'
-          type: array
-          items:
-            type: integer
-            format: int64
-          example: TraceID in Tempo, table name + primary key in SQL
-    UpdateCorrelationResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Correlation updated
-        result:
-          $ref: '#/components/schemas/Correlation'
-    Metadata:
-      description: 'Metadata contains user accesses for a given resource
-
-        Ex: map[string]bool{"create":true, "delete": true}'
-      type: object
-      additionalProperties:
-        type: boolean
     Field:
       description: 'A Field is essentially a slice of various types with extra properties and methods.
 
@@ -1460,167 +1565,62 @@ components:
 
             of name and Labels should be unique for proper behavior in all situations.'
           type: string
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    updateCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCorrelationResponseBody'
-    createCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateCorrelationResponseBody'
-    deleteCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DeleteCorrelationResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getDataSourceIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - id
-            properties:
-              id:
-                description: ID Identifier of the data source.
-                type: integer
-                format: int64
-                example: 65
-    queryMetricsWithExpressionsRespons:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/QueryDataResponse'
-    conflictError:
-      description: ConflictError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getDataSourcesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DataSourceList'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Correlation'
-    deleteDataSourceByNameResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - id
-            - message
-            properties:
-              id:
-                description: ID Identifier of the deleted data source.
-                type: integer
-                format: int64
-                example: 65
-              message:
-                description: Message Message of the deleted dashboard.
-                type: string
-                example: Dashboard My Dashboard deleted
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getCorrelationsBySourceUIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Correlation'
-    getDataSourceResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DataSource'
-    createOrUpdateDatasourceResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - id
-            - name
-            - message
-            - datasource
-            properties:
-              datasource:
-                $ref: '#/components/schemas/DataSource'
-              id:
-                description: ID Identifier of the new data source.
-                type: integer
-                format: int64
-                example: 65
-              message:
-                description: Message Message of the deleted dashboard.
-                type: string
-                example: Data source added
-              name:
-                description: Name of the new data source.
-                type: string
-                example: My Data source
-    getCorrelationsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Correlation'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+    CreateCorrelationResponseBody:
+      description: CreateCorrelationResponse is the response struct for CreateCorrelationCommand
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation created
+        result:
+          $ref: '#/components/schemas/Correlation'
+    Frames:
+      description: 'It is the main data container within a backend.DataResponse.
+
+        There should be no `nil` entries in the Frames slice (making them pointers was a mistake).'
+      type: array
+      title: Frames is a slice of Frame pointers.
+      items:
+        $ref: '#/components/schemas/Frame'
+    Threshold:
+      description: Threshold a single step on the threshold list
+      type: object
+      properties:
+        color:
+          type: string
+        state:
+          type: string
+        value:
+          $ref: '#/components/schemas/ConfFloat64'
+    TimeRange:
+      description: Redefining this to avoid an import cycle
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+        to:
+          type: string
+          format: date-time
+    CorrelationType:
+      description: the type of correlation, either query for containing query information, or external for containing an external URL
+      type: string
+    UpdateCorrelationCommand:
+      description: UpdateCorrelationCommand is the command for updating a correlation
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfigUpdateDTO'
+        description:
+          description: Optional description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Optional label identifying the correlation
+          type: string
+          example: My label
+        type:
+          $ref: '#/components/schemas/CorrelationType'
   securitySchemes:
     api_key:
       type: apiKey

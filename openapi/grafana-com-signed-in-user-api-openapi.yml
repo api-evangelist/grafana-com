@@ -321,69 +321,78 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
-    Password:
-      type: string
-    NavbarPreference:
+    ChangeUserPasswordCommand:
       type: object
       properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
-    QueryHistoryPreference:
+        newPassword:
+          $ref: '#/components/schemas/Password'
+        oldPassword:
+          $ref: '#/components/schemas/Password'
+    PatchPrefsCmd:
       type: object
       properties:
-        homeTab:
-          type: string
-    UserOrgDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        orgId:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
           type: integer
           format: int64
-        role:
+          default: 0
+        homeDashboardUID:
           type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
-    UpdateUserCommand:
-      type: object
-      properties:
-        email:
+        language:
           type: string
-        login:
-          type: string
-        name:
-          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
         theme:
           type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          enum:
+          - light
+          - dark
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
           type: string
-        message:
-          description: a human readable version of the error
+        weekStart:
           type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    RevokeAuthTokenCmd:
+    UpdatePrefsCmd:
       type: object
       properties:
-        authTokenId:
+        homeDashboardId:
+          description: 'The numerical :id of a favorited dashboard
+
+            Deprecated: Use HomeDashboardUID instead'
           type: integer
           format: int64
+          default: 0
+        homeDashboardUID:
+          type: string
+        language:
+          type: string
+        navbar:
+          $ref: '#/components/schemas/NavbarPreference'
+        queryHistory:
+          $ref: '#/components/schemas/QueryHistoryPreference'
+        theme:
+          type: string
+          enum:
+          - light
+          - dark
+          - system
+        timezone:
+          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          type: string
+        weekStart:
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    TeamPermissionType:
+      type: integer
+      format: int64
     UserToken:
       description: UserToken represents a user token
       type: object
@@ -424,48 +433,6 @@ components:
         UserId:
           type: integer
           format: int64
-    PreferencesNavbarPreference:
-      type: object
-      properties:
-        bookmarkUrls:
-          type: array
-          items:
-            type: string
-    ChangeUserPasswordCommand:
-      type: object
-      properties:
-        newPassword:
-          $ref: '#/components/schemas/Password'
-        oldPassword:
-          $ref: '#/components/schemas/Password'
-    PatchPrefsCmd:
-      type: object
-      properties:
-        homeDashboardId:
-          description: 'The numerical :id of a favorited dashboard
-
-            Deprecated: Use HomeDashboardUID instead'
-          type: integer
-          format: int64
-          default: 0
-        homeDashboardUID:
-          type: string
-        language:
-          type: string
-        navbar:
-          $ref: '#/components/schemas/NavbarPreference'
-        queryHistory:
-          $ref: '#/components/schemas/QueryHistoryPreference'
-        theme:
-          type: string
-          enum:
-          - light
-          - dark
-        timezone:
-          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
-          type: string
-        weekStart:
-          type: string
     TeamDTO:
       type: object
       required:
@@ -504,9 +471,6 @@ components:
           $ref: '#/components/schemas/TeamPermissionType'
         uid:
           type: string
-    TeamPermissionType:
-      type: integer
-      format: int64
     PreferencesSpec:
       type: object
       properties:
@@ -532,12 +496,14 @@ components:
         weekStart:
           description: day of the week (sunday, monday, etc)
           type: string
-    PreferencesQueryHistoryPreference:
+    RevokeAuthTokenCmd:
       type: object
       properties:
-        homeTab:
-          description: 'one of: '''' | ''query'' | ''starred'';'
-          type: string
+        authTokenId:
+          type: integer
+          format: int64
+    Password:
+      type: string
     UserProfileDTO:
       type: object
       properties:
@@ -585,35 +551,58 @@ components:
         updatedAt:
           type: string
           format: date-time
-    UpdatePrefsCmd:
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    PreferencesNavbarPreference:
       type: object
       properties:
-        homeDashboardId:
-          description: 'The numerical :id of a favorited dashboard
-
-            Deprecated: Use HomeDashboardUID instead'
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
+    UserOrgDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        orgId:
           type: integer
           format: int64
-          default: 0
-        homeDashboardUID:
-          type: string
-        language:
-          type: string
-        navbar:
-          $ref: '#/components/schemas/NavbarPreference'
-        queryHistory:
-          $ref: '#/components/schemas/QueryHistoryPreference'
-        theme:
+        role:
           type: string
           enum:
-          - light
-          - dark
-          - system
-        timezone:
-          description: Any IANA timezone string (e.g. America/New_York), 'utc', 'browser', or empty string
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    PreferencesQueryHistoryPreference:
+      type: object
+      properties:
+        homeTab:
+          description: 'one of: '''' | ''query'' | ''starred'';'
           type: string
-        weekStart:
-          type: string
+    NavbarPreference:
+      type: object
+      properties:
+        bookmarkUrls:
+          type: array
+          items:
+            type: string
     QuotaDTO:
       type: object
       properties:
@@ -631,26 +620,29 @@ components:
         user_id:
           type: integer
           format: int64
-    SuccessResponseBody:
+    QueryHistoryPreference:
       type: object
       properties:
-        message:
+        homeTab:
+          type: string
+    UpdateUserCommand:
+      type: object
+      properties:
+        email:
+          type: string
+        login:
+          type: string
+        name:
+          type: string
+        theme:
           type: string
   responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getSignedInUserOrgListResponse:
+    getPreferencesResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/UserOrgDTO'
+            $ref: '#/components/schemas/PreferencesSpec'
     getUserAuthTokensResponse:
       description: (empty)
       content:
@@ -659,38 +651,20 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/UserToken'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    conflictError:
-      description: ConflictError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getPreferencesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PreferencesSpec'
     okResponse:
       description: An OKResponse is returned if the request was successful.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
@@ -703,6 +677,24 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/QuotaDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
     getSignedInUserTeamListResponse:
       description: (empty)
       content:
@@ -717,8 +709,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UserProfileDTO'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    getSignedInUserOrgListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserOrgDTO'
+    conflictError:
+      description: ConflictError
       content:
         application/json:
           schema:

@@ -33,6 +33,31 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
+    URL:
+      type: string
+      format: url
+    SignatureAlgorithm:
+      type: integer
+      format: int64
+    ExtKeyUsage:
+      description: Each of the ExtKeyUsage* constants define a unique action.
+      type: integer
+      format: int64
+      title: ExtKeyUsage represents an extended set of actions that are valid for a given key.
+    PolicyMapping:
+      type: object
+      title: PolicyMapping represents a policy mapping entry in the policyMappings extension.
+      properties:
+        IssuerDomainPolicy:
+          description: 'IssuerDomainPolicy contains a policy OID the issuing certificate considers
+
+            equivalent to SubjectDomainPolicy in the subject certificate.'
+          type: string
+        SubjectDomainPolicy:
+          description: 'SubjectDomainPolicy contains a OID the issuing certificate considers
+
+            equivalent to IssuerDomainPolicy in the subject certificate.'
+          type: string
     AttributeTypeAndValue:
       description: 'When parsed as part of a pkix.Name structure in a crypto/x509 type,
 
@@ -81,6 +106,23 @@ components:
           items:
             type: integer
             format: uint8
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     JSONWebKey:
       description: 'JSONWebKey represents a public or private key in JWK format. It can be
 
@@ -138,23 +180,6 @@ components:
         Use:
           description: Key use, parsed from `use` header.
           type: string
-    ObjectIdentifier:
-      type: array
-      title: An ObjectIdentifier represents an ASN.1 OBJECT IDENTIFIER.
-      items:
-        type: integer
-        format: int64
-    URL:
-      type: string
-      format: url
-    SignatureAlgorithm:
-      type: integer
-      format: int64
-    ExtKeyUsage:
-      description: Each of the ExtKeyUsage* constants define a unique action.
-      type: integer
-      format: int64
-      title: ExtKeyUsage represents an extended set of actions that are valid for a given key.
     Name:
       description: 'Name represents an X.509 distinguished name. This only includes the common
 
@@ -217,43 +242,35 @@ components:
           type: array
           items:
             type: string
+    IPMask:
+      description: See type [IPNet] and func [ParseCIDR] for details.
+      type: array
+      title: 'An IPMask is a bitmask that can be used to manipulate
+
+        IP addresses for IP addressing and routing.'
+      items:
+        type: integer
+        format: uint8
     KeyUsage:
       description: 'KeyUsage represents the set of actions that are valid for a given key. It''s
 
         a bitmap of the KeyUsage* constants.'
       type: integer
       format: int64
-    PolicyMapping:
+    ObjectIdentifier:
+      type: array
+      title: An ObjectIdentifier represents an ASN.1 OBJECT IDENTIFIER.
+      items:
+        type: integer
+        format: int64
+    IPNet:
       type: object
-      title: PolicyMapping represents a policy mapping entry in the policyMappings extension.
+      title: An IPNet represents an IP network.
       properties:
-        IssuerDomainPolicy:
-          description: 'IssuerDomainPolicy contains a policy OID the issuing certificate considers
-
-            equivalent to SubjectDomainPolicy in the subject certificate.'
+        IP:
           type: string
-        SubjectDomainPolicy:
-          description: 'SubjectDomainPolicy contains a OID the issuing certificate considers
-
-            equivalent to IssuerDomainPolicy in the subject certificate.'
-          type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
+        Mask:
+          $ref: '#/components/schemas/IPMask'
     Certificate:
       type: object
       title: A Certificate represents an X.509 certificate.
@@ -623,23 +640,6 @@ components:
         Version:
           type: integer
           format: int64
-    IPNet:
-      type: object
-      title: An IPNet represents an IP network.
-      properties:
-        IP:
-          type: string
-        Mask:
-          $ref: '#/components/schemas/IPMask'
-    IPMask:
-      description: See type [IPNet] and func [ParseCIDR] for details.
-      type: array
-      title: 'An IPMask is a bitmask that can be used to manipulate
-
-        IP addresses for IP addressing and routing.'
-      items:
-        type: integer
-        format: uint8
     PublicKeyAlgorithm:
       type: integer
       format: int64

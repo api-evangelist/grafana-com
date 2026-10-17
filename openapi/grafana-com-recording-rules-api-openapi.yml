@@ -187,6 +187,28 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
     PrometheusRemoteWriteTargetJSON:
       type: object
       properties:
@@ -227,28 +249,6 @@ components:
           format: int64
         target_ref_id:
           type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
   responses:
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
@@ -256,24 +256,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    recordingRuleWriteTargetResponse:
+      description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    unprocessableEntityError:
-      description: UnprocessableEntityError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
     listRecordingRulesResponse:
       description: (empty)
       content:
@@ -282,26 +276,32 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/RecordingRuleJSON'
-    recordingRuleResponse:
-      description: (empty)
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RecordingRuleJSON'
-    recordingRuleWriteTargetResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PrometheusRemoteWriteTargetJSON'
+            $ref: '#/components/schemas/ErrorResponseBody'
     okResponse:
       description: An OKResponse is returned if the request was successful.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    recordingRuleResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RecordingRuleJSON'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
       content:
         application/json:
           schema:

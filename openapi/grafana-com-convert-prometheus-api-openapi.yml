@@ -459,6 +459,50 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
 components:
   schemas:
+    PrometheusRule:
+      type: object
+      properties:
+        alert:
+          type: string
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+        expr:
+          type: string
+        for:
+          type: string
+        keep_firing_for:
+          type: string
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+        record:
+          type: string
+    ForbiddenError:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/PublicError'
+    NotFound:
+      type: object
+    PublicError:
+      description: 'PublicError is derived from Error and only contains information
+
+        available to the end user.'
+      type: object
+      properties:
+        extra:
+          type: object
+          additionalProperties: {}
+        message:
+          type: string
+        messageId:
+          type: string
+        statusCode:
+          type: integer
+          format: int64
     PrometheusRuleGroup:
       type: object
       properties:
@@ -487,22 +531,6 @@ components:
         largest representable duration to approximately 290 years.'
       type: integer
       format: int64
-    NotFound:
-      type: object
-    ForbiddenError:
-      type: object
-      properties:
-        body:
-          $ref: '#/components/schemas/PublicError'
-    ConvertPrometheusResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        errorType:
-          type: string
-        status:
-          type: string
     PrometheusNamespace:
       type: object
       properties:
@@ -513,43 +541,15 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/PrometheusRuleGroup'
-    PrometheusRule:
+    ConvertPrometheusResponse:
       type: object
       properties:
-        alert:
+        error:
           type: string
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-        expr:
+        errorType:
           type: string
-        for:
+        status:
           type: string
-        keep_firing_for:
-          type: string
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-        record:
-          type: string
-    PublicError:
-      description: 'PublicError is derived from Error and only contains information
-
-        available to the end user.'
-      type: object
-      properties:
-        extra:
-          type: object
-          additionalProperties: {}
-        message:
-          type: string
-        messageId:
-          type: string
-        statusCode:
-          type: integer
-          format: int64
   securitySchemes:
     api_key:
       type: apiKey

@@ -319,6 +319,142 @@ paths:
         required: true
 components:
   schemas:
+    Folder:
+      type: object
+      properties:
+        accessControl:
+          $ref: '#/components/schemas/Metadata'
+        canAdmin:
+          type: boolean
+        canDelete:
+          type: boolean
+        canEdit:
+          type: boolean
+        canSave:
+          type: boolean
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        hasAcl:
+          type: boolean
+        id:
+          description: 'Deprecated: use UID instead'
+          type: integer
+          format: int64
+          x-deprecated: true
+        managedBy:
+          $ref: '#/components/schemas/ManagerKind'
+        orgId:
+          type: integer
+          format: int64
+        parentUid:
+          description: only used if nested folders are enabled
+          type: string
+        parents:
+          description: the parent folders starting from the root going down
+          type: array
+          items:
+            $ref: '#/components/schemas/Folder'
+        title:
+          type: string
+        uid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        url:
+          type: string
+        version:
+          type: integer
+          format: int64
+    SuccessResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+    DescendantCounts:
+      type: object
+      additionalProperties:
+        type: integer
+        format: int64
+    UpdateDashboardACLCommand:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardACLUpdateItem'
+    DashboardACLUpdateItem:
+      type: object
+      properties:
+        permission:
+          $ref: '#/components/schemas/DashboardaccessPermissionType'
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+        teamId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+    CreateFolderCommand:
+      description: 'CreateFolderCommand captures the information required by the folder service
+
+        to create a folder.'
+      type: object
+      properties:
+        description:
+          type: string
+        parentUid:
+          type: string
+        title:
+          type: string
+        uid:
+          type: string
+    MoveFolderCommand:
+      description: 'MoveFolderCommand captures the information required by the folder service
+
+        to move a folder.'
+      type: object
+      properties:
+        parentUid:
+          type: string
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    Metadata:
+      description: 'Metadata contains user accesses for a given resource
+
+        Ex: map[string]bool{"create":true, "delete": true}'
+      type: object
+      additionalProperties:
+        type: boolean
+    DashboardaccessPermissionType:
+      type: integer
+      format: int64
     DashboardACLInfoDTO:
       type: object
       properties:
@@ -383,93 +519,6 @@ components:
           type: string
         userUid:
           type: string
-    Folder:
-      type: object
-      properties:
-        accessControl:
-          $ref: '#/components/schemas/Metadata'
-        canAdmin:
-          type: boolean
-        canDelete:
-          type: boolean
-        canEdit:
-          type: boolean
-        canSave:
-          type: boolean
-        created:
-          type: string
-          format: date-time
-        createdBy:
-          type: string
-        hasAcl:
-          type: boolean
-        id:
-          description: 'Deprecated: use UID instead'
-          type: integer
-          format: int64
-          x-deprecated: true
-        managedBy:
-          $ref: '#/components/schemas/ManagerKind'
-        orgId:
-          type: integer
-          format: int64
-        parentUid:
-          description: only used if nested folders are enabled
-          type: string
-        parents:
-          description: the parent folders starting from the root going down
-          type: array
-          items:
-            $ref: '#/components/schemas/Folder'
-        title:
-          type: string
-        uid:
-          type: string
-        updated:
-          type: string
-          format: date-time
-        updatedBy:
-          type: string
-        url:
-          type: string
-        version:
-          type: integer
-          format: int64
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    DashboardACLUpdateItem:
-      type: object
-      properties:
-        permission:
-          $ref: '#/components/schemas/DashboardaccessPermissionType'
-        role:
-          type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
-        teamId:
-          type: integer
-          format: int64
-        userId:
-          type: integer
-          format: int64
     FolderSearchHit:
       type: object
       properties:
@@ -484,19 +533,10 @@ components:
           type: string
         uid:
           type: string
-    MoveFolderCommand:
-      description: 'MoveFolderCommand captures the information required by the folder service
-
-        to move a folder.'
-      type: object
-      properties:
-        parentUid:
-          type: string
-    DescendantCounts:
-      type: object
-      additionalProperties:
-        type: integer
-        format: int64
+    ManagerKind:
+      description: It can be a user or a tool or a generic API client.
+      type: string
+      title: ManagerKind is the type of manager, which is responsible for managing the resource.
     UpdateFolderCommand:
       description: 'UpdateFolderCommand captures the information required by the folder service
 
@@ -516,47 +556,19 @@ components:
           description: Version only used by the legacy folder implementation
           type: integer
           format: int64
-    ManagerKind:
-      description: It can be a user or a tool or a generic API client.
-      type: string
-      title: ManagerKind is the type of manager, which is responsible for managing the resource.
-    CreateFolderCommand:
-      description: 'CreateFolderCommand captures the information required by the folder service
-
-        to create a folder.'
-      type: object
-      properties:
-        description:
-          type: string
-        parentUid:
-          type: string
-        title:
-          type: string
-        uid:
-          type: string
-    UpdateDashboardACLCommand:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardACLUpdateItem'
-    DashboardaccessPermissionType:
-      type: integer
-      format: int64
-    SuccessResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-    Metadata:
-      description: 'Metadata contains user accesses for a given resource
-
-        Ex: map[string]bool{"create":true, "delete": true}'
-      type: object
-      additionalProperties:
-        type: boolean
   responses:
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
       content:
@@ -571,24 +583,14 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/DashboardACLInfoDTO'
-    getFolderDescendantCountsResponse:
+    getFoldersResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/DescendantCounts'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    conflictError:
-      description: ConflictError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            type: array
+            items:
+              $ref: '#/components/schemas/FolderSearchHit'
     deleteFolderResponse:
       description: (empty)
       content:
@@ -613,40 +615,38 @@ components:
                 description: Title of the deleted folder.
                 type: string
                 example: My Folder
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getFoldersResponse:
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getFolderDescendantCountsResponse:
       description: (empty)
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/FolderSearchHit'
+            $ref: '#/components/schemas/DescendantCounts'
     folderResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Folder'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    conflictError:
+      description: ConflictError
       content:
         application/json:
           schema:

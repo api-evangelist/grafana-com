@@ -155,51 +155,7 @@ paths:
         '401':
           $ref: '#/components/responses/unauthorisedError'
 components:
-  responses:
-    searchResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/HitList'
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    unprocessableEntityError:
-      description: UnprocessableEntityError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    listSortOptionsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              description:
-                type: string
-              displayName:
-                type: string
-              meta:
-                type: string
-              name:
-                type: string
   schemas:
-    HitList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Hit'
     ErrorResponseBody:
       type: object
       required:
@@ -217,6 +173,10 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    HitList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Hit'
     HitType:
       type: string
     Hit:
@@ -267,6 +227,46 @@ components:
           type: string
         url:
           type: string
+  responses:
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    searchResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HitList'
+    listSortOptionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+              displayName:
+                type: string
+              meta:
+                type: string
+              name:
+                type: string
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
   securitySchemes:
     api_key:
       type: apiKey

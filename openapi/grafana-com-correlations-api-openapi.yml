@@ -197,7 +197,99 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
+  responses:
+    deleteCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteCorrelationResponseBody'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateCorrelationResponseBody'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    updateCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateCorrelationResponseBody'
+    getCorrelationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCorrelationsBySourceUIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Correlation'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getCorrelationResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Correlation'
   schemas:
+    CorrelationConfig:
+      type: object
+      required:
+      - field
+      - target
+      properties:
+        field:
+          description: Field used to attach the correlation link
+          type: string
+          example: message
+        target:
+          description: Target data query
+          type: object
+          additionalProperties: {}
+          example:
+            prop1: value1
+            prop2: value
+        transformations:
+          $ref: '#/components/schemas/Transformations'
+        type:
+          $ref: '#/components/schemas/CorrelationType'
     CorrelationConfigUpdateDTO:
       type: object
       properties:
@@ -222,50 +314,12 @@ components:
           - expression: (Superman|Batman)
             type: regex
             variable: name
-    CreateCorrelationCommand:
-      description: CreateCorrelationCommand is the command for creating a correlation
+    DeleteCorrelationResponseBody:
       type: object
       properties:
-        config:
-          $ref: '#/components/schemas/CorrelationConfig'
-        description:
-          description: Optional description of the correlation
+        message:
           type: string
-          example: Logs to Traces
-        label:
-          description: Optional label identifying the correlation
-          type: string
-          example: My label
-        provisioned:
-          description: True if correlation was created with provisioning. This makes it read-only.
-          type: boolean
-        targetUID:
-          description: Target data source UID to which the correlation is created. required if type = query
-          type: string
-          example: PE1C5CBDA0504A6A3
-        type:
-          $ref: '#/components/schemas/CorrelationType'
-    CorrelationConfig:
-      type: object
-      required:
-      - field
-      - target
-      properties:
-        field:
-          description: Field used to attach the correlation link
-          type: string
-          example: message
-        target:
-          description: Target data query
-          type: object
-          additionalProperties: {}
-          example:
-            prop1: value1
-            prop2: value
-        transformations:
-          $ref: '#/components/schemas/Transformations'
-        type:
-          $ref: '#/components/schemas/CorrelationType'
+          example: Correlation deleted
     ErrorResponseBody:
       type: object
       required:
@@ -283,24 +337,6 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
-    Transformations:
-      type: array
-      items:
-        $ref: '#/components/schemas/Transformation'
-    Transformation:
-      type: object
-      properties:
-        expression:
-          type: string
-        field:
-          type: string
-        mapValue:
-          type: string
-        type:
-          type: string
-          enum:
-          - regex
-          - logfmt
     Correlation:
       description: Correlation is the model for correlations definitions
       type: object
@@ -337,9 +373,55 @@ components:
           description: Unique identifier of the correlation
           type: string
           example: 50xhMlg9k
-    CorrelationType:
-      description: the type of correlation, either query for containing query information, or external for containing an external URL
-      type: string
+    UpdateCorrelationResponseBody:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Correlation updated
+        result:
+          $ref: '#/components/schemas/Correlation'
+    CreateCorrelationCommand:
+      description: CreateCorrelationCommand is the command for creating a correlation
+      type: object
+      properties:
+        config:
+          $ref: '#/components/schemas/CorrelationConfig'
+        description:
+          description: Optional description of the correlation
+          type: string
+          example: Logs to Traces
+        label:
+          description: Optional label identifying the correlation
+          type: string
+          example: My label
+        provisioned:
+          description: True if correlation was created with provisioning. This makes it read-only.
+          type: boolean
+        targetUID:
+          description: Target data source UID to which the correlation is created. required if type = query
+          type: string
+          example: PE1C5CBDA0504A6A3
+        type:
+          $ref: '#/components/schemas/CorrelationType'
+    Transformations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Transformation'
+    Transformation:
+      type: object
+      properties:
+        expression:
+          type: string
+        field:
+          type: string
+        mapValue:
+          type: string
+        type:
+          type: string
+          enum:
+          - regex
+          - logfmt
     CreateCorrelationResponseBody:
       description: CreateCorrelationResponse is the response struct for CreateCorrelationCommand
       type: object
@@ -349,6 +431,9 @@ components:
           example: Correlation created
         result:
           $ref: '#/components/schemas/Correlation'
+    CorrelationType:
+      description: the type of correlation, either query for containing query information, or external for containing an external URL
+      type: string
     UpdateCorrelationCommand:
       description: UpdateCorrelationCommand is the command for updating a correlation
       type: object
@@ -365,91 +450,6 @@ components:
           example: My label
         type:
           $ref: '#/components/schemas/CorrelationType'
-    DeleteCorrelationResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Correlation deleted
-    UpdateCorrelationResponseBody:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Correlation updated
-        result:
-          $ref: '#/components/schemas/Correlation'
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    deleteCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DeleteCorrelationResponseBody'
-    updateCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateCorrelationResponseBody'
-    createCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateCorrelationResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getCorrelationResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Correlation'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getCorrelationsBySourceUIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Correlation'
-    getCorrelationsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Correlation'
   securitySchemes:
     api_key:
       type: apiKey

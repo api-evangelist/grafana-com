@@ -265,32 +265,26 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
+    getLibraryElementArrayResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementArrayResponse'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getLibraryElementsResponse:
-      description: (empty)
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/LibraryElementSearchResponse'
-    getLibraryElementResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LibraryElementResponse'
+            $ref: '#/components/schemas/SuccessResponseBody'
     preconditionFailedError:
       description: PreconditionFailedError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
@@ -301,124 +295,71 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/LibraryElementConnectionsResponse'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getLibraryElementArrayResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/LibraryElementArrayResponse'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
     forbiddenError:
       description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
+    getLibraryElementsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementSearchResponse'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getLibraryElementResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LibraryElementResponse'
   schemas:
-    ErrorResponseBody:
+    SuccessResponseBody:
       type: object
-      required:
-      - message
       properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
         message:
-          description: a human readable version of the error
           type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    LibraryElementConnectionDTO:
+    LibraryElementResponse:
       type: object
-      title: LibraryElementConnectionDTO is the frontend DTO for element connections.
-      properties:
-        connectionId:
-          type: integer
-          format: int64
-        connectionUid:
-          type: string
-        created:
-          type: string
-          format: date-time
-        createdBy:
-          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
-        elementId:
-          type: integer
-          format: int64
-        id:
-          description: 'Deprecated: this field will be removed in the future'
-          type: integer
-          format: int64
-          x-deprecated: true
-        kind:
-          type: integer
-          format: int64
-    LibraryElementSearchResponse:
-      type: object
-      title: LibraryElementSearchResponse is a response struct for LibraryElementSearchResult.
+      title: LibraryElementResponse is a response struct for LibraryElementDTO.
       properties:
         result:
-          $ref: '#/components/schemas/LibraryElementSearchResult'
-    LibraryElementDTOMeta:
+          $ref: '#/components/schemas/LibraryElementDTO'
+    LibraryElementSearchResult:
       type: object
-      title: LibraryElementDTOMeta is the meta information for LibraryElementDTO.
+      title: LibraryElementSearchResult is the search result for entities.
       properties:
-        connectedDashboards:
-          type: integer
-          format: int64
-        created:
-          type: string
-          format: date-time
-        createdBy:
-          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
-        folderName:
-          type: string
-        folderUid:
-          type: string
-        updated:
-          type: string
-          format: date-time
-        updatedBy:
-          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
-    LibraryElementDTOMetaUser:
-      type: object
-      properties:
-        avatarUrl:
-          type: string
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-    LibraryElementArrayResponse:
-      type: object
-      title: LibraryElementArrayResponse is a response struct for an array of LibraryElementDTO.
-      properties:
-        result:
+        elements:
           type: array
           items:
             $ref: '#/components/schemas/LibraryElementDTO'
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
     PatchLibraryElementCommand:
       description: PatchLibraryElementCommand is the command for patching a LibraryElement
       type: object
@@ -455,6 +396,39 @@ components:
           description: Version of the library element you are updating.
           type: integer
           format: int64
+    LibraryElementDTOMetaUser:
+      type: object
+      properties:
+        avatarUrl:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    LibraryElementSearchResponse:
+      type: object
+      title: LibraryElementSearchResponse is a response struct for LibraryElementSearchResult.
+      properties:
+        result:
+          $ref: '#/components/schemas/LibraryElementSearchResult'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     CreateLibraryElementCommand:
       description: CreateLibraryElementCommand is the command for adding a LibraryElement
       type: object
@@ -488,29 +462,6 @@ components:
           type: string
         uid:
           type: string
-    LibraryElementResponse:
-      type: object
-      title: LibraryElementResponse is a response struct for LibraryElementDTO.
-      properties:
-        result:
-          $ref: '#/components/schemas/LibraryElementDTO'
-    LibraryElementSearchResult:
-      type: object
-      title: LibraryElementSearchResult is the search result for entities.
-      properties:
-        elements:
-          type: array
-          items:
-            $ref: '#/components/schemas/LibraryElementDTO'
-        page:
-          type: integer
-          format: int64
-        perPage:
-          type: integer
-          format: int64
-        totalCount:
-          type: integer
-          format: int64
     LibraryElementConnectionsResponse:
       type: object
       title: LibraryElementConnectionsResponse is a response struct for an array of LibraryElementConnectionDTO.
@@ -519,6 +470,31 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LibraryElementConnectionDTO'
+    LibraryElementConnectionDTO:
+      type: object
+      title: LibraryElementConnectionDTO is the frontend DTO for element connections.
+      properties:
+        connectionId:
+          type: integer
+          format: int64
+        connectionUid:
+          type: string
+        created:
+          type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
+        elementId:
+          type: integer
+          format: int64
+        id:
+          description: 'Deprecated: this field will be removed in the future'
+          type: integer
+          format: int64
+          x-deprecated: true
+        kind:
+          type: integer
+          format: int64
     LibraryElementDTO:
       type: object
       title: LibraryElementDTO is the frontend DTO for entities.
@@ -556,11 +532,35 @@ components:
         version:
           type: integer
           format: int64
-    SuccessResponseBody:
+    LibraryElementArrayResponse:
       type: object
+      title: LibraryElementArrayResponse is a response struct for an array of LibraryElementDTO.
       properties:
-        message:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/LibraryElementDTO'
+    LibraryElementDTOMeta:
+      type: object
+      title: LibraryElementDTOMeta is the meta information for LibraryElementDTO.
+      properties:
+        connectedDashboards:
+          type: integer
+          format: int64
+        created:
           type: string
+          format: date-time
+        createdBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
+        folderName:
+          type: string
+        folderUid:
+          type: string
+        updated:
+          type: string
+          format: date-time
+        updatedBy:
+          $ref: '#/components/schemas/LibraryElementDTOMetaUser'
   securitySchemes:
     api_key:
       type: apiKey

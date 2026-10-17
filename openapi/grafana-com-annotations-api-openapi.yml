@@ -347,45 +347,51 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Json:
+    AnnotationPanelFilter:
       type: object
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
       properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+        exclude:
+          description: Should the specified panels be included or excluded
+          type: boolean
+        ids:
+          description: Panel IDs that should be included or excluded
+          type: array
+          items:
+            type: integer
+            format: uint8
+    UpdateAnnotationsCmd:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Json'
+        id:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            type: string
+        text:
           type: string
+        time:
+          type: integer
+          format: int64
+        timeEnd:
+          type: integer
+          format: int64
+    FindTagsResult:
+      type: object
+      title: FindTagsResult is the result of a tags search.
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagsDTO'
+    SuccessResponseBody:
+      type: object
+      properties:
         message:
-          description: a human readable version of the error
           type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    GetAnnotationTagsResponse:
-      type: object
-      title: GetAnnotationTagsResponse is a response struct for FindTagsResult.
-      properties:
-        result:
-          $ref: '#/components/schemas/FindTagsResult'
-    MassDeleteAnnotationsCmd:
-      type: object
-      properties:
-        annotationId:
-          type: integer
-          format: int64
-        dashboardId:
-          type: integer
-          format: int64
-        dashboardUID:
-          type: string
-        panelId:
-          type: integer
-          format: int64
     PatchAnnotationsCmd:
       type: object
       properties:
@@ -406,33 +412,46 @@ components:
         timeEnd:
           type: integer
           format: int64
-    PostAnnotationsCmd:
+    PostGraphiteAnnotationsCmd:
       type: object
-      required:
-      - text
       properties:
-        dashboardId:
-          type: integer
-          format: int64
-        dashboardUID:
-          type: string
         data:
-          $ref: '#/components/schemas/Json'
-        panelId:
+          type: string
+        tags: {}
+        what:
+          type: string
+        when:
           type: integer
           format: int64
+    AnnotationTarget:
+      description: 'TODO: this should be a regular DataQuery that depends on the selected dashboard
+
+        these match the properties of the "grafana" datasouce that is default in most dashboards'
+      type: object
+      properties:
+        limit:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: integer
+          format: int64
+        matchAny:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
+          type: boolean
         tags:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
           type: array
           items:
             type: string
-        text:
+        type:
+          description: 'Only required/valid for the grafana datasource...
+
+            but code+tests is already depending on it so hard to change'
           type: string
-        time:
-          type: integer
-          format: int64
-        timeEnd:
-          type: integer
-          format: int64
     publicError:
       description: 'PublicError is derived from Error and only contains information
 
@@ -456,33 +475,61 @@ components:
           description: StatusCode The HTTP status code returned
           type: integer
           format: int64
-    PostGraphiteAnnotationsCmd:
+    GetAnnotationTagsResponse:
+      type: object
+      title: GetAnnotationTagsResponse is a response struct for FindTagsResult.
+      properties:
+        result:
+          $ref: '#/components/schemas/FindTagsResult'
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    DataSourceRef:
+      description: Ref to a DataSource instance
       type: object
       properties:
-        data:
+        type:
+          description: The plugin type-id
           type: string
-        tags: {}
-        what:
+        uid:
+          description: Specific datasource instance
           type: string
-        when:
+    Json:
+      type: object
+    AnnotationEvent:
+      type: object
+      properties:
+        color:
+          type: string
+        dashboardId:
           type: integer
           format: int64
-    FindTagsResult:
-      type: object
-      title: FindTagsResult is the result of a tags search.
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagsDTO'
-    UpdateAnnotationsCmd:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/Json'
+        dashboardUID:
+          type: string
         id:
           type: integer
           format: int64
+        isRegion:
+          type: boolean
+        panelId:
+          type: integer
+          format: int64
+        source:
+          $ref: '#/components/schemas/AnnotationQuery'
         tags:
           type: array
           items:
@@ -560,36 +607,21 @@ components:
           format: int64
         userUID:
           type: string
-    DataSourceRef:
-      description: Ref to a DataSource instance
+    PostAnnotationsCmd:
       type: object
+      required:
+      - text
       properties:
-        type:
-          description: The plugin type-id
-          type: string
-        uid:
-          description: Specific datasource instance
-          type: string
-    AnnotationEvent:
-      type: object
-      properties:
-        color:
-          type: string
         dashboardId:
           type: integer
           format: int64
         dashboardUID:
           type: string
-        id:
-          type: integer
-          format: int64
-        isRegion:
-          type: boolean
+        data:
+          $ref: '#/components/schemas/Json'
         panelId:
           type: integer
           format: int64
-        source:
-          $ref: '#/components/schemas/AnnotationQuery'
         tags:
           type: array
           items:
@@ -638,59 +670,65 @@ components:
         type:
           description: TODO -- this should not exist here, it is based on the --grafana-- datasource
           type: string
-    SuccessResponseBody:
+    MassDeleteAnnotationsCmd:
       type: object
       properties:
-        message:
-          type: string
-    AnnotationPanelFilter:
-      type: object
-      properties:
-        exclude:
-          description: Should the specified panels be included or excluded
-          type: boolean
-        ids:
-          description: Panel IDs that should be included or excluded
-          type: array
-          items:
-            type: integer
-            format: uint8
-    AnnotationTarget:
-      description: 'TODO: this should be a regular DataQuery that depends on the selected dashboard
-
-        these match the properties of the "grafana" datasouce that is default in most dashboards'
-      type: object
-      properties:
-        limit:
-          description: 'Only required/valid for the grafana datasource...
-
-            but code+tests is already depending on it so hard to change'
+        annotationId:
           type: integer
           format: int64
-        matchAny:
-          description: 'Only required/valid for the grafana datasource...
-
-            but code+tests is already depending on it so hard to change'
-          type: boolean
-        tags:
-          description: 'Only required/valid for the grafana datasource...
-
-            but code+tests is already depending on it so hard to change'
-          type: array
-          items:
-            type: string
-        type:
-          description: 'Only required/valid for the grafana datasource...
-
-            but code+tests is already depending on it so hard to change'
+        dashboardId:
+          type: integer
+          format: int64
+        dashboardUID:
           type: string
+        panelId:
+          type: integer
+          format: int64
   responses:
+    getPublicAnnotationsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AnnotationEvent'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
+    getAnnotationByIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+    unauthorisedPublicError:
+      description: UnauthorisedPublicError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestPublicError:
+      description: BadRequestPublicError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
     getAnnotationsResponse:
       description: (empty)
       content:
@@ -699,14 +737,8 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Annotation'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
@@ -729,56 +761,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    unauthorisedPublicError:
-      description: UnauthorisedPublicError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/publicError'
-    forbiddenPublicError:
-      description: ForbiddenPublicError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/publicError'
-    getPublicAnnotationsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/AnnotationEvent'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getAnnotationTagsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetAnnotationTagsResponse'
-    badRequestPublicError:
-      description: BadRequestPublicError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/publicError'
-    getAnnotationByIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Annotation'
     postAnnotationResponse:
       description: (empty)
       content:
@@ -797,6 +785,18 @@ components:
               message:
                 description: Message Message of the created annotation.
                 type: string
+    forbiddenPublicError:
+      description: ForbiddenPublicError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/publicError'
+    getAnnotationTagsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAnnotationTagsResponse'
   securitySchemes:
     api_key:
       type: apiKey

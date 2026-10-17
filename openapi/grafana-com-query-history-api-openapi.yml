@@ -200,14 +200,43 @@ paths:
         required: true
 components:
   schemas:
-    Json:
+    ErrorResponseBody:
       type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
+    CreateQueryInQueryHistoryCommand:
+      description: CreateQueryInQueryHistoryCommand is the command for adding query history
+      type: object
+      required:
+      - queries
+      properties:
+        datasourceUid:
+          description: UID of the data source for which are queries stored.
+          type: string
+          example: PE1C5CBDA0504A6A3
+        queries:
+          $ref: '#/components/schemas/Json'
     QueryHistoryResponse:
       description: QueryHistoryResponse is a response struct for QueryHistoryDTO
       type: object
       properties:
         result:
           $ref: '#/components/schemas/QueryHistoryDTO'
+    Json:
+      type: object
     QueryHistoryDTO:
       type: object
       properties:
@@ -227,29 +256,14 @@ components:
           type: boolean
         uid:
           type: string
-    PatchQueryCommentInQueryHistoryCommand:
-      description: PatchQueryCommentInQueryHistoryCommand is the command for updating comment for query in query history
+    QueryHistoryDeleteQueryResponse:
+      description: QueryHistoryDeleteQueryResponse is the response struct for deleting a query from query history
       type: object
       properties:
-        comment:
-          description: Updated comment
-          type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
+        id:
+          type: integer
+          format: int64
         message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
     QueryHistorySearchResult:
       type: object
@@ -267,59 +281,33 @@ components:
         totalCount:
           type: integer
           format: int64
-    QueryHistoryDeleteQueryResponse:
-      description: QueryHistoryDeleteQueryResponse is the response struct for deleting a query from query history
+    PatchQueryCommentInQueryHistoryCommand:
+      description: PatchQueryCommentInQueryHistoryCommand is the command for updating comment for query in query history
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
-        message:
+        comment:
+          description: Updated comment
           type: string
     QueryHistorySearchResponse:
       type: object
       properties:
         result:
           $ref: '#/components/schemas/QueryHistorySearchResult'
-    CreateQueryInQueryHistoryCommand:
-      description: CreateQueryInQueryHistoryCommand is the command for adding query history
-      type: object
-      required:
-      - queries
-      properties:
-        datasourceUid:
-          description: UID of the data source for which are queries stored.
-          type: string
-          example: PE1C5CBDA0504A6A3
-        queries:
-          $ref: '#/components/schemas/Json'
   responses:
-    getQueryHistoryResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/QueryHistoryResponse'
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     getQueryHistorySearchResponse:
       description: (empty)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/QueryHistorySearchResponse'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
@@ -330,6 +318,18 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/QueryHistoryDeleteQueryResponse'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getQueryHistoryResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/QueryHistoryResponse'
   securitySchemes:
     api_key:
       type: apiKey

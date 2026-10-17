@@ -122,14 +122,34 @@ paths:
           $ref: '#/components/responses/internalServerError'
 components:
   schemas:
-    RestoreDashboardVersionCommand:
+    ErrorResponseBody:
       type: object
+      required:
+      - message
       properties:
-        version:
-          type: integer
-          format: int64
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     Json:
       type: object
+    DashboardVersionResponseMeta:
+      type: object
+      properties:
+        continueToken:
+          type: string
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DashboardVersionMeta'
     DashboardVersionMeta:
       description: 'DashboardVersionMeta extends the DashboardVersionDTO with the names
 
@@ -164,47 +184,27 @@ components:
         version:
           type: integer
           format: int64
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    DashboardVersionResponseMeta:
+    RestoreDashboardVersionCommand:
       type: object
       properties:
-        continueToken:
-          type: string
-        versions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DashboardVersionMeta'
+        version:
+          type: integer
+          format: int64
   responses:
-    dashboardVersionsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DashboardVersionResponseMeta'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    dashboardVersionsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DashboardVersionResponseMeta'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
       content:
         application/json:
           schema:
@@ -221,12 +221,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/DashboardVersionMeta'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     postDashboardResponse:
       description: (empty)
       content:
@@ -270,8 +264,14 @@ components:
                 type: integer
                 format: int64
                 example: 2
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:

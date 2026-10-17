@@ -361,88 +361,78 @@ paths:
         '500':
           $ref: '#/components/responses/internalServerError'
 components:
-  responses:
-    unauthorisedError:
-      description: UnauthorizedError is returned when the request is not authenticated.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    cloudMigrationSessionListResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CloudMigrationSessionListResponseDTO'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    resourceDependenciesResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ResourceDependenciesResponseDTO'
-    cloudMigrationGetTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetAccessTokenResponseDTO'
-    cloudMigrationDeleteTokenResponse:
-      description: (empty)
-    createSnapshotResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateSnapshotResponseDTO'
-    getSnapshotResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetSnapshotResponseDTO'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    cloudMigrationCreateTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateAccessTokenResponseDTO'
-    snapshotListResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SnapshotListResponseDTO'
-    cloudMigrationSessionResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
+    CloudMigrationSessionRequestDTO:
+      type: object
+      properties:
+        authToken:
+          type: string
+    GetAccessTokenResponseDTO:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        displayName:
+          type: string
+        expiresAt:
+          type: string
+        firstUsedAt:
+          type: string
+        id:
+          type: string
+        lastUsedAt:
+          type: string
+    GetSnapshotResponseDTO:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        finished:
+          type: string
+          format: date-time
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MigrateDataResponseItemDTO'
+        sessionUid:
+          type: string
+        stats:
+          $ref: '#/components/schemas/SnapshotResourceStats'
+        status:
+          type: string
+          enum:
+          - INITIALIZING
+          - CREATING
+          - PENDING_UPLOAD
+          - UPLOADING
+          - PENDING_PROCESSING
+          - PROCESSING
+          - FINISHED
+          - CANCELED
+          - ERROR
+          - UNKNOWN
+        uid:
+          type: string
+    CreateSnapshotRequestDTO:
+      type: object
+      properties:
+        resourceTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - DASHBOARD
+            - DATASOURCE
+            - FOLDER
+            - LIBRARY_ELEMENT
+            - ALERT_RULE
+            - ALERT_RULE_GROUP
+            - CONTACT_POINT
+            - NOTIFICATION_POLICY
+            - NOTIFICATION_TEMPLATE
+            - MUTE_TIMING
+            - PLUGIN
     SnapshotListResponseDTO:
       type: object
       properties:
@@ -467,10 +457,58 @@ components:
 
             For example, a 412 Precondition Failed error may include additional information of why that error happened.'
           type: string
+    SnapshotResourceStats:
+      type: object
+      properties:
+        statuses:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        total:
+          type: integer
+          format: int64
+        types:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    SnapshotDTO:
+      description: Base snapshot without results
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+        finished:
+          type: string
+          format: date-time
+        sessionUid:
+          type: string
+        status:
+          type: string
+          enum:
+          - INITIALIZING
+          - CREATING
+          - PENDING_UPLOAD
+          - UPLOADING
+          - PENDING_PROCESSING
+          - PROCESSING
+          - FINISHED
+          - CANCELED
+          - ERROR
+          - UNKNOWN
+        uid:
+          type: string
     CreateAccessTokenResponseDTO:
       type: object
       properties:
         token:
+          type: string
+    CreateSnapshotResponseDTO:
+      type: object
+      properties:
+        uid:
           type: string
     ResourceDependencyDTO:
       type: object
@@ -505,110 +543,6 @@ components:
           - NOTIFICATION_TEMPLATE
           - MUTE_TIMING
           - PLUGIN
-    CloudMigrationSessionResponseDTO:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-        slug:
-          type: string
-        uid:
-          type: string
-        updated:
-          type: string
-          format: date-time
-    CreateSnapshotResponseDTO:
-      type: object
-      properties:
-        uid:
-          type: string
-    CreateSnapshotRequestDTO:
-      type: object
-      properties:
-        resourceTypes:
-          type: array
-          items:
-            type: string
-            enum:
-            - DASHBOARD
-            - DATASOURCE
-            - FOLDER
-            - LIBRARY_ELEMENT
-            - ALERT_RULE
-            - ALERT_RULE_GROUP
-            - CONTACT_POINT
-            - NOTIFICATION_POLICY
-            - NOTIFICATION_TEMPLATE
-            - MUTE_TIMING
-            - PLUGIN
-    ResourceDependenciesResponseDTO:
-      type: object
-      properties:
-        resourceDependencies:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceDependencyDTO'
-    GetSnapshotResponseDTO:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-        finished:
-          type: string
-          format: date-time
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/MigrateDataResponseItemDTO'
-        sessionUid:
-          type: string
-        stats:
-          $ref: '#/components/schemas/SnapshotResourceStats'
-        status:
-          type: string
-          enum:
-          - INITIALIZING
-          - CREATING
-          - PENDING_UPLOAD
-          - UPLOADING
-          - PENDING_PROCESSING
-          - PROCESSING
-          - FINISHED
-          - CANCELED
-          - ERROR
-          - UNKNOWN
-        uid:
-          type: string
-    SnapshotResourceStats:
-      type: object
-      properties:
-        statuses:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-        total:
-          type: integer
-          format: int64
-        types:
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    CloudMigrationSessionRequestDTO:
-      type: object
-      properties:
-        authToken:
-          type: string
-    CloudMigrationSessionListResponseDTO:
-      type: object
-      properties:
-        sessions:
-          type: array
-          items:
-            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
     MigrateDataResponseItemDTO:
       type: object
       required:
@@ -662,48 +596,114 @@ components:
           - NOTIFICATION_TEMPLATE
           - MUTE_TIMING
           - PLUGIN
-    GetAccessTokenResponseDTO:
+    ResourceDependenciesResponseDTO:
       type: object
       properties:
-        createdAt:
-          type: string
-        displayName:
-          type: string
-        expiresAt:
-          type: string
-        firstUsedAt:
-          type: string
-        id:
-          type: string
-        lastUsedAt:
-          type: string
-    SnapshotDTO:
-      description: Base snapshot without results
+        resourceDependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceDependencyDTO'
+    CloudMigrationSessionListResponseDTO:
+      type: object
+      properties:
+        sessions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
+    CloudMigrationSessionResponseDTO:
       type: object
       properties:
         created:
           type: string
           format: date-time
-        finished:
+        slug:
           type: string
-          format: date-time
-        sessionUid:
-          type: string
-        status:
-          type: string
-          enum:
-          - INITIALIZING
-          - CREATING
-          - PENDING_UPLOAD
-          - UPLOADING
-          - PENDING_PROCESSING
-          - PROCESSING
-          - FINISHED
-          - CANCELED
-          - ERROR
-          - UNKNOWN
         uid:
           type: string
+        updated:
+          type: string
+          format: date-time
+  responses:
+    cloudMigrationSessionResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CloudMigrationSessionResponseDTO'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    createSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateSnapshotResponseDTO'
+    snapshotListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SnapshotListResponseDTO'
+    unauthorisedError:
+      description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getSnapshotResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetSnapshotResponseDTO'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    cloudMigrationSessionListResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CloudMigrationSessionListResponseDTO'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    resourceDependenciesResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceDependenciesResponseDTO'
+    cloudMigrationCreateTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateAccessTokenResponseDTO'
+    cloudMigrationDeleteTokenResponse:
+      description: (empty)
+    cloudMigrationGetTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetAccessTokenResponseDTO'
   securitySchemes:
     api_key:
       type: apiKey

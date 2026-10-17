@@ -443,8 +443,80 @@ paths:
         required: true
 components:
   responses:
+    searchOrgUsersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchOrgUsersQueryResult'
+    getOrgUsersResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrgUserDTO'
+    getOrgByNameResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrgDetailsDTO'
+    notFoundError:
+      description: NotFoundError is returned when the requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    okResponse:
+      description: An OKResponse is returned if the request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessResponseBody'
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    getOrgByIDResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrgDetailsDTO'
+    getQuotaResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/QuotaDTO'
+    searchOrgsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrgDTO'
+    forbiddenError:
+      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
       content:
         application/json:
           schema:
@@ -468,99 +540,17 @@ components:
                 type: integer
                 format: int64
                 example: 65
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
     conflictError:
       description: ConflictError
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getOrgUsersResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/OrgUserDTO'
-    getOrgByIDResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OrgDetailsDTO'
-    searchOrgsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/OrgDTO'
-    okResponse:
-      description: An OKResponse is returned if the request was successful.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SuccessResponseBody'
-    forbiddenError:
-      description: ForbiddenError is returned if the user/token has insufficient permissions to access the requested resource.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getQuotaResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/QuotaDTO'
-    searchOrgUsersResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SearchOrgUsersQueryResult'
-    getOrgByNameResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OrgDetailsDTO'
-    notFoundError:
-      description: NotFoundError is returned when the requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
   schemas:
-    Address:
+    SuccessResponseBody:
       type: object
       properties:
-        address1:
-          type: string
-        address2:
-          type: string
-        city:
-          type: string
-        country:
-          type: string
-        state:
-          type: string
-        zipCode:
+        message:
           type: string
     OrgDetailsDTO:
       type: object
@@ -572,69 +562,6 @@ components:
           format: int64
         name:
           type: string
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
-    SearchOrgUsersQueryResult:
-      type: object
-      properties:
-        orgUsers:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrgUserDTO'
-        page:
-          type: integer
-          format: int64
-        perPage:
-          type: integer
-          format: int64
-        totalCount:
-          type: integer
-          format: int64
-    OrgDTO:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-    AddOrgUserCommand:
-      type: object
-      properties:
-        loginOrEmail:
-          type: string
-        role:
-          type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
-    UpdateOrgUserCommand:
-      type: object
-      properties:
-        role:
-          type: string
-          enum:
-          - None
-          - Viewer
-          - Editor
-          - Admin
     UpdateOrgAddressForm:
       type: object
       properties:
@@ -655,6 +582,23 @@ components:
       properties:
         name:
           type: string
+    AddOrgUserCommand:
+      type: object
+      properties:
+        loginOrEmail:
+          type: string
+        role:
+          type: string
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    CreateOrgCommand:
+      type: object
+      properties:
+        name:
+          type: string
     UpdateQuotaCmd:
       type: object
       properties:
@@ -663,23 +607,23 @@ components:
           format: int64
         target:
           type: string
-    QuotaDTO:
+    ErrorResponseBody:
       type: object
+      required:
+      - message
       properties:
-        limit:
-          type: integer
-          format: int64
-        org_id:
-          type: integer
-          format: int64
-        target:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
           type: string
-        used:
-          type: integer
-          format: int64
-        user_id:
-          type: integer
-          format: int64
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     OrgUserDTO:
       type: object
       properties:
@@ -723,14 +667,70 @@ components:
         userId:
           type: integer
           format: int64
-    SuccessResponseBody:
+    UpdateOrgUserCommand:
       type: object
       properties:
-        message:
+        role:
           type: string
-    CreateOrgCommand:
+          enum:
+          - None
+          - Viewer
+          - Editor
+          - Admin
+    SearchOrgUsersQueryResult:
       type: object
       properties:
+        orgUsers:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrgUserDTO'
+        page:
+          type: integer
+          format: int64
+        perPage:
+          type: integer
+          format: int64
+        totalCount:
+          type: integer
+          format: int64
+    QuotaDTO:
+      type: object
+      properties:
+        limit:
+          type: integer
+          format: int64
+        org_id:
+          type: integer
+          format: int64
+        target:
+          type: string
+        used:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        country:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+    OrgDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
         name:
           type: string
   securitySchemes:

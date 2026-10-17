@@ -149,20 +149,20 @@ paths:
         required: true
 components:
   responses:
-    acceptedResponse:
-      description: AcceptedResponse
+    getStatusResponse:
+      description: (empty)
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
+            type: boolean
     unauthorisedError:
       description: UnauthorizedError is returned when the request is not authenticated.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    internalServerError:
-      description: InternalServerError is a general error indicating something went wrong internally.
+    acceptedResponse:
+      description: AcceptedResponse
       content:
         application/json:
           schema:
@@ -173,36 +173,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
-    getStatusResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            type: boolean
-    unprocessableEntityError:
-      description: UnprocessableEntityError
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    refreshLicenseStatsResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ActiveUserStats'
-    badRequestError:
-      description: BadRequestError is returned when the request is invalid and it cannot be processed.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseBody'
-    getLicenseTokenResponse:
-      description: (empty)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Token'
     postRenewLicenseTokenResponse:
       description: (empty)
       content:
@@ -215,12 +185,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseBody'
+    getLicenseTokenResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Token'
+    internalServerError:
+      description: InternalServerError is a general error indicating something went wrong internally.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    unprocessableEntityError:
+      description: UnprocessableEntityError
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    badRequestError:
+      description: BadRequestError is returned when the request is invalid and it cannot be processed.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseBody'
+    refreshLicenseStatsResponse:
+      description: (empty)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ActiveUserStats'
   schemas:
-    DeleteTokenCommand:
-      type: object
-      properties:
-        instance:
-          type: string
     ActiveUserStats:
       type: object
       properties:
@@ -236,6 +231,23 @@ components:
         active_viewers:
           type: integer
           format: int64
+    ErrorResponseBody:
+      type: object
+      required:
+      - message
+      properties:
+        error:
+          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
+          type: string
+        message:
+          description: a human readable version of the error
+          type: string
+        status:
+          description: 'Status An optional status to denote the cause of the error.
+
+
+            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
+          type: string
     Token:
       type: object
       properties:
@@ -300,26 +312,14 @@ components:
           format: int64
         usage_billing:
           type: boolean
-    ErrorResponseBody:
-      type: object
-      required:
-      - message
-      properties:
-        error:
-          description: Error An optional detailed description of the actual error. Only included if running in developer mode.
-          type: string
-        message:
-          description: a human readable version of the error
-          type: string
-        status:
-          description: 'Status An optional status to denote the cause of the error.
-
-
-            For example, a 412 Precondition Failed error may include additional information of why that error happened.'
-          type: string
     TokenStatus:
       type: integer
       format: int64
+    DeleteTokenCommand:
+      type: object
+      properties:
+        instance:
+          type: string
   securitySchemes:
     api_key:
       type: apiKey
