@@ -23,6 +23,17 @@ tags:
 - Traces
 - Profiling
 - Alerting
+- Open Source
+- Grafana Labs
+tags_raw:
+- Observability
+- Monitoring
+- Dashboards
+- Logs
+- Metrics
+- Traces
+- Profiling
+- Alerting
 - Open-Source
 - Grafana Labs
 kind: contract
@@ -680,6 +691,8 @@ apis:
     have to use Basic auth.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Access Control
+  tags_raw:
   - access_control
   properties:
   - type: OpenAPI
@@ -756,6 +769,8 @@ apis:
     admin and has permission to use this API.)
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Admin
+  tags_raw:
   - admin
   properties:
   - type: OpenAPI
@@ -826,7 +841,8 @@ apis:
   name: Grafana Admin Ldap API
   description: The admin_ldap API from Grafana — 5 operation(s) for admin_ldap.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - admin_ldap
   properties:
   - type: OpenAPI
@@ -897,7 +913,8 @@ apis:
   name: Grafana Admin Provisioning API
   description: The admin_provisioning API from Grafana — 4 operation(s) for admin_provisioning.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - admin_provisioning
   properties:
   - type: OpenAPI
@@ -969,6 +986,8 @@ apis:
   description: The admin_users API from Grafana — 11 operation(s) for admin_users.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Admin Users
+  tags_raw:
   - admin_users
   properties:
   - type: OpenAPI
@@ -1044,6 +1063,8 @@ apis:
     to a panel on a dashboard and are then only shown on that panel.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Annotation
+  tags_raw:
   - annotations
   properties:
   - type: OpenAPI
@@ -1114,7 +1135,8 @@ apis:
   name: Grafana Convert Prometheus API
   description: The convert_prometheus API from Grafana — 6 operation(s) for convert_prometheus.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - convert_prometheus
   properties:
   - type: OpenAPI
@@ -1256,7 +1278,8 @@ apis:
   name: Grafana Dashboard Public API
   description: The dashboard_public API from Grafana — 6 operation(s) for dashboard_public.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - dashboard_public
   properties:
   - type: OpenAPI
@@ -1328,6 +1351,8 @@ apis:
   description: The dashboards API from Grafana — 20 operation(s) for dashboards.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Dashboards
+  tags_raw:
   - dashboards
   properties:
   - type: OpenAPI
@@ -1399,6 +1424,8 @@ apis:
   description: The devices API from Grafana — 2 operation(s) for devices.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Devices
+  tags_raw:
   - devices
   properties:
   - type: OpenAPI
@@ -1470,6 +1497,8 @@ apis:
   description: These are only available in Grafana Enterprise
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Enterprise
+  tags_raw:
   - enterprise
   properties:
   - type: OpenAPI
@@ -1552,6 +1581,8 @@ apis:
     The uid can have a maximum length of 40 characters.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Folders
+  tags_raw:
   - folders
   properties:
   - type: OpenAPI
@@ -1623,6 +1654,8 @@ apis:
   description: The health API from Grafana — 2 operation(s) for health.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Health
+  tags_raw:
   - health
   properties:
   - type: OpenAPI
@@ -1694,6 +1727,8 @@ apis:
   description: The invites API from Grafana — 2 operation(s) for invites.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Invites
+  tags_raw:
   - invites
   properties:
   - type: OpenAPI
@@ -1773,7 +1808,8 @@ apis:
 
     The maximum length of a UID is 40 characters.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - library_elements
   properties:
   - type: OpenAPI
@@ -1850,6 +1886,8 @@ apis:
     are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Licensing
+  tags_raw:
   - licensing
   properties:
   - type: OpenAPI
@@ -1921,6 +1959,8 @@ apis:
   description: The migrations API from Grafana — 10 operation(s) for migrations.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Migrations
+  tags_raw:
   - migrations
   properties:
   - type: OpenAPI
@@ -1995,6 +2035,8 @@ apis:
     are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Org
+  tags_raw:
   - org
   properties:
   - type: OpenAPI
@@ -2071,6 +2113,8 @@ apis:
     is called `admin` and has permission to use this API).
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Organization
+  tags_raw:
   - orgs
   properties:
   - type: OpenAPI
@@ -2145,6 +2189,8 @@ apis:
     for Admins - they always have access to everything.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Permissions
+  tags_raw:
   - permissions
   properties:
   - type: OpenAPI
@@ -2216,6 +2262,8 @@ apis:
   description: The playlists API from Grafana — 3 operation(s) for playlists.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Playlists
+  tags_raw:
   - playlists
   properties:
   - type: OpenAPI
@@ -2287,6 +2335,8 @@ apis:
   description: The preferences API from Grafana — 3 operation(s) for preferences.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Preferences
+  tags_raw:
   - preferences
   properties:
   - type: OpenAPI
@@ -2358,6 +2408,8 @@ apis:
   description: The provisioning API from Grafana — 17 operation(s) for provisioning.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Provisioning
+  tags_raw:
   - provisioning
   properties:
   - type: OpenAPI
@@ -2435,6 +2487,8 @@ apis:
     queries in query history.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Query History
+  tags_raw:
   - query_history
   properties:
   - type: OpenAPI
@@ -2506,6 +2560,8 @@ apis:
   description: The quota API from Grafana — 6 operation(s) for quota.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Quota
+  tags_raw:
   - quota
   properties:
   - type: OpenAPI
@@ -2577,6 +2633,8 @@ apis:
   description: The recording_rules API from Grafana — 4 operation(s) for recording_rules.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Recording Rules
+  tags_raw:
   - recording_rules
   properties:
   - type: OpenAPI
@@ -2654,6 +2712,8 @@ apis:
     permissions. Refer to specific resources to understand what permissions are required.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Reports
+  tags_raw:
   - reports
   properties:
   - type: OpenAPI
@@ -2725,6 +2785,8 @@ apis:
   description: The saml API from Grafana — 4 operation(s) for saml.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - SAML
+  tags_raw:
   - saml
   properties:
   - type: OpenAPI
@@ -2796,6 +2858,8 @@ apis:
   description: The search API from Grafana — 2 operation(s) for search.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -2870,6 +2934,8 @@ apis:
     for more information.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Service Accounts
+  tags_raw:
   - service_accounts
   properties:
   - type: OpenAPI
@@ -2941,6 +3007,8 @@ apis:
   description: The signed_in_user API from Grafana — 10 operation(s) for signed_in_user.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - SignedInUser
+  tags_raw:
   - signed_in_user
   properties:
   - type: OpenAPI
@@ -3012,6 +3080,8 @@ apis:
   description: The signing_keys API from Grafana — 1 operation(s) for signing_keys.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Signing Keys
+  tags_raw:
   - signing_keys
   properties:
   - type: OpenAPI
@@ -3083,6 +3153,8 @@ apis:
   description: The snapshots API from Grafana — 5 operation(s) for snapshots.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Snapshots
+  tags_raw:
   - snapshots
   properties:
   - type: OpenAPI
@@ -3154,6 +3226,8 @@ apis:
   description: The sso_settings API from Grafana — 2 operation(s) for sso_settings.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - SSO Settings
+  tags_raw:
   - sso_settings
   properties:
   - type: OpenAPI
@@ -3224,7 +3298,8 @@ apis:
   name: Grafana Sync Team Groups API
   description: The sync_team_groups API from Grafana — 2 operation(s) for sync_team_groups.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
-  tags:
+  tags: []
+  tags_raw:
   - sync_team_groups
   properties:
   - type: OpenAPI
@@ -3298,6 +3373,8 @@ apis:
     that the user has the Admin role for the organization.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Team
+  tags_raw:
   - teams
   properties:
   - type: OpenAPI
@@ -3369,6 +3446,8 @@ apis:
   description: The user API from Grafana — 1 operation(s) for user.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -3440,6 +3519,8 @@ apis:
   description: The users API from Grafana — 6 operation(s) for users.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -3511,6 +3592,8 @@ apis:
   description: The versions API from Grafana — 3 operation(s) for versions.
   humanURL: https://grafana.com/docs/grafana/latest/developers/http_api/
   tags:
+  - Versions
+  tags_raw:
   - versions
   properties:
   - type: OpenAPI
