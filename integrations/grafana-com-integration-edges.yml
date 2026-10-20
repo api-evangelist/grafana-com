@@ -5,6 +5,7 @@ checked:
 - https://azuremarketplace.microsoft.com/
 - https://focus.finops.org/data-generators/
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
+- https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/
 - https://github.com/cncf/k8s-conformance
 - https://github.com/cncf/landscape
 - https://github.com/kubeflow/website
@@ -12,6 +13,7 @@ checked:
 - https://github.com/marketplace?type=actions
 - https://github.com/mlcommons
 - https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/
+- https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
 - https://grafana.com/grafana/plugins/
@@ -23,10 +25,133 @@ marketplace_apps:
   channel: partner-built
   app: grafana-com
   url: https://grafana.com/grafana/plugins/
-  app_count: 370
+  app_count: 378
   adapter: sweep-observability.py:grafana-plugins-api
-  listed: 370
+  listed: 378
 edges:
+- partner_name: AWS Marketplace
+  partner: amazon-web-services
+  partner_match: aggregator
+  type: marketplace
+  marketplace: aws-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=d104b10b-1189-4137-a9a4-d4520ea54ca7
+  listing_count: 2
+  apps:
+  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
+  - Grafana Cloud Bring Your Own Cloud (BYOC)
+  seller_name: Grafana Labs
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
+- partner_name: Microsoft Azure Marketplace
+  partner: microsoft-azure
+  partner_match: aggregator
+  type: marketplace
+  marketplace: azure-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=Grafana%20Labs
+  listing_count: 2
+  apps:
+  - Azure Managed Grafana - Enterprise Plugins and Support
+  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
+  seller_name: Grafana Labs
+  detected_by: sweep-cloud-marketplaces.py
+  detected: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/run-grafana-k6-tests
+  listing_count: 4
+  apps:
+  - Run Grafana k6 tests
+  - Setup Grafana k6
+  - k6registry
+  - Setup xk6
+  publisher_name: Grafana Labs
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/Grafana
+  listing_count: 3
+  apps:
+  - Jsonnet Language Server
+  - Grafana Alloy
+  - Grafana
+  publisher_name: Grafana
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
+  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+  apps:
+  - Grafana IRM
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Microsoft Teams app
+  publisher_verified:
+  - Microsoft 365 Certified
+- partner_name: LF AI & Data (Landscape)
+  partner: lf-ai-data
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: AI & data landscape
+  evidence: https://github.com/lfai/landscape/blob/3893e0631e1d12921a9b0ac25ffc78a2ac26239d/landscape.yml
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @3893e0631e)
+    spec_file: null
+    standard: LF AI & Data
+    role: landscape-listed
+    registered_name: Grafana
+    registered_names:
+    - Grafana
+    website: https://grafana.com
+    matched_domain: grafana.com
+    matched_by: domain+name-among-holders
+    member_tier: null
+    hosting_company: false
+    lfai_projects: []
+    landscape_categories:
+    - Data / Visualization
+    landscape_entries: 1
+    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
+      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
+    detected_by: sweep-mlops.py
+    detected: '2026-10-19'
+  detected_by: sweep-mlops.py
+  first_seen: '2026-10-15'
 - partner_name: OpenTelemetry
   partner: null
   type: contract
@@ -3501,6 +3626,23 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:commercial
+- partner_name: integrationplumbers
+  app: Kubecost
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/integrationplumbers-kubecost-datasource/
+  category: Data Source
+  partner_domain: integrationplumbers.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
 - partner_name: teosibileau
   app: Leaflet Choropleth
   partner: null
@@ -4026,6 +4168,40 @@ edges:
   partner_domain: nominal.io
   detected_by: sweep-observability.py
   detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: integrationplumbers
+  app: Nutanix
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/integrationplumbers-nutanix-datasource/
+  category: Data Source
+  partner_domain: integrationplumbers.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
+- partner_name: integrationplumbers
+  app: NVIDIA DCGM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/integrationplumbers-nvidiadcgm-app/
+  category: Application
+  partner_domain: integrationplumbers.io
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
   badges:
   - signature:commercial
 - partner_name: dvelop
@@ -4589,6 +4765,23 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:commercial
+- partner_name: crestdata
+  app: Prisma CSPM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-prismacspm-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
 - partner_name: Prometheus
   app: Prometheus
   partner: null
@@ -4655,6 +4848,23 @@ edges:
   partner_domain: null
   detected_by: sweep-observability.py
   detected: '2026-10-13'
+  badges:
+  - signature:commercial
+- partner_name: ridgelinetechnologies
+  app: Proxmox VE
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/ridgelinetechnologies-proxmoxve-datasource/
+  category: Data Source
+  partner_domain: ridgelinetechnologies.co
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
   badges:
   - signature:commercial
 - partner_name: ventura
@@ -4725,6 +4935,40 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:community
+- partner_name: crestdata
+  app: Qualys Compliance & Application Security
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-qualysappsec-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
+- partner_name: crestdata
+  app: Qualys Vulnerability & Endpoint Security
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-qualysvmdr-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
 - partner_name: questdb
   app: QuestDB
   partner: null
@@ -4873,7 +5117,7 @@ edges:
   direction: partner-built
   evidence: https://grafana.com/grafana/plugins/ccin2p3-riemann-datasource/
   category: Data Source
-  partner_domain: '['
+  partner_domain: null
   detected_by: sweep-observability.py
   detected: '2026-10-13'
   badges:
@@ -6136,6 +6380,23 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:community
+- partner_name: crestdata
+  app: Wiz
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://grafana.com/grafana/plugins/crestdata-wiz-datasource/
+  category: Data Source
+  partner_domain: null
+  detected_by: sweep-observability.py
+  detected: '2026-10-19'
+  badges:
+  - signature:commercial
 - partner_name: magnesium
   app: Word cloud
   partner: null
@@ -6340,89 +6601,17 @@ edges:
   detected: '2026-10-13'
   badges:
   - signature:commercial
-- partner_name: AWS Marketplace
-  partner: amazon-web-services
-  partner_match: aggregator
-  type: marketplace
-  marketplace: aws-marketplace
-  channel: distribution
-  relationship: distribution-channel
-  direction: third-party
-  evidence: https://aws.amazon.com/marketplace/seller-profile?id=d104b10b-1189-4137-a9a4-d4520ea54ca7
-  listing_count: 2
-  apps:
-  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
-  - Grafana Cloud Bring Your Own Cloud (BYOC)
-  seller_name: Grafana Labs
-  detected_by: sweep-cloud-marketplaces.py
-  detected: '2026-10-13'
-- partner_name: Microsoft Azure Marketplace
-  partner: microsoft-azure
-  partner_match: aggregator
-  type: marketplace
-  marketplace: azure-marketplace
-  channel: distribution
-  relationship: distribution-channel
-  direction: third-party
-  evidence: https://azuremarketplace.microsoft.com/en-us/marketplace/apps?search=Grafana%20Labs
-  listing_count: 2
-  apps:
-  - Azure Managed Grafana - Enterprise Plugins and Support
-  - 'Grafana Cloud observability: Grafana, Prometheus metrics, logs, traces'
-  seller_name: Grafana Labs
-  detected_by: sweep-cloud-marketplaces.py
-  detected: '2026-10-13'
-- partner_name: GitHub Marketplace (actions)
-  partner: github-actions
-  partner_match: aggregator
-  type: marketplace
-  marketplace: github-actions
-  channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://github.com/marketplace/actions/run-grafana-k6-tests
-  listing_count: 4
-  apps:
-  - Run Grafana k6 tests
-  - Setup Grafana k6
-  - k6registry
-  - Setup xk6
-  publisher_name: Grafana Labs
-  badges:
-  - Verified creator
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
-- partner_name: Visual Studio Code Marketplace
-  partner: vs-code-marketplace
-  partner_match: aggregator
-  type: marketplace
-  marketplace: vscode
-  channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://marketplace.visualstudio.com/publishers/Grafana
-  listing_count: 3
-  apps:
-  - Jsonnet Language Server
-  - Grafana Alloy
-  - Grafana
-  publisher_name: Grafana
-  badges:
-  - Verified publisher
-  - Verified domain
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
 - partner_name: CNCF (Cloud Native Landscape)
   partner: cncf
   partner_match: register
   type: register
   direction: partner-built
   category: Cloud native landscape
-  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  evidence: https://github.com/cncf/landscape/blob/42dd4cd91dad8ec8558ac02467a43f0805b9957a/landscape.yml
   channel: standard-directory
   relationship: standard-participant
   contract_reference:
-    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @42dd4cd91d)
     spec_file: null
     standard: Cloud Native (CNCF)
     role: cncf-member (Silver)
@@ -6445,7 +6634,7 @@ edges:
     signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
       categories, tier and projects are CONTEXT, never read (breadth is not credit)'
     detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
   first_seen: '2026-10-15'
 - partner_name: FinOps Foundation (FOCUS)
@@ -6470,40 +6659,8 @@ edges:
       grafana.com: 1
     signal_note: 'participation only: the version is context, never read'
     detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   detected_by: sweep-cloud-native.py
-  first_seen: '2026-10-15'
-- partner_name: LF AI & Data (Landscape)
-  partner: lf-ai-data
-  partner_match: register
-  type: register
-  direction: partner-built
-  category: AI & data landscape
-  evidence: https://github.com/lfai/landscape/blob/95d361b8abfdd04a8c76bf38a012778d13621b5e/landscape.yml
-  channel: standard-directory
-  relationship: standard-participant
-  contract_reference:
-    register: LF AI & Data Landscape (github.com/lfai/landscape landscape.yml @95d361b8ab)
-    spec_file: null
-    standard: LF AI & Data
-    role: landscape-listed
-    registered_name: Grafana
-    registered_names:
-    - Grafana
-    website: https://grafana.com
-    matched_domain: grafana.com
-    matched_by: domain+name-among-holders
-    member_tier: null
-    hosting_company: false
-    lfai_projects: []
-    landscape_categories:
-    - Data / Visualization
-    landscape_entries: 1
-    signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
-      categories, tier and projects are CONTEXT, never read (breadth is not credit)'
-    detected_by: sweep-mlops.py
-    detected: '2026-10-15'
-  detected_by: sweep-mlops.py
   first_seen: '2026-10-15'
 - partner_name: Zapier
   partner: zapier
@@ -6538,7 +6695,7 @@ edges:
   channel: open-source-node
   relationship: ipaas-bridge
   direction: third-party
-  evidence: https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/Grafana
+  evidence: https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/Grafana
   category: null
   contract_reference:
     register: n8n built-in nodes (n8n-io/n8n packages/nodes-base)
@@ -6563,7 +6720,7 @@ edges:
   channel: open-source-node
   relationship: ipaas-bridge
   direction: third-party
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/grafana
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/grafana
   category: null
   contract_reference:
     register: Pipedream components (PipedreamHQ/pipedream components/)
@@ -6581,25 +6738,6 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
-- partner_name: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
-  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
-  apps:
-  - Grafana IRM
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Microsoft Teams app
-  publisher_verified:
-  - Microsoft 365 Certified
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
