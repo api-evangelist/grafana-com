@@ -31,6 +31,8 @@ checked:
 - https://registry.npmjs.org
 - docker-hub/integrations/docker-hub-integration-edges.yml
 - eclipse/integrations/eclipse-integration-edges.yml
+- opentofu/integrations/opentofu-integration-edges.yml
+- terraform/integrations/terraform-integration-edges.yml
 marketplace_apps:
 - marketplace: own
   channel: partner-built
@@ -6863,6 +6865,48 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified namespace
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: domain+verified
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/grafana/grafana
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - grafana/grafana
+  - grafana/grafana-adaptive-metrics
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: domain+verified
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/grafana/grafana
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - grafana/grafana
+  - grafana/grafana-adaptive-metrics
+  - grafana/schemas
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
+  - Verified publisher (GitHub domain-verified organization)
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
