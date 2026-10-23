@@ -4111,71 +4111,6 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
-- slug: grafana-com-microsoft-teams-own
-  label: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_name: Microsoft Teams (own)
-  category: Microsoft Teams app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: grafana-com-docker-hub-docker-verified-publisher
-  label: Docker Hub (docker-verified-publisher)
-  partner: docker-hub
-  partner_name: Docker Hub (docker-verified-publisher)
-  category: Docker Verified Publisher
-  type: marketplace
-  marketplace: docker-verified-publisher
-  channel: partner-built
-  evidence: https://hub.docker.com/u/grafana
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: grafana-com-eclipse-foundation-open-vsx
-  label: Eclipse Foundation (open-vsx)
-  partner: eclipse
-  partner_name: Eclipse Foundation (open-vsx)
-  category: IDE / developer extension marketplace listing
-  type: marketplace
-  marketplace: open-vsx
-  channel: partner-built
-  evidence: https://open-vsx.org/namespace/Grafana
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: grafana-com-opentofu-opentofu-registry
-  label: OpenTofu (opentofu-registry)
-  partner: opentofu
-  partner_name: OpenTofu (opentofu-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: opentofu-registry
-  channel: partner-built
-  evidence: https://search.opentofu.org/provider/grafana/grafana
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: grafana-com-terraform-terraform-registry
-  label: Terraform (terraform-registry)
-  partner: terraform
-  partner_name: Terraform (terraform-registry)
-  category: infrastructure-as-code provider registry listing
-  type: marketplace
-  marketplace: terraform-registry
-  channel: partner-built
-  evidence: https://registry.terraform.io/providers/grafana/grafana
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: grafana-com-sequoia-capital
   label: Sequoia Capital
   partner: sequoia-capital
@@ -4363,5 +4298,83 @@
       and package counts are context, never counted'
     detected_by: sweep-red-hat-certified-ecosystem.py
     detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-microsoft-teams-own
+  label: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_name: Microsoft Teams (own)
+  category: Microsoft Teams app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-docker-hub-docker-verified-publisher
+  label: Docker Hub (docker-verified-publisher)
+  partner: docker-hub
+  partner_name: Docker Hub (docker-verified-publisher)
+  category: Docker Verified Publisher
+  type: marketplace
+  marketplace: docker-verified-publisher
+  channel: partner-built
+  evidence: https://hub.docker.com/u/grafana
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-eclipse-foundation-open-vsx
+  label: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_name: Eclipse Foundation (open-vsx)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: open-vsx
+  channel: partner-built
+  evidence: https://open-vsx.org/namespace/Grafana
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-opentofu-opentofu-registry
+  label: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_name: OpenTofu (opentofu-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: opentofu-registry
+  channel: partner-built
+  evidence: https://search.opentofu.org/provider/grafana/grafana
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-terraform-terraform-registry
+  label: Terraform (terraform-registry)
+  partner: terraform
+  partner_name: Terraform (terraform-registry)
+  category: infrastructure-as-code provider registry listing
+  type: marketplace
+  marketplace: terraform-registry
+  channel: partner-built
+  evidence: https://registry.terraform.io/providers/grafana/grafana
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: grafana-com-ansible-ansible-galaxy
+  label: Ansible (ansible-galaxy)
+  partner: ansible
+  partner_name: Ansible (ansible-galaxy)
+  category: configuration-management content listing (Ansible collection)
+  type: marketplace
+  marketplace: ansible-galaxy
+  channel: partner-built
+  evidence: https://galaxy.ansible.com/ui/repo/published/grafana/grafana/
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null

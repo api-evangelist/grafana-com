@@ -55,6 +55,7 @@ checked:
 - https://catalog.redhat.com/api/containers/v1/repositories?page_size=100
 - https://catalog.redhat.com/api/containers/v1/vendors/label/
 - https://catalog.redhat.com/software/partners
+- ansible/integrations/ansible-integration-edges.yml
 marketplace_apps:
 - marketplace: own
   channel: partner-built
@@ -6814,121 +6815,6 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
   first_seen: '2026-10-20'
-- partner_name: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
-  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
-  apps:
-  - Grafana IRM
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Microsoft Teams app
-  publisher_verified:
-  - Microsoft 365 Certified
-- partner_name: Docker Hub (docker-verified-publisher)
-  partner: docker-hub
-  partner_match: mirror
-  mirror_match: domain+name-among-holders
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: docker-verified-publisher
-  evidence: https://hub.docker.com/u/grafana
-  mirror_of: docker-hub/integrations/docker-hub-integration-edges.yml
-  apps:
-  - grafana/grafana
-  - grafana/loki
-  - grafana/promtail
-  - grafana/synthetic-monitoring-agent
-  - grafana/grafana-image-renderer
-  - grafana/agent
-  - grafana/alloy
-  - grafana/fluent-bit-plugin-loki
-  - grafana/mimir
-  - grafana/loki-canary
-  - grafana/tempo
-  - grafana/grafana-oss
-  - grafana/k6
-  - grafana/oncall
-  - grafana/pdc-agent
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: Docker Verified Publisher
-  badges:
-  - Docker Verified Publisher
-- partner_name: Eclipse Foundation (open-vsx)
-  partner: eclipse
-  partner_match: mirror
-  mirror_match: domain+verified
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: open-vsx
-  evidence: https://open-vsx.org/namespace/Grafana
-  mirror_of: eclipse/integrations/eclipse-integration-edges.yml
-  apps:
-  - Jsonnet Language Server
-  - Grafana
-  - Grafana Alloy
-  listing_count: 1
-  detected: '2026-10-20'
-  detected_by: mirror-platform-listings.py
-  category: IDE / developer extension marketplace listing
-  badges:
-  - Verified namespace
-- partner_name: OpenTofu (opentofu-registry)
-  partner: opentofu
-  partner_match: mirror
-  mirror_match: domain+verified
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: opentofu-registry
-  evidence: https://search.opentofu.org/provider/grafana/grafana
-  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
-  apps:
-  - grafana/grafana
-  - grafana/grafana-adaptive-metrics
-  listing_count: 1
-  detected: '2026-10-21'
-  detected_by: mirror-platform-listings.py
-  category: infrastructure-as-code provider registry listing
-  badges:
-  - Verified publisher (GitHub domain-verified organization)
-- partner_name: Terraform (terraform-registry)
-  partner: terraform
-  partner_match: mirror
-  mirror_match: domain+verified
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: terraform-registry
-  evidence: https://registry.terraform.io/providers/grafana/grafana
-  mirror_of: terraform/integrations/terraform-integration-edges.yml
-  apps:
-  - grafana/grafana
-  - grafana/grafana-adaptive-metrics
-  - grafana/schemas
-  listing_count: 1
-  detected: '2026-10-21'
-  detected_by: mirror-platform-listings.py
-  category: infrastructure-as-code provider registry listing
-  badges:
-  - Verified publisher (Terraform partner tier)
-  - Verified publisher (GitHub domain-verified organization)
 - partner_name: Sequoia Capital
   partner: sequoia-capital
   partner_match: register
@@ -7118,6 +7004,141 @@ edges:
     detected: '2026-10-22'
   detected_by: sweep-red-hat-certified-ecosystem.py
   first_seen: '2026-10-22'
+- partner_name: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200004307
+  mirror_of: microsoft-teams/integrations/microsoft-teams-integration-edges.yml
+  apps:
+  - Grafana IRM
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Microsoft Teams app
+  publisher_verified:
+  - Microsoft 365 Certified
+- partner_name: Docker Hub (docker-verified-publisher)
+  partner: docker-hub
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: docker-verified-publisher
+  evidence: https://hub.docker.com/u/grafana
+  mirror_of: docker-hub/integrations/docker-hub-integration-edges.yml
+  apps:
+  - grafana/grafana
+  - grafana/loki
+  - grafana/promtail
+  - grafana/synthetic-monitoring-agent
+  - grafana/grafana-image-renderer
+  - grafana/agent
+  - grafana/alloy
+  - grafana/fluent-bit-plugin-loki
+  - grafana/mimir
+  - grafana/loki-canary
+  - grafana/tempo
+  - grafana/grafana-oss
+  - grafana/k6
+  - grafana/oncall
+  - grafana/pdc-agent
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: Docker Verified Publisher
+  badges:
+  - Docker Verified Publisher
+- partner_name: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_match: mirror
+  mirror_match: domain+verified
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: open-vsx
+  evidence: https://open-vsx.org/namespace/Grafana
+  mirror_of: eclipse/integrations/eclipse-integration-edges.yml
+  apps:
+  - Jsonnet Language Server
+  - Grafana
+  - Grafana Alloy
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified namespace
+- partner_name: OpenTofu (opentofu-registry)
+  partner: opentofu
+  partner_match: mirror
+  mirror_match: domain+verified
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: opentofu-registry
+  evidence: https://search.opentofu.org/provider/grafana/grafana
+  mirror_of: opentofu/integrations/opentofu-integration-edges.yml
+  apps:
+  - grafana/grafana
+  - grafana/grafana-adaptive-metrics
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Terraform (terraform-registry)
+  partner: terraform
+  partner_match: mirror
+  mirror_match: domain+verified
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: terraform-registry
+  evidence: https://registry.terraform.io/providers/grafana/grafana
+  mirror_of: terraform/integrations/terraform-integration-edges.yml
+  apps:
+  - grafana/grafana
+  - grafana/grafana-adaptive-metrics
+  - grafana/schemas
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: infrastructure-as-code provider registry listing
+  badges:
+  - Verified publisher (Terraform partner tier)
+  - Verified publisher (GitHub domain-verified organization)
+- partner_name: Ansible (ansible-galaxy)
+  partner: ansible
+  partner_match: mirror
+  mirror_match: domain+name-among-holders
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: ansible-galaxy
+  evidence: https://galaxy.ansible.com/ui/repo/published/grafana/grafana/
+  mirror_of: ansible/integrations/ansible-integration-edges.yml
+  apps:
+  - grafana.grafana
+  - indigo423.grafana
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: configuration-management content listing (Ansible collection)
+  badges:
+  - Verified publisher (GitHub domain-verified organization)
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
