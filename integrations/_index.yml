@@ -4378,3 +4378,40 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: grafana-com-buf-schema-registry-bsr-public-modules
+  label: Buf Schema Registry (BSR) public modules
+  partner: buf
+  partner_name: Buf Schema Registry (BSR) public modules
+  category: Protocol Buffers schema publishing (BSR)
+  type: register
+  channel: standard-directory
+  evidence: https://buf.build/grafana
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Buf Schema Registry (BSR) public modules
+    spec_file: null
+    standard: Protocol Buffers
+    role: schema-publisher
+    registrations:
+    - registered_name: grafana
+      register_status: public-modules
+      evidence_url: https://buf.build/grafana
+      matched_domain: grafana.com
+      matched_by: domain+name-among-holders
+      url_source: owner-url
+    modules:
+    - module: buf.build/grafana/grafana-img
+      state: active
+      lapsed: false
+      created: '2023-02-02'
+    - module: buf.build/grafana/wiresmith
+      state: active
+      lapsed: false
+      created: '2026-07-07'
+    signal_note: 'participation only: the owner publishes Protocol Buffers schema modules on the public BSR; a listing
+      is not conformance (no certified_products)'
+    detected_by: sweep-buf-schema-registry.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null

@@ -56,6 +56,9 @@ checked:
 - https://catalog.redhat.com/api/containers/v1/vendors/label/
 - https://catalog.redhat.com/software/partners
 - ansible/integrations/ansible-integration-edges.yml
+- https://buf.build/buf.registry.module.v1.ModuleService/ListModules
+- https://buf.build/buf.registry.owner.v1.OwnerService/GetOwners
+- https://buf.build/explore
 marketplace_apps:
 - marketplace: own
   channel: partner-built
@@ -7139,6 +7142,42 @@ edges:
   category: configuration-management content listing (Ansible collection)
   badges:
   - Verified publisher (GitHub domain-verified organization)
+- partner_name: Buf Schema Registry (BSR) public modules
+  partner: buf
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: third-party
+  evidence: https://buf.build/grafana
+  category: Protocol Buffers schema publishing (BSR)
+  contract_reference:
+    register: Buf Schema Registry (BSR) public modules
+    spec_file: null
+    standard: Protocol Buffers
+    role: schema-publisher
+    registrations:
+    - registered_name: grafana
+      register_status: public-modules
+      evidence_url: https://buf.build/grafana
+      matched_domain: grafana.com
+      matched_by: domain+name-among-holders
+      url_source: owner-url
+    modules:
+    - module: buf.build/grafana/grafana-img
+      state: active
+      lapsed: false
+      created: '2023-02-02'
+    - module: buf.build/grafana/wiresmith
+      state: active
+      lapsed: false
+      created: '2026-07-07'
+    signal_note: 'participation only: the owner publishes Protocol Buffers schema modules on the public BSR; a listing
+      is not conformance (no certified_products)'
+    detected_by: sweep-buf-schema-registry.py
+    detected: '2026-10-23'
+  detected_by: sweep-buf-schema-registry.py
+  first_seen: '2026-10-23'
 source:
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/ecosystem/vendors.yaml
 - https://github.com/open-telemetry/opentelemetry.io/blob/main/data/registry/
