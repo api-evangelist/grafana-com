@@ -1,4 +1,4 @@
-# Grafana (grafana-com)
+# Grafana
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,243 +64,184 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Grafana Labs builds the open and composable observability stack used by millions of engineers to visualize, query, alert on, and explore their metrics, logs, traces, and profiles. The flagship Grafana OSS dashboarding platform is paired with Grafana Loki (logs), Grafana Mimir (Prometheus-compatible metrics), Grafana Tempo (distributed traces), and Grafana Pyroscope (continuous profiling) — all under the LGTM stack. Grafana Cloud delivers the entire portfolio as a managed SaaS with a generous free tier, while Grafana Enterprise extends self-managed deployments with premium plugins, reporting, RBAC, LBAC, and caching. The ecosystem extends to Grafana k6 (load testing), Grafana Alloy (OpenTelemetry-native collector), Grafana Beyla (eBPF auto-instrumentation), Grafana Faro (frontend observability), Grafana OnCall (incident response), and Synthetic Monitoring. A canonical OpenAPI specification at `public/api-merged.json` powers the official Go client, the Terraform provider, the Grafana Operator, and a deep dashboards-as-code toolchain (Foundation SDK, Grafonnet, Grizzly, Scenes).
+Grafana Labs builds the open and composable observability stack used by millions of engineers to visualize, query, alert on, and explore their metrics, logs, traces, and profiles. The flagship Grafana OSS dashboarding platform is paired with Grafana Loki (logs), Grafana Mimir (Prometheus-compatible metrics), Grafana Tempo (distributed traces), and Grafana Pyroscope (continuous profiling) — all under the LGTM stack. Grafana Cloud delivers the entire portfolio as a managed SaaS with a generous free tier, while Grafana Enterprise extends self-managed deployments with premium plugins, reporting, RBAC, LBAC, and caching. The ecosystem extends to Grafana k6 (load testing), Grafana Alloy (OpenTelemetry-native collector), Grafana Beyla (eBPF auto-instrumentation), Grafana Faro (frontend observability), Grafana OnCall (incident response), and Synthetic Monitoring. A canonical OpenAPI specification at public/api-merged.json powers the official Go client, the Terraform provider, the Grafana Operator, and a deep dashboards-as-code toolchain (Foundation SDK, Grafonnet, Grizzly, Scenes).
 
-**URL:** [Visit APIs.json](https://raw.githubusercontent.com/api-evangelist/grafana-com/refs/heads/main/apis.yml)
+**Areas:** Observability · Monitoring · Dashboards · Logs · Metrics · Traces · Profiling · Alerting · Open Source · Grafana Labs
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Grafana on APIs.io
 
-## Tags
+Everything profiled for Grafana is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/grafana-com/](https://apis.io/providers/grafana-com/)** — or go straight to one of the APIs or properties below.
 
-- Observability, Monitoring, Dashboards, Logs, Metrics, Traces, Profiling, Alerting, Open Source, Grafana Labs
+### APIs (49)
 
-## Timestamps
+- [Grafana Cloud API](https://apis.io/apis/grafana-com/grafana-cloud-api/) — Manage Grafana Cloud stacks (instances), plugins, data sources, regions, access policies, and tokens at `https://grafana.com/api`. Authenticated with Cloud…
+- [Grafana Loki HTTP API](https://apis.io/apis/grafana-com/loki-http-api/) — Query and push logs to Grafana Loki. Endpoints include `/loki/api/v1/push` (log ingestion), `/loki/api/v1/query` and `/query_range` (LogQL),…
+- [Grafana Mimir HTTP API](https://apis.io/apis/grafana-com/mimir-http-api/) — Horizontally scalable, multi-tenant, long-term Prometheus-compatible metrics storage. Exposes Prometheus remote-write at `/api/v1/push`, the full Prometheus…
+- [Grafana Tempo HTTP API](https://apis.io/apis/grafana-com/tempo-http-api/) — High-volume, minimal-dependency distributed tracing backend. Supports OTLP ingestion, trace lookup by ID (`/api/traces/{traceID}`), TraceQL search…
+- [Grafana Pyroscope HTTP API](https://apis.io/apis/grafana-com/pyroscope-http-api/) — Continuous profiling backend. Ingest pprof and Pyroscope-format CPU, memory, and lock profiles, query flame graphs and merge profiles, and run profile-based…
+- [Grafana k6 Cloud API](https://apis.io/apis/grafana-com/k6-cloud-api/) — Programmatically trigger, list, and manage cloud-hosted k6 load tests, projects, organizations, test runs, thresholds, and results. Pairs with the…
+- [Grafana OnCall API](https://apis.io/apis/grafana-com/oncall-api/) — Programmatic access to OnCall alert groups, integrations, escalation chains, schedules, on-call shifts, routes, slack channels, webhooks, and users. Powers…
+- [Grafana Synthetic Monitoring API](https://apis.io/apis/grafana-com/synthetic-monitoring-api/) — Create and manage synthetic probes (HTTP, HTTPS, DNS, TCP, ICMP/ping, traceroute, multi-step scripted browser, gRPC) executed from Grafana Labs' global…
+- [Grafana Access Control API](https://apis.io/apis/grafana-com/grafana-com-access-control-api/) — The API can be used to create, update, get and list roles, and create or remove built-in role assignments. To use the API, you would need to enable…
+- [Grafana Admin API](https://apis.io/apis/grafana-com/grafana-com-admin-api/) — The Admin HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization and an organization role. They cannot…
+- [Grafana Admin Ldap API](https://apis.io/apis/grafana-com/grafana-com-admin-ldap-api/) — The admin_ldap API from Grafana — 5 operation(s) for admin_ldap.
+- [Grafana Admin Provisioning API](https://apis.io/apis/grafana-com/grafana-com-admin-provisioning-api/) — The admin_provisioning API from Grafana — 4 operation(s) for admin_provisioning.
+- [Grafana Admin Users API](https://apis.io/apis/grafana-com/grafana-com-admin-users-api/) — The admin_users API from Grafana — 11 operation(s) for admin_users.
+- [Grafana Annotations API](https://apis.io/apis/grafana-com/grafana-com-annotations-api/) — Grafana Annotations feature released in Grafana 4.6. Annotations are saved in the Grafana database (sqlite, mysql or postgres). Annotations can be…
+- [Grafana Convert Prometheus API](https://apis.io/apis/grafana-com/grafana-com-convert-prometheus-api/) — The convert_prometheus API from Grafana — 6 operation(s) for convert_prometheus.
+- [Grafana Correlations API](https://apis.io/apis/grafana-com/grafana-com-correlations-api/) — The correlations API from Grafana — 4 operation(s) for correlations.
+- [Grafana Dashboard Public API](https://apis.io/apis/grafana-com/grafana-com-dashboard-public-api/) — The dashboard_public API from Grafana — 6 operation(s) for dashboard_public.
+- [Grafana Dashboards API](https://apis.io/apis/grafana-com/grafana-com-dashboards-api/) — The dashboards API from Grafana — 20 operation(s) for dashboards.
+- [Grafana Devices API](https://apis.io/apis/grafana-com/grafana-com-devices-api/) — The devices API from Grafana — 2 operation(s) for devices.
+- [Grafana Enterprise API](https://apis.io/apis/grafana-com/grafana-com-enterprise-api/) — These are only available in Grafana Enterprise
+- [Grafana Folders API](https://apis.io/apis/grafana-com/grafana-com-folders-api/) — Folders are identified by the identifier (id) and the unique identifier (uid). The identifier (id) of a folder is an auto-incrementing numeric value and is…
+- [Grafana Health API](https://apis.io/apis/grafana-com/grafana-com-health-api/) — The health API from Grafana — 2 operation(s) for health.
+- [Grafana Invites API](https://apis.io/apis/grafana-com/grafana-com-invites-api/) — The invites API from Grafana — 2 operation(s) for invites.
+- [Grafana Library Elements API](https://apis.io/apis/grafana-com/grafana-com-library-elements-api/) — The identifier (ID) of a library element is an auto-incrementing numeric value that is unique per Grafana install. The unique identifier (UID) of a library…
+- [Grafana Licensing API](https://apis.io/apis/grafana-com/grafana-com-licensing-api/) — Licensing is only available in Grafana Enterprise. Read more about Grafana Enterprise. If you are running Grafana Enterprise and have Fine-grained access…
+- [Grafana Migrations API](https://apis.io/apis/grafana-com/grafana-com-migrations-api/) — The migrations API from Grafana — 10 operation(s) for migrations.
+- [Grafana Org API](https://apis.io/apis/grafana-com/grafana-com-org-api/) — If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have relevant permissions. Refer to…
+- [Grafana Orgs API](https://apis.io/apis/grafana-com/grafana-com-orgs-api/) — The Admin Organizations HTTP API does not currently work with an API Token. API Tokens are currently only linked to an organization and an organization…
+- [Grafana Permissions API](https://apis.io/apis/grafana-com/grafana-com-permissions-api/) — Permissions with `folderId=-1` are the default permissions for users with the Viewer and Editor roles. Permissions can be set for a user, a team or a role…
+- [Grafana Playlists API](https://apis.io/apis/grafana-com/grafana-com-playlists-api/) — The playlists API from Grafana — 3 operation(s) for playlists.
+- [Grafana Preferences API](https://apis.io/apis/grafana-com/grafana-com-preferences-api/) — The preferences API from Grafana — 3 operation(s) for preferences.
+- [Grafana Provisioning API](https://apis.io/apis/grafana-com/grafana-com-provisioning-api/) — The provisioning API from Grafana — 17 operation(s) for provisioning.
+- [Grafana Query History API](https://apis.io/apis/grafana-com/grafana-com-query-history-api/) — The identifier (ID) of a query in query history is an auto-incrementing numeric value that is unique per Grafana install. The unique identifier (UID) of a…
+- [Grafana Quota API](https://apis.io/apis/grafana-com/grafana-com-quota-api/) — The quota API from Grafana — 6 operation(s) for quota.
+- [Grafana Recording Rules API](https://apis.io/apis/grafana-com/grafana-com-recording-rules-api/) — The recording_rules API from Grafana — 4 operation(s) for recording_rules.
+- [Grafana Reports API](https://apis.io/apis/grafana-com/grafana-com-reports-api/) — This API allows you to interact programmatically with the Reporting feature. Reporting is only available in Grafana Enterprise. Read more about Grafana…
+- [Grafana SAML API](https://apis.io/apis/grafana-com/grafana-com-saml-api/) — The saml API from Grafana — 4 operation(s) for saml.
+- [Grafana Search API](https://apis.io/apis/grafana-com/grafana-com-search-api/) — The search API from Grafana — 2 operation(s) for search.
+- [Grafana Service Accounts API](https://apis.io/apis/grafana-com/grafana-com-service-accounts-api/) — If you are running Grafana Enterprise, for some endpoints you'll need to have specific permissions. Refer to [Role-based access control…
+- [Grafana Signed In User API](https://apis.io/apis/grafana-com/grafana-com-signed-in-user-api/) — The signed_in_user API from Grafana — 10 operation(s) for signed_in_user.
+- [Grafana Signing Keys API](https://apis.io/apis/grafana-com/grafana-com-signing-keys-api/) — The signing_keys API from Grafana — 1 operation(s) for signing_keys.
+- [Grafana Snapshots API](https://apis.io/apis/grafana-com/grafana-com-snapshots-api/) — The snapshots API from Grafana — 5 operation(s) for snapshots.
+- [Grafana SSO Settings API](https://apis.io/apis/grafana-com/grafana-com-sso-settings-api/) — The sso_settings API from Grafana — 2 operation(s) for sso_settings.
+- [Grafana Sync Team Groups API](https://apis.io/apis/grafana-com/grafana-com-sync-team-groups-api/) — The sync_team_groups API from Grafana — 2 operation(s) for sync_team_groups.
+- [Grafana Teams API](https://apis.io/apis/grafana-com/grafana-com-teams-api/) — This API can be used to create/update/delete Teams and to add/remove users to Teams. All actions require that the user has the Admin role for the organization.
+- [Grafana User API](https://apis.io/apis/grafana-com/grafana-com-user-api/) — The user API from Grafana — 1 operation(s) for user.
+- [Grafana Users API](https://apis.io/apis/grafana-com/grafana-com-users-api/) — The users API from Grafana — 6 operation(s) for users.
+- [Grafana Versions API](https://apis.io/apis/grafana-com/grafana-com-versions-api/) — The versions API from Grafana — 3 operation(s) for versions.
+- [Grafana Data Sources API](https://apis.io/apis/grafana-com/grafana-com-data-sources-api/) — If you are running Grafana Enterprise and have Fine-grained access control enabled, for some endpoints you would need to have relevant permissions. Refer to…
 
-- **Created:** 2026-05-25
-- **Modified:** 2026-05-25
+### Published properties
 
-## The LGTM Stack at a Glance
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| Product | Telemetry | Query Language | Repo |
-|---|---|---|---|
-| **Grafana** | Visualization | — | [grafana/grafana](https://github.com/grafana/grafana) |
-| **Loki** | Logs | LogQL | [grafana/loki](https://github.com/grafana/loki) |
-| **Mimir** | Metrics | PromQL | [grafana/mimir](https://github.com/grafana/mimir) |
-| **Tempo** | Traces | TraceQL | [grafana/tempo](https://github.com/grafana/tempo) |
-| **Pyroscope** | Profiles | Pyroscope query / pprof | [grafana/pyroscope](https://github.com/grafana/pyroscope) |
-| **Alloy** | OTel Collector | — | [grafana/alloy](https://github.com/grafana/alloy) |
-| **k6** | Load Testing | JavaScript | [grafana/k6](https://github.com/grafana/k6) |
-| **Beyla** | eBPF auto-instrumentation | — | [grafana/beyla](https://github.com/grafana/beyla) |
-| **Faro** | Frontend observability | — | [grafana/faro-web-sdk](https://github.com/grafana/faro-web-sdk) |
-| **OnCall** | Incident response | — | [grafana/oncall](https://github.com/grafana/oncall) |
+#### MCP servers (1)
 
-## APIs
+Model Context Protocol servers that expose the API to agents.
 
-### Grafana HTTP API
-The full Grafana HTTP API surface for self-managed Grafana and Grafana Enterprise, with a canonical OpenAPI 2.0 specification at `public/api-merged.json` in the grafana/grafana repository.
+- [grafana-com-mcp.yml](https://apis.io/servers/grafana-com/grafana-com-mcp-yml/)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/](https://grafana.com/docs/grafana/latest/developers/http_api/)
+#### Agentic access (1)
 
-- [Documentation](https://grafana.com/docs/grafana/latest/developers/http_api/)
-- [Canonical OpenAPI Specification](https://github.com/grafana/grafana/blob/main/public/api-merged.json)
-- [Authentication](https://grafana.com/docs/grafana/latest/developers/http_api/authentication/)
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Grafana Dashboard API
-Create, read, update, delete, search, version, and permission dashboards via the Kubernetes-style `dashboard.grafana.app/v1` and legacy `/api/dashboards/` endpoints.
+- [Grafana Com Agentic Access](https://apis.io/agentic-access/grafana-com/grafana-com-agentic-access/)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/)
+#### Governance rules (1)
 
-- [Documentation](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard/)
-- [Dashboard Versions](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_versions/)
-- [Dashboard Permissions](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_permissions/)
-- [Shared (Public) Dashboards](https://grafana.com/docs/grafana/latest/developers/http_api/dashboard_public/)
+Spectral rulesets for the provider's contracts.
 
-### Grafana Folder and Search API
-Manage folders, cross-folder dashboard search, and folder-level permissions — the primary organizational unit for dashboards.
+- [Grafana API Rules](https://apis.io/rules/grafana-com/grafana-com-rules/)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/folder/](https://grafana.com/docs/grafana/latest/developers/http_api/folder/)
+#### Security (4)
 
-- [Documentation](https://grafana.com/docs/grafana/latest/developers/http_api/folder/)
-- [Folder/Dashboard Search](https://grafana.com/docs/grafana/latest/developers/http_api/folder_dashboard_search/)
-- [Folder Permissions](https://grafana.com/docs/grafana/latest/developers/http_api/folder_permissions/)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Grafana Data Source API
-Programmatically register and manage data sources (Prometheus, Loki, Tempo, Mimir, Pyroscope, plus 150+ more) with per-data-source permissions and label-based access control (LBAC) rules.
+- [Grafana Com Authentication](https://apis.io/security/grafana-com/grafana-com-authentication/)
+- [Grafana Com Domain Security](https://apis.io/security/grafana-com/grafana-com-domain-security/)
+- [Grafana Com Trust Center](https://apis.io/security/grafana-com/grafana-com-trust-center/)
+- [Grafana Com Vulnerability Disclosure](https://apis.io/security/grafana-com/grafana-com-vulnerability-disclosure/)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/data_source/](https://grafana.com/docs/grafana/latest/developers/http_api/data_source/)
+#### Plans and pricing (1)
 
-- [Documentation](https://grafana.com/docs/grafana/latest/developers/http_api/data_source/)
-- [Data Source Permissions](https://grafana.com/docs/grafana/latest/developers/http_api/datasource_permissions/)
-- [Data Source LBAC Rules](https://grafana.com/docs/grafana/latest/developers/http_api/datasource_lbac_rules/)
+Published plans, tiers and prices.
 
-### Grafana Alerting Provisioning API
-Provision alert rules, contact points, mute timings, notification policies, and templates for GitOps-style alert-as-code.
+- [Grafana Com Plans Pricing](https://apis.io/plans/grafana-com/grafana-com-plans-pricing/)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/](https://grafana.com/docs/grafana/latest/developers/http_api/alerting_provisioning/)
+#### Rate limits (1)
 
-### Grafana Annotations API
-Create, read, update, and delete annotations marking events on time-series dashboards.
+Published request limits.
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/annotations/](https://grafana.com/docs/grafana/latest/developers/http_api/annotations/)
+- [Grafana Com Rate Limits](https://apis.io/rate-limits/grafana-com/grafana-com-rate-limits/)
 
-### Grafana Organization and Users API
-Manage organizations, users, teams, external team sync, and user/org preferences.
+#### FinOps (1)
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/org/](https://grafana.com/docs/grafana/latest/developers/http_api/org/)
+What the API costs to run, by operation.
 
-- [Users](https://grafana.com/docs/grafana/latest/developers/http_api/user/)
-- [Teams](https://grafana.com/docs/grafana/latest/developers/http_api/team/)
-- [Team Sync](https://grafana.com/docs/grafana/latest/developers/http_api/team_sync/)
-- [Preferences](https://grafana.com/docs/grafana/latest/developers/http_api/preferences/)
+- [Grafana Com Finops](https://apis.io/finops/grafana-com/grafana-com-finops/)
 
-### Grafana Access Control (RBAC) API
-Fine-grained RBAC, custom roles, permission grants, service accounts, service account tokens, and SSO settings (SAML, OAuth, LDAP).
+## Where to find this API
 
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/access_control/](https://grafana.com/docs/grafana/latest/developers/http_api/access_control/)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- [Service Accounts](https://grafana.com/docs/grafana/latest/developers/http_api/serviceaccount/)
-- [SSO Settings](https://grafana.com/docs/grafana/latest/developers/http_api/sso-settings/)
-
-### Grafana Admin API
-Server-wide administration plus Grafana Enterprise extensions for licensing, scheduled reporting, and query/resource caching.
-
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/admin/](https://grafana.com/docs/grafana/latest/developers/http_api/admin/)
-
-- [Enterprise Licensing](https://grafana.com/docs/grafana/latest/developers/http_api/licensing/)
-- [Reporting (Enterprise)](https://grafana.com/docs/grafana/latest/developers/http_api/reporting/)
-- [Query and Resource Caching (Enterprise)](https://grafana.com/docs/grafana/latest/developers/http_api/query_and_resource_caching/)
-
-### Grafana Library Elements API
-Reusable library panels and variables that propagate updates to every dashboard that references them.
-
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/library_element/](https://grafana.com/docs/grafana/latest/developers/http_api/library_element/)
-
-### Grafana Correlations API
-Define click-through pivots between data sources to connect metrics, logs, traces, and profiles in Explore and dashboards.
-
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/correlations/](https://grafana.com/docs/grafana/latest/developers/http_api/correlations/)
-
-### Grafana Snapshot, Short URL, and Query History API
-Share dashboard snapshots, generate short URLs for long Explore queries, and read/write Explore query history.
-
-**Human URL:** [https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/](https://grafana.com/docs/grafana/latest/developers/http_api/snapshot/)
-
-- [Short URLs](https://grafana.com/docs/grafana/latest/developers/http_api/short_url/)
-- [Query History](https://grafana.com/docs/grafana/latest/developers/http_api/query_history/)
-
-### Grafana Cloud API
-Manage Grafana Cloud stacks, plugins, regions, access policies, and tokens at `https://grafana.com/api`. The recommended automation surface for provisioning Grafana Cloud environments and Terraform workflows.
-
-**Human URL:** [https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/](https://grafana.com/docs/grafana-cloud/developer-resources/api-reference/cloud-api/)
-
-- [Access Policies and Tokens](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/)
-
-### Grafana Loki HTTP API
-Push and query logs with LogQL. Endpoints include `/loki/api/v1/push`, `/query`, `/query_range`, `/labels`, `/series`, and `/tail` (websocket streaming).
-
-**Human URL:** [https://grafana.com/docs/loki/latest/reference/loki-http-api/](https://grafana.com/docs/loki/latest/reference/loki-http-api/)
-
-### Grafana Mimir HTTP API
-Prometheus remote-write metrics ingestion plus the full Prometheus query API, ruler, alertmanager, and per-tenant admin endpoints.
-
-**Human URL:** [https://grafana.com/docs/mimir/latest/references/http-api/](https://grafana.com/docs/mimir/latest/references/http-api/)
-
-### Grafana Tempo HTTP API
-OTLP trace ingestion, trace lookup by ID, TraceQL search, and span-derived metrics over object storage.
-
-**Human URL:** [https://grafana.com/docs/tempo/latest/api_docs/](https://grafana.com/docs/tempo/latest/api_docs/)
-
-### Grafana Pyroscope HTTP API
-Continuous profiling ingest (pprof and Pyroscope formats), flame-graph queries, and merge/diff operations.
-
-**Human URL:** [https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/](https://grafana.com/docs/pyroscope/latest/configure-server/about-server-api/)
-
-### Grafana k6 Cloud API
-Trigger and manage cloud-hosted k6 load tests, projects, organizations, thresholds, and results.
-
-**Human URL:** [https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/](https://grafana.com/docs/grafana-cloud/testing/k6/reference/cloud-rest-api/)
-
-### Grafana OnCall API
-Programmatic access to alert groups, integrations, escalation chains, schedules, on-call shifts, routes, and webhooks.
-
-**Human URL:** [https://grafana.com/docs/oncall/latest/oncall-api-reference/](https://grafana.com/docs/oncall/latest/oncall-api-reference/)
-
-### Grafana Synthetic Monitoring API
-Create synthetic probes (HTTP/HTTPS, DNS, TCP, ICMP, traceroute, scripted browser, gRPC) executed from a global probe network.
-
-**Human URL:** [https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/](https://grafana.com/docs/grafana-cloud/monitor-public-endpoints/)
-
-## Common Properties
-
-- [Portal — grafana.com](https://grafana.com)
-- [Documentation — Grafana Docs](https://grafana.com/docs/)
-- [Documentation — Grafana OSS Docs](https://grafana.com/docs/grafana/latest/)
-- [Documentation — Grafana Cloud Docs](https://grafana.com/docs/grafana-cloud/)
-- [Documentation — HTTP API Reference](https://grafana.com/docs/grafana/latest/developers/http_api/)
-- [OpenAPI — Canonical Grafana Spec](https://github.com/grafana/grafana/blob/main/public/api-merged.json)
-- [Documentation — Developer Resources](https://grafana.com/docs/grafana/latest/developers/)
-- [Authentication — HTTP API](https://grafana.com/docs/grafana/latest/developers/http_api/authentication/)
-- [Authentication — Grafana Cloud Access Policies](https://grafana.com/docs/grafana-cloud/account-management/authentication-and-permissions/access-policies/)
-- [GitHubOrganization](https://github.com/grafana)
-- [SourceCode — grafana/grafana](https://github.com/grafana/grafana)
-- [Documentation — Community Dashboards Library](https://grafana.com/grafana/dashboards/)
-- [Documentation — Plugin Catalog](https://grafana.com/grafana/plugins/)
-- [Documentation — Plugin Developer Docs](https://grafana.com/docs/plugins/)
-- [Tool — Plugin Tools (create-plugin)](https://grafana.com/developers/plugin-tools/)
-- [Documentation — Scenes](https://grafana.com/developers/scenes)
-- [Documentation — Saga Design System](https://grafana.com/developers/saga-design-system/)
-- [SDK — Grafana Foundation SDK](https://github.com/grafana/grafana-foundation-sdk)
-- [SDK — Grafana OpenAPI Client (Go)](https://github.com/grafana/grafana-openapi-client-go)
-- [SDK — Grafana API Go Client (legacy)](https://github.com/grafana/grafana-api-golang-client)
-- [SDK — Grafana Plugin SDK (Go)](https://github.com/grafana/grafana-plugin-sdk-go)
-- [SDK — Grafonnet](https://github.com/grafana/grafonnet)
-- [SDK — Faro Web SDK](https://github.com/grafana/faro-web-sdk)
-- [Tool — Terraform Provider for Grafana](https://github.com/grafana/terraform-provider-grafana)
-- [Tool — Grafana Operator (Kubernetes)](https://github.com/grafana/grafana-operator)
-- [Tool — Grafana Helm Charts](https://github.com/grafana/helm-charts)
-- [Tool — Grafana Image Renderer](https://github.com/grafana/grafana-image-renderer)
-- [Tool — Grizzly](https://github.com/grafana/grizzly)
-- [SourceCode — Loki](https://github.com/grafana/loki)
-- [SourceCode — Mimir](https://github.com/grafana/mimir)
-- [SourceCode — Tempo](https://github.com/grafana/tempo)
-- [SourceCode — Pyroscope](https://github.com/grafana/pyroscope)
-- [SourceCode — k6](https://github.com/grafana/k6)
-- [SourceCode — Alloy](https://github.com/grafana/alloy)
-- [SourceCode — Beyla](https://github.com/grafana/beyla)
-- [SourceCode — OnCall](https://github.com/grafana/oncall)
-- [SourceCode — Synthetic Monitoring Agent](https://github.com/grafana/synthetic-monitoring-agent)
-- [Pricing — Grafana Cloud](https://grafana.com/pricing/)
-- [RateLimits — Data Source Rate Limiting](https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/configure-rate-limit-data-source/)
-- [StatusPage](https://status.grafana.com)
+- [Website](https://www.grafana.com/)
+- [Documentation](https://grafana.com/docs/)
+- [Getting started](https://grafana.com/docs/learning-paths/grafana-cloud-onboarding)
+- [Pricing](https://grafana.com/pricing/)
+- [Support](https://grafana.com/contact)
+- [Changelog](https://grafana.com/docs/grafana/latest/whatsnew/)
 - [Blog](https://grafana.com/blog/)
-- [Blog — Engineering](https://grafana.com/blog/categories/engineering/)
-- [Events — GrafanaCON](https://grafana.com/events/grafanacon/)
-- [TermsOfService](https://grafana.com/legal/terms/)
-- [PrivacyPolicy](https://grafana.com/legal/privacy-policy/)
-- [TrustCenter](https://trust.grafana.com/)
-- [SignUp](https://grafana.com/auth/sign-up)
-- [Portal — Grafana Cloud](https://grafana.com/products/cloud/)
-- [Portal — Grafana Enterprise](https://grafana.com/products/enterprise/)
-- [Sandbox — Grafana Play](https://grafana.com/play/)
-- [Forum — Community](https://community.grafana.com/)
-- [Forum — GitHub Discussions](https://github.com/grafana/grafana/discussions)
-- [Training — Tutorials](https://grafana.com/tutorials/)
-- [Training — Grafana University](https://university.grafana.com/)
-- [Versioning — Release Life Cycle](https://grafana.com/docs/release-life-cycle/)
-- [ChangeLog — What's New](https://grafana.com/docs/grafana/latest/whatsnew/)
-- [LinkedIn](https://www.linkedin.com/company/grafana-labs)
-- [Twitter](https://twitter.com/grafana)
-- [YouTube](https://www.youtube.com/c/Grafana)
-- [Mastodon](https://fosstodon.org/@grafana)
+- [Compliance](https://trust.grafana.com/)
+- [Trust centre](https://trust.grafana.com/)
+- [Terms of service](https://grafana.com/legal/terms/)
+- [Privacy policy](https://grafana.com/legal/privacy-policy/)
+- [GitHub](https://github.com/grafana)
+- [Status](https://status.grafana.com)
 
-## Commercial Artifacts
+## API Evangelist rating
 
-- [Plans / Pricing](plans/grafana-com-plans-pricing.yml)
-- [Rate Limits](rate-limits/grafana-com-rate-limits.yml)
-- [FinOps Definition](finops/grafana-com-finops.yml)
+**Kin Score 64.3** — strong · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.3 |
+| Contract governance | 22.0 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 75.6 |
+| Access clarity | 76.3 |
 
-**FN:** Kin Lane
+**Agent readiness 31.1** — agent-ready
 
-**Email:** info@apievangelist.com
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/grafana-com/](https://apis.io/providers/grafana-com/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Grafana: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/grafana-com/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
